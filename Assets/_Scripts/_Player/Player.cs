@@ -1,0 +1,269 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using IA2;
+
+[RequireComponent(typeof(Rigidbody2D))]
+public class Player : MonoBehaviour
+{
+    public enum PlayerInputs { STANDINGMOVE, JUMP, STANDINGIDLE, ONAIR, CLIMBING, CROUCH, CROUCHWALKING, CROUCHIDLE, STAND}
+    public EventFSM<PlayerInputs> fsm;
+
+    PlayerController _controller;
+    Rigidbody2D _rb;
+
+    [Header("Movement")]
+    [SerializeField] Transform _playerArm;
+    [SerializeField] Transform _playerSprite;
+    Vector3 _playerDefaultSpriteScale;
+    Vector3 _playerDefaultScale;
+    [SerializeField] float _speed = 5;
+  
+    [Header("Attack")]
+    [SerializeField] Transform _bulletSpawnPosition;
+    [SerializeField] float _attackSpeed;
+    bool _canAttack = true;
+
+    [Header("Jump")]
+    [SerializeField] Transform _groundCheck;
+    [SerializeField] float _jumpForce = 5;
+    [SerializeField] int _maxJumps = 1;
+    int _currentJumps = 1;
+    bool _canJump => _currentJumps > 0;
+    float _defaultGravity;
+
+
+
+    private void Start()
+    {
+        _controller = new PlayerController(this);
+        _rb = GetComponent<Rigidbody2D>();
+
+        _currentJumps = _maxJumps;
+        _playerDefaultSpriteScale = _playerSprite.transform.localScale;
+        _playerDefaultScale = transform.localScale;
+        _defaultGravity = _rb.gravityScale;
+
+        #region Fsm Creation
+        var standingIdle = new State<PlayerInputs>("STANDINGIDLE");
+        var standingMoving = new State<PlayerInputs>("STANDINGMoving");
+        var jumping = new State<PlayerInputs>("Jumping");
+        var onAir = new State<PlayerInputs>("ONAIR");
+        var climbing = new State<PlayerInputs>("CLIMB");
+        var crouching = new State<PlayerInputs>("CROUCH");
+        var crouchWalking = new State<PlayerInputs>("CROUCHWALKING");
+        var crouchIdle = new State<PlayerInputs>("CROUCHIDLE");
+        var stand = new State<PlayerInputs>("STAND");
+
+        #endregion
+
+        #region Fsm Transitions
+        StateConfigurer.Create(standingIdle)
+                       .SetTransition(PlayerInputs.STANDINGMOVE, standingMoving)
+                       .SetTransition(PlayerInputs.JUMP, jumping)
+                       .SetTransition(PlayerInputs.CLIMBING, climbing)
+                       .SetTransition(PlayerInputs.CROUCH, crouching)
+                       .Done();
+
+        StateConfigurer.Create(standingMoving)
+                       .SetTransition(PlayerInputs.STANDINGIDLE, standingIdle)
+                       .SetTransition(PlayerInputs.JUMP, jumping)
+                       .SetTransition(PlayerInputs.CLIMBING, climbing)
+                       .SetTransition(PlayerInputs.CROUCH, crouching)
+                       .Done();
+
+        StateConfigurer.Create(jumping)
+                       .SetTransition(PlayerInputs.ONAIR, onAir)
+                       .Done();
+
+        StateConfigurer.Create(onAir)
+                       .SetTransition(PlayerInputs.STANDINGIDLE, standingIdle)
+                       .SetTransition(PlayerInputs.CLIMBING, climbing)
+                       .Done();
+
+        StateConfigurer.Create(climbing)
+                       .SetTransition(PlayerInputs.JUMP, jumping)
+                       .SetTransition(PlayerInputs.STANDINGIDLE, standingIdle)
+                       .SetTransition(PlayerInputs.STANDINGMOVE, standingMoving)
+                       .Done();
+
+        StateConfigurer.Create(crouching)
+                       .SetTransition(PlayerInputs.CROUCHIDLE, crouchIdle)
+                       .Done();
+
+        StateConfigurer.Create(crouchWalking)
+                       .SetTransition(PlayerInputs.CROUCHIDLE, crouchIdle)
+                       .SetTransition(PlayerInputs.STAND, stand)
+                       .SetTransition(PlayerInputs.JUMP, jumping)
+                       .Done();
+
+        StateConfigurer.Create(crouchIdle)
+                       .SetTransition(PlayerInputs.CROUCHWALKING, crouchWalking)
+                       .SetTransition(PlayerInputs.STAND, stand)
+                       .SetTransition(PlayerInputs.JUMP, jumping)
+                       .Done();
+
+        StateConfigurer.Create(stand)
+                       .SetTransition(PlayerInputs.STANDINGIDLE, standingIdle)
+                       .Done();
+        #endregion
+
+        #region Fsm Configuration
+
+        standingIdle.OnUpdate += () => _controller.StandingIdleInputs();
+
+        standingMoving.OnFixedUpdate += () =>
+        {
+            _controller.StandingGroundMovingInputs();
+            Move(_controller.xAxis);
+        };
+
+        
+        climbing.OnEnter += x =>
+        {
+            _rb.gravityScale = 0;
+            _rb.velocity = Vector2.zero;
+        };
+        climbing.OnUpdate += () =>
+        {
+            _controller.ClimbMovingInputs();
+        };
+        climbing.OnFixedUpdate += () =>
+        {
+            ClimbMove(_controller.yAxis);
+        };
+
+        climbing.OnExit += x =>
+        {
+            _rb.gravityScale = _defaultGravity;
+            _currentJumps = _maxJumps;
+        };
+        jumping.OnEnter += x =>
+        {
+            _rb.velocity = Vector2.zero;
+            Jump();
+            fsm.SendInput(PlayerInputs.ONAIR);
+        };
+
+        onAir.OnEnter += x =>
+        {
+            StartCoroutine(OnAir());
+        };
+        onAir.OnUpdate += () =>
+        {
+            _controller.OnAirInputs();
+            Move(_controller.xAxis);
+        };
+
+        crouching.OnEnter += x =>
+        {
+            transform.localScale = new Vector3(_playerDefaultScale.x, .5f, _playerDefaultScale.z);
+            fsm.SendInput(PlayerInputs.CROUCHIDLE);
+        };
+
+        crouchIdle.OnUpdate += () => _controller.CrouchingIdleInputs();
+
+        crouchWalking.OnFixedUpdate += () =>
+        {
+            _controller.CrouchingGroundMovingInputs();
+            Move(_controller.xAxis);
+        };
+
+        stand.OnEnter += x =>
+        {
+            transform.localScale = _playerDefaultScale;
+            fsm.SendInput(PlayerInputs.STANDINGIDLE);
+        };
+        #endregion
+
+        fsm = new EventFSM<PlayerInputs>(standingIdle);
+    }
+
+    private void Update()
+    {
+        fsm.Update();
+        _controller.OnUpdate();
+    }
+    private void FixedUpdate()
+    {
+        fsm.FixedUpdate();
+    }
+
+    public void ClimbMove(float yAxis)
+    {
+        _rb.velocity = new Vector2(_rb.velocity.x, yAxis * _speed * Time.fixedDeltaTime);
+    }
+
+    public void Move(float axis)
+    {
+        _rb.velocity = new Vector2(axis * _speed * Time.fixedDeltaTime, _rb.velocity.y);
+    }
+
+    public void Jump()
+    {
+        if (!_canJump) return;
+
+        _currentJumps--;
+        _rb.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
+    }
+
+    public IEnumerator OnAir()
+    {
+        var wait = new WaitForEndOfFrame();
+
+        yield return new WaitForSeconds(.1f);
+        while (!Physics2D.Raycast(_groundCheck.position, -transform.up, .1f, GameManager.instance.GroundLayer)) yield return wait;
+        _currentJumps = _maxJumps;
+        fsm.SendInput(PlayerInputs.STANDINGIDLE);
+    }
+
+    public void Attack()
+    {
+        if (_canAttack)
+        {
+            FRY_Bullet.Instance.pool.GetObject().SetPosition(_bulletSpawnPosition.position)
+                                                .SetRotation(_playerArm.rotation);
+
+            StartCoroutine(ReturnShootCd());
+        }
+    }
+
+    IEnumerator ReturnShootCd()
+    {
+        _canAttack = false;
+        yield return new WaitForSeconds(_attackSpeed);
+        _canAttack = true;
+    }
+    
+
+    public void LookAtMouse()
+    {
+        Vector3 dirToLookAt = GetDirToMousePosition(_playerArm);
+        float angle = Mathf.Atan2(dirToLookAt.y, dirToLookAt.x) * Mathf.Rad2Deg;
+
+
+        Vector3 playerLocalScale = _playerDefaultSpriteScale;
+        if (angle > 90 || angle < -90)
+        {
+            playerLocalScale.x = -_playerDefaultSpriteScale.x;
+        }
+        else
+        {
+            playerLocalScale.x = _playerDefaultSpriteScale.x;
+        }
+
+        _playerArm.transform.eulerAngles = new Vector3(0, 0, angle);
+        _playerSprite.localScale = playerLocalScale;
+    }
+    Vector2 GetMousePosition()
+    {
+        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+    Vector2 GetDirToMousePosition(Transform transform)
+    {
+        Vector3 mousePosition = GetMousePosition() - (Vector2)transform.position;
+        mousePosition.Normalize();
+
+        return mousePosition;
+    }
+}
