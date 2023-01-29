@@ -220,7 +220,8 @@ public class Player : MonoBehaviour
         if (_canAttack)
         {
             FRY_Bullet.Instance.pool.GetObject().SetPosition(_bulletSpawnPosition.position)
-                                                .SetRotation(_playerArm.rotation);
+                                                .SetRotation(_playerArm.rotation)
+                                                .SetDmg(1f);
 
             StartCoroutine(ReturnShootCd());
         }

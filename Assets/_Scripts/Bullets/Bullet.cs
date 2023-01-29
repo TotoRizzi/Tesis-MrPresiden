@@ -22,6 +22,15 @@ public class Bullet : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        var entity = collision.GetComponent<IDamageable>();
+
+        if (entity != null) entity.TakeDamage(_dmg);
+
+        ReturnBullet(); 
+    }
+
     public Bullet SetRotation(Quaternion rot)
     {
         transform.rotation = rot;
@@ -32,6 +41,12 @@ public class Bullet : MonoBehaviour
         transform.position = pos;
         return this;
     }
+    public Bullet SetDmg(float dmg)
+    {
+        _dmg = dmg;
+        return this;
+    }
+
 
     private void Reset()
     {

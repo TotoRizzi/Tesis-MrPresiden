@@ -4,7 +4,7 @@ using System;
 public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager instance;
-    public event Action OnEnemyKilled;
+    public Action OnEnemyKilled;
 
     private void Awake()
     {
