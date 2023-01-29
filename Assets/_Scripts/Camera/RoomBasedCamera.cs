@@ -27,7 +27,6 @@ public class RoomBasedCamera : MonoBehaviour
     IEnumerator MoveCameraSmooth(Transform pos)
     {
         var wait = new WaitForEndOfFrame();
-        Debug.Log(pos.position);
         while(transform.position != pos.position)
         {
             transform.position = Vector3.SmoothDamp(transform.position, pos.position, ref _velocity, _gameManager.CameraSpeed);

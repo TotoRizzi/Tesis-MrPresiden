@@ -46,7 +46,16 @@ public class Bullet : MonoBehaviour
         _dmg = dmg;
         return this;
     }
-
+    public Bullet SetLayer(Layers layer)
+    {
+        gameObject.layer = (int)layer;
+        return this;
+    }
+    public Bullet SetSpeed(float speed)
+    {
+        _speed = speed;
+        return this;
+    }
 
     private void Reset()
     {

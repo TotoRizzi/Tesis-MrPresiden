@@ -221,7 +221,9 @@ public class Player : MonoBehaviour
         {
             FRY_Bullet.Instance.pool.GetObject().SetPosition(_bulletSpawnPosition.position)
                                                 .SetRotation(_playerArm.rotation)
-                                                .SetDmg(1f);
+            /*HardCodeado pq es placeHolder*/   .SetDmg(1f)       
+                                                .SetLayer(Layers.PlayerAttack)
+            /*HardCodeado pq es placeHolder*/   .SetSpeed(20);
 
             StartCoroutine(ReturnShootCd());
         }

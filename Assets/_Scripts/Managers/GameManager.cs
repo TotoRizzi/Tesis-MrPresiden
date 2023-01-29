@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Layers
+{
+    PlayerAttack = 11,
+    EnemyAttack = 12
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -9,6 +15,9 @@ public class GameManager : MonoBehaviour
     [Header("Layers")]
     [SerializeField] LayerMask _groundLayer;
     public LayerMask GroundLayer { get { return _groundLayer; } private set { } }
+
+    [SerializeField] LayerMask _playerLayer;
+    public LayerMask PlayerLayer { get { return _playerLayer; } private set { } }
 
     [Header("Camera")]
     [SerializeField] float _cameraShakeDuration;

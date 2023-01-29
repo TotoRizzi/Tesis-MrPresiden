@@ -16,11 +16,6 @@ public class CameraShake : MonoBehaviour
         EnemyManager.instance.OnEnemyKilled += Shake;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space)) Shake();
-    }
-
     public void Shake()
     {
         if (!_isInCoroutine) StartCoroutine(Shaking());
