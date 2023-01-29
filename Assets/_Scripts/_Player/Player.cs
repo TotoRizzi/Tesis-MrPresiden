@@ -94,13 +94,11 @@ public class Player : MonoBehaviour
         StateConfigurer.Create(crouchWalking)
                        .SetTransition(PlayerInputs.CROUCHIDLE, crouchIdle)
                        .SetTransition(PlayerInputs.STAND, stand)
-                       .SetTransition(PlayerInputs.JUMP, jumping)
                        .Done();
 
         StateConfigurer.Create(crouchIdle)
                        .SetTransition(PlayerInputs.CROUCHWALKING, crouchWalking)
                        .SetTransition(PlayerInputs.STAND, stand)
-                       .SetTransition(PlayerInputs.JUMP, jumping)
                        .Done();
 
         StateConfigurer.Create(stand)

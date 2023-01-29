@@ -10,6 +10,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] LayerMask _groundLayer;
     public LayerMask GroundLayer { get { return _groundLayer; } private set { } }
 
+    [Header("Camera")]
+    [SerializeField] float _cameraShakeDuration;
+    public float CameraShakeDuration { get { return _cameraShakeDuration; } private set { } }
+
+    [SerializeField] float _cameraSpeed;
+    public float CameraSpeed { get { return _cameraSpeed; } private set { } }
+
     Player _player;
     public Player Player { get { return _player; } private set { } }
 
@@ -19,7 +26,6 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
 
         _player = FindObjectOfType<Player>();
-
     }
 
 }
