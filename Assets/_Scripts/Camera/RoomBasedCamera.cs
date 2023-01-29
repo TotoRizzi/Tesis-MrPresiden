@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class RoomBasedCamera : MonoBehaviour
 {
-    Vector3 _velocity;
+    public static RoomBasedCamera instance;
+    Vector3 _velocity = Vector3.zero;
     GameManager _gameManager;
 
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+    }
     private void Start()
     {
         _gameManager = GameManager.instance;
@@ -14,6 +20,19 @@ public class RoomBasedCamera : MonoBehaviour
 
     public void MoveCamera(Transform pos)
     {
-        transform.position = Vector3.SmoothDamp(transform.position, pos.position, ref _velocity, _gameManager.CameraSpeed);
+        StopAllCoroutines();
+        StartCoroutine(MoveCameraSmooth(pos));
+    }
+
+    IEnumerator MoveCameraSmooth(Transform pos)
+    {
+        var wait = new WaitForEndOfFrame();
+        Debug.Log(pos.position);
+        while(transform.position != pos.position)
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, pos.position, ref _velocity, _gameManager.CameraSpeed);
+            yield return wait;
+        }
+        yield return null;
     }
 }
