@@ -9,11 +9,11 @@ public class Bullet : MonoBehaviour
 
     float _currentDistance;
     float _dmg;
-
+    Vector3 _direction;
 
     private void Update()
     {
-        transform.position += transform.right * _speed * Time.deltaTime;
+        transform.position += _direction.normalized * _speed * Time.deltaTime;
         _currentDistance += Time.deltaTime;
         if (_currentDistance > _maxDistance)
         {
@@ -31,14 +31,16 @@ public class Bullet : MonoBehaviour
         ReturnBullet(); 
     }
 
-    public Bullet SetRotation(Quaternion rot)
+    #region BUILDER
+    public Bullet SetDirection(Vector2 direction)
     {
-        transform.rotation = rot;
+        _direction = direction;
+        transform.right = _direction;
         return this;
     }
-    public Bullet SetPosition(Vector3 pos)
+    public Bullet SetPosition(Vector2 position)
     {
-        transform.position = pos;
+        transform.position = position;
         return this;
     }
     public Bullet SetDmg(float dmg)
@@ -56,6 +58,8 @@ public class Bullet : MonoBehaviour
         _speed = speed;
         return this;
     }
+
+    #endregion
 
     private void Reset()
     {
