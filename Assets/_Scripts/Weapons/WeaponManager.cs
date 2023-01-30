@@ -29,6 +29,7 @@ public class WeaponManager : MonoBehaviour
     void SetWeapon()
     {
         RaycastHit2D[] hit = Physics2D.RaycastAll(_weaponContainer.position, GetMouseDirection().normalized, 2f, GameManager.instance.WeaponLayer);
+        Debug.Log(hit.Length);
         if (hit.Length <= 0) return;
 
         Weapon newWeapon = null;
@@ -55,6 +56,7 @@ public class WeaponManager : MonoBehaviour
         _currentWeapon = newWeapon;
         _currentWeapon.PickUp().SetParent(transform.GetChild(0)).SetPosition(transform.GetChild(0).position);
         _lookAtMouse = CurrentWeapon;
+
     }
     private void ThrowWeapon()
     {
