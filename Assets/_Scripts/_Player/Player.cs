@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using IA2;
+using System;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerView))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class Player : MonoBehaviour
 {
     public enum PlayerInputs { STANDINGMOVE, JUMP, STANDINGIDLE, ONAIR, CLIMBING, CROUCH, CROUCHWALKING, CROUCHIDLE, STAND}
@@ -11,13 +14,18 @@ public class Player : MonoBehaviour
 
     PlayerController _controller;
     Rigidbody2D _rb;
+    BoxCollider2D _collider;
 
     [Header("Movement")]
     [SerializeField] Transform _playerArm;
     [SerializeField] Transform _playerSprite;
-    Vector3 _playerDefaultSpriteScale;
-    Vector3 _playerDefaultScale;
-    [SerializeField] float _speed = 5;
+    [SerializeField] Vector3 _crouchColliderSize;
+    [SerializeField] Vector3 _crouchColliderOffset;
+    Vector3 _colliderDefaultSize;
+    Vector3 _colliderDefaultOffset;
+    Vector3 _playerDefaultSpriteSize;
+    [SerializeField] float _standingSpeed;
+    [SerializeField] float _crouchingSpeed;
   
     [Header("Attack")]
     [SerializeField] Transform _bulletSpawnPosition;
@@ -32,18 +40,42 @@ public class Player : MonoBehaviour
     bool _canJump => _currentJumps > 0;
     float _defaultGravity;
 
+    public event Action OnIdle;
+    public event Action OnRun;
+    public event Action OnCrouch;
+    public event Action OnCrouchIdle;
+    public event Action OnCrouchRun;
 
 
     private void Start()
     {
-        _controller = new PlayerController(this);
+        _controller = new PlayerController(this, GetComponent<PlayerView>());
         _rb = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<BoxCollider2D>();
 
         _currentJumps = _maxJumps;
-        _playerDefaultSpriteScale = _playerSprite.transform.localScale;
-        _playerDefaultScale = transform.localScale;
+
+        _playerDefaultSpriteSize = _playerSprite.transform.localScale;
+        _colliderDefaultSize = _collider.size;
+        _colliderDefaultOffset = _collider.offset;
+
         _defaultGravity = _rb.gravityScale;
 
+        FsmCreation();
+    }
+
+    private void Update()
+    {
+        fsm.Update();
+        _controller.OnUpdate();
+    }
+    private void FixedUpdate()
+    {
+        fsm.FixedUpdate();
+    }
+
+    void FsmCreation()
+    {
         #region Fsm Creation
         var standingIdle = new State<PlayerInputs>("STANDINGIDLE");
         var standingMoving = new State<PlayerInputs>("STANDINGMoving");
@@ -108,15 +140,17 @@ public class Player : MonoBehaviour
 
         #region Fsm Configuration
 
+        standingIdle.OnEnter += x => OnIdle();
         standingIdle.OnUpdate += () => _controller.StandingIdleInputs();
 
+        standingMoving.OnEnter += x => OnRun();
         standingMoving.OnFixedUpdate += () =>
         {
             _controller.StandingGroundMovingInputs();
             Move(_controller.xAxis);
         };
 
-        
+
         climbing.OnEnter += x =>
         {
             _rb.gravityScale = 0;
@@ -155,21 +189,26 @@ public class Player : MonoBehaviour
 
         crouching.OnEnter += x =>
         {
-            transform.localScale = new Vector3(_playerDefaultScale.x, .5f, _playerDefaultScale.z);
+            OnCrouch();
+            _collider.offset = _crouchColliderOffset;
+            _collider.size = _crouchColliderSize;
             fsm.SendInput(PlayerInputs.CROUCHIDLE);
         };
 
+        crouchIdle.OnEnter += x => OnCrouchIdle();
         crouchIdle.OnUpdate += () => _controller.CrouchingIdleInputs();
 
+        crouchWalking.OnEnter += x => OnCrouchRun();
         crouchWalking.OnFixedUpdate += () =>
         {
             _controller.CrouchingGroundMovingInputs();
-            Move(_controller.xAxis);
+            CrouchMove(_controller.xAxis);
         };
 
         stand.OnEnter += x =>
         {
-            transform.localScale = _playerDefaultScale;
+            _collider.offset = _colliderDefaultOffset;
+            _collider.size = _colliderDefaultSize;
             fsm.SendInput(PlayerInputs.STANDINGIDLE);
         };
         #endregion
@@ -177,24 +216,18 @@ public class Player : MonoBehaviour
         fsm = new EventFSM<PlayerInputs>(standingIdle);
     }
 
-    private void Update()
-    {
-        fsm.Update();
-        _controller.OnUpdate();
-    }
-    private void FixedUpdate()
-    {
-        fsm.FixedUpdate();
-    }
-
     public void ClimbMove(float yAxis)
     {
-        _rb.velocity = new Vector2(_rb.velocity.x, yAxis * _speed * Time.fixedDeltaTime);
+        _rb.velocity = new Vector2(_rb.velocity.x, yAxis * _standingSpeed * Time.fixedDeltaTime);
     }
 
     public void Move(float axis)
     {
-        _rb.velocity = new Vector2(axis * _speed * Time.fixedDeltaTime, _rb.velocity.y);
+        _rb.velocity = new Vector2(axis * _standingSpeed * Time.fixedDeltaTime, _rb.velocity.y);
+    }
+    public void CrouchMove(float axis)
+    {
+        _rb.velocity = new Vector2(axis * _crouchingSpeed * Time.fixedDeltaTime, _rb.velocity.y);
     }
 
     public void Jump()
@@ -243,14 +276,14 @@ public class Player : MonoBehaviour
         float angle = Mathf.Atan2(dirToLookAt.y, dirToLookAt.x) * Mathf.Rad2Deg;
 
 
-        Vector3 playerLocalScale = _playerDefaultSpriteScale;
+        Vector3 playerLocalScale = _playerDefaultSpriteSize;
         if (angle > 90 || angle < -90)
         {
-            playerLocalScale.x = -_playerDefaultSpriteScale.x;
+            playerLocalScale.x = -_playerDefaultSpriteSize.x;
         }
         else
         {
-            playerLocalScale.x = _playerDefaultSpriteScale.x;
+            playerLocalScale.x = _playerDefaultSpriteSize.x;
         }
 
         _playerArm.transform.eulerAngles = new Vector3(0, 0, angle);

@@ -9,9 +9,15 @@ public class PlayerController
     public float xAxis;
     public float yAxis;
 
-    public PlayerController(Player player)
+    public PlayerController(Player player, PlayerView v)
     {
         _player = player;
+
+        _player.OnIdle += v.Idle;
+        _player.OnRun += v.Run;
+        _player.OnCrouch += v.Crouch;
+        _player.OnCrouchIdle += v.CrouchIdle;
+        _player.OnCrouchRun += v.CrouchRun;
     }
 
     public void OnUpdate()
