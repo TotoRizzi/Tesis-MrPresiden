@@ -6,7 +6,7 @@ public class PlayerView : MonoBehaviour
 {
     Animator _anim;
 
-    private void Start()
+    private void Awake()
     {
         _anim = GetComponentInChildren<Animator>();
     }
