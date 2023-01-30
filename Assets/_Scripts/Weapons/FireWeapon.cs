@@ -2,6 +2,12 @@ using UnityEngine;
 using Weapons;
 public class FireWeapon : Weapon
 {
+    protected Transform _bulletSpawn;
+    protected override void Start()
+    {
+        base.Start();
+        _bulletSpawn = transform.GetChild(0);
+    }
     public override void WeaponAction(Vector2 bulletDirection)
     {
         FireWeaponShoot(bulletDirection);

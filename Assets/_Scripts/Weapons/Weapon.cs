@@ -1,5 +1,5 @@
 using UnityEngine;
-public enum WeaponType { Primary, Secundary }
+public enum WeaponType { Primary, Secundary, Granade }
 
 namespace Weapons
 {
@@ -9,12 +9,12 @@ namespace Weapons
         [SerializeField] protected WeaponData _weaponData;
 
         protected float _weaponTimer;
-        protected Transform _bulletSpawn;
         protected Rigidbody2D _rb;
-        void Start()
+
+        public WeaponData GetWeaponData { get { return _weaponData; } }
+        protected virtual void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _bulletSpawn = transform.GetChild(0);
         }
 
         public void Attack(Vector2 bulletDirection)

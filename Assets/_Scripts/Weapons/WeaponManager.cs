@@ -16,9 +16,13 @@ public class WeaponManager : MonoBehaviour
     {
         _lookAtMouse?.Invoke();
 
-        if (Input.GetMouseButton(0)) _currentWeapon?.Attack(GetMouseDirection());
+        if (Input.GetMouseButton(0) && _currentWeapon)
+        {
+            _currentWeapon.Attack(GetMouseDirection());
+            if (_currentWeapon.GetWeaponData.weaponType == WeaponType.Granade) DeactiveWeapon();
+        }
 
-        if (Input.GetKeyDown(KeyCode.G) && _currentWeapon) ThrowWeapon();
+        if (Input.GetKeyDown(KeyCode.G)) ThrowWeapon();
 
         if (Input.GetKeyDown(KeyCode.E)) SetWeapon();
     }
@@ -32,6 +36,7 @@ public class WeaponManager : MonoBehaviour
         foreach (var weapon in hit)
         {
             float distance = Vector2.Distance(weapon.transform.position, GetMousePosition());
+
             if (minValue == 0)
             {
                 minValue = distance;
@@ -49,16 +54,23 @@ public class WeaponManager : MonoBehaviour
 
         _currentWeapon = newWeapon;
         _currentWeapon.PickUp().SetParent(transform.GetChild(0)).SetPosition(transform.GetChild(0).position);
-        _lookAtMouse = ActiveWeapon;
+        _lookAtMouse = CurrentWeapon;
     }
     private void ThrowWeapon()
     {
-        _currentWeapon.ThrowOut(GetMouseDirection()).SetParent(null);
-        _currentWeapon = null;
-        _weaponContainer.eulerAngles = Vector3.zero;
-        _lookAtMouse = delegate { };
+        _currentWeapon?.ThrowOut(GetMouseDirection()).SetParent(null);
+        DeactiveWeapon();
     }
-    void ActiveWeapon()
+    void DeactiveWeapon()
+    {
+        if (_currentWeapon)
+        {
+            _currentWeapon = null;
+            _weaponContainer.eulerAngles = Vector3.zero;
+            _lookAtMouse = delegate { };
+        }
+    }
+    void CurrentWeapon()
     {
         _weaponContainer.eulerAngles = new Vector3(0, 0, GetAngle());
         Vector2 weaponSize = new Vector2(_currentWeapon.transform.localScale.x, Mathf.Sign(GetMouseDirection().x));
