@@ -33,7 +33,7 @@ public class Enemy_Sniper : Enemy
             _currentAttackSpeed = 0;
 
             FRY_Bullet.Instance.pool.GetObject().SetPosition(_bulletSpawnPosition.position)
-                                                .SetRotation(_armPivot.rotation)
+                                                .SetDirection(_armPivot.right)
                                                 .SetDmg(1f)
                                                 .SetLayer(Layers.EnemyAttack)
                                                 .SetSpeed(_bulletSpeed);

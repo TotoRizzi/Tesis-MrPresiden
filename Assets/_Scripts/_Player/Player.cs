@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     PlayerController _controller;
     Rigidbody2D _rb;
     BoxCollider2D _collider;
+    WeaponManager _weaponManager;
 
     [Header("Movement")]
     [SerializeField] Transform _playerArm;
@@ -52,6 +53,7 @@ public class Player : MonoBehaviour
         _controller = new PlayerController(this, GetComponent<PlayerView>());
         _rb = GetComponent<Rigidbody2D>();
         _collider = GetComponent<BoxCollider2D>();
+        _weaponManager = GetComponent<WeaponManager>();
 
         _currentJumps = _maxJumps;
 
@@ -248,19 +250,19 @@ public class Player : MonoBehaviour
         fsm.SendInput(PlayerInputs.STANDINGIDLE);
     }
 
-    public void Attack()
-    {
-        if (_canAttack)
-        {
-            FRY_Bullet.Instance.pool.GetObject().SetPosition(_bulletSpawnPosition.position)
-                                                .SetRotation(_playerArm.rotation)
-            /*HardCodeado pq es placeHolder*/   .SetDmg(1f)       
-                                                .SetLayer(Layers.PlayerAttack)
-            /*HardCodeado pq es placeHolder*/   .SetSpeed(20);
-
-            StartCoroutine(ReturnShootCd());
-        }
-    }
+    //public void Attack()
+    //{
+    //    if (_canAttack)
+    //    {
+    //        FRY_Bullet.Instance.pool.GetObject().SetPosition(_bulletSpawnPosition.position)
+    //                                            .SetRotation(_playerArm.rotation)
+    //        /*HardCodeado pq es placeHolder*/   .SetDmg(1f)       
+    //                                            .SetLayer(Layers.PlayerAttack)
+    //        /*HardCodeado pq es placeHolder*/   .SetSpeed(20);
+    //
+    //        StartCoroutine(ReturnShootCd());
+    //    }
+    //}
 
     IEnumerator ReturnShootCd()
     {
@@ -268,15 +270,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(_attackSpeed);
         _canAttack = true;
     }
-    
-
     public void LookAtMouse()
     {
-        Vector3 dirToLookAt = GetDirToMousePosition(_playerArm);
-        float angle = Mathf.Atan2(dirToLookAt.y, dirToLookAt.x) * Mathf.Rad2Deg;
-
-
         Vector3 playerLocalScale = _playerDefaultSpriteSize;
+        float angle = _weaponManager.GetAngle();
+
         if (angle > 90 || angle < -90)
         {
             playerLocalScale.x = -_playerDefaultSpriteSize.x;
@@ -286,7 +284,7 @@ public class Player : MonoBehaviour
             playerLocalScale.x = _playerDefaultSpriteSize.x;
         }
 
-        _playerArm.transform.eulerAngles = new Vector3(0, 0, angle);
+        //_playerArm.transform.eulerAngles = new Vector3(0, 0, angle);
         _playerSprite.localScale = playerLocalScale;
     }
     Vector2 GetMousePosition()

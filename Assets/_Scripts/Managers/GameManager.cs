@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] LayerMask _playerLayer;
     public LayerMask PlayerLayer { get { return _playerLayer; } private set { } }
 
+    [SerializeField] LayerMask _weaponLayer;
+    public LayerMask WeaponLayer { get { return _weaponLayer; } }
+
+
     [Header("Camera")]
     [SerializeField] float _cameraShakeDuration;
     public float CameraShakeDuration { get { return _cameraShakeDuration; } private set { } }

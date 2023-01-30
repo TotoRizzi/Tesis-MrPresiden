@@ -54,8 +54,8 @@ public class Enemy_ShootingRobot : Enemy_RobotWaypoint
 
             if(_currentTimeBetweenBullets > _timeBetweenBullets)
             {
-                FRY_Bullet.Instance.pool.GetObject().SetPosition(_bulletSpawnPosition.position)
-                                .SetRotation(_armPivot.rotation)
+                FRY_Bullet.Instance.pool.GetObject().SetDirection(_bulletSpawnPosition.position)
+                                .SetDirection(_armPivot.right)
                                 .SetDmg(1f)
                                 .SetLayer(Layers.EnemyAttack)
                                 .SetSpeed(_bulletSpeed);
