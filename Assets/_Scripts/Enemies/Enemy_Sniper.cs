@@ -2,41 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Sniper : Enemy
+public class Enemy_Sniper : Enemy_Shooting
 {
-    GameManager _gameManager;
-    [SerializeField] Transform _bulletSpawnPosition;
-    [SerializeField] Transform _armPivot;
-
-    [SerializeField] float _bulletSpeed = 10;
-    [SerializeField] float _attackSpeed = 2f;
-    float _currentAttackSpeed;
-
     public override void Start()
     {
         base.Start();
-        _gameManager = GameManager.instance;
-        OnUpdate += Attack;
+        OnAttack += Shoot;
     }
 
-    void Attack()
+    public override void Attack()
     {
-        Vector3 dirToLookAt = (_gameManager.Player.transform.position - transform.position).normalized;
+        LookAtPlayer();
+        base.Attack();
+    }
+
+    void Shoot()
+    {
+        FRY_Bullet.Instance.pool.GetObject().SetPosition(bulletSpawnPosition.position)
+                                            .SetDirection(armPivot.right)
+                                            .SetDmg(bulletDamage)
+                                            .SetLayer(Layers.EnemyAttack)
+                                            .SetSpeed(bulletSpeed);
+    }
+
+    void LookAtPlayer()
+    {
+        Vector3 dirToLookAt = (gameManager.Player.transform.position - transform.position).normalized;
         float angle = Mathf.Atan2(dirToLookAt.y, dirToLookAt.x) * Mathf.Rad2Deg;
 
-        _armPivot.eulerAngles = new Vector3(0, 0, angle);
+        armPivot.eulerAngles = new Vector3(0, 0, angle);
 
-        _currentAttackSpeed += Time.deltaTime;
+        Vector3 newWeaponLocalScale = Vector3.one;
+        Vector3 newScale = Vector3.one;
 
-        if (_currentAttackSpeed > _attackSpeed)
+        if (angle > 90 || angle < -90)
         {
-            _currentAttackSpeed = 0;
+            newScale.x = -1;
+            newWeaponLocalScale.y = -1;
 
-            FRY_Bullet.Instance.pool.GetObject().SetPosition(_bulletSpawnPosition.position)
-                                                .SetDirection(_armPivot.right)
-                                                .SetDmg(1f)
-                                                .SetLayer(Layers.EnemyAttack)
-                                                .SetSpeed(_bulletSpeed);
         }
+        else
+        {
+            newScale.x = 1;
+            newWeaponLocalScale.x = 1;
+        }
+
+        weaponSprite.localScale = newWeaponLocalScale;
+        sprite.localScale = newScale;
     }
+
 }
