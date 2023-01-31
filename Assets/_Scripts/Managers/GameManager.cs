@@ -13,14 +13,11 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [Header("Layers")]
-    [SerializeField] LayerMask _groundLayer;
+    [SerializeField] LayerMask _groundLayer, _playerLayer, _weaponLayer, _dynamicBodies;
     public LayerMask GroundLayer { get { return _groundLayer; } private set { } }
-
-    [SerializeField] LayerMask _playerLayer;
     public LayerMask PlayerLayer { get { return _playerLayer; } private set { } }
-
-    [SerializeField] LayerMask _weaponLayer;
-    public LayerMask WeaponLayer { get { return _weaponLayer; } }
+    public LayerMask WeaponLayer { get { return _weaponLayer; } private set { } }
+    public LayerMask DynamicBodiesLayer { get { return _dynamicBodies; } private set { } }
 
 
     [Header("Camera")]
