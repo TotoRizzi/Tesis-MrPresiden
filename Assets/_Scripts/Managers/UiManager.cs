@@ -1,0 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class UiManager : MonoBehaviour
+{
+    public void HumanoindEnemyKilled(Vector3 pos)
+    {
+        FRY_EnemyExplodeParticle.Instance.pool.GetObject().SetPosition(pos);
+        FRY_EnemyBloodSplatter.Instance.pool.GetObject().SetPosition(pos);
+    }
+}

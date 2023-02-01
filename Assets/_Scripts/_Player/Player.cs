@@ -34,9 +34,14 @@ public class Player : MonoBehaviour
     bool _canAttack = true;
 
     [Header("Jump")]
-    [SerializeField] Transform _groundCheck;
+
+    [SerializeField] float _coyoteTime = .5f;
+    public float CoyoteTime { get { return _coyoteTime; } }
+
+    GroundCheck _groundCheck;
     [SerializeField] float _jumpForce = 5;
     [SerializeField] int _maxJumps = 1;
+
     int _currentJumps = 1;
     bool _canJump => _currentJumps > 0;
     float _defaultGravity;
@@ -54,6 +59,7 @@ public class Player : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _collider = GetComponent<BoxCollider2D>();
         _weaponManager = GetComponent<WeaponManager>();
+        _groundCheck = GetComponentInChildren<GroundCheck>();
 
         _currentJumps = _maxJumps;
 
@@ -152,7 +158,6 @@ public class Player : MonoBehaviour
             Move(_controller.xAxis);
         };
 
-
         climbing.OnEnter += x =>
         {
             _rb.gravityScale = 0;
@@ -166,12 +171,12 @@ public class Player : MonoBehaviour
         {
             ClimbMove(_controller.yAxis);
         };
-
         climbing.OnExit += x =>
         {
             _rb.gravityScale = _defaultGravity;
             _currentJumps = _maxJumps;
         };
+
         jumping.OnEnter += x =>
         {
             _rb.velocity = Vector2.zero;
@@ -179,13 +184,13 @@ public class Player : MonoBehaviour
             fsm.SendInput(PlayerInputs.ONAIR);
         };
 
-        onAir.OnEnter += x =>
-        {
-            StartCoroutine(OnAir());
-        };
         onAir.OnUpdate += () =>
         {
-            _controller.OnAirInputs();
+            if(_groundCheck.IsGrounded)
+            {
+                _currentJumps = _maxJumps;
+                fsm.SendInput(PlayerInputs.STANDINGIDLE);
+            }
             Move(_controller.xAxis);
         };
 
@@ -240,14 +245,9 @@ public class Player : MonoBehaviour
         _rb.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
     }
 
-    public IEnumerator OnAir()
+    public void AddExtraJump()
     {
-        var wait = new WaitForEndOfFrame();
-
-        yield return new WaitForSeconds(.1f);
-        while (!Physics2D.Raycast(_groundCheck.position, -transform.up, .1f, GameManager.instance.GroundLayer)) yield return wait;
-        _currentJumps = _maxJumps;
-        fsm.SendInput(PlayerInputs.STANDINGIDLE);
+        _maxJumps++;
     }
 
     //public void Attack()

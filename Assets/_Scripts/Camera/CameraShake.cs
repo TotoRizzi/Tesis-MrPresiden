@@ -13,7 +13,7 @@ public class CameraShake : MonoBehaviour
     {
         _gameManager = GameManager.instance;
 
-        EnemyManager.instance.OnEnemyKilled += Shake;
+        _gameManager.EnemyManager.OnEnemyKilled += Shake;
     }
 
     public void Shake()

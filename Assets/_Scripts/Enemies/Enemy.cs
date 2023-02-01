@@ -5,7 +5,7 @@ using System;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    EnemyManager _enemyManager;
+    GameManager _gameManager;
 
     public event Action OnUpdate;
 
@@ -15,7 +15,9 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual void Start()
     {
-        _enemyManager = EnemyManager.instance;
+        _gameManager = GameManager.instance;
+
+        _gameManager.EnemyManager.AddEnemy(this);
         currentHp = _maxHp;
     }
 
@@ -32,9 +34,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual void Die()
     {
-        _enemyManager.OnEnemyKilled();
-        FRY_EnemyExplodeParticle.Instance.pool.GetObject().SetPosition(transform.position);
-        FRY_EnemyBloodSplatter.Instance.pool.GetObject().SetPosition(transform.position);
+        _gameManager.EnemyManager.RemoveEnemy(this);
+        _gameManager.UiManager.HumanoindEnemyKilled(transform.position);
 
         Destroy(gameObject);
     }
