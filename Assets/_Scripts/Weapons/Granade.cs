@@ -22,7 +22,6 @@ public class Granade : Weapon
     {
         if (collision.relativeVelocity.magnitude >= _triggerForce && _isActivated) Explosion();
     }
-
     void Explosion()
     {
         var collisions = Physics2D.CircleCastAll(transform.position, _explosionRadius, Vector2.one, GameManager.instance.DynamicBodiesLayer).
