@@ -7,6 +7,8 @@ public class WeaponManager : MonoBehaviour
     Camera _mainCamera;
     Transform _weaponContainer;
     System.Action _lookAtMouse = delegate { };
+
+    public Transform WeaponContainer { get { return _weaponContainer; } }
     private void Start()
     {
         _mainCamera = Camera.main;
