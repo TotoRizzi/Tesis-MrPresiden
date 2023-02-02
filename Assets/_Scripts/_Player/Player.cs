@@ -9,7 +9,7 @@ using System;
 [RequireComponent(typeof(BoxCollider2D))]
 public class Player : MonoBehaviour
 {
-    public enum PlayerInputs { STANDINGMOVE, JUMP, STANDINGIDLE, ONAIR, CLIMBING, CROUCH, CROUCHWALKING, CROUCHIDLE, STAND}
+    public enum PlayerInputs { STANDINGMOVE, JUMP, STANDINGIDLE, ONAIR, CLIMBING, CROUCH, CROUCHWALKING, CROUCHIDLE, STAND, DASH}
     public EventFSM<PlayerInputs> fsm;
 
     PlayerController _controller;
@@ -34,17 +34,19 @@ public class Player : MonoBehaviour
     bool _canAttack = true;
 
     [Header("Jump")]
-
-    [SerializeField] float _coyoteTime = .5f;
-    public float CoyoteTime { get { return _coyoteTime; } }
-
     GroundCheck _groundCheck;
     [SerializeField] float _jumpForce = 5;
     [SerializeField] int _maxJumps = 1;
-
     int _currentJumps = 1;
     bool _canJump => _currentJumps > 0;
     float _defaultGravity;
+
+    [Header("Dash")]
+    [SerializeField] float _dashTime;
+    [SerializeField] float _dashSpeed;
+
+    float _currentDashTime;
+    float _dashDirection;
 
     public event Action OnIdle;
     public event Action OnRun;
@@ -94,6 +96,7 @@ public class Player : MonoBehaviour
         var crouchWalking = new State<PlayerInputs>("CROUCHWALKING");
         var crouchIdle = new State<PlayerInputs>("CROUCHIDLE");
         var stand = new State<PlayerInputs>("STAND");
+        var dash = new State<PlayerInputs>("DASH");
 
         #endregion
 
@@ -103,6 +106,8 @@ public class Player : MonoBehaviour
                        .SetTransition(PlayerInputs.JUMP, jumping)
                        .SetTransition(PlayerInputs.CLIMBING, climbing)
                        .SetTransition(PlayerInputs.CROUCH, crouching)
+                       .SetTransition(PlayerInputs.DASH, dash)
+                       .SetTransition(PlayerInputs.ONAIR, onAir)
                        .Done();
 
         StateConfigurer.Create(standingMoving)
@@ -110,6 +115,8 @@ public class Player : MonoBehaviour
                        .SetTransition(PlayerInputs.JUMP, jumping)
                        .SetTransition(PlayerInputs.CLIMBING, climbing)
                        .SetTransition(PlayerInputs.CROUCH, crouching)
+                       .SetTransition(PlayerInputs.DASH, dash)
+                       .SetTransition(PlayerInputs.ONAIR, onAir)
                        .Done();
 
         StateConfigurer.Create(jumping)
@@ -119,6 +126,7 @@ public class Player : MonoBehaviour
         StateConfigurer.Create(onAir)
                        .SetTransition(PlayerInputs.STANDINGIDLE, standingIdle)
                        .SetTransition(PlayerInputs.CLIMBING, climbing)
+                       .SetTransition(PlayerInputs.DASH, dash)
                        .Done();
 
         StateConfigurer.Create(climbing)
@@ -134,14 +142,20 @@ public class Player : MonoBehaviour
         StateConfigurer.Create(crouchWalking)
                        .SetTransition(PlayerInputs.CROUCHIDLE, crouchIdle)
                        .SetTransition(PlayerInputs.STAND, stand)
+                       .SetTransition(PlayerInputs.ONAIR, onAir)
                        .Done();
 
         StateConfigurer.Create(crouchIdle)
                        .SetTransition(PlayerInputs.CROUCHWALKING, crouchWalking)
                        .SetTransition(PlayerInputs.STAND, stand)
+                       .SetTransition(PlayerInputs.ONAIR, onAir)
                        .Done();
 
         StateConfigurer.Create(stand)
+                       .SetTransition(PlayerInputs.STANDINGIDLE, standingIdle)
+                       .Done();
+
+        StateConfigurer.Create(dash)
                        .SetTransition(PlayerInputs.STANDINGIDLE, standingIdle)
                        .Done();
         #endregion
@@ -149,13 +163,19 @@ public class Player : MonoBehaviour
         #region Fsm Configuration
 
         standingIdle.OnEnter += x => OnIdle();
-        standingIdle.OnUpdate += () => _controller.StandingIdleInputs();
+        standingIdle.OnUpdate += () =>
+        {
+            _controller.StandingIdleInputs();
+            if(!_groundCheck.IsGrounded) fsm.SendInput(PlayerInputs.ONAIR);
+        };
 
         standingMoving.OnEnter += x => OnRun();
         standingMoving.OnFixedUpdate += () =>
         {
             _controller.StandingGroundMovingInputs();
             Move(_controller.xAxis);
+
+            if (!_groundCheck.IsGrounded) fsm.SendInput(PlayerInputs.ONAIR);
         };
 
         climbing.OnEnter += x =>
@@ -177,21 +197,34 @@ public class Player : MonoBehaviour
             _currentJumps = _maxJumps;
         };
 
-        jumping.OnEnter += x =>
+        dash.OnEnter += x =>
         {
-            _rb.velocity = Vector2.zero;
-            Jump();
-            fsm.SendInput(PlayerInputs.ONAIR);
+            float angle = _weaponManager.GetAngle();
+
+            if (angle > 90 || angle < -90)
+            {
+                _dashDirection = -1;
+            }
+            else
+            {
+                _dashDirection = 1;
+            }
         };
+        dash.OnUpdate += () => Dash();
+        dash.OnExit += x => _currentDashTime = 0;
+
+        jumping.OnEnter += x => Jump();
 
         onAir.OnUpdate += () =>
         {
+            _controller.OnAirInputs();
             if(_groundCheck.IsGrounded)
             {
                 _currentJumps = _maxJumps;
                 fsm.SendInput(PlayerInputs.STANDINGIDLE);
             }
             Move(_controller.xAxis);
+            Debug.Log("OnAire");
         };
 
         crouching.OnEnter += x =>
@@ -203,13 +236,18 @@ public class Player : MonoBehaviour
         };
 
         crouchIdle.OnEnter += x => OnCrouchIdle();
-        crouchIdle.OnUpdate += () => _controller.CrouchingIdleInputs();
+        crouchIdle.OnUpdate += () =>
+        {
+            _controller.CrouchingIdleInputs();
+            if (!_groundCheck.IsGrounded) fsm.SendInput(PlayerInputs.ONAIR);
+        };
 
         crouchWalking.OnEnter += x => OnCrouchRun();
         crouchWalking.OnFixedUpdate += () =>
         {
             _controller.CrouchingGroundMovingInputs();
             CrouchMove(_controller.xAxis);
+            if (!_groundCheck.IsGrounded) fsm.SendInput(PlayerInputs.ONAIR);
         };
 
         stand.OnEnter += x =>
@@ -223,26 +261,39 @@ public class Player : MonoBehaviour
         fsm = new EventFSM<PlayerInputs>(standingIdle);
     }
 
-    public void ClimbMove(float yAxis)
+    void ClimbMove(float yAxis)
     {
         _rb.velocity = new Vector2(_rb.velocity.x, yAxis * _standingSpeed * Time.fixedDeltaTime);
     }
 
-    public void Move(float axis)
+    void Move(float axis)
     {
         _rb.velocity = new Vector2(axis * _standingSpeed * Time.fixedDeltaTime, _rb.velocity.y);
     }
-    public void CrouchMove(float axis)
+    void CrouchMove(float axis)
     {
         _rb.velocity = new Vector2(axis * _crouchingSpeed * Time.fixedDeltaTime, _rb.velocity.y);
     }
 
-    public void Jump()
+    void Jump()
     {
         if (!_canJump) return;
 
+        _rb.velocity = Vector2.zero;
+
         _currentJumps--;
         _rb.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
+
+        fsm.SendInput(PlayerInputs.ONAIR);
+
+    }
+
+    void Dash()
+    {
+        _currentDashTime += Time.deltaTime;
+        _rb.velocity = new Vector2(_dashDirection * _dashSpeed * Time.fixedDeltaTime, _rb.velocity.y);
+
+        if(_currentDashTime >= _dashTime) fsm.SendInput(PlayerInputs.STANDINGIDLE);
     }
 
     public void AddExtraJump()

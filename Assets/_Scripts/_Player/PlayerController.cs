@@ -36,9 +36,9 @@ public class PlayerController
         else if (xAxis != 0)
             _player.fsm.SendInput(Player.PlayerInputs.STANDINGMOVE);
         if(Input.GetKeyDown(KeyCode.LeftControl))
-        {
             _player.fsm.SendInput(Player.PlayerInputs.CROUCH);
-        }
+        else if (Input.GetKeyDown(KeyCode.LeftShift))
+            _player.fsm.SendInput(Player.PlayerInputs.DASH);
     }
 
     public void CrouchingIdleInputs()
@@ -47,10 +47,11 @@ public class PlayerController
             _player.fsm.SendInput(Player.PlayerInputs.JUMP);
         else if (xAxis != 0)
             _player.fsm.SendInput(Player.PlayerInputs.CROUCHWALKING);
+
         if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
             _player.fsm.SendInput(Player.PlayerInputs.STAND);
-        }
+        else if (Input.GetKeyDown(KeyCode.LeftShift))
+            _player.fsm.SendInput(Player.PlayerInputs.DASH);
     }
 
     public void StandingGroundMovingInputs()
@@ -60,9 +61,9 @@ public class PlayerController
         else if (xAxis == 0)
             _player.fsm.SendInput(Player.PlayerInputs.STANDINGIDLE);
         if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
             _player.fsm.SendInput(Player.PlayerInputs.CROUCH);
-        }
+        else if (Input.GetKeyDown(KeyCode.LeftShift))
+            _player.fsm.SendInput(Player.PlayerInputs.DASH);
     }
 
     public void CrouchingGroundMovingInputs()
@@ -72,14 +73,20 @@ public class PlayerController
         else if (xAxis == 0)
             _player.fsm.SendInput(Player.PlayerInputs.CROUCHIDLE);
         if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
             _player.fsm.SendInput(Player.PlayerInputs.STAND);
-        }
+        else if (Input.GetKeyDown(KeyCode.LeftShift))
+            _player.fsm.SendInput(Player.PlayerInputs.DASH);
     }
 
     public void ClimbMovingInputs()
     {
         if (Input.GetKeyDown(KeyCode.Space))
             _player.fsm.SendInput(Player.PlayerInputs.JUMP);
+    }
+
+    public void OnAirInputs()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            _player.fsm.SendInput(Player.PlayerInputs.DASH);
     }
 }
