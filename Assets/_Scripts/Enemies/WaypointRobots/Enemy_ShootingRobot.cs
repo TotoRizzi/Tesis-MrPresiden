@@ -61,7 +61,6 @@ public class Enemy_ShootingRobot : Enemy_RobotWaypoint
                                 .SetSpeed(_bulletSpeed);
                 _currentTimeBetweenBullets = 0;
                 _currentBulletsShot++;
-                Debug.Log(_currentBulletsShot);
             }
         }
         else

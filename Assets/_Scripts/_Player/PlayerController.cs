@@ -7,86 +7,43 @@ public class PlayerController
     Player _player;
 
     public float xAxis;
-    public float yAxis;
 
     public PlayerController(Player player, PlayerView v)
     {
         _player = player;
 
         _player.OnIdle += v.Idle;
-        _player.OnRun += v.Run;
-        _player.OnCrouch += v.Crouch;
-        _player.OnCrouchIdle += v.CrouchIdle;
-        _player.OnCrouchRun += v.CrouchRun;
+        _player.OnMove += v.Run;
     }
 
     public void OnUpdate()
     {
         xAxis = Input.GetAxisRaw("Horizontal");
-        yAxis = Input.GetAxisRaw("Vertical");
-
-        _player.LookAtMouse();
     }
 
-
-    public void StandingIdleInputs()
+    public void IdleInputs()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            _player.fsm.SendInput(Player.PlayerInputs.JUMP);
+            _player.fsm.ChangeState(StateName.Jump);
         else if (xAxis != 0)
-            _player.fsm.SendInput(Player.PlayerInputs.STANDINGMOVE);
-        if(Input.GetKeyDown(KeyCode.LeftControl))
-            _player.fsm.SendInput(Player.PlayerInputs.CROUCH);
-        else if (Input.GetKeyDown(KeyCode.LeftShift))
-            _player.fsm.SendInput(Player.PlayerInputs.DASH);
+            _player.fsm.ChangeState(StateName.Move);
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            _player.fsm.ChangeState(StateName.Dash);
     }
 
-    public void CrouchingIdleInputs()
+    public void MovingInputs()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            _player.fsm.SendInput(Player.PlayerInputs.JUMP);
-        else if (xAxis != 0)
-            _player.fsm.SendInput(Player.PlayerInputs.CROUCHWALKING);
-
-        if (Input.GetKeyUp(KeyCode.LeftControl))
-            _player.fsm.SendInput(Player.PlayerInputs.STAND);
-        else if (Input.GetKeyDown(KeyCode.LeftShift))
-            _player.fsm.SendInput(Player.PlayerInputs.DASH);
-    }
-
-    public void StandingGroundMovingInputs()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            _player.fsm.SendInput(Player.PlayerInputs.JUMP);
+            _player.fsm.ChangeState(StateName.Jump);
         else if (xAxis == 0)
-            _player.fsm.SendInput(Player.PlayerInputs.STANDINGIDLE);
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-            _player.fsm.SendInput(Player.PlayerInputs.CROUCH);
-        else if (Input.GetKeyDown(KeyCode.LeftShift))
-            _player.fsm.SendInput(Player.PlayerInputs.DASH);
-    }
-
-    public void CrouchingGroundMovingInputs()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            _player.fsm.SendInput(Player.PlayerInputs.JUMP);
-        else if (xAxis == 0)
-            _player.fsm.SendInput(Player.PlayerInputs.CROUCHIDLE);
-        if (Input.GetKeyUp(KeyCode.LeftControl))
-            _player.fsm.SendInput(Player.PlayerInputs.STAND);
-        else if (Input.GetKeyDown(KeyCode.LeftShift))
-            _player.fsm.SendInput(Player.PlayerInputs.DASH);
-    }
-
-    public void ClimbMovingInputs()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            _player.fsm.SendInput(Player.PlayerInputs.JUMP);
+            _player.fsm.ChangeState(StateName.Idle);
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            _player.fsm.ChangeState(StateName.Dash);
     }
 
     public void OnAirInputs()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
-            _player.fsm.SendInput(Player.PlayerInputs.DASH);
+            _player.fsm.ChangeState(StateName.Dash);
     }
 }

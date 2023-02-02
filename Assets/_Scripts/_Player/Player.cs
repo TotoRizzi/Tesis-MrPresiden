@@ -9,291 +9,115 @@ using System;
 [RequireComponent(typeof(BoxCollider2D))]
 public class Player : MonoBehaviour
 {
-    public enum PlayerInputs { STANDINGMOVE, JUMP, STANDINGIDLE, ONAIR, CLIMBING, CROUCH, CROUCHWALKING, CROUCHIDLE, STAND, DASH}
-    public EventFSM<PlayerInputs> fsm;
+    #region Components
+    [HideInInspector] public StateMachine fsm;
 
     PlayerController _controller;
     Rigidbody2D _rb;
-    BoxCollider2D _collider;
+
     WeaponManager _weaponManager;
+    public WeaponManager WeaponManager { get { return _weaponManager; } private set { } }
 
-    [Header("Movement")]
-    [SerializeField] Transform _playerArm;
-    [SerializeField] Transform _playerSprite;
-    [SerializeField] Vector3 _crouchColliderSize;
-    [SerializeField] Vector3 _crouchColliderOffset;
-    Vector3 _colliderDefaultSize;
-    Vector3 _colliderDefaultOffset;
-    Vector3 _playerDefaultSpriteSize;
-    [SerializeField] float _standingSpeed;
-    [SerializeField] float _crouchingSpeed;
-  
-    [Header("Attack")]
-    [SerializeField] Transform _bulletSpawnPosition;
-    [SerializeField] float _attackSpeed;
-    bool _canAttack = true;
-
-    [Header("Jump")]
     GroundCheck _groundCheck;
+    public GroundCheck GroundCheck { get { return _groundCheck; } private set { } }
+    #endregion
+
+    #region Movement
+    [Header("Movement")]
+    [SerializeField] float _speed;
+
+    Vector3 _playerDefaultSpriteSize;
+    [SerializeField] Transform _playerSprite;
+    public Transform PlayerSprite { get { return _playerSprite; } private set { } }
+    #endregion
+
+    #region Jump
+    [Header("Jump")]
     [SerializeField] float _jumpForce = 5;
+
     [SerializeField] int _maxJumps = 1;
-    int _currentJumps = 1;
+    public int MaxJumps { get { return _maxJumps; } private set { } }
+
+    [HideInInspector] public int _currentJumps = 1;
+  
     bool _canJump => _currentJumps > 0;
-    float _defaultGravity;
+    #endregion
 
+    #region Dash
     [Header("Dash")]
-    [SerializeField] float _dashTime;
     [SerializeField] float _dashSpeed;
+    [SerializeField] float _dashDuration;
+    public float DashDuration { get { return _dashDuration; } private set { } }
+    #endregion
 
-    float _currentDashTime;
-    float _dashDirection;
-
-    public event Action OnIdle;
-    public event Action OnRun;
-    public event Action OnCrouch;
-    public event Action OnCrouchIdle;
-    public event Action OnCrouchRun;
+    #region View
+    public Action OnIdle;
+    public Action OnMove;
+    #endregion
 
 
     private void Start()
     {
+        fsm = new StateMachine();
         _controller = new PlayerController(this, GetComponent<PlayerView>());
         _rb = GetComponent<Rigidbody2D>();
-        _collider = GetComponent<BoxCollider2D>();
-        _weaponManager = GetComponent<WeaponManager>();
         _groundCheck = GetComponentInChildren<GroundCheck>();
+        _weaponManager = GetComponent<WeaponManager>();
 
-        _currentJumps = _maxJumps;
+        _playerDefaultSpriteSize = _playerSprite.localScale;
 
-        _playerDefaultSpriteSize = _playerSprite.transform.localScale;
-        _colliderDefaultSize = _collider.size;
-        _colliderDefaultOffset = _collider.offset;
-
-        _defaultGravity = _rb.gravityScale;
-
-        FsmCreation();
+        fsm.AddState(StateName.Idle, new IdleState(this, _controller));
+        fsm.AddState(StateName.Move, new MoveState(this, _controller));
+        fsm.AddState(StateName.Jump, new JumpState(this));
+        fsm.AddState(StateName.OnAir, new OnAirState(this, _controller));
+        fsm.AddState(StateName.Dash, new DashState(this, _controller));
+        fsm.ChangeState(StateName.Idle);
     }
 
     private void Update()
     {
         fsm.Update();
         _controller.OnUpdate();
+
+        LookAtMouse();
     }
+
     private void FixedUpdate()
     {
         fsm.FixedUpdate();
     }
 
-    void FsmCreation()
+    public void Move(float axis)
     {
-        #region Fsm Creation
-        var standingIdle = new State<PlayerInputs>("STANDINGIDLE");
-        var standingMoving = new State<PlayerInputs>("STANDINGMoving");
-        var jumping = new State<PlayerInputs>("Jumping");
-        var onAir = new State<PlayerInputs>("ONAIR");
-        var climbing = new State<PlayerInputs>("CLIMB");
-        var crouching = new State<PlayerInputs>("CROUCH");
-        var crouchWalking = new State<PlayerInputs>("CROUCHWALKING");
-        var crouchIdle = new State<PlayerInputs>("CROUCHIDLE");
-        var stand = new State<PlayerInputs>("STAND");
-        var dash = new State<PlayerInputs>("DASH");
-
-        #endregion
-
-        #region Fsm Transitions
-        StateConfigurer.Create(standingIdle)
-                       .SetTransition(PlayerInputs.STANDINGMOVE, standingMoving)
-                       .SetTransition(PlayerInputs.JUMP, jumping)
-                       .SetTransition(PlayerInputs.CLIMBING, climbing)
-                       .SetTransition(PlayerInputs.CROUCH, crouching)
-                       .SetTransition(PlayerInputs.DASH, dash)
-                       .SetTransition(PlayerInputs.ONAIR, onAir)
-                       .Done();
-
-        StateConfigurer.Create(standingMoving)
-                       .SetTransition(PlayerInputs.STANDINGIDLE, standingIdle)
-                       .SetTransition(PlayerInputs.JUMP, jumping)
-                       .SetTransition(PlayerInputs.CLIMBING, climbing)
-                       .SetTransition(PlayerInputs.CROUCH, crouching)
-                       .SetTransition(PlayerInputs.DASH, dash)
-                       .SetTransition(PlayerInputs.ONAIR, onAir)
-                       .Done();
-
-        StateConfigurer.Create(jumping)
-                       .SetTransition(PlayerInputs.ONAIR, onAir)
-                       .Done();
-
-        StateConfigurer.Create(onAir)
-                       .SetTransition(PlayerInputs.STANDINGIDLE, standingIdle)
-                       .SetTransition(PlayerInputs.CLIMBING, climbing)
-                       .SetTransition(PlayerInputs.DASH, dash)
-                       .Done();
-
-        StateConfigurer.Create(climbing)
-                       .SetTransition(PlayerInputs.JUMP, jumping)
-                       .SetTransition(PlayerInputs.STANDINGIDLE, standingIdle)
-                       .SetTransition(PlayerInputs.STANDINGMOVE, standingMoving)
-                       .Done();
-
-        StateConfigurer.Create(crouching)
-                       .SetTransition(PlayerInputs.CROUCHIDLE, crouchIdle)
-                       .Done();
-
-        StateConfigurer.Create(crouchWalking)
-                       .SetTransition(PlayerInputs.CROUCHIDLE, crouchIdle)
-                       .SetTransition(PlayerInputs.STAND, stand)
-                       .SetTransition(PlayerInputs.ONAIR, onAir)
-                       .Done();
-
-        StateConfigurer.Create(crouchIdle)
-                       .SetTransition(PlayerInputs.CROUCHWALKING, crouchWalking)
-                       .SetTransition(PlayerInputs.STAND, stand)
-                       .SetTransition(PlayerInputs.ONAIR, onAir)
-                       .Done();
-
-        StateConfigurer.Create(stand)
-                       .SetTransition(PlayerInputs.STANDINGIDLE, standingIdle)
-                       .Done();
-
-        StateConfigurer.Create(dash)
-                       .SetTransition(PlayerInputs.STANDINGIDLE, standingIdle)
-                       .Done();
-        #endregion
-
-        #region Fsm Configuration
-
-        standingIdle.OnEnter += x => OnIdle();
-        standingIdle.OnUpdate += () =>
-        {
-            _controller.StandingIdleInputs();
-            if(!_groundCheck.IsGrounded) fsm.SendInput(PlayerInputs.ONAIR);
-        };
-
-        standingMoving.OnEnter += x => OnRun();
-        standingMoving.OnFixedUpdate += () =>
-        {
-            _controller.StandingGroundMovingInputs();
-            Move(_controller.xAxis);
-
-            if (!_groundCheck.IsGrounded) fsm.SendInput(PlayerInputs.ONAIR);
-        };
-
-        climbing.OnEnter += x =>
-        {
-            _rb.gravityScale = 0;
-            _rb.velocity = Vector2.zero;
-        };
-        climbing.OnUpdate += () =>
-        {
-            _controller.ClimbMovingInputs();
-        };
-        climbing.OnFixedUpdate += () =>
-        {
-            ClimbMove(_controller.yAxis);
-        };
-        climbing.OnExit += x =>
-        {
-            _rb.gravityScale = _defaultGravity;
-            _currentJumps = _maxJumps;
-        };
-
-        dash.OnEnter += x =>
-        {
-            float angle = _weaponManager.GetAngle();
-
-            if (angle > 90 || angle < -90)
-            {
-                _dashDirection = -1;
-            }
-            else
-            {
-                _dashDirection = 1;
-            }
-        };
-        dash.OnUpdate += () => Dash();
-        dash.OnExit += x => _currentDashTime = 0;
-
-        jumping.OnEnter += x => Jump();
-
-        onAir.OnUpdate += () =>
-        {
-            _controller.OnAirInputs();
-            if(_groundCheck.IsGrounded)
-            {
-                _currentJumps = _maxJumps;
-                fsm.SendInput(PlayerInputs.STANDINGIDLE);
-            }
-            Move(_controller.xAxis);
-            Debug.Log("OnAire");
-        };
-
-        crouching.OnEnter += x =>
-        {
-            OnCrouch();
-            _collider.offset = _crouchColliderOffset;
-            _collider.size = _crouchColliderSize;
-            fsm.SendInput(PlayerInputs.CROUCHIDLE);
-        };
-
-        crouchIdle.OnEnter += x => OnCrouchIdle();
-        crouchIdle.OnUpdate += () =>
-        {
-            _controller.CrouchingIdleInputs();
-            if (!_groundCheck.IsGrounded) fsm.SendInput(PlayerInputs.ONAIR);
-        };
-
-        crouchWalking.OnEnter += x => OnCrouchRun();
-        crouchWalking.OnFixedUpdate += () =>
-        {
-            _controller.CrouchingGroundMovingInputs();
-            CrouchMove(_controller.xAxis);
-            if (!_groundCheck.IsGrounded) fsm.SendInput(PlayerInputs.ONAIR);
-        };
-
-        stand.OnEnter += x =>
-        {
-            _collider.offset = _colliderDefaultOffset;
-            _collider.size = _colliderDefaultSize;
-            fsm.SendInput(PlayerInputs.STANDINGIDLE);
-        };
-        #endregion
-
-        fsm = new EventFSM<PlayerInputs>(standingIdle);
+        _rb.velocity = new Vector2(axis * _speed * Time.fixedDeltaTime, _rb.velocity.y);
     }
 
-    void ClimbMove(float yAxis)
-    {
-        _rb.velocity = new Vector2(_rb.velocity.x, yAxis * _standingSpeed * Time.fixedDeltaTime);
-    }
-
-    void Move(float axis)
-    {
-        _rb.velocity = new Vector2(axis * _standingSpeed * Time.fixedDeltaTime, _rb.velocity.y);
-    }
-    void CrouchMove(float axis)
-    {
-        _rb.velocity = new Vector2(axis * _crouchingSpeed * Time.fixedDeltaTime, _rb.velocity.y);
-    }
-
-    void Jump()
+    public void Jump()
     {
         if (!_canJump) return;
 
-        _rb.velocity = Vector2.zero;
+        FreezeVelocity();
 
         _currentJumps--;
         _rb.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
-
-        fsm.SendInput(PlayerInputs.ONAIR);
-
     }
 
-    void Dash()
+    public void Dash(float xAxis)
     {
-        _currentDashTime += Time.deltaTime;
-        _rb.velocity = new Vector2(_dashDirection * _dashSpeed * Time.fixedDeltaTime, _rb.velocity.y);
+        _rb.velocity = new Vector2(xAxis * _dashSpeed * Time.fixedDeltaTime, _rb.velocity.y);
+    }
 
-        if(_currentDashTime >= _dashTime) fsm.SendInput(PlayerInputs.STANDINGIDLE);
+    public void LookAtMouse()
+    {
+        Vector3 playerLocalScale = _playerDefaultSpriteSize;
+        float angle = _weaponManager.GetAngle();
+
+        if (angle > 90 || angle < -90)
+            playerLocalScale.x = -_playerDefaultSpriteSize.x;
+        else
+            playerLocalScale.x = _playerDefaultSpriteSize.x;
+
+        PlayerSprite.localScale = playerLocalScale;
     }
 
     public void AddExtraJump()
@@ -301,52 +125,183 @@ public class Player : MonoBehaviour
         _maxJumps++;
     }
 
-    //public void Attack()
-    //{
-    //    if (_canAttack)
-    //    {
-    //        FRY_Bullet.Instance.pool.GetObject().SetPosition(_bulletSpawnPosition.position)
-    //                                            .SetRotation(_playerArm.rotation)
-    //        /*HardCodeado pq es placeHolder*/   .SetDmg(1f)       
-    //                                            .SetLayer(Layers.PlayerAttack)
-    //        /*HardCodeado pq es placeHolder*/   .SetSpeed(20);
-    //
-    //        StartCoroutine(ReturnShootCd());
-    //    }
-    //}
-
-    IEnumerator ReturnShootCd()
+    public void FreezeVelocity()
     {
-        _canAttack = false;
-        yield return new WaitForSeconds(_attackSpeed);
-        _canAttack = true;
+        _rb.velocity = Vector2.zero;
     }
-    public void LookAtMouse()
-    {
-        Vector3 playerLocalScale = _playerDefaultSpriteSize;
-        float angle = _weaponManager.GetAngle();
+}
 
-        if (angle > 90 || angle < -90)
+
+public class IdleState : IState
+{
+    Player _player;
+    PlayerController _controller;
+
+    public IdleState(Player player, PlayerController controller)
+    {
+        _player = player;
+        _controller = controller;
+    }
+
+    public void OnEnter()
+    {
+        _player.FreezeVelocity();
+        _player.OnIdle();
+    }
+
+    public void OnExit()
+    {
+
+    }
+
+    public void OnFixedUpdate()
+    {
+
+    }
+
+    public void OnUpdate()
+    {
+        _controller.IdleInputs();
+    }
+}
+public class MoveState : IState
+{
+    Player _player;
+    PlayerController _controller;
+
+    public MoveState(Player player, PlayerController controller)
+    {
+        _player = player;
+        _controller = controller;
+    }
+
+    public void OnEnter()
+    {
+        _player.OnMove();
+    }
+
+    public void OnExit()
+    {
+    }
+
+    public void OnFixedUpdate()
+    {
+        _player.Move(_controller.xAxis);
+    }
+
+    public void OnUpdate()
+    {
+        _controller.MovingInputs();
+    }
+}
+public class JumpState : IState
+{
+    Player _player;
+
+    public JumpState(Player player)
+    {
+        _player = player;
+    }
+
+    public void OnEnter()
+    {
+        _player.Jump();
+        _player.fsm.ChangeState(StateName.OnAir);
+    }
+
+    public void OnExit()
+    {
+    }
+
+    public void OnFixedUpdate()
+    {
+    }
+
+    public void OnUpdate()
+    {
+        Debug.Log("Jump");
+
+    }
+}
+public class OnAirState : IState
+{
+    Player _player;
+    PlayerController _controller;
+
+    public OnAirState(Player player, PlayerController controller)
+    {
+        _player = player;
+        _controller = controller;
+    }
+
+    public void OnEnter()
+    {
+    }
+
+    public void OnExit()
+    {
+        _player._currentJumps = _player.MaxJumps;
+    }
+
+    public void OnFixedUpdate()
+    {
+        _player.Move(_controller.xAxis);
+    }
+
+    public void OnUpdate()
+    {
+        _controller.OnAirInputs();
+        if (_player.GroundCheck.IsGrounded) _player.fsm.ChangeState(StateName.Idle);
+    }
+}
+public class DashState : IState
+{
+    Player _player;
+    PlayerController _controller;
+
+    float _currentDashDuration;
+    float _dashDirection;
+
+    public DashState(Player player, PlayerController controller)
+    {
+        _player = player;
+        _controller = controller;
+    }
+
+    public void OnEnter()
+    {
+        _currentDashDuration = 0;
+       
+        if(_controller.xAxis != 0)
         {
-            playerLocalScale.x = -_playerDefaultSpriteSize.x;
+            _dashDirection = _controller.xAxis;
         }
         else
         {
-            playerLocalScale.x = _playerDefaultSpriteSize.x;
+            float angle = _player.WeaponManager.GetAngle();
+        
+            if (angle > 90 || angle < -90)
+                _dashDirection = -1;
+            else
+                _dashDirection = 1;
         }
-
-        //_playerArm.transform.eulerAngles = new Vector3(0, 0, angle);
-        _playerSprite.localScale = playerLocalScale;
     }
-    Vector2 GetMousePosition()
-    {
-        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    }
-    Vector2 GetDirToMousePosition(Transform transform)
-    {
-        Vector3 mousePosition = GetMousePosition() - (Vector2)transform.position;
-        mousePosition.Normalize();
 
-        return mousePosition;
+    public void OnExit()
+    {
+    }
+
+    public void OnFixedUpdate()
+    {
+        _player.Dash(_dashDirection);
+    }
+
+    public void OnUpdate()
+    {
+        _currentDashDuration += Time.deltaTime;
+        if (_currentDashDuration < _player.DashDuration) return;
+
+        if (_player.GroundCheck.IsGrounded) _player.fsm.ChangeState(StateName.OnAir);
+        else _player.fsm.ChangeState(StateName.Idle);
     }
 }

@@ -20,17 +20,4 @@ public class PlayerView : MonoBehaviour
     {
         _anim.Play("Idle");
     }
-
-    public void Crouch()
-    {
-        _anim.Play("Crouch");
-    }
-    public void CrouchIdle()
-    {
-        _anim.Play("CrouchIdle");
-    }
-    public void CrouchRun()
-    {
-        _anim.Play("CrouchRun");
-    }
 }

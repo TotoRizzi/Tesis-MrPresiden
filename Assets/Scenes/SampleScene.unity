@@ -910,17 +910,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf0c55437b9e40c498d6901efc82d889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerArm: {fileID: 291806766}
-  _playerSprite: {fileID: 93287138}
-  _crouchColliderSize: {x: 0.4, y: 0.85, z: 0}
-  _crouchColliderOffset: {x: 0, y: 0.42, z: 0}
-  _standingSpeed: 400
-  _crouchingSpeed: 200
-  _bulletSpawnPosition: {fileID: 445423485}
-  _attackSpeed: 0.2
-  _coyoteTime: 0.5
+  fsm: {fileID: 0}
+  _speed: 400
   _jumpForce: 17
   _maxJumps: 1
+  _currentJumps: 1
+  _dashSpeed: 1200
+  _dashDuration: 0.2
 --- !u!4 &287709488
 Transform:
   m_ObjectHideFlags: 0

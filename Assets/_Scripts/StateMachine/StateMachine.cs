@@ -19,6 +19,10 @@ public class StateMachine : MonoBehaviour
     {
         if (currentState != null) currentState.OnUpdate();
     }
+    public void FixedUpdate()
+    {
+        if (currentState != null) currentState.OnFixedUpdate();
+    }
     public void AddState(StateName key, IState state)
     {
         if (!allStates.ContainsKey(key)) allStates.Add(key, state);
