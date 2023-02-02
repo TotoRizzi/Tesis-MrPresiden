@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public virtual void Die()
     {
         _gameManager.EnemyManager.RemoveEnemy(this);
-        _gameManager.UiManager.HumanoindEnemyKilled(transform.position);
+        _gameManager.EffectsManager.HumanoindEnemyKilled(transform.position);
 
         Destroy(gameObject);
     }

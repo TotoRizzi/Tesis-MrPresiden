@@ -185,9 +185,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 790934455467268712}
+  - component: {fileID: 1345984880184226451}
   - component: {fileID: 790934455467268714}
   - component: {fileID: 790934455467268717}
-  - component: {fileID: 1345984880184226451}
   m_Layer: 10
   m_Name: Shooting_Robot
   m_TagString: Untagged
@@ -211,6 +211,29 @@ Transform:
   m_Father: {fileID: 790934454666238644}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1345984880184226451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790934455467268716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b3cda21b9d1f143addb12a0cc3d886, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHp: 3
+  _wayPoints:
+  - {fileID: 790934454953499581}
+  - {fileID: 790934455625950169}
+  _waypointSpeed: 2
+  _bulletSpawnPosition: {fileID: 5474850099590655884}
+  _armPivot: {fileID: 1881384382029298405}
+  _bulletSpeed: 10
+  _bulletsPerShot: 3
+  _timeBetweenBullets: 0.1
+  _attackSpeed: 3
 --- !u!50 &790934455467268714
 Rigidbody2D:
   serializedVersion: 4
@@ -258,29 +281,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1345984880184226451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 790934455467268716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b3cda21b9d1f143addb12a0cc3d886, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHp: 3
-  _wayPoints:
-  - {fileID: 790934454953499581}
-  - {fileID: 790934455625950169}
-  _waypointSpeed: 2
-  _bulletSpawnPosition: {fileID: 5474850099590655884}
-  _armPivot: {fileID: 1881384382029298405}
-  _bulletSpeed: 10
-  _bulletsPerShot: 3
-  _timeBetweenBullets: 0.1
-  _attackSpeed: 3
 --- !u!1 &790934455625950168
 GameObject:
   m_ObjectHideFlags: 0

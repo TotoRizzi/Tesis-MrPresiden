@@ -42,6 +42,9 @@ public class ComboManager : MonoBehaviour
     void ComboTick()
     {
         _currentComboExpireTime -= Time.deltaTime;
+
+        //_gameManager.UiManager.UpDateComboBar(_currentComboExpireTime, _gameManager.ComboExpireTime, _currentComboCount);
+
         if (_currentComboExpireTime <= 0)
         {
             _updateRunning = false;

@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     [SerializeField] int _maxJumps = 1;
     public int MaxJumps { get { return _maxJumps; } private set { } }
 
-    [HideInInspector] public int _currentJumps = 1;
+    public int _currentJumps = 1;
   
     bool _canJump => _currentJumps > 0;
     #endregion
@@ -100,10 +100,7 @@ public class Player : MonoBehaviour
 
         OnJump();
 
-        FreezeVelocity();
-        _rb.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
-
-        Debug.Log("Jump");
+        _rb.AddForce(Vector3.up * _jumpForce, ForceMode2D.Impulse);
 
         _currentJumps--;
     }
@@ -246,7 +243,7 @@ public class OnAirState : IState
 
     public void OnExit()
     {
-        _player._currentJumps = _player.MaxJumps;
+        
     }
 
     public void OnFixedUpdate()
@@ -257,7 +254,11 @@ public class OnAirState : IState
     public void OnUpdate()
     {
         _controller.OnAirInputs();
-        if (_player.GroundCheck.IsGrounded) _player.fsm.ChangeState(StateName.Idle);
+        if (_player.GroundCheck.IsGrounded)
+        {
+            _player._currentJumps = _player.MaxJumps;
+            _player.fsm.ChangeState(StateName.Idle);
+        }
     }
 }
 public class DashState : IState

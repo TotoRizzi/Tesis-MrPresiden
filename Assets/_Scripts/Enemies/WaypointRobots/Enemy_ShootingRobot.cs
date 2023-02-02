@@ -28,8 +28,6 @@ public class Enemy_ShootingRobot : Enemy_RobotWaypoint
         float angle = Mathf.Atan2(dirToLookAt.y, dirToLookAt.x) * Mathf.Rad2Deg;
 
         _armPivot.eulerAngles = new Vector3(0, 0, angle);
-
-
     }
 
     void CalculateAttack()
@@ -54,11 +52,11 @@ public class Enemy_ShootingRobot : Enemy_RobotWaypoint
 
             if(_currentTimeBetweenBullets > _timeBetweenBullets)
             {
-                FRY_Bullet.Instance.pool.GetObject().SetDirection(_bulletSpawnPosition.position)
-                                .SetDirection(_armPivot.right)
-                                .SetDmg(1f)
-                                .SetLayer(Layers.EnemyAttack)
-                                .SetSpeed(_bulletSpeed);
+                FRY_Bullet.Instance.pool.GetObject().SetDmg(1f)
+                                                    .SetSpeed(_bulletSpeed)
+                                                    .SetLayer(Layers.EnemyAttack)
+                                                    .SetPosition(_bulletSpawnPosition.position)
+                                                    .SetDirection(_armPivot.right);
                 _currentTimeBetweenBullets = 0;
                 _currentBulletsShot++;
             }

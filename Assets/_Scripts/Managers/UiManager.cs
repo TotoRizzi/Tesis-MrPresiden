@@ -1,12 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class UiManager : MonoBehaviour
 {
-    public void HumanoindEnemyKilled(Vector3 pos)
+    [Header("Combo")]
+    [SerializeField] Image _comboBar = null;
+    [SerializeField] TextMeshProUGUI _comboCountText;
+
+    public void UpDateComboBar(float current, float max, float currentComboCount)
     {
-        FRY_EnemyExplodeParticle.Instance.pool.GetObject().SetPosition(pos);
-        FRY_EnemyBloodSplatter.Instance.pool.GetObject().SetPosition(pos);
+        _comboBar.fillAmount = current / max;
+        _comboCountText.text = currentComboCount.ToString();
     }
 }

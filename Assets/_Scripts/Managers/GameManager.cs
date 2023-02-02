@@ -48,11 +48,17 @@ public class GameManager : MonoBehaviour
     private EnemyManager _enemyManager;
     public EnemyManager EnemyManager { get { return _enemyManager; } private set { } }
 
-    private UiManager _uiManager;
-    public UiManager UiManager { get { return _uiManager; } private set { } }
+    private EffectsManager _effectsManager;
+    public EffectsManager EffectsManager { get { return _effectsManager; } private set { } }
 
     private SoundManager _soundManager;
     public SoundManager SoundManager { get { return _soundManager; } private set { } }
+    
+    private UiManager _uiManager;
+    public UiManager UiManager { get { return _uiManager; } private set { } }
+
+    private SaveDataManager _saveDataManager;
+    public SaveDataManager SaveDataManager { get { return _saveDataManager; } private set { } }
 
     private void Awake()
     {
@@ -62,8 +68,10 @@ public class GameManager : MonoBehaviour
         _player = FindObjectOfType<Player>();
         _comboManager = GetComponent<ComboManager>();
         _enemyManager = GetComponent<EnemyManager>();
-        _uiManager = GetComponent<UiManager>();
+        _effectsManager = GetComponent<EffectsManager>();
         _soundManager = GetComponent<SoundManager>();
+        _uiManager = GetComponent<UiManager>();
+        _saveDataManager = GetComponent<SaveDataManager>();
     }
 
     public void LevelUpPlayer()
