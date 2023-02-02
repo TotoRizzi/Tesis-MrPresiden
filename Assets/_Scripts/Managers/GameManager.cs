@@ -51,6 +51,9 @@ public class GameManager : MonoBehaviour
     private UiManager _uiManager;
     public UiManager UiManager { get { return _uiManager; } private set { } }
 
+    private SoundManager _soundManager;
+    public SoundManager SoundManager { get { return _soundManager; } private set { } }
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -60,6 +63,7 @@ public class GameManager : MonoBehaviour
         _comboManager = GetComponent<ComboManager>();
         _enemyManager = GetComponent<EnemyManager>();
         _uiManager = GetComponent<UiManager>();
+        _soundManager = GetComponent<SoundManager>();
     }
 
     public void LevelUpPlayer()

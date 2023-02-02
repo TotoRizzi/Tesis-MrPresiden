@@ -53,6 +53,8 @@ public class Player : MonoBehaviour
     #region View
     public Action OnIdle;
     public Action OnMove;
+    public Action OnDash;
+    public Action OnJump;
     #endregion
 
 
@@ -96,15 +98,19 @@ public class Player : MonoBehaviour
     {
         if (!_canJump) return;
 
+        OnJump();
+
         FreezeVelocity();
+        _rb.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
+
+        Debug.Log("Jump");
 
         _currentJumps--;
-        _rb.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
     }
 
     public void Dash(float xAxis)
     {
-        _rb.velocity = new Vector2(xAxis * _dashSpeed * Time.fixedDeltaTime, _rb.velocity.y);
+        _rb.velocity = new Vector2(xAxis * _dashSpeed * Time.fixedDeltaTime, 0f);
     }
 
     public void LookAtMouse()
@@ -270,6 +276,8 @@ public class DashState : IState
 
     public void OnEnter()
     {
+        _player.OnDash();
+
         _currentDashDuration = 0;
        
         if(_controller.xAxis != 0)

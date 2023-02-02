@@ -14,6 +14,8 @@ public class PlayerController
 
         _player.OnIdle += v.Idle;
         _player.OnMove += v.Run;
+        _player.OnJump += v.Jump;
+        _player.OnDash += v.Dash;
     }
 
     public void OnUpdate()
