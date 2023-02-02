@@ -3,7 +3,6 @@ public enum WeaponType { Primary, Secundary, Granade }
 
 namespace Weapons
 {
-
     public abstract class Weapon : MonoBehaviour
     {
         [SerializeField] protected WeaponData _weaponData;
@@ -12,11 +11,30 @@ namespace Weapons
         protected Rigidbody2D _rb;
 
         public WeaponData GetWeaponData { get { return _weaponData; } }
+        PickUpArea _pickUpArea;
+        SpriteRenderer _weaponSpriteRenderer;
         protected virtual void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
+            //_pickUpArea = GetComponentInChildren<PickUpArea>();
+            //_weaponSpriteRenderer = GetComponent<SpriteRenderer>();
+            //_weaponSpriteRenderer.sprite = _weaponData.mainSprite;
         }
 
+        //private void OnMouseEnter()
+        //{
+        //    _weaponSpriteRenderer.sprite = _weaponData.selectedSprite;
+        //}
+        //
+        //private void OnMouseOver()
+        //{
+        //    if (_pickUpArea.playerClose) _pickUpArea.ShowUI(true);
+        //}
+        //private void OnMouseExit()
+        //{
+        //    _weaponSpriteRenderer.sprite = _weaponData.mainSprite;
+        //    _pickUpArea.ShowUI();
+        //}
         public void Attack(Vector2 bulletDirection)
         {
             if (Time.time >= _weaponTimer)

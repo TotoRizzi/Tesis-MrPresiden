@@ -8,4 +8,6 @@ public class WeaponData : ScriptableObject
     public float damage;
     public float bulletSpeed;
     public Bullet bulletPrefab;
+    public Sprite mainSprite;
+    public Sprite selectedSprite;
 }
