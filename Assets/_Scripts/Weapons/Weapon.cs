@@ -10,10 +10,12 @@ namespace Weapons
         protected float _weaponTimer;
         protected Rigidbody2D _rb;
         protected WeaponManager _weaponManager;
+        protected SpriteRenderer _spriteRenderer;
 
-        SpriteRenderer _spriteRenderer;
         EquipableUI _equipableUI;
         public WeaponData GetWeaponData { get { return _weaponData; } }
+
+        public bool CanPickUp => Mathf.Abs(_rb.velocity.magnitude) < .1f;
         protected virtual void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
@@ -25,20 +27,28 @@ namespace Weapons
 
         private void OnMouseEnter()
         {
+            if (!CanPickUp) return;
             _spriteRenderer.sprite = _weaponData.selectedSprite;
             transform.position = new Vector3(transform.position.x, transform.position.y, -1);
         }
 
         private void OnMouseOver()
         {
+            if (!CanPickUp) return;
             ShowPickUpSign();
         }
 
         private void OnMouseExit()
         {
+            if (!CanPickUp) return;
             _spriteRenderer.sprite = _weaponData.mainSprite;
             _equipableUI.SetActive(false);
             transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        }
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(_uiSignPosition.position, Vector2.down * 1f);
         }
         public void Attack(Vector2 bulletDirection)
         {
@@ -75,6 +85,7 @@ namespace Weapons
         public Weapon PickUp()
         {
             _rb.simulated = false;
+            _rb.velocity = Vector2.zero;
             transform.eulerAngles = Vector3.zero;
             return this;
         }

@@ -52,6 +52,8 @@ public class WeaponManager : MonoBehaviour
             }
         }
 
+        if (!newWeapon.CanPickUp) return;
+
         if (_currentWeapon && newWeapon)
             ThrowWeapon();
 

@@ -20,6 +20,7 @@ public class WeaponData : ScriptableObject
     [HideInInspector] public float throwForce = 10;
     [HideInInspector] public float explosionForce = 600;
     [HideInInspector] public float explosionRadius = 3;
+    [HideInInspector] public Sprite granadeActivatedSprite;
 
     //Knifes
     [HideInInspector] public float attackRange;
@@ -71,6 +72,8 @@ public class WeaponDataEditor : Editor
 
         EditorGUILayout.LabelField("Explosion Radius");
         weaponData.explosionRadius = EditorGUILayout.FloatField(weaponData.explosionRadius, GUILayout.MaxWidth(50));
+
+        weaponData.granadeActivatedSprite = (Sprite)EditorGUILayout.ObjectField("Granade Activated", weaponData.granadeActivatedSprite, typeof(Sprite), false);
     }
     void Knifes(WeaponData weaponData)
     {
