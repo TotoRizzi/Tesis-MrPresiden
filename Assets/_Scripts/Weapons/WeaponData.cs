@@ -6,13 +6,13 @@ public class WeaponData : ScriptableObject
 {
     //All Weapons
     public WeaponType weaponType;
+    [HideInInspector] public float fireRate;
     [HideInInspector] public float damage;
     [HideInInspector] public Sprite mainSprite;
     [HideInInspector] public Sprite selectedSprite;
 
 
     //FireWeapons
-    [HideInInspector] public float fireRate;
     [HideInInspector] public float bulletSpeed;
     [HideInInspector] public Bullet bulletPrefab;
 
@@ -20,6 +20,10 @@ public class WeaponData : ScriptableObject
     [HideInInspector] public float throwForce = 10;
     [HideInInspector] public float explosionForce = 600;
     [HideInInspector] public float explosionRadius = 3;
+
+    //Knifes
+    [HideInInspector] public float attackRange;
+    [HideInInspector] public float knifeSpeed;
 }
 
 [CustomEditor(typeof(WeaponData))]
@@ -33,6 +37,9 @@ public class WeaponDataEditor : Editor
 
         WeaponData weaponData = (WeaponData)target;
 
+        EditorGUILayout.LabelField("Fire Rate");
+        weaponData.fireRate = EditorGUILayout.FloatField(weaponData.fireRate, GUILayout.MaxWidth(50));
+
         EditorGUILayout.LabelField("Damage");
         weaponData.damage = EditorGUILayout.FloatField(weaponData.damage, GUILayout.MaxWidth(50));
 
@@ -42,15 +49,13 @@ public class WeaponDataEditor : Editor
 
         if (weaponData.weaponType == WeaponType.FireWeapon) FireWeapons(weaponData);
         else if (weaponData.weaponType == WeaponType.Granade) Granades(weaponData);
+        else Knifes(weaponData);
 
         EditorGUILayout.EndVertical();
     }
 
     void FireWeapons(WeaponData weaponData)
     {
-        EditorGUILayout.LabelField("Fire Rate");
-        weaponData.fireRate = EditorGUILayout.FloatField(weaponData.fireRate, GUILayout.MaxWidth(50));
-
         EditorGUILayout.LabelField("Bullet Speed");
         weaponData.bulletSpeed = EditorGUILayout.FloatField(weaponData.bulletSpeed, GUILayout.MaxWidth(50));
 
@@ -66,5 +71,13 @@ public class WeaponDataEditor : Editor
 
         EditorGUILayout.LabelField("Explosion Radius");
         weaponData.explosionRadius = EditorGUILayout.FloatField(weaponData.explosionRadius, GUILayout.MaxWidth(50));
+    }
+    void Knifes(WeaponData weaponData)
+    {
+        EditorGUILayout.LabelField("Attack Range");
+        weaponData.attackRange = EditorGUILayout.FloatField(weaponData.attackRange, GUILayout.MaxWidth(50));
+
+        EditorGUILayout.LabelField("Knife Speed");
+        weaponData.knifeSpeed = EditorGUILayout.FloatField(weaponData.knifeSpeed, GUILayout.MaxWidth(50));
     }
 }

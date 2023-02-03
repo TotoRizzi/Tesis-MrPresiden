@@ -9,9 +9,10 @@ namespace Weapons
 
         protected float _weaponTimer;
         protected Rigidbody2D _rb;
+        protected WeaponManager _weaponManager;
+
         SpriteRenderer _spriteRenderer;
         EquipableUI _equipableUI;
-        WeaponManager _weaponManager;
         public WeaponData GetWeaponData { get { return _weaponData; } }
         protected virtual void Start()
         {
