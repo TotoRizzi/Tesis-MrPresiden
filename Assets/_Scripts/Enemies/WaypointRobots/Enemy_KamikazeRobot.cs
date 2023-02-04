@@ -22,7 +22,7 @@ public class Enemy_KamikazeRobot : Enemy_RobotWaypoint
         if (Physics2D.Raycast(transform.position, -Vector2.up, 8f, gameManager.PlayerLayer))
         {
             OnUpdate += Drop;
-            OnUpdate -= Move;
+            OnUpdate -= _wayPointMovement.Move;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
