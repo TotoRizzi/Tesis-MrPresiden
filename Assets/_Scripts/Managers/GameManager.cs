@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     public event Action OnGameLost;
     public event Action OnGameWon;
+    public event Action OnAchievementReached;
 
     [Header("Layers")]
     [SerializeField] LayerMask _groundLayer, _playerLayer, _weaponLayer, _dynamicBodies;
@@ -32,8 +33,16 @@ public class GameManager : MonoBehaviour
     public float CameraSpeed { get { return _cameraSpeed; } private set { } }
 
     [Header("Combos")]
-    private float _comboExpireTime = 4f;
+    [SerializeField] float _comboExpireTime = 4f;
     public float ComboExpireTime { get { return _comboExpireTime; } private set { } }
+
+    [SerializeField] float _pointsForFirstAchievement = 50;
+    public float PointsForFirstAchievement { get { return _pointsForFirstAchievement; } private set { } }
+
+    [SerializeField] float _achievementPointsMultiplier = 1.5f;
+    public float AchievementPointsMultiplier { get { return _achievementPointsMultiplier; } private set { } }
+
+    private List<Action> _playerAchievements = new List<Action>();
 
     [Header("Enemies")]
     [SerializeField] int _pointsPerEnemy = 10;
@@ -89,5 +98,18 @@ public class GameManager : MonoBehaviour
     public void GameLost()
     {
         OnGameLost();
+    }
+
+    public void AddAchievement(Action achievent)
+    {
+        _playerAchievements.Add(achievent);
+    }
+
+    public void GiveAchievement(int index)
+    {
+        if (index > _playerAchievements.Count - 1) return;
+
+        _playerAchievements[index]();
+        OnAchievementReached?.Invoke();
     }
 }

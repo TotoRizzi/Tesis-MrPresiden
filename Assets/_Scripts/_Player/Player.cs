@@ -63,6 +63,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        //Components
         fsm = new StateMachine();
         _controller = new PlayerController(this, GetComponent<PlayerView>());
         _rb = GetComponent<Rigidbody2D>();
@@ -70,11 +71,17 @@ public class Player : MonoBehaviour
         _weaponManager = GetComponent<WeaponManager>();
         _gameManager = GameManager.instance;
 
+        //Achievements
+        _gameManager.AddAchievement(() => EnableDash());
+        _gameManager.AddAchievement(() => AddExtraJump());
+
+        //Variables
         canDash = _gameManager.SaveDataManager.GetBool("CanDash", false);
         _maxJumps = _gameManager.SaveDataManager.GetInt("MaxJumps", 1);
         _playerDefaultSpriteSize = _playerSprite.localScale;
         _defaultGravity = _rb.gravityScale;
 
+        //StateMachine
         fsm.AddState(StateName.Idle, new IdleState(this, _controller));
         fsm.AddState(StateName.Move, new MoveState(this, _controller));
         fsm.AddState(StateName.Jump, new JumpState(this));
@@ -87,7 +94,7 @@ public class Player : MonoBehaviour
     {
         fsm.Update();
         _controller.OnUpdate();
-
+        
         LookAtMouse();
     }
 
@@ -221,7 +228,6 @@ public class JumpState : IState
     public void OnEnter()
     {
         _player.Jump();
-        _player.fsm.ChangeState(StateName.OnAir);
     }
 
     public void OnExit()
@@ -234,8 +240,7 @@ public class JumpState : IState
 
     public void OnUpdate()
     {
-        Debug.Log("Jump");
-
+        _player.fsm.ChangeState(StateName.OnAir);
     }
 }
 public class OnAirState : IState
