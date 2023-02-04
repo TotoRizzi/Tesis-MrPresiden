@@ -17,6 +17,8 @@ public class SaveDataManager : MonoBehaviour
     public void SaveFloat(string name, float value)
     {
         PlayerPrefs.SetFloat(name, value);
+        Debug.Log("saved: " + name + " " + value);
+
     }
     public float GetFloat(string name, float defaultValue)
     {

@@ -26,13 +26,14 @@ public class ComboManager : MonoBehaviour
 
         _currentPoints = _gameManager.SaveDataManager.GetFloat("CurrentPoints", 0);
         _pointsForNextAchieve = _gameManager.SaveDataManager.GetFloat("PointsTillNextAchieve", _gameManager.PointsForFirstAchievement);
+        _achievementCount = _gameManager.SaveDataManager.GetInt("AchievementCount", 0);
 
         UpdateUiText();
     }
 
     private void Update()
     {
-        if (OnUpdate != null) OnUpdate();
+        OnUpdate?.Invoke();
     }
 
     public void EnemyKilled()
@@ -42,8 +43,6 @@ public class ComboManager : MonoBehaviour
         _currentComboExpireTime = _gameManager.ComboExpireTime;
 
         AddPoints(_gameManager.PointsPerEnemy - 1);
-
-        _gameManager.UiManager.UpdatePoints(_currentPoints + _currentComboCount);
 
         if (!_updateRunning)
         {
@@ -56,12 +55,13 @@ public class ComboManager : MonoBehaviour
     {
         _currentComboExpireTime -= Time.deltaTime;
 
-        _gameManager.UiManager.UpDateComboBar(_currentComboExpireTime, _gameManager.ComboExpireTime, _currentComboCount);
+        UpdateComboBar();
 
         if (_currentComboExpireTime <= 0)
         {
             _updateRunning = false;
             _currentComboCount = 0;
+            UpdateComboBar();
             OnUpdate -= ComboTick;
         }
     }
@@ -70,7 +70,6 @@ public class ComboManager : MonoBehaviour
     {
         _currentPoints += points;
         _gameManager.SaveDataManager.SaveFloat("CurrentPoints", _currentPoints);
-
         UpdateUiText();
 
         if (_currentPoints >= _pointsForNextAchieve) GiveAchievement();
@@ -89,17 +88,24 @@ public class ComboManager : MonoBehaviour
             newNextAchievePoints *= _gameManager.AchievementPointsMultiplier;
         }
 
+        newNextAchievePoints = Mathf.RoundToInt(newNextAchievePoints);
+
         _pointsForNextAchieve = newNextAchievePoints;
 
         UpdateUiText();
 
-        _gameManager.SaveDataManager.SaveFloat("CurrentPoints", _currentPoints);
-        _gameManager.SaveDataManager.SaveFloat("PointsTillNextAchieve", _gameManager.PointsForFirstAchievement);
+        _gameManager.SaveDataManager.SaveInt("AchievementCount", _achievementCount);
+        _gameManager.SaveDataManager.SaveFloat("CurrentPoints", 0);
+        _gameManager.SaveDataManager.SaveFloat("PointsTillNextAchieve", _pointsForNextAchieve);
     }
 
     void UpdateUiText()
     {
         _gameManager.UiManager.UpdateNextAchievementPoints(_pointsForNextAchieve);
         _gameManager.UiManager.UpdatePoints(_currentPoints);
+    }
+    void UpdateComboBar()
+    {
+        _gameManager.UiManager.UpDateComboBar(_currentComboExpireTime, _gameManager.ComboExpireTime, _currentComboCount);
     }
 }

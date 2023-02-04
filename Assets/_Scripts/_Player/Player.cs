@@ -112,6 +112,8 @@ public class Player : MonoBehaviour
     {
         if (!_canJump) return;
 
+        FreezeVelocity();
+
         OnJump();
         _rb.AddForce(Vector3.up * _jumpForce, ForceMode2D.Impulse);
         _currentJumps--;

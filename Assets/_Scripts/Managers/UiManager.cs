@@ -20,6 +20,7 @@ public class UiManager : MonoBehaviour
 
     public void UpdatePoints(float points)
     {
+        Debug.Log("Current Points " + points);
         _pointsText.text = points.ToString();
     }
 
