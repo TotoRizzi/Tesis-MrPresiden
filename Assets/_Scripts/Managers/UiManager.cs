@@ -4,6 +4,9 @@ using TMPro;
 
 public class UiManager : MonoBehaviour
 {
+    [Header("Player")]
+    [SerializeField] Image _healthBar = null;
+
     [Header("Combo")]
     [SerializeField] Image _comboBar = null;
     [SerializeField] TextMeshProUGUI _comboCountText;
@@ -27,5 +30,10 @@ public class UiManager : MonoBehaviour
     public void UpdateNextAchievementPoints(float points)
     {
         _nextAchievementPointsText.text = points.ToString();
+    }
+
+    public void UpdateHealthBar(float current, float max)
+    {
+        _healthBar.fillAmount = current / max;
     }
 }
