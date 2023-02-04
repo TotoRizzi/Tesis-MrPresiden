@@ -8,6 +8,7 @@ public class WeaponData : ScriptableObject
     public WeaponType weaponType;
     [HideInInspector] public float fireRate;
     [HideInInspector] public float damage;
+    [HideInInspector] public int initialAmmo;
     [HideInInspector] public Sprite mainSprite;
     [HideInInspector] public Sprite selectedSprite;
 
@@ -59,6 +60,9 @@ public class WeaponDataEditor : Editor
     {
         EditorGUILayout.LabelField("Bullet Speed");
         weaponData.bulletSpeed = EditorGUILayout.FloatField(weaponData.bulletSpeed, GUILayout.MaxWidth(50));
+
+        EditorGUILayout.LabelField("Max Ammo");
+        weaponData.initialAmmo = EditorGUILayout.IntField(weaponData.initialAmmo, GUILayout.MaxWidth(50));
 
         weaponData.bulletPrefab = (Bullet)EditorGUILayout.ObjectField("Bullet Prefab", weaponData.bulletPrefab, typeof(Bullet), false);
     }
