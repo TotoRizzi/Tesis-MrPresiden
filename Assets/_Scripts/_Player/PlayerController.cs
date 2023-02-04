@@ -21,6 +21,7 @@ public class PlayerController
     public void OnUpdate()
     {
         xAxis = Input.GetAxisRaw("Horizontal");
+        if (Input.GetKeyDown(KeyCode.P)) _player.EnableDash();
     }
 
     public void IdleInputs()
@@ -29,7 +30,7 @@ public class PlayerController
             _player.fsm.ChangeState(StateName.Jump);
         else if (xAxis != 0)
             _player.fsm.ChangeState(StateName.Move);
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.canDash)
             _player.fsm.ChangeState(StateName.Dash);
     }
 
@@ -39,13 +40,15 @@ public class PlayerController
             _player.fsm.ChangeState(StateName.Jump);
         else if (xAxis == 0)
             _player.fsm.ChangeState(StateName.Idle);
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.canDash)
             _player.fsm.ChangeState(StateName.Dash);
     }
 
     public void OnAirInputs()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.canDash)
             _player.fsm.ChangeState(StateName.Dash);
+        else if (Input.GetKeyDown(KeyCode.Space))
+            _player.fsm.ChangeState(StateName.Jump);
     }
 }

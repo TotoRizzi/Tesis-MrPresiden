@@ -13,6 +13,9 @@ public class ComboManager : MonoBehaviour
 
     float _currentComboExpireTime = 0;
 
+    float _currentPoints;
+    int _achievementCount;
+
     bool _updateRunning;
 
     private void Start()

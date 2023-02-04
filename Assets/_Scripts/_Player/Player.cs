@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     #region Components
     [HideInInspector] public StateMachine fsm;
 
+    GameManager _gameManager;
     PlayerController _controller;
     Rigidbody2D _rb;
 
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
     #region Jump
     [Header("Jump")]
     [SerializeField] float _jumpForce = 5;
+    float _defaultGravity;
 
     [SerializeField] int _maxJumps = 1;
     public int MaxJumps { get { return _maxJumps; } private set { } }
@@ -47,6 +49,7 @@ public class Player : MonoBehaviour
     [Header("Dash")]
     [SerializeField] float _dashSpeed;
     [SerializeField] float _dashDuration;
+    public bool canDash { get; private set; }
     public float DashDuration { get { return _dashDuration; } private set { } }
     #endregion
 
@@ -65,8 +68,12 @@ public class Player : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _groundCheck = GetComponentInChildren<GroundCheck>();
         _weaponManager = GetComponent<WeaponManager>();
+        _gameManager = GameManager.instance;
 
+        canDash = _gameManager.SaveDataManager.GetBool("CanDash", false);
+        _maxJumps = _gameManager.SaveDataManager.GetInt("MaxJumps", 1);
         _playerDefaultSpriteSize = _playerSprite.localScale;
+        _defaultGravity = _rb.gravityScale;
 
         fsm.AddState(StateName.Idle, new IdleState(this, _controller));
         fsm.AddState(StateName.Move, new MoveState(this, _controller));
@@ -99,15 +106,19 @@ public class Player : MonoBehaviour
         if (!_canJump) return;
 
         OnJump();
-
         _rb.AddForce(Vector3.up * _jumpForce, ForceMode2D.Impulse);
-
         _currentJumps--;
     }
 
     public void Dash(float xAxis)
     {
         _rb.velocity = new Vector2(xAxis * _dashSpeed * Time.fixedDeltaTime, 0f);
+    }
+
+    public void EnableDash()
+    {
+        canDash = true;
+        _gameManager.SaveDataManager.SaveBool("CanDash", true);
     }
 
     public void LookAtMouse()
@@ -126,6 +137,7 @@ public class Player : MonoBehaviour
     public void AddExtraJump()
     {
         _maxJumps++;
+        _gameManager.SaveDataManager.SaveInt("MaxJumps", _maxJumps);
     }
 
     public void FreezeVelocity()
