@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Linq;
-using Weapons;
 public class Granade : MonoBehaviour
 {
     [SerializeField] float _throwForce;
@@ -25,7 +24,7 @@ public class Granade : MonoBehaviour
         if (collision.relativeVelocity.magnitude >= _triggerForce) Explosion();
     }
 
-    void ThrowGranade()
+    public void ThrowGranade()
     {
         _rb.AddForce(_direction * _throwForce, ForceMode2D.Impulse);
     }
@@ -76,10 +75,10 @@ public class Granade : MonoBehaviour
     public static void TurnOn(Granade g)
     {
         g.gameObject.SetActive(true);
+        g.Reset();
     }
     public static void TurnOff(Granade g)
     {
-        g.Reset();
         g.gameObject.SetActive(false);
     }
 }

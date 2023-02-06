@@ -27,6 +27,8 @@ public class WeaponManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E)) SetWeapon();
     }
+
+    #region Weapon Funcs
     void SetWeapon()
     {
         RaycastHit2D[] hit = Physics2D.RaycastAll(_mainWeaponContainer.position, GetMouseDirectionMain().normalized, 2f, GameManager.instance.WeaponLayer);
@@ -72,12 +74,13 @@ public class WeaponManager : MonoBehaviour
             EquipWeapon(false, newWeapon, _secundaryWeaponContainer);
         }
     }
-
     void EquipWeapon(bool main, Weapon newWeapon, Transform WeaponContainer)
     {
         if (main)
         {
             _currentMainWeapon = newWeapon;
+            _currentMainWeapon.UpdateCurrentWeapon();
+            _currentMainWeapon.GetComponent<FireWeapon>().UpdateAmmoAmount();
             _lookAtMouse += MainWeapon;
         }
         else
@@ -105,8 +108,14 @@ public class WeaponManager : MonoBehaviour
         Vector2 weaponSize = new Vector2(_currentSecundaryWeapon.transform.localScale.x, Mathf.Sign(GetMouseDirectionSecundary().x));
         _currentSecundaryWeapon.transform.localScale = weaponSize;
     }
+
+    #endregion
+
+    #region Mouse Funcs
     public float GetAngle() => Mathf.Atan2(GetMouseDirectionMain().y, GetMouseDirectionMain().x) * Mathf.Rad2Deg;
     Vector2 GetMousePosition() => _mainCamera.ScreenToWorldPoint(Input.mousePosition);
     Vector2 GetMouseDirectionMain() => (GetMousePosition() - (Vector2)_mainWeaponContainer.position).normalized;
     Vector2 GetMouseDirectionSecundary() => (GetMousePosition() - (Vector2)_secundaryWeaponContainer.position).normalized;
+
+    #endregion
 }

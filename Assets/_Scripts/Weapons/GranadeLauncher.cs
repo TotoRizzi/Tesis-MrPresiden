@@ -7,10 +7,12 @@ public class GranadeLauncher : FireWeapon
 
         _currentAmmo--;
 
-        FRY_Granades.Instance.pool.GetObject().
+        var granade = FRY_Granades.Instance.pool.GetObject().
                                             SetDamage(_weaponData.damage).
                                             SetLayer(Layers.PlayerAttack).
                                             SetPosition(_bulletSpawn.position).
                                             SetDirection(bulletDirection);
+
+        granade.ThrowGranade();
     }
 }

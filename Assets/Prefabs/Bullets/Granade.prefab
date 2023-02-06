@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 894765743964139764}
   - component: {fileID: 5115879686293160678}
   - component: {fileID: 7877310107761406592}
-  - component: {fileID: 556030028521795741}
   - component: {fileID: 1908984936763359540}
   m_Layer: 13
   m_Name: Granade
@@ -106,7 +105,7 @@ SpriteRenderer:
   m_SortingLayerID: 1078434979
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: aad4a61183131164bb3f744571690546, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ab12cd3afdf6c14687bc7e9924e9409, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -155,7 +154,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.3, y: 0.4}
+    oldSize: {x: 0.3, y: 0.3}
     newSize: {x: 0.3, y: 0.4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -163,32 +162,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.4}
-  m_EdgeRadius: 0
---- !u!61 &556030028521795741
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5590629392386153071}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.3, y: 0.4}
-    newSize: {x: 0.3, y: 0.4}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1908984936763359540
 MonoBehaviour:
@@ -202,8 +175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf5ed504c88669f46b6ae12978553a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponData: {fileID: 11400000, guid: 09e7977faddbec342929358ac31aa59d, type: 2}
-  _uiSignPosition: {fileID: 4609702770605482159}
   _throwForce: 10
   _explosionRadius: 3
   _explosionForce: 600

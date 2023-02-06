@@ -11,10 +11,10 @@ namespace Weapons
         protected Rigidbody2D _rb;
         protected WeaponManager _weaponManager;
         protected SpriteRenderer _spriteRenderer;
+        protected GameManager _gameManager;
 
         EquipableUI _equipableUI;
         public WeaponData GetWeaponData { get { return _weaponData; } }
-
         public bool CanPickUp => Mathf.Abs(_rb.velocity.magnitude) < .1f;
         protected virtual void Start()
         {
@@ -23,21 +23,19 @@ namespace Weapons
             _equipableUI = FindObjectOfType<EquipableUI>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _spriteRenderer.sprite = _weaponData.mainSprite;
+            _gameManager = GameManager.instance;
         }
-
         private void OnMouseEnter()
         {
             if (!CanPickUp) return;
             _spriteRenderer.sprite = _weaponData.selectedSprite;
             transform.position = new Vector3(transform.position.x, transform.position.y, -1);
         }
-
         private void OnMouseOver()
         {
             if (!CanPickUp) return;
             ShowPickUpSign();
         }
-
         private void OnMouseExit()
         {
             if (!CanPickUp) return;
@@ -66,6 +64,11 @@ namespace Weapons
             if (Vector2.Distance(_weaponManager.SecundaryWeaponContainer.position, transform.position) <= 2.3f)
                 _equipableUI.SetActive(true).SetPosition(_uiSignPosition.position + Vector3.up);
             else _equipableUI.SetActive(false);
+        }
+
+        public void UpdateCurrentWeapon()
+        {
+            _gameManager.UiManager.UpdateCurrentWeapon(_weaponData.mainSprite);
         }
 
         #region BUILDER

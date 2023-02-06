@@ -20,6 +20,7 @@ public class FireWeapon : Weapon
         if (_currentAmmo <= 0) return;
 
         _currentAmmo--;
+        UpdateAmmoAmount();
 
         FRY_Bullet.Instance.pool.GetObject().
                                             SetDmg(_weaponData.damage).
@@ -27,5 +28,15 @@ public class FireWeapon : Weapon
                                             SetLayer(Layers.PlayerAttack).
                                             SetPosition(_bulletSpawn.position).
                                             SetDirection(bulletDirection);
+    }
+
+    public void UpdateAmmoAmount()
+    {
+        _gameManager.UiManager.UpdateCurrentAmmo(_currentAmmo);
+    }
+
+    public void AddAmmo(int amount)
+    {
+        _gameManager.UiManager.UpdateCurrentAmmo(_currentAmmo += amount);
     }
 }
