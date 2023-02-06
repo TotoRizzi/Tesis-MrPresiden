@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEditor;
-public enum WeaponType { FireWeapon, Knife, Granade }
+public enum WeaponType { MainWeapon, SecundaryWeapon }
 [CreateAssetMenu(menuName = "Weapon Data/New Weapon Data", fileName = "New Weapon Data")]
 public class WeaponData : ScriptableObject
 {
@@ -15,13 +15,6 @@ public class WeaponData : ScriptableObject
 
     //FireWeapons
     [HideInInspector] public float bulletSpeed;
-    [HideInInspector] public Bullet bulletPrefab;
-
-    //Granades
-    [HideInInspector] public float throwForce = 10;
-    [HideInInspector] public float explosionForce = 600;
-    [HideInInspector] public float explosionRadius = 3;
-    [HideInInspector] public Sprite granadeActivatedSprite;
 
     //Knifes
     [HideInInspector] public float attackRange;
@@ -49,8 +42,7 @@ public class WeaponDataEditor : Editor
 
         weaponData.selectedSprite = (Sprite)EditorGUILayout.ObjectField("Selected Sprite", weaponData.selectedSprite, typeof(Sprite), false);
 
-        if (weaponData.weaponType == WeaponType.FireWeapon) FireWeapons(weaponData);
-        else if (weaponData.weaponType == WeaponType.Granade) Granades(weaponData);
+        if (weaponData.weaponType == WeaponType.MainWeapon) FireWeapons(weaponData);
         else Knifes(weaponData);
 
         EditorGUILayout.EndVertical();
@@ -63,21 +55,6 @@ public class WeaponDataEditor : Editor
 
         EditorGUILayout.LabelField("Max Ammo");
         weaponData.initialAmmo = EditorGUILayout.IntField(weaponData.initialAmmo, GUILayout.MaxWidth(50));
-
-        weaponData.bulletPrefab = (Bullet)EditorGUILayout.ObjectField("Bullet Prefab", weaponData.bulletPrefab, typeof(Bullet), false);
-    }
-    void Granades(WeaponData weaponData)
-    {
-        EditorGUILayout.LabelField("Throw Force");
-        weaponData.throwForce = EditorGUILayout.FloatField(weaponData.throwForce, GUILayout.MaxWidth(50));
-
-        EditorGUILayout.LabelField("Explosion Force");
-        weaponData.explosionForce = EditorGUILayout.FloatField(weaponData.explosionForce, GUILayout.MaxWidth(50));
-
-        EditorGUILayout.LabelField("Explosion Radius");
-        weaponData.explosionRadius = EditorGUILayout.FloatField(weaponData.explosionRadius, GUILayout.MaxWidth(50));
-
-        weaponData.granadeActivatedSprite = (Sprite)EditorGUILayout.ObjectField("Granade Activated", weaponData.granadeActivatedSprite, typeof(Sprite), false);
     }
     void Knifes(WeaponData weaponData)
     {

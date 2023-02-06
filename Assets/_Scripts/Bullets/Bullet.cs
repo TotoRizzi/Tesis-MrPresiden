@@ -7,16 +7,12 @@ public class Bullet : MonoBehaviour
     float _currentDistance;
     float _dmg;
     Vector3 _direction;
-
     private void Update()
     {
         transform.position += _direction.normalized * _speed * Time.deltaTime;
         _currentDistance += Time.deltaTime;
         if (_currentDistance > _maxDistance)
-        {
             ReturnBullet();
-        }
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

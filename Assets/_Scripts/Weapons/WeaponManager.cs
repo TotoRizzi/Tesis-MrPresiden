@@ -2,36 +2,34 @@ using UnityEngine;
 using Weapons;
 public class WeaponManager : MonoBehaviour
 {
-    [SerializeField] Weapon _currentWeapon;
+    [SerializeField] Weapon _currentMainWeapon;
+    [SerializeField] Weapon _currentSecundaryWeapon;
 
     Camera _mainCamera;
-    Transform _weaponContainer;
+    Transform _mainWeaponContainer;
+    Transform _secundaryWeaponContainer;
     System.Action _lookAtMouse = delegate { };
 
-    public Transform WeaponContainer { get { return _weaponContainer; } }
+    public Transform SecundaryWeaponContainer { get { return _secundaryWeaponContainer; } }
     private void Start()
     {
         _mainCamera = Camera.main;
-        _weaponContainer = transform.GetChild(0);
+        _mainWeaponContainer = transform.GetChild(0);
+        _secundaryWeaponContainer = transform.GetChild(1);
     }
     private void Update()
     {
         _lookAtMouse?.Invoke();
 
-        if (Input.GetMouseButton(0) && _currentWeapon)
-        {
-            _currentWeapon.Attack(GetMouseDirection());
-            if (_currentWeapon.GetWeaponData.weaponType == WeaponType.Granade) DeactiveWeapon();
-        }
+        if (Input.GetMouseButton(0) && _currentMainWeapon) _currentMainWeapon.Attack(GetMouseDirectionMain());
 
-        if (Input.GetKeyDown(KeyCode.G)) ThrowWeapon();
+        if (Input.GetMouseButton(1) && _currentSecundaryWeapon) _currentSecundaryWeapon.Attack(GetMouseDirectionSecundary());
 
         if (Input.GetKeyDown(KeyCode.E)) SetWeapon();
     }
     void SetWeapon()
     {
-        RaycastHit2D[] hit = Physics2D.RaycastAll(_weaponContainer.position, GetMouseDirection().normalized, 2f, GameManager.instance.WeaponLayer);
-        Debug.Log(hit.Length);
+        RaycastHit2D[] hit = Physics2D.RaycastAll(_mainWeaponContainer.position, GetMouseDirectionMain().normalized, 2f, GameManager.instance.WeaponLayer);
         if (hit.Length <= 0) return;
 
         Weapon newWeapon = null;
@@ -54,36 +52,61 @@ public class WeaponManager : MonoBehaviour
 
         if (!newWeapon.CanPickUp) return;
 
-        if (_currentWeapon && newWeapon)
-            ThrowWeapon();
-
-        _currentWeapon = newWeapon;
-        _currentWeapon.PickUp().SetParent(transform.GetChild(0)).SetPosition(transform.GetChild(0).position);
-        _lookAtMouse = CurrentWeapon;
-
-    }
-    private void ThrowWeapon()
-    {
-        _currentWeapon?.ThrowOut(GetMouseDirection()).SetParent(null);
-        DeactiveWeapon();
-    }
-    void DeactiveWeapon()
-    {
-        if (_currentWeapon)
+        if (newWeapon.GetWeaponData.weaponType == WeaponType.MainWeapon)
         {
-            _currentWeapon = null;
-            _weaponContainer.eulerAngles = Vector3.zero;
-            _lookAtMouse = delegate { };
+            if (_currentMainWeapon)
+            {
+                ThrowWeapon(_currentMainWeapon, _mainWeaponContainer);
+                _lookAtMouse -= MainWeapon;
+            }
+            EquipWeapon(true, newWeapon, _mainWeaponContainer);
+            _lookAtMouse += MainWeapon;
+        }
+        else
+        {
+            if (_currentSecundaryWeapon)
+            {
+                ThrowWeapon(_currentSecundaryWeapon, _secundaryWeaponContainer);
+                _lookAtMouse -= SecundaryWeapon;
+            }
+            EquipWeapon(false, newWeapon, _secundaryWeaponContainer);
         }
     }
-    void CurrentWeapon()
-    {
-        _weaponContainer.eulerAngles = new Vector3(0, 0, GetAngle());
-        Vector2 weaponSize = new Vector2(_currentWeapon.transform.localScale.x, Mathf.Sign(GetMouseDirection().x));
-        _currentWeapon.transform.localScale = weaponSize;
-    }
 
-    public float GetAngle() => Mathf.Atan2(GetMouseDirection().y, GetMouseDirection().x) * Mathf.Rad2Deg;
+    void EquipWeapon(bool main, Weapon newWeapon, Transform WeaponContainer)
+    {
+        if (main)
+        {
+            _currentMainWeapon = newWeapon;
+            _lookAtMouse += MainWeapon;
+        }
+        else
+        {
+            _currentSecundaryWeapon = newWeapon;
+            _lookAtMouse += SecundaryWeapon;
+        }
+
+        newWeapon.PickUp().SetParent(WeaponContainer).SetPosition(WeaponContainer.position);
+    }
+    private void ThrowWeapon(Weapon weapon, Transform WeaponContainer)
+    {
+        weapon?.ThrowOut(GetMouseDirectionMain()).SetParent(null);
+        WeaponContainer.eulerAngles = Vector2.zero;
+    }
+    void MainWeapon()
+    {
+        _mainWeaponContainer.eulerAngles = new Vector3(0, 0, GetAngle());
+        Vector2 weaponSize = new Vector2(_currentMainWeapon.transform.localScale.x, Mathf.Sign(GetMouseDirectionMain().x));
+        _currentMainWeapon.transform.localScale = weaponSize;
+    }
+    void SecundaryWeapon()
+    {
+        _secundaryWeaponContainer.eulerAngles = new Vector3(0, 0, GetAngle());
+        Vector2 weaponSize = new Vector2(_currentSecundaryWeapon.transform.localScale.x, Mathf.Sign(GetMouseDirectionSecundary().x));
+        _currentSecundaryWeapon.transform.localScale = weaponSize;
+    }
+    public float GetAngle() => Mathf.Atan2(GetMouseDirectionMain().y, GetMouseDirectionMain().x) * Mathf.Rad2Deg;
     Vector2 GetMousePosition() => _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-    Vector2 GetMouseDirection() => (GetMousePosition() - (Vector2)_weaponContainer.position).normalized;
+    Vector2 GetMouseDirectionMain() => (GetMousePosition() - (Vector2)_mainWeaponContainer.position).normalized;
+    Vector2 GetMouseDirectionSecundary() => (GetMousePosition() - (Vector2)_secundaryWeaponContainer.position).normalized;
 }

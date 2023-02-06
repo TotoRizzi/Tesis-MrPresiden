@@ -9,7 +9,7 @@ public class Knife : Weapon
     bool _attack;
     private void Update()
     {
-        Vector3 direction = _go ? _direction : _weaponManager.WeaponContainer.position - transform.position;
+        Vector3 direction = _go ? _direction : _weaponManager.SecundaryWeaponContainer.position - transform.position;
 
         if (_attack) transform.position += direction.normalized * _weaponData.knifeSpeed * Time.deltaTime;
     }
@@ -23,7 +23,7 @@ public class Knife : Weapon
         _attack = _go = true;
         yield return new WaitForSeconds(_weaponData.attackRange);
         _go = false;
-        yield return new WaitUntil(() => Vector2.Distance(_weaponManager.WeaponContainer.position, transform.position) <= .01f);
+        yield return new WaitUntil(() => Vector2.Distance(_weaponManager.SecundaryWeaponContainer.position, transform.position) <= .01f);
         _attack = _go;
     }
 }

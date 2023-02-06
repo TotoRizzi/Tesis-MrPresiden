@@ -63,7 +63,7 @@ namespace Weapons
 
         void ShowPickUpSign()
         {
-            if (Vector2.Distance(_weaponManager.WeaponContainer.position, transform.position) <= 2.3f)
+            if (Vector2.Distance(_weaponManager.SecundaryWeaponContainer.position, transform.position) <= 2.3f)
                 _equipableUI.SetActive(true).SetPosition(_uiSignPosition.position + Vector3.up);
             else _equipableUI.SetActive(false);
         }
