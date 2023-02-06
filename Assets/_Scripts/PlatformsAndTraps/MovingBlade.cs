@@ -12,7 +12,7 @@ public class MovingBlade : MonoBehaviour
 
     private void Start()
     {
-        _wayPointMovement = new Movement_WayPoint(this.transform, _speed, _wayPoints);
+        _wayPointMovement = new Movement_BasicWayPoint(this.transform, _speed, _wayPoints);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

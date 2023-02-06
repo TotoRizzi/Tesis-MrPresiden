@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_ShootingRobot : Enemy_RobotWaypoint
+public class Enemy_ShootingRobot : Enemy_Waypoint
 {
     [SerializeField] Transform _bulletSpawnPosition;
     [SerializeField] Transform _armPivot;
@@ -22,7 +22,7 @@ public class Enemy_ShootingRobot : Enemy_RobotWaypoint
         OnUpdate += CalculateAttack;
     }
 
-    public override void Attack()
+    public void Attack()
     {
         Vector3 dirToLookAt = (gameManager.Player.transform.position - transform.position).normalized;
         float angle = Mathf.Atan2(dirToLookAt.y, dirToLookAt.x) * Mathf.Rad2Deg;

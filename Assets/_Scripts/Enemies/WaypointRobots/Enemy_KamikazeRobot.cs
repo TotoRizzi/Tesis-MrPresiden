@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_KamikazeRobot : Enemy_RobotWaypoint
+public class Enemy_KamikazeRobot : Enemy_Waypoint
 {
     [SerializeField] float _dropSpeed;
 
@@ -17,7 +17,7 @@ public class Enemy_KamikazeRobot : Enemy_RobotWaypoint
         transform.position += -transform.up * _dropSpeed * Time.deltaTime;
     }
 
-    public override void Attack()
+    public void Attack()
     {
         if (Physics2D.Raycast(transform.position, -Vector2.up, 8f, gameManager.PlayerLayer))
         {
@@ -25,6 +25,7 @@ public class Enemy_KamikazeRobot : Enemy_RobotWaypoint
             OnUpdate -= _wayPointMovement.Move;
         }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag != "Bullet")

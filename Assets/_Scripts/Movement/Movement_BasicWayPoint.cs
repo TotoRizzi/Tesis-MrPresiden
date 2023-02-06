@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement_WayPoint : IMovement
+public class Movement_BasicWayPoint : IMovement
 {
     Transform[] _wayPoints;
     Transform _transform;
@@ -10,7 +10,7 @@ public class Movement_WayPoint : IMovement
     int _index;
     Vector3 _dir;
 
-    public Movement_WayPoint(Transform transform, float speed, Transform[] wayPoints)
+    public Movement_BasicWayPoint(Transform transform, float speed, Transform[] wayPoints)
     {
         _transform = transform;
         _wayPoints = wayPoints;
