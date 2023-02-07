@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   weaponType: 0
+  fireRate: 2
   damage: 2
+  initialAmmo: 15
   mainSprite: {fileID: 21300000, guid: 2abb2e05fe72fbc49be82c49bef0962a, type: 3}
   selectedSprite: {fileID: 21300000, guid: 8cfb42de7c3dbb842a31d09be7358b52, type: 3}
-  fireRate: 2
   bulletSpeed: 10
-  bulletPrefab: {fileID: 7680309320943710342, guid: 22a5fe2d93d48a54e82a3ae636b3046e, type: 3}
-  throwForce: 10
-  explosionForce: 600
-  explosionRadius: 3
+  attackRange: 0
+  knifeSpeed: 0

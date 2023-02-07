@@ -46,6 +46,8 @@ public class WeaponDataEditor : Editor
         else Knifes(weaponData);
 
         EditorGUILayout.EndVertical();
+
+        EditorUtility.SetDirty(weaponData);
     }
 
     void FireWeapons(WeaponData weaponData)
