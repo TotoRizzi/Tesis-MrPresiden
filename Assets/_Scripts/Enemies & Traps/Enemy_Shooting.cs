@@ -9,7 +9,6 @@ public class Enemy_Shooting : Enemy
 
     [SerializeField] protected Transform bulletSpawnPosition;
     [SerializeField] protected Transform armPivot;
-    [SerializeField] protected Transform sprite;
     [SerializeField] protected Transform weaponSprite;
 
     [SerializeField] protected float bulletDamage = 1f;
@@ -25,6 +24,8 @@ public class Enemy_Shooting : Enemy
 
     public virtual void Attack()
     {
+        if (!CanSeePlayer()) return;
+
         LookAtPlayer();
 
         currentAttackSpeed += Time.deltaTime;

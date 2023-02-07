@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.5943396, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -223,11 +223,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b3cda21b9d1f143addb12a0cc3d886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
   _maxHp: 3
   _wayPoints:
   - {fileID: 790934454953499581}
   - {fileID: 790934455625950169}
   _waypointSpeed: 2
+  _sprite: {fileID: 790934454235578710}
   _bulletSpawnPosition: {fileID: 5474850099590655884}
   _armPivot: {fileID: 1881384382029298405}
   _bulletSpeed: 10
@@ -413,7 +415,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

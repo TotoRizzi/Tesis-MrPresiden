@@ -9,6 +9,10 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public event Action OnUpdate;
 
+    [SerializeField] protected Transform sprite;
+    private Renderer _renderer;
+    private float _onHitRedTime = .2f;
+
     [Header("Health")]
     [SerializeField] float _maxHp = 3;
     float currentHp;
@@ -19,6 +23,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
         gameManager.EnemyManager.AddEnemy(this);
         currentHp = _maxHp;
+        _renderer = sprite.GetComponent<Renderer>();
     }
 
     public virtual void Update()
@@ -29,7 +34,11 @@ public class Enemy : MonoBehaviour, IDamageable
     public virtual void TakeDamage(float dmg)
     {
         currentHp -= dmg;
-        if (currentHp <= 0) Die();
+
+        if (currentHp <= 0)
+            Die();
+        else
+            StartCoroutine(ChangeColor());
     }
 
     public virtual void Die()
@@ -38,5 +47,24 @@ public class Enemy : MonoBehaviour, IDamageable
         gameManager.EffectsManager.HumanoindEnemyKilled(transform.position);
 
         Destroy(gameObject);
+    }
+
+    IEnumerator ChangeColor()
+    {
+        _renderer.material.color = Color.red;
+
+        yield return new WaitForSeconds(_onHitRedTime);
+
+        _renderer.material.color = Color.white;
+    }
+
+    protected Vector3 DistanceToPlayer()
+    {
+        return ((gameManager.Player.transform.position + transform.up) - transform.position);
+    }
+
+    protected bool CanSeePlayer()
+    {
+        return !Physics2D.Raycast(transform.position, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.GroundLayer);
     }
 }

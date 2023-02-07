@@ -7,7 +7,6 @@ public class Enemy_GroundHumanoid : Enemy
     StateMachine _fsm;
     [SerializeField] protected Animator _anim;
 
-    [SerializeField] protected Transform sprite;
     public Transform Sprite { get { return sprite; } private set { } }
 
 
@@ -40,9 +39,9 @@ public class Enemy_GroundHumanoid : Enemy
         OnUpdate += _fsm.Update;
     }
 
-    public Vector3 DistanceToPlayer()
+    public bool GetCanSeePlayer()
     {
-        return ((gameManager.Player.transform.position + transform.up) - transform.position);
+        return CanSeePlayer();
     }
 
     public virtual void OnAttack() { }
@@ -89,8 +88,9 @@ public class SH_PatrolState : IState
 
         Move();
 
-        if (Physics2D.Raycast(_enemy.transform.position, _enemy.DistanceToPlayer().normalized, _enemy.SightRange, gameManager.PlayerLayer) && 
-            !Physics2D.Raycast(_enemy.transform.position, _enemy.DistanceToPlayer().normalized, _enemy.DistanceToPlayer().magnitude, gameManager.GroundLayer))
+        /*if (Physics2D.Raycast(_enemy.transform.position, _enemy.GetDistanceToPlayer().normalized, _enemy.SightRange, gameManager.PlayerLayer) && 
+            !Physics2D.Raycast(_enemy.transform.position, _enemy.GetDistanceToPlayer().normalized, _enemy.GetDistanceToPlayer().magnitude, gameManager.GroundLayer))*/
+        if(_enemy.GetCanSeePlayer())
             _fsm.ChangeState(StateName.SH_Attack);
     }
 
@@ -98,7 +98,8 @@ public class SH_PatrolState : IState
     {
         _enemy.transform.position += _dir * _enemy.WaypointSpeed * Time.deltaTime;
 
-        if (Vector3.Distance(_enemy.transform.position, _enemy.WayPoints[_index].position) <= .2f) ChangeDir();
+        if(Mathf.Abs(_enemy.transform.position.x - _enemy.WayPoints[_index].position.x) <= .3f) ChangeDir();
+        //if (Vector3.Distance(_enemy.transform.position, _enemy.WayPoints[_index].position) <= .3f) ChangeDir();
     }
 
     void ChangeDir()
@@ -156,8 +157,9 @@ public class SH_AttackState : IState
     {
         _enemy.OnAttack();
 
-        if (!Physics2D.Raycast(_enemy.transform.position, _enemy.DistanceToPlayer().normalized, _enemy.SightRange, gameManager.PlayerLayer) ||
-            Physics2D.Raycast(_enemy.transform.position, _enemy.DistanceToPlayer().normalized, _enemy.DistanceToPlayer().magnitude, gameManager.GroundLayer))
+        /*if (!Physics2D.Raycast(_enemy.transform.position, _enemy.GetDistanceToPlayer().normalized, _enemy.SightRange, gameManager.PlayerLayer) ||
+            Physics2D.Raycast(_enemy.transform.position, _enemy.GetDistanceToPlayer().normalized, _enemy.GetDistanceToPlayer().magnitude, gameManager.GroundLayer))*/
+        if(!_enemy.GetCanSeePlayer())
         {
             if (!_isInCoroutine)
             {

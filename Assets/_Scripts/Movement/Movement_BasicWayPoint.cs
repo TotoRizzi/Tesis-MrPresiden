@@ -10,18 +10,21 @@ public class Movement_BasicWayPoint : IMovement
     int _index;
     Vector3 _dir;
 
-    public Movement_BasicWayPoint(Transform transform, float speed, Transform[] wayPoints)
+    bool _bothAxis;
+
+    public Movement_BasicWayPoint(Transform transform, float speed, Transform[] wayPoints, bool bothAxis = false)
     {
         _transform = transform;
         _wayPoints = wayPoints;
         _speed = speed;
+        _bothAxis = bothAxis;
 
         ChangeDir();
     }
     public void Move()
     {
         _transform.position += _dir.normalized * _speed * Time.deltaTime;
-
+        Debug.Log(_transform.position += _dir.normalized * _speed * Time.deltaTime);
         if (Vector3.Distance(_transform.position, _wayPoints[_index].position) <= .2f) ChangeDir();
     }
 
@@ -35,7 +38,7 @@ public class Movement_BasicWayPoint : IMovement
         }
 
         _dir = (_wayPoints[_index].position - _transform.position);
-        _dir.y = 0;
+        if(!_bothAxis) _dir.y = 0;
         _dir.z = 0;
 
         _dir.Normalize();

@@ -71,12 +71,8 @@ public class Player : MonoBehaviour
         _weaponManager = GetComponent<WeaponManager>();
         _gameManager = GameManager.instance;
 
-        //Achievements
-        _gameManager.AddAchievement(() => EnableDash());
-        _gameManager.AddAchievement(() => AddExtraJump());
-
         //Variables
-        canDash = _gameManager.SaveDataManager.GetBool("CanDash", false);
+        canDash = true;
         _maxJumps = _gameManager.SaveDataManager.GetInt("MaxJumps", 1);
         _playerDefaultSpriteSize = _playerSprite.localScale;
         _defaultGravity = _rb.gravityScale;

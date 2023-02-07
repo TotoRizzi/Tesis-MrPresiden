@@ -107,9 +107,9 @@ public class GameManager : MonoBehaviour
 
     public void GiveAchievement(int index)
     {
-        if (index > _playerAchievements.Count - 1) return;
-
-        _playerAchievements[index]();
-        OnAchievementReached?.Invoke();
+        //if (index > _playerAchievements.Count - 1) return;
+        //
+        //_playerAchievements[index]();
+        //OnAchievementReached?.Invoke();
     }
 }
