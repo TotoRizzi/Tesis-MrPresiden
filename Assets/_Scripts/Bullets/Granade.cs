@@ -31,12 +31,16 @@ public class Granade : MonoBehaviour
     void Explosion()
     {
         var collisions = Physics2D.CircleCastAll(transform.position, _explosionRadius, Vector2.one, GameManager.instance.DynamicBodiesLayer).
-                                                                                                                                            Where(x => x.collider.GetComponent<Rigidbody2D>() != null).
-                                                                                                                                            Select(x => x.collider.GetComponent<Rigidbody2D>()).Where(x => !x.GetComponent<Player>());
+                                                                                                                                            Where(x => x.collider.GetComponent<Rigidbody2D>() != null && !x.collider.GetComponent<Player>()).
+                                                                                                                                            Select(x => x.collider.GetComponent<Rigidbody2D>());
         if (collisions.Count() <= 0) return;
 
         foreach (var item in collisions)
+        {
+            var breakable = item.GetComponent<IBreakable>();
+            if (breakable != null) breakable.Break();
             item.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
+        }
 
         FRY_Granades.Instance.ReturnBullet(this);
     }

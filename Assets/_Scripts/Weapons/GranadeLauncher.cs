@@ -8,6 +8,5 @@ public class GranadeLauncher : FireWeapon
                                             SetPosition(_bulletSpawn.position).
                                             SetDirection(bulletDirection);
         granade.ThrowGranade();
-        Debug.Log("asd");
     }
 }

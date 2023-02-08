@@ -36,6 +36,8 @@ public class WeaponManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G)) ThrowWeapon();
 
         if (Input.GetKeyDown(KeyCode.E)) SetWeapon();
+
+        if (Input.GetKeyDown(KeyCode.R)) SaveWeapon();
     }
 
     #region Weapon Funcs
