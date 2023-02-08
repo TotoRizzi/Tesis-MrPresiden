@@ -4,11 +4,17 @@ public class FireWeapon : Weapon
 {
     protected Transform _bulletSpawn;
     [SerializeField] protected int _currentAmmo;
+
+    public int GetCurrentAmmo { get { return _currentAmmo; } set { _currentAmmo = value; } }
+    protected override void Awake()
+    {
+        base.Awake();
+        _currentAmmo = _weaponData.initialAmmo;
+    }
     protected override void Start()
     {
         base.Start();
         _bulletSpawn = transform.GetChild(0);
-        _currentAmmo = _weaponData.initialAmmo;
     }
     public override void WeaponAction(Vector2 bulletDirection)
     {

@@ -9,7 +9,7 @@ public class WeaponManager : MonoBehaviour
     Camera _mainCamera;
     Transform _mainWeaponContainer;
     Transform _secundaryWeaponContainer;
-    System.Action _lookAtMouse = delegate { };
+    Action _lookAtMouse = delegate { };
 
     public Transform SecundaryWeaponContainer { get { return _secundaryWeaponContainer; } }
     private void Start()
@@ -17,6 +17,13 @@ public class WeaponManager : MonoBehaviour
         _mainCamera = Camera.main;
         _mainWeaponContainer = transform.GetChild(0);
         _secundaryWeaponContainer = transform.GetChild(1);
+        _currentSecundaryWeapon = _secundaryWeaponContainer.GetComponentInChildren<Weapon>();
+        _currentSecundaryWeapon.PickUp();
+        _lookAtMouse += SecundaryWeapon;
+
+        LoadWeapon();
+
+        PlayerPrefs.DeleteAll();
     }
     private void Update()
     {
@@ -26,7 +33,7 @@ public class WeaponManager : MonoBehaviour
 
         if (Input.GetMouseButton(1) && _currentSecundaryWeapon) _currentSecundaryWeapon.Attack(GetMouseDirectionSecundary());
 
-        if (Input.GetKeyDown(KeyCode.G)) ThrowWeapon(ref _currentMainWeapon, _mainWeaponContainer, MainWeapon);
+        if (Input.GetKeyDown(KeyCode.G)) ThrowWeapon();
 
         if (Input.GetKeyDown(KeyCode.E)) SetWeapon();
     }
@@ -57,35 +64,25 @@ public class WeaponManager : MonoBehaviour
 
         if (!newWeapon.CanPickUp) return;
 
-        if (newWeapon.GetWeaponData.weaponType == WeaponType.MainWeapon)
-        {
-            if (_currentMainWeapon)
-                ThrowWeapon(ref _currentMainWeapon, _mainWeaponContainer, MainWeapon);
+        if (_currentMainWeapon)
+            ThrowWeapon();
 
-            EquipWeapon(ref _currentMainWeapon, newWeapon, _mainWeaponContainer, MainWeapon);
-            _currentMainWeapon.UpdateCurrentWeapon();
-            _currentMainWeapon.GetComponent<FireWeapon>().UpdateAmmoAmount();
-        }
-        else
-        {
-            if (_currentSecundaryWeapon)
-                ThrowWeapon(ref _currentSecundaryWeapon, _secundaryWeaponContainer, SecundaryWeapon);
-
-            EquipWeapon(ref _currentSecundaryWeapon, newWeapon, _secundaryWeaponContainer, SecundaryWeapon);
-        }
+        EquipWeapon(newWeapon);
     }
-    void EquipWeapon(ref Weapon weapon, Weapon newWeapon, Transform WeaponContainer, Action weaponAction)
+    void EquipWeapon(Weapon newWeapon)
     {
-        weapon = newWeapon;
-        _lookAtMouse += weaponAction;
-        newWeapon.PickUp().SetParent(WeaponContainer).SetPosition(WeaponContainer.position);
+        _currentMainWeapon = newWeapon;
+        _lookAtMouse += MainWeapon;
+        _currentMainWeapon.PickUp().SetParent(_mainWeaponContainer).SetPosition(_mainWeaponContainer.position);
+        _currentMainWeapon.UpdateCurrentWeapon();
+        _currentMainWeapon.GetComponent<FireWeapon>().UpdateAmmoAmount();
     }
-    private void ThrowWeapon(ref Weapon weapon, Transform WeaponContainer, Action weaponAction)
+    private void ThrowWeapon()
     {
-        weapon?.ThrowOut(GetMouseDirectionMain()).SetParent(null);
-        weapon = null;
-        WeaponContainer.eulerAngles = Vector2.zero;
-        _lookAtMouse -= weaponAction;
+        _currentMainWeapon?.ThrowOut(GetMouseDirectionMain()).SetParent(null);
+        _currentMainWeapon = null;
+        _mainWeaponContainer.eulerAngles = Vector2.zero;
+        _lookAtMouse -= MainWeapon;
     }
     void MainWeapon()
     {
@@ -109,4 +106,19 @@ public class WeaponManager : MonoBehaviour
     Vector2 GetMouseDirectionSecundary() => (GetMousePosition() - (Vector2)_secundaryWeaponContainer.position).normalized;
 
     #endregion
+
+    public void SaveWeapon()
+    {
+        PlayerPrefs.SetString("MainWeapon", _currentMainWeapon.GetWeaponData.name);
+        PlayerPrefs.SetInt("Ammo", _currentMainWeapon.GetComponent<FireWeapon>().GetCurrentAmmo);
+    }
+    public void LoadWeapon()
+    {
+        if (PlayerPrefs.HasKey("MainWeapon"))
+        {
+            var weapon = Instantiate(Resources.Load<Weapon>($"Weapons/{PlayerPrefs.GetString("MainWeapon")}"));
+            weapon.GetComponent<FireWeapon>().GetCurrentAmmo = PlayerPrefs.GetInt("Ammo", default);
+            EquipWeapon(weapon);
+        }
+    }
 }

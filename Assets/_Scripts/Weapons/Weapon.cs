@@ -16,14 +16,17 @@ namespace Weapons
         EquipableUI _equipableUI;
         public WeaponData GetWeaponData { get { return _weaponData; } }
         public bool CanPickUp => Mathf.Abs(_rb.velocity.magnitude) < .1f;
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+            _gameManager = GameManager.instance;
+        }
+        protected virtual void Start()
+        {
             _weaponManager = FindObjectOfType<WeaponManager>();
             _equipableUI = FindObjectOfType<EquipableUI>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _spriteRenderer.sprite = _weaponData.mainSprite;
-            _gameManager = GameManager.instance;
         }
         private void OnMouseEnter()
         {
