@@ -12,16 +12,16 @@ public class FireWeapon : Weapon
     }
     public override void WeaponAction(Vector2 bulletDirection)
     {
-        FireWeaponShoot(bulletDirection);
-    }
-
-    protected virtual void FireWeaponShoot(Vector2 bulletDirection)
-    {
         if (_currentAmmo <= 0) return;
 
         _currentAmmo--;
         UpdateAmmoAmount();
 
+        FireWeaponShoot(bulletDirection);
+    }
+
+    protected virtual void FireWeaponShoot(Vector2 bulletDirection)
+    {
         FRY_Bullet.Instance.pool.GetObject().
                                             SetDmg(_weaponData.damage).
                                             SetSpeed(_weaponData.bulletSpeed).

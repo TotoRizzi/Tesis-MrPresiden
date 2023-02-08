@@ -11,7 +11,7 @@ public class Granade : MonoBehaviour
 
     float _triggerForce = .5f;
     float _damage;
-    private void Start()
+    private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
     }
@@ -38,7 +38,7 @@ public class Granade : MonoBehaviour
         foreach (var item in collisions)
             item.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
 
-        Destroy(gameObject);
+        FRY_Granades.Instance.ReturnBullet(this);
     }
 
     #region BUILDER 
@@ -75,10 +75,10 @@ public class Granade : MonoBehaviour
     public static void TurnOn(Granade g)
     {
         g.gameObject.SetActive(true);
-        g.Reset();
     }
     public static void TurnOff(Granade g)
     {
+        g.Reset();
         g.gameObject.SetActive(false);
     }
 }

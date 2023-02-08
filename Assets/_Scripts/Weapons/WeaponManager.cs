@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Weapons;
 public class WeaponManager : MonoBehaviour
@@ -24,6 +25,8 @@ public class WeaponManager : MonoBehaviour
         if (Input.GetMouseButton(0) && _currentMainWeapon) _currentMainWeapon.Attack(GetMouseDirectionMain());
 
         if (Input.GetMouseButton(1) && _currentSecundaryWeapon) _currentSecundaryWeapon.Attack(GetMouseDirectionSecundary());
+
+        if (Input.GetKeyDown(KeyCode.G)) ThrowWeapon(ref _currentMainWeapon, _mainWeaponContainer, MainWeapon);
 
         if (Input.GetKeyDown(KeyCode.E)) SetWeapon();
     }
@@ -57,44 +60,32 @@ public class WeaponManager : MonoBehaviour
         if (newWeapon.GetWeaponData.weaponType == WeaponType.MainWeapon)
         {
             if (_currentMainWeapon)
-            {
-                ThrowWeapon(_currentMainWeapon, _mainWeaponContainer);
-                _lookAtMouse -= MainWeapon;
-            }
-            EquipWeapon(true, newWeapon, _mainWeaponContainer);
-            _lookAtMouse += MainWeapon;
+                ThrowWeapon(ref _currentMainWeapon, _mainWeaponContainer, MainWeapon);
+
+            EquipWeapon(ref _currentMainWeapon, newWeapon, _mainWeaponContainer, MainWeapon);
+            _currentMainWeapon.UpdateCurrentWeapon();
+            _currentMainWeapon.GetComponent<FireWeapon>().UpdateAmmoAmount();
         }
         else
         {
             if (_currentSecundaryWeapon)
-            {
-                ThrowWeapon(_currentSecundaryWeapon, _secundaryWeaponContainer);
-                _lookAtMouse -= SecundaryWeapon;
-            }
-            EquipWeapon(false, newWeapon, _secundaryWeaponContainer);
+                ThrowWeapon(ref _currentSecundaryWeapon, _secundaryWeaponContainer, SecundaryWeapon);
+
+            EquipWeapon(ref _currentSecundaryWeapon, newWeapon, _secundaryWeaponContainer, SecundaryWeapon);
         }
     }
-    void EquipWeapon(bool main, Weapon newWeapon, Transform WeaponContainer)
+    void EquipWeapon(ref Weapon weapon, Weapon newWeapon, Transform WeaponContainer, Action weaponAction)
     {
-        if (main)
-        {
-            _currentMainWeapon = newWeapon;
-            _currentMainWeapon.UpdateCurrentWeapon();
-            _currentMainWeapon.GetComponent<FireWeapon>().UpdateAmmoAmount();
-            _lookAtMouse += MainWeapon;
-        }
-        else
-        {
-            _currentSecundaryWeapon = newWeapon;
-            _lookAtMouse += SecundaryWeapon;
-        }
-
+        weapon = newWeapon;
+        _lookAtMouse += weaponAction;
         newWeapon.PickUp().SetParent(WeaponContainer).SetPosition(WeaponContainer.position);
     }
-    private void ThrowWeapon(Weapon weapon, Transform WeaponContainer)
+    private void ThrowWeapon(ref Weapon weapon, Transform WeaponContainer, Action weaponAction)
     {
         weapon?.ThrowOut(GetMouseDirectionMain()).SetParent(null);
+        weapon = null;
         WeaponContainer.eulerAngles = Vector2.zero;
+        _lookAtMouse -= weaponAction;
     }
     void MainWeapon()
     {
