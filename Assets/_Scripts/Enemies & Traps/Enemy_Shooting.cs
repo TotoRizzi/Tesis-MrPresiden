@@ -6,6 +6,7 @@ using System;
 public class Enemy_Shooting : Enemy
 {
     protected Action OnAttack;
+    IMovement _armRotation;
 
     [SerializeField] protected Transform bulletSpawnPosition;
     [SerializeField] protected Transform armPivot;
@@ -20,13 +21,15 @@ public class Enemy_Shooting : Enemy
     {
         base.Start();
         OnUpdate += Attack;
+        _armRotation = new Movement_RotateObject(this.transform, armPivot, weaponSprite, sprite);
     }
 
     public virtual void Attack()
     {
         if (!CanSeePlayer()) return;
 
-        LookAtPlayer();
+        _armRotation.Move();
+        //LookAtPlayer();
 
         currentAttackSpeed += Time.deltaTime;
 

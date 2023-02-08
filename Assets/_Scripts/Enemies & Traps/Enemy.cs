@@ -15,14 +15,14 @@ public class Enemy : MonoBehaviour, IDamageable
 
     [Header("Health")]
     [SerializeField] float _maxHp = 3;
-    float currentHp;
+    float _currentHp;
 
     public virtual void Start()
     {
         gameManager = GameManager.instance;
 
         gameManager.EnemyManager.AddEnemy(this);
-        currentHp = _maxHp;
+        _currentHp = _maxHp;
         _renderer = sprite.GetComponent<Renderer>();
     }
 
@@ -33,9 +33,9 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual void TakeDamage(float dmg)
     {
-        currentHp -= dmg;
+        _currentHp -= dmg;
 
-        if (currentHp <= 0)
+        if (_currentHp <= 0)
             Die();
         else
             StartCoroutine(ChangeColor());
@@ -66,5 +66,10 @@ public class Enemy : MonoBehaviour, IDamageable
     protected bool CanSeePlayer()
     {
         return !Physics2D.Raycast(transform.position, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.GroundLayer);
+    }
+
+    protected void ResetHp()
+    {
+        _currentHp = _maxHp;
     }
 }

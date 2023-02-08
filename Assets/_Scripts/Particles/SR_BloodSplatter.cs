@@ -6,7 +6,8 @@ public class SR_BloodSplatter : MonoBehaviour
 {
     public SR_BloodSplatter SetPosition(Vector3 pos)
     {
-        transform.position = pos;
+        Vector3 fixedPos = new Vector3(pos.x, pos.y, 2);
+        transform.position = fixedPos;
         transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         return this;
     }

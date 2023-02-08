@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy_ShootingRobot : Enemy_Waypoint
 {
+    IMovement _armRotation;
     [SerializeField] Transform _bulletSpawnPosition;
     [SerializeField] Transform _armPivot;
 
@@ -20,14 +21,12 @@ public class Enemy_ShootingRobot : Enemy_Waypoint
         base.Start();
         OnUpdate += Attack;
         OnUpdate += CalculateAttack;
+        _armRotation = new Movement_RotateObject(transform, _armPivot);
     }
 
     public void Attack()
     {
-        Vector3 dirToLookAt = (gameManager.Player.transform.position - transform.position).normalized;
-        float angle = Mathf.Atan2(dirToLookAt.y, dirToLookAt.x) * Mathf.Rad2Deg;
-
-        _armPivot.eulerAngles = new Vector3(0, 0, angle);
+        _armRotation.Move();
     }
 
     void CalculateAttack()
