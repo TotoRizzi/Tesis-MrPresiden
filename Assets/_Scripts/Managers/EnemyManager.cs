@@ -10,7 +10,7 @@ public class EnemyManager : MonoBehaviour
 
     public event Action OnEnemyKilled;
 
-    private void Awake()
+    private void Start()
     {
         _gameManager = GameManager.instance;
     }

@@ -4,7 +4,8 @@ using UnityEngine;
 public enum StateName
 {
     Idle, Move, Jump, OnAir, Dash,   //Player
-    SH_Patrol, SH_Attack             //SimpleHumanoid
+    SH_Patrol, SH_Attack,            //SimpleHumanoid
+    CD_Idle, CD_Charge
 }
 
 public class StateMachine : MonoBehaviour

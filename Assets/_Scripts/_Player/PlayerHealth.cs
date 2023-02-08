@@ -7,7 +7,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     GameManager _gameManager;
 
     [SerializeField] Renderer[] _allPlayerSprites;
-    [SerializeField] float _maxHp;
+    [SerializeField] float _defaultHp;
+    float _maxHp;
     float _currentHp;
 
     [SerializeField] float _invincibilityTime = .1f;
@@ -16,7 +17,9 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private void Start()
     {
         _gameManager = GameManager.instance;
+        _gameManager.OnAchievementReached += AddHealth;
 
+        _maxHp = _gameManager.SaveDataManager.GetFloat("MaxHp", _defaultHp);
         _currentHp = _gameManager.SaveDataManager.GetFloat("CurrentHp", _maxHp);
         UpdateUi();
     }
@@ -56,9 +59,21 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         _gameManager.GameLost();
     }
+
+    void AddHealth()
+    {
+        _currentHp++;
+        if (_currentHp > _maxHp)
+            _maxHp++;
+
+        SaveData();
+        UpdateUi();
+    }
+
     void SaveData()
     {
         _gameManager.SaveDataManager.SaveFloat("CurrentHp", _currentHp);
+        _gameManager.SaveDataManager.SaveFloat("MaxHp", _maxHp);
     }
     void UpdateUi()
     {
