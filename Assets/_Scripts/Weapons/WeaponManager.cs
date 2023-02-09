@@ -23,8 +23,6 @@ public class WeaponManager : MonoBehaviour
         _lookAtMouse += SecundaryWeapon;
 
         LoadWeapon();
-
-        PlayerPrefs.DeleteAll();
     }
     private void Update()
     {
@@ -114,8 +112,8 @@ public class WeaponManager : MonoBehaviour
     {
         if (_currentMainWeapon)
         {
-            PlayerPrefs.SetString("MainWeapon", _currentMainWeapon.GetWeaponData.name);
-            PlayerPrefs.SetInt("Ammo", _currentMainWeapon.GetComponent<FireWeapon>().GetCurrentAmmo);
+            GameManager.instance.SaveDataManager.SaveString("MainWeapon", _currentMainWeapon.GetWeaponData.name);
+            GameManager.instance.SaveDataManager.SaveInt("Ammo", _currentMainWeapon.GetComponent<FireWeapon>().GetCurrentAmmo);
         }
     }
     public void LoadWeapon()
@@ -126,5 +124,9 @@ public class WeaponManager : MonoBehaviour
             weapon.GetComponent<FireWeapon>().GetCurrentAmmo = PlayerPrefs.GetInt("Ammo", default);
             EquipWeapon(weapon);
         }
+    }
+    private void OnDestroy()
+    {
+        SaveWeapon();
     }
 }

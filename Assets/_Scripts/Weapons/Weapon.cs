@@ -11,7 +11,7 @@ namespace Weapons
         protected Rigidbody2D _rb;
         protected WeaponManager _weaponManager;
         protected SpriteRenderer _spriteRenderer;
-        [SerializeField]protected GameManager _gameManager;
+        [SerializeField] protected GameManager _gameManager;
 
         EquipableUI _equipableUI;
         public WeaponData GetWeaponData { get { return _weaponData; } }
@@ -20,9 +20,12 @@ namespace Weapons
         {
             _rb = GetComponent<Rigidbody2D>();
         }
-        protected virtual void Start()
+        private void OnEnable()
         {
             _gameManager = GameManager.instance;
+        }
+        protected virtual void Start()
+        {
             _weaponManager = FindObjectOfType<WeaponManager>();
             _equipableUI = FindObjectOfType<EquipableUI>();
             _spriteRenderer = GetComponent<SpriteRenderer>();

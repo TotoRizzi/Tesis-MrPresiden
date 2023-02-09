@@ -13,6 +13,10 @@ public class SaveDataManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat(name, value);
     }
+    public void SaveString(string name, string value)
+    {
+        PlayerPrefs.SetString(name, value);
+    }
     public float GetFloat(string name, float defaultValue)
     {
         return PlayerPrefs.HasKey(name) ? PlayerPrefs.GetFloat(name, defaultValue) : defaultValue;
