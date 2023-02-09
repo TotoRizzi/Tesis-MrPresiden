@@ -15,6 +15,10 @@ public class Scene_Manager : MonoBehaviour
         SceneManager.LoadScene(nextScene);
     }
 
+    public void LoadLevel(int level)
+    {
+        SceneManager.LoadScene("Level " + level);
+    }
     void GameLost()
     {
         //Reinicia el nivel, en el futuro, que mande a la pantalla de derrota
