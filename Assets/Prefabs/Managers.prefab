@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 6537269300271488365}
   - component: {fileID: 6537269300271488362}
   - component: {fileID: 6537269300271488363}
+  - component: {fileID: 3212155412153999397}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -190,11 +191,13 @@ MonoBehaviour:
   _dynamicBodies:
     serializedVersion: 2
     m_Bits: 9216
+  _borderLayer:
+    serializedVersion: 2
+    m_Bits: 0
   _cameraShakeDuration: 0.2
   _cameraSpeed: 0.2
   _comboExpireTime: 4
-  _pointsForFirstAchievement: 5
-  _achievementPointsMultiplier: 1.5
+  _pointsForAchievement: 50
   _pointsPerEnemy: 10
 --- !u!114 &6537269300271488367
 MonoBehaviour:
@@ -303,3 +306,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a6dd37ac828f44dae5232fd3714234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3212155412153999397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537269300271488338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a43c2eaef8f84ff48b6692f4afe47066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pickUpsCollection:
+  - {fileID: 2226225172816019353, guid: 52413bfe45148b445828eca59c6fb20f, type: 3}

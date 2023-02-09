@@ -12,6 +12,7 @@ public class WeaponManager : MonoBehaviour
     Action _lookAtMouse = delegate { };
 
     public Transform SecundaryWeaponContainer { get { return _secundaryWeaponContainer; } }
+    public FireWeapon GetMainWeapon { get { return _currentMainWeapon.GetComponent<FireWeapon>(); } }
     private void Start()
     {
         _mainCamera = Camera.main;
@@ -111,8 +112,11 @@ public class WeaponManager : MonoBehaviour
 
     public void SaveWeapon()
     {
-        PlayerPrefs.SetString("MainWeapon", _currentMainWeapon.GetWeaponData.name);
-        PlayerPrefs.SetInt("Ammo", _currentMainWeapon.GetComponent<FireWeapon>().GetCurrentAmmo);
+        if (_currentMainWeapon)
+        {
+            PlayerPrefs.SetString("MainWeapon", _currentMainWeapon.GetWeaponData.name);
+            PlayerPrefs.SetInt("Ammo", _currentMainWeapon.GetComponent<FireWeapon>().GetCurrentAmmo);
+        }
     }
     public void LoadWeapon()
     {

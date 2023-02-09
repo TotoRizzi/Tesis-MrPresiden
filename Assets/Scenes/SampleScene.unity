@@ -2617,6 +2617,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5904188423697329862, guid: 645f7c79f4b20e64f82f950c73e2b3ba, type: 3}
+      propertyPath: _drop
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 645f7c79f4b20e64f82f950c73e2b3ba, type: 3}
 --- !u!1001 &1330623609
@@ -2924,6 +2928,7 @@ GameObject:
   - component: {fileID: 1545754910}
   - component: {fileID: 1545754909}
   - component: {fileID: 1545754911}
+  - component: {fileID: 1545754912}
   m_Layer: 0
   m_Name: Factories
   m_TagString: Untagged
@@ -2973,6 +2978,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 1908984936763359540, guid: 2240f0f41d1141b4d91183acc6b147ab, type: 3}
   _stock: 6
+--- !u!114 &1545754912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545754908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b43785b5514381940be559a94c0791e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 2226225172816019353, guid: 52413bfe45148b445828eca59c6fb20f, type: 3}
+  _stock: 3
 --- !u!1 &1614327707
 GameObject:
   m_ObjectHideFlags: 0
@@ -4106,30 +4125,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2183145816130747424, guid: 9740cc4f1d7f94a4b9c1c659476b6985, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: d783a250268900d4d9adcb6ac18bd4c0, type: 3}
-    - target: {fileID: 2183145816130747431, guid: 9740cc4f1d7f94a4b9c1c659476b6985, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 91.88603
-      objectReference: {fileID: 0}
-    - target: {fileID: 2183145816130747431, guid: 9740cc4f1d7f94a4b9c1c659476b6985, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -32.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2183145817184300818, guid: 9740cc4f1d7f94a4b9c1c659476b6985, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 2183145817608942380, guid: 9740cc4f1d7f94a4b9c1c659476b6985, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 1bb08ab7c0074234080aa8aa2c08bb43, type: 2}
-    - target: {fileID: 2183145817608942380, guid: 9740cc4f1d7f94a4b9c1c659476b6985, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -1104722652713398717, guid: 1bb08ab7c0074234080aa8aa2c08bb43, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9740cc4f1d7f94a4b9c1c659476b6985, type: 3}
 --- !u!1001 &4486555609627996416
@@ -4196,6 +4191,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1584438887116759122, guid: 539e45d63d7b2db44b3962e990cdc1f3, type: 3}
+      propertyPath: _drop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3123367336333425024, guid: 539e45d63d7b2db44b3962e990cdc1f3, type: 3}
       propertyPath: m_Name
       value: BreakableWhitePot_S

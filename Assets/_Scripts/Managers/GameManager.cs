@@ -68,6 +68,9 @@ public class GameManager : MonoBehaviour
     private Scene_Manager _sceneManager;
     public Scene_Manager SceneManager { get { return _sceneManager; } private set { } }
 
+    DropManager _dropManager;
+    public DropManager DropManager { get { return _dropManager; } }
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -81,6 +84,7 @@ public class GameManager : MonoBehaviour
         _uiManager = GetComponent<UiManager>();
         _saveDataManager = GetComponent<SaveDataManager>();
         _sceneManager = GetComponent <Scene_Manager>();
+        _dropManager = GetComponent <DropManager>();
     }
 
     public void LevelUpPlayer()
