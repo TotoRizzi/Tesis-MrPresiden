@@ -29,5 +29,7 @@ public class EnemyManager : MonoBehaviour
         OnEnemyKilled();
         _allEnemies.Remove(enemy);
         _gameManager.SoundManager.PlaySound("Enemy_Dead");
+
+        if (_allEnemies.Count == 0) _gameManager.GameWon();
     }
 }

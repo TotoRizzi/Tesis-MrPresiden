@@ -38,7 +38,10 @@ public class GameManager : MonoBehaviour
     public float ComboExpireTime { get { return _comboExpireTime; } private set { } }
 
     [SerializeField] float _pointsForAchievement = 50;
-    public float PointsForAchievement { get { return _pointsForAchievement; } private set { } }
+    public float PointsForAchievement { get { return _pointsForAchievement; } private set { } }    
+    
+    [SerializeField] float _comboExpireTimeMultiplier = .2f;
+    public float ComboExpireTimeMultiplier { get { return _comboExpireTimeMultiplier; } private set { } }
 
     [Header("Enemies")]
     [SerializeField] int _pointsPerEnemy = 10;
@@ -66,7 +69,10 @@ public class GameManager : MonoBehaviour
     public SaveDataManager SaveDataManager { get { return _saveDataManager; } private set { } }
 
     private Scene_Manager _sceneManager;
-    public Scene_Manager SceneManager { get { return _sceneManager; } private set { } }
+    public Scene_Manager SceneManager { get { return _sceneManager; } private set { } }    
+    
+    private LevelManager _levelManager;
+    public LevelManager LevelManager { get { return _levelManager; } private set { } }
 
     DropManager _dropManager;
     public DropManager DropManager { get { return _dropManager; } }
@@ -85,6 +91,7 @@ public class GameManager : MonoBehaviour
         _saveDataManager = GetComponent<SaveDataManager>();
         _sceneManager = GetComponent <Scene_Manager>();
         _dropManager = GetComponent <DropManager>();
+        _levelManager = GetComponent<LevelManager>();
     }
 
     public void LevelUpPlayer()
@@ -94,6 +101,7 @@ public class GameManager : MonoBehaviour
     public void GameWon()
     {
         OnGameWon();
+        Debug.Log("GameWon");
     }
     public void GameLost()
     {

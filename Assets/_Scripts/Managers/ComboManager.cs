@@ -15,15 +15,22 @@ public class ComboManager : MonoBehaviour
     float _currentPoints;
     float _pointsForAchieve;
 
+    float _timeMultiplier = 1;
+
     bool _updateRunning;
 
     private void Start()
     {
         _gameManager = GameManager.instance;
+
         _gameManager.EnemyManager.OnEnemyKilled += EnemyKilled;
+        _gameManager.OnGameWon += SlowTime;
 
         _currentPoints = _gameManager.SaveDataManager.GetFloat("CurrentPoints", 0);
         _pointsForAchieve = _gameManager.PointsForAchievement;
+
+        _timeMultiplier = 1;
+        _currentComboExpireTime = _gameManager.ComboExpireTime;
 
         UpdateUiText();
     }
@@ -48,9 +55,14 @@ public class ComboManager : MonoBehaviour
         }
     }
 
+    void SlowTime()
+    {
+        _timeMultiplier = _gameManager.ComboExpireTimeMultiplier;
+    }
+
     void ComboTick()
     {
-        _currentComboExpireTime -= Time.deltaTime;
+        _currentComboExpireTime -= _timeMultiplier * Time.deltaTime;
 
         UpdateComboBar();
 

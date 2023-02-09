@@ -196,8 +196,9 @@ MonoBehaviour:
     m_Bits: 65536
   _cameraShakeDuration: 0.2
   _cameraSpeed: 0.2
-  _comboExpireTime: 4
+  _comboExpireTime: 8
   _pointsForAchievement: 50
+  _comboExpireTimeMultiplier: 0.2
   _pointsPerEnemy: 10
 --- !u!114 &1232159623829530107
 MonoBehaviour:
@@ -318,7 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1508aecf70844aa42bf33dafc302903d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentLevel: 0
+  _currentLevel: 45
   _numberOfLevels: 10
 --- !u!1 &1699497983119534689
 GameObject:

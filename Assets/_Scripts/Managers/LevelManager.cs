@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour
         else
             SetNewOrderOfLevels();
     }
-    public void SetNewOrderOfLevels()
+    void SetNewOrderOfLevels()
     {
         _newLevelOrder = new int[_numberOfLevels];
 
