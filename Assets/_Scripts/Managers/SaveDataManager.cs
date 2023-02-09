@@ -9,11 +9,6 @@ public class SaveDataManager : MonoBehaviour
         GameManager.instance.OnGameLost += Reset;
     }
 
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.O)) Reset();
-    }
-
     public void SaveFloat(string name, float value)
     {
         PlayerPrefs.SetFloat(name, value);
@@ -47,6 +42,36 @@ public class SaveDataManager : MonoBehaviour
         return PlayerPrefs.HasKey(name) ? PlayerPrefs.GetInt(name, defaultValue) : defaultValue;
     }
 
+    public void SaveLevels(string name ,int[] array)
+    {
+        var count = 0;
+        Debug.Log(name + count.ToString());
+        foreach (var item in array)
+        {
+            count++;
+
+            PlayerPrefs.SetInt(name + count.ToString(), item);
+        }
+    }
+    public int[] Getrray(string name, int size)
+    {
+        var list = new List<int>();
+        var count = 0;
+
+        for (int i = 0; i < size; i++)
+        {
+            count++;
+
+            list.Add(PlayerPrefs.GetInt(name + count));
+        }
+
+        return list.ToArray();
+    }
+
+    public bool CheckForInt(string name)
+    {
+        return PlayerPrefs.HasKey(name);
+    }
     void Reset()
     {
         Debug.Log("Reset");
