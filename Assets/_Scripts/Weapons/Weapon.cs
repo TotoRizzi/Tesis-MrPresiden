@@ -96,9 +96,9 @@ namespace Weapons
             return this;
         }
 
-        public Weapon PickUp()
+        public Weapon PickUp(bool knife = false)
         {
-            _rb.isKinematic = true;
+            _rb.simulated = knife;
             _rb.velocity = Vector2.zero;
             transform.eulerAngles = Vector3.zero;
             return this;
@@ -106,7 +106,7 @@ namespace Weapons
 
         public Weapon ThrowOut(Vector2 direction)
         {
-            _rb.isKinematic = false;
+            _rb.simulated = true;
             _rb.AddForce(direction * 3, ForceMode2D.Impulse);
             return this;
         }

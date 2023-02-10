@@ -19,7 +19,7 @@ public class WeaponManager : MonoBehaviour
         _mainWeaponContainer = transform.GetChild(0);
         _secundaryWeaponContainer = transform.GetChild(1);
         _currentSecundaryWeapon = _secundaryWeaponContainer.GetComponentInChildren<Weapon>();
-        _currentSecundaryWeapon.PickUp();
+        _currentSecundaryWeapon.PickUp(true);
         _lookAtMouse += SecundaryWeapon;
 
         LoadWeapon();
