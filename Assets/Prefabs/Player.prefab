@@ -139,7 +139,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0014984608, y: 0.026065588}
+  m_Offset: {x: -0.0014984608, y: -0.008998454}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -150,7 +150,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.382401, y: 0.16011}
+  m_Size: {x: 0.382401, y: 0.23023808}
   m_EdgeRadius: 0
 --- !u!1 &1266088773945994463
 GameObject:
@@ -358,6 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d62ed738f933243a15b8c768ec8f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _anim: {fileID: 1266088773945994461}
 --- !u!61 &1266088774287247120
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -672,6 +673,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1266088774256682126}
     m_Modifications:
+    - target: {fileID: 2831046388437995089, guid: 8871c1b82560a5a4c9bb44c7608b6268, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5741363914019431283, guid: 8871c1b82560a5a4c9bb44c7608b6268, type: 3}
       propertyPath: m_Name
       value: Cuchillo
@@ -682,7 +687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6195527091608366303, guid: 8871c1b82560a5a4c9bb44c7608b6268, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6195527091608366303, guid: 8871c1b82560a5a4c9bb44c7608b6268, type: 3}
       propertyPath: m_LocalPosition.y

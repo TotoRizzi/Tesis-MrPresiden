@@ -5,12 +5,7 @@ using UnityEngine;
 public class PlayerView : MonoBehaviour
 {
     GameManager _gameManager;
-    Animator _anim;
-
-    private void Awake()
-    {
-        _anim = GetComponentInChildren<Animator>();
-    }
+    [SerializeField] Animator _anim;
 
     private void Start()
     {
@@ -20,6 +15,7 @@ public class PlayerView : MonoBehaviour
     public void Run()
     {
         _anim.Play("Run");
+        Debug.Log("Running");
     }
 
     public void Idle()
