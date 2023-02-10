@@ -6,7 +6,8 @@ public class PlayerController
 {
     Player _player;
 
-    public float xAxis;
+    public float xAxis { get; private set; }
+    public float yAxis { get; private set; }
 
     public PlayerController(Player player, PlayerView v)
     {
@@ -21,7 +22,7 @@ public class PlayerController
     public void OnUpdate()
     {
         xAxis = Input.GetAxisRaw("Horizontal");
-        if (Input.GetKeyDown(KeyCode.P)) _player.EnableDash();
+        yAxis = Input.GetAxisRaw("Vertical");
     }
 
     public void IdleInputs()
@@ -45,6 +46,14 @@ public class PlayerController
     }
 
     public void OnAirInputs()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.canDash)
+            _player.fsm.ChangeState(StateName.Dash);
+        else if (Input.GetKeyDown(KeyCode.Space))
+            _player.fsm.ChangeState(StateName.Jump);
+    }
+
+    public void ClimbingInputs()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && _player.canDash)
             _player.fsm.ChangeState(StateName.Dash);

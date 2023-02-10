@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ladder : MonoBehaviour
 {
-    /*
+    
     Player _player;
 
     private void Start()
@@ -15,10 +15,6 @@ public class Ladder : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         _player.gameObject.transform.position = new Vector2(transform.position.x, collision.gameObject.transform.position.y);
-        //_player.fsm.SendInput(Player.PlayerInputs.CLIMBING);
+        _player.Climb();
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-       // _player.fsm.SendInput(Player.PlayerInputs.STANDINGIDLE);
-    }*/
 }
