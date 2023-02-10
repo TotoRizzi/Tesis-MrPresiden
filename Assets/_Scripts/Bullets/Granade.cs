@@ -37,8 +37,8 @@ public class Granade : MonoBehaviour
 
         foreach (var item in collisions)
         {
-            var breakable = item.GetComponent<IBreakable>();
-            if (breakable != null) breakable.Break();
+            var breakable = item.GetComponent<IDamageable>();
+            if (breakable != null) breakable.TakeDamage(_damage);
             item.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
         }
 
@@ -72,6 +72,7 @@ public class Granade : MonoBehaviour
 
     #endregion
 
+    #region FACTORY
     private void Reset()
     {
         _rb.velocity = Vector2.zero;
@@ -85,4 +86,6 @@ public class Granade : MonoBehaviour
         g.Reset();
         g.gameObject.SetActive(false);
     }
+
+    #endregion
 }

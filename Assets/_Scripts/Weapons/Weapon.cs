@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Weapons
@@ -20,12 +21,9 @@ namespace Weapons
         {
             _rb = GetComponent<Rigidbody2D>();
         }
-        private void OnEnable()
-        {
-            _gameManager = GameManager.instance;
-        }
         protected virtual void Start()
         {
+            StartCoroutine(FindGameManager());
             _weaponManager = FindObjectOfType<WeaponManager>();
             _equipableUI = FindObjectOfType<EquipableUI>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -77,6 +75,13 @@ namespace Weapons
             _gameManager.UiManager.UpdateCurrentWeapon(_weaponData.mainSprite);
         }
 
+        IEnumerator FindGameManager()
+        {
+            while (GameManager.instance == null) yield return null;
+
+            _gameManager = GameManager.instance;
+        }
+
         #region BUILDER
 
         public Weapon SetParent(Transform parent)
@@ -93,7 +98,7 @@ namespace Weapons
 
         public Weapon PickUp()
         {
-            _rb.simulated = false;
+            _rb.isKinematic = true;
             _rb.velocity = Vector2.zero;
             transform.eulerAngles = Vector3.zero;
             return this;
@@ -101,7 +106,7 @@ namespace Weapons
 
         public Weapon ThrowOut(Vector2 direction)
         {
-            _rb.simulated = true;
+            _rb.isKinematic = false;
             _rb.AddForce(direction * 3, ForceMode2D.Impulse);
             return this;
         }

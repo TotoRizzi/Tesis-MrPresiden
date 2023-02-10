@@ -1,24 +1,29 @@
 using UnityEngine;
-public class Breakable : MonoBehaviour, IBreakable
+public class Breakable : MonoBehaviour, IBreakable, IDamageable
 {
     [SerializeField] GameObject _destroyedVersion;
-    [SerializeField] bool _drop;
 
+    bool _drop;
     Transform _dropPosition;
     private void Start()
     {
+        _drop = Random.value <= .5f;
         if (_drop) _dropPosition = transform.GetChild(0);
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        var bullet = collision.GetComponent<Bullet>();
-        if (bullet)
-            Break();
     }
     public void Break()
     {
         Instantiate(_destroyedVersion, transform.position, Quaternion.identity);
         if (_drop) FRY_PickUps.Instance.pool.GetObject().SetPosition(_dropPosition.position);
         Destroy(gameObject);
+    }
+
+    public void TakeDamage(float dmg)
+    {
+        Die();
+    }
+
+    public void Die()
+    {
+        Break();
     }
 }
