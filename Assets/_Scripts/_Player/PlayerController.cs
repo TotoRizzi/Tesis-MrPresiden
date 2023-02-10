@@ -17,6 +17,7 @@ public class PlayerController
         _player.OnMove += v.Run;
         _player.OnJump += v.Jump;
         _player.OnDash += v.Dash;
+        _player.OnStaminaTick += v.StaminaTick;
     }
 
     public void OnUpdate()
@@ -31,7 +32,7 @@ public class PlayerController
             _player.fsm.ChangeState(StateName.Jump);
         else if (xAxis != 0)
             _player.fsm.ChangeState(StateName.Move);
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.CanDash)
             _player.fsm.ChangeState(StateName.Dash);
     }
 
@@ -41,13 +42,13 @@ public class PlayerController
             _player.fsm.ChangeState(StateName.Jump);
         else if (xAxis == 0)
             _player.fsm.ChangeState(StateName.Idle);
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.CanDash)
             _player.fsm.ChangeState(StateName.Dash);
     }
 
     public void OnAirInputs()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.CanDash)
             _player.fsm.ChangeState(StateName.Dash);
         else if (Input.GetKeyDown(KeyCode.Space))
             _player.fsm.ChangeState(StateName.Jump);
@@ -55,7 +56,7 @@ public class PlayerController
 
     public void ClimbingInputs()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.CanDash)
             _player.fsm.ChangeState(StateName.Dash);
         else if (Input.GetKeyDown(KeyCode.Space))
             _player.fsm.ChangeState(StateName.Jump);
