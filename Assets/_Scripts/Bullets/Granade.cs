@@ -17,10 +17,6 @@ public class Granade : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var entity = collision.gameObject.GetComponent<IDamageable>();
-
-        if (entity != null) entity.TakeDamage(_damage);
-
         if (collision.relativeVelocity.magnitude >= _triggerForce) Explosion();
     }
 
@@ -38,11 +34,19 @@ public class Granade : MonoBehaviour
         foreach (var item in collisions)
         {
             var breakable = item.GetComponent<IDamageable>();
-            if (breakable != null) breakable.TakeDamage(_damage);
+            if (breakable != null) breakable.TakeDamage(DamageBasedOnDistance(item.position));
             item.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
         }
 
         FRY_Granades.Instance.ReturnBullet(this);
+    }
+
+    float DamageBasedOnDistance(Vector2 victimPosition)
+    {
+        var distance = Vector2.Distance(victimPosition, transform.position);
+        var damage = _damage - Mathf.RoundToInt(_damage * (distance / _explosionRadius));
+        Debug.Log(damage);
+        return Mathf.Abs(damage);
     }
 
     #region BUILDER 

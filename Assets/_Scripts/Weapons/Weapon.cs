@@ -21,9 +21,12 @@ namespace Weapons
         {
             _rb = GetComponent<Rigidbody2D>();
         }
-        protected virtual void Start()
+        private void OnEnable()
         {
             StartCoroutine(FindGameManager());
+        }
+        protected virtual void Start()
+        {
             _weaponManager = FindObjectOfType<WeaponManager>();
             _equipableUI = FindObjectOfType<EquipableUI>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
