@@ -8,8 +8,6 @@ public class Granade : MonoBehaviour
 
     Rigidbody2D _rb;
     Vector2 _direction;
-
-    float _triggerForce = .5f;
     float _damage;
     private void Awake()
     {
@@ -17,7 +15,11 @@ public class Granade : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.relativeVelocity.magnitude >= _triggerForce) Explosion();
+        if (collision != null)
+        {
+            Explosion();
+            FRY_Granades.Instance.ReturnBullet(this);
+        }
     }
 
     public void ThrowGranade()
@@ -27,26 +29,16 @@ public class Granade : MonoBehaviour
     void Explosion()
     {
         var collisions = Physics2D.CircleCastAll(transform.position, _explosionRadius, Vector2.one, GameManager.instance.DynamicBodiesLayer).
-                                                                                                                                            Where(x => x.collider.GetComponent<Rigidbody2D>() != null && !x.collider.GetComponent<Player>()).
+                                                                                                                                            Where(x => x.collider.GetComponent<IDamageable>() != null && x.collider.GetComponent<Rigidbody2D>() != null && !x.collider.GetComponent<Player>()).
                                                                                                                                             Select(x => x.collider.GetComponent<Rigidbody2D>());
         if (collisions.Count() <= 0) return;
 
         foreach (var item in collisions)
         {
             var breakable = item.GetComponent<IDamageable>();
-            if (breakable != null) breakable.TakeDamage(DamageBasedOnDistance(item.position));
+            if (breakable != null) breakable.TakeDamage(_damage);
             item.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
         }
-
-        FRY_Granades.Instance.ReturnBullet(this);
-    }
-
-    float DamageBasedOnDistance(Vector2 victimPosition)
-    {
-        var distance = Vector2.Distance(victimPosition, transform.position);
-        var damage = _damage - Mathf.RoundToInt(_damage * (distance / _explosionRadius));
-        Debug.Log(damage);
-        return Mathf.Abs(damage);
     }
 
     #region BUILDER 

@@ -115,6 +115,7 @@ public class WeaponManager : MonoBehaviour
             GameManager.instance.SaveDataManager.SaveString("MainWeapon", _currentMainWeapon.GetWeaponData.name);
             GameManager.instance.SaveDataManager.SaveInt("Ammo", _currentMainWeapon.GetComponent<FireWeapon>().GetCurrentAmmo);
         }
+        else PlayerPrefs.DeleteKey("MainWeapon");
     }
     public void LoadWeapon()
     {
