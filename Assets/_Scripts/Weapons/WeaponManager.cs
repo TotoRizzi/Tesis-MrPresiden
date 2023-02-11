@@ -102,7 +102,7 @@ public class WeaponManager : MonoBehaviour
 
     #region Mouse Funcs
     public float GetAngle() => Mathf.Atan2(GetMouseDirectionMain().y, GetMouseDirectionMain().x) * Mathf.Rad2Deg;
-    Vector2 GetMousePosition() => _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+    public Vector2 GetMousePosition() => _mainCamera.ScreenToWorldPoint(Input.mousePosition);
     Vector2 GetMouseDirectionMain() => (GetMousePosition() - (Vector2)_mainWeaponContainer.position).normalized;
     Vector2 GetMouseDirectionSecundary() => (GetMousePosition() - (Vector2)_secundaryWeaponContainer.position).normalized;
 

@@ -12,7 +12,7 @@ namespace Weapons
         protected Rigidbody2D _rb;
         protected WeaponManager _weaponManager;
         protected SpriteRenderer _spriteRenderer;
-        [SerializeField] protected GameManager _gameManager;
+        protected GameManager _gameManager;
 
         EquipableUI _equipableUI;
         public WeaponData GetWeaponData { get { return _weaponData; } }
