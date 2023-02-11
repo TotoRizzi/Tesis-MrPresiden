@@ -28,12 +28,16 @@ public class ComboManager : MonoBehaviour
         _gameManager.OnSpiked += RestartCombo;
 
         _currentPoints = _gameManager.SaveDataManager.GetFloat("CurrentPoints", 0);
+        _currentComboCount = _gameManager.SaveDataManager.GetFloat("CurrentComboCount", 0);
         _pointsForAchieve = _gameManager.PointsForAchievement;
 
         _timeMultiplier = 1;
         _currentComboExpireTime = _gameManager.ComboExpireTime;
 
+        OnUpdate += ComboTick;
+
         UpdateUiText();
+        UpdateComboBar();
     }
 
     private void Update()
@@ -44,6 +48,8 @@ public class ComboManager : MonoBehaviour
     public void EnemyKilled()
     {
         _currentComboCount++;
+
+        _gameManager.SaveDataManager.SaveFloat("CurrentComboCount", _currentComboCount);
 
         _currentComboExpireTime = _gameManager.ComboExpireTime;
 
@@ -71,6 +77,7 @@ public class ComboManager : MonoBehaviour
         {
             _updateRunning = false;
             _currentComboCount = 0;
+            _gameManager.SaveDataManager.SaveFloat("CurrentComboCount", _currentComboCount);
             UpdateComboBar();
             OnUpdate -= ComboTick;
         }

@@ -54,7 +54,6 @@ public class SaveDataManager : MonoBehaviour
     public void SaveLevels(string name ,int[] array)
     {
         var count = 0;
-        Debug.Log(name + count.ToString());
         foreach (var item in array)
         {
             count++;
@@ -81,7 +80,7 @@ public class SaveDataManager : MonoBehaviour
     {
         return PlayerPrefs.HasKey(name);
     }
-    void Reset()
+    public void Reset()
     {
         Debug.Log("Reset");
         PlayerPrefs.DeleteAll();
