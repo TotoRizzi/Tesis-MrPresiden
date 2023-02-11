@@ -9,6 +9,11 @@ public class SaveDataManager : MonoBehaviour
         GameManager.instance.OnGameLost += Reset;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P)) Reset();
+    }
+
     public void SaveFloat(string name, float value)
     {
         PlayerPrefs.SetFloat(name, value);
