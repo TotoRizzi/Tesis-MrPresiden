@@ -6,12 +6,23 @@ public class Granade : MonoBehaviour
     [SerializeField] float _explosionRadius;
     [SerializeField] float _explosionForce;
 
+    public float ThrowForce { get { return _throwForce; } }
+
     Rigidbody2D _rb;
     Vector2 _direction;
     float _damage;
+    LayerMask _groundLayer;
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+    }
+    private void Start()
+    {
+        _groundLayer = GameManager.instance.GroundLayer;
+    }
+    private void Update()
+    {
+        transform.right = _rb.velocity;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -35,10 +46,16 @@ public class Granade : MonoBehaviour
 
         foreach (var item in collisions)
         {
+            if (!InSight(item.position, _groundLayer)) return;
+            item.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
             var breakable = item.GetComponent<IDamageable>();
             if (breakable != null) breakable.TakeDamage(_damage);
-            item.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
         }
+    }
+
+    bool InSight(Vector3 other, LayerMask ground)
+    {
+        return !Physics2D.Raycast(transform.position, other - transform.position, (other - transform.position).magnitude, ground);
     }
 
     #region BUILDER 

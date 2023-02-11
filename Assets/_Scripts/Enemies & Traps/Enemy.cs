@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour, IDamageable
         gameManager.EnemyManager.AddEnemy(this);
         _currentHp = _maxHp;
         _renderer = sprite.GetComponent<Renderer>();
+        if (!_renderer) _renderer = sprite.GetChild(0).GetComponent<Renderer>();
     }
 
     public virtual void Update()
@@ -65,7 +66,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected bool CanSeePlayer()
     {
-        return !Physics2D.Raycast(transform.position, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.GroundLayer);
+        return !Physics2D.Raycast(transform.position, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.BorderLayer);
     }
 
     protected void ResetHp()

@@ -24,7 +24,6 @@ public class Movement_BasicWayPoint : IMovement
     public void Move()
     {
         _transform.position += _dir.normalized * _speed * Time.deltaTime;
-        Debug.Log(_transform.position += _dir.normalized * _speed * Time.deltaTime);
         if (Vector3.Distance(_transform.position, _wayPoints[_index].position) <= .2f) ChangeDir();
     }
 

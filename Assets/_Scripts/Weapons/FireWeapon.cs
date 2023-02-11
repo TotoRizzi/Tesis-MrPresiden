@@ -3,7 +3,7 @@ using Weapons;
 public class FireWeapon : Weapon
 {
     protected Transform _bulletSpawn;
-    [SerializeField] protected int _currentAmmo;
+    protected int _currentAmmo;
 
     public int GetCurrentAmmo { get { return _currentAmmo; } set { _currentAmmo = value; } }
     protected override void Awake()

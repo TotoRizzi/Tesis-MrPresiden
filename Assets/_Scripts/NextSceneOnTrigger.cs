@@ -20,13 +20,11 @@ public class NextSceneOnTrigger : MonoBehaviour
     }
     void ShowDoor()
     {
-        _door.SetActive(true);
         _collider.enabled = true;
         _anim.Play("Open");
     }
     void HideDoor()
     {
-        _door.SetActive(false);
         _collider.enabled = false;
     }
     private void OnTriggerEnter2D(Collider2D collision)

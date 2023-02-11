@@ -19,18 +19,15 @@ public class Enemy_ShootingRobot : Enemy_Waypoint
     public override void Start()
     {
         base.Start();
-        OnUpdate += Attack;
         OnUpdate += CalculateAttack;
         _armRotation = new Movement_RotateObject(transform, _armPivot);
     }
 
-    public void Attack()
-    {
-        _armRotation.Move();
-    }
-
     void CalculateAttack()
     {
+        if (!CanSeePlayer()) return;
+
+        _armRotation.Move();
         _currentAttackSpeed += Time.deltaTime;
 
         if (_currentAttackSpeed > _attackSpeed)

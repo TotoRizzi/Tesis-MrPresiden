@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DisappearingPlatform : MonoBehaviour
+public class Platform_Disappear : MonoBehaviour
 {
     [SerializeField] float _timeToDisappear;
     [SerializeField] float _timeToAppear;
