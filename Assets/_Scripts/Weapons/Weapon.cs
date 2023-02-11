@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Weapons
@@ -22,7 +23,7 @@ namespace Weapons
         }
         private void OnEnable()
         {
-            _gameManager = GameManager.instance;
+            StartCoroutine(FindGameManager());
         }
         protected virtual void Start()
         {
@@ -77,6 +78,13 @@ namespace Weapons
             _gameManager.UiManager.UpdateCurrentWeapon(_weaponData.mainSprite);
         }
 
+        IEnumerator FindGameManager()
+        {
+            while (GameManager.instance == null) yield return null;
+
+            _gameManager = GameManager.instance;
+        }
+
         #region BUILDER
 
         public Weapon SetParent(Transform parent)
@@ -91,9 +99,9 @@ namespace Weapons
             return this;
         }
 
-        public Weapon PickUp()
+        public Weapon PickUp(bool knife = false)
         {
-            _rb.simulated = false;
+            _rb.simulated = knife;
             _rb.velocity = Vector2.zero;
             transform.eulerAngles = Vector3.zero;
             return this;

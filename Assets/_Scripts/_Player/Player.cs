@@ -9,6 +9,8 @@ using System;
 [RequireComponent(typeof(BoxCollider2D))]
 public class Player : MonoBehaviour
 {
+    public event Action OnUpdate;
+
     #region Components
     [HideInInspector] public StateMachine fsm;
 
@@ -45,11 +47,25 @@ public class Player : MonoBehaviour
     bool _canJump => _currentJumps > 0;
     #endregion
 
+    #region Stamina
+
+    [Header("Stamina")]
+    [SerializeField] float _staminaPerKill = 10;
+    [SerializeField] float _maxStamina = 50;
+    public float MaxStamina { get { return _maxStamina; } private set { } }
+    float _currentStamina;
+    public float CurrentStamina { get { return _currentStamina; } private set { } }
+
+    #endregion
+
     #region Dash
     [Header("Dash")]
+    [SerializeField] float _staminaDashCost;
+    [SerializeField] float _waitTimeToReturnStamina = 1f;
     [SerializeField] float _dashSpeed;
     [SerializeField] float _dashDuration;
-    public bool canDash { get; private set; }
+    private bool _canDash => _currentStamina > 0;
+    public bool CanDash { get { return _canDash; } private set { } }
     public float DashDuration { get { return _dashDuration; } private set { } }
     #endregion
 
@@ -58,6 +74,7 @@ public class Player : MonoBehaviour
     public Action OnMove;
     public Action OnDash;
     public Action OnJump;
+    public Action OnStaminaTick;
     #endregion
 
 
@@ -71,9 +88,19 @@ public class Player : MonoBehaviour
         _weaponManager = GetComponent<WeaponManager>();
         _gameManager = GameManager.instance;
 
+        //Update
+        OnUpdate += fsm.Update;
+        OnUpdate += _controller.OnUpdate;
+        OnUpdate += LookAtMouse;
+        OnUpdate += ReturnStamina;
+        OnStaminaTick += SaveStamina;
+
+        //Events
+        _gameManager.EnemyManager.OnEnemyKilled += GiveStaminaOnKill;
+
         //Variables
-        canDash = true;
-        _maxJumps = _gameManager.SaveDataManager.GetInt("MaxJumps", 1);
+        _maxJumps = 1;
+        _currentStamina = _gameManager.SaveDataManager.GetFloat("CurrentStamina", _maxStamina);
         _playerDefaultSpriteSize = _playerSprite.localScale;
         _defaultGravity = _rb.gravityScale;
 
@@ -83,15 +110,13 @@ public class Player : MonoBehaviour
         fsm.AddState(StateName.Jump, new JumpState(this));
         fsm.AddState(StateName.OnAir, new OnAirState(this, _controller));
         fsm.AddState(StateName.Dash, new DashState(this, _controller));
+        fsm.AddState(StateName.Climb, new ClimState(this, _controller));
         fsm.ChangeState(StateName.Idle);
     }
 
     private void Update()
     {
-        fsm.Update();
-        _controller.OnUpdate();
-        
-        LookAtMouse();
+        OnUpdate?.Invoke();
     }
 
     private void FixedUpdate()
@@ -102,6 +127,11 @@ public class Player : MonoBehaviour
     public void Move(float axis)
     {
         _rb.velocity = new Vector2(axis * _speed * Time.fixedDeltaTime, _rb.velocity.y);
+    }
+
+    public void ClimbMove(float axis)
+    {
+        _rb.velocity = new Vector2(_rb.velocity.x, axis * _speed * Time.fixedDeltaTime);
     }
 
     public void Jump()
@@ -115,15 +145,43 @@ public class Player : MonoBehaviour
         _currentJumps--;
     }
 
+    public void ReturnStamina()
+    {
+        if (_currentStamina >= _maxStamina) return;
+
+        _currentStamina += Time.deltaTime;
+
+        OnStaminaTick?.Invoke();
+    }
+
+    public void TakeStamina()
+    {
+        _currentStamina -= _staminaDashCost;
+    }
+
+    void GiveStaminaOnKill()
+    {
+        _currentStamina += _staminaPerKill;
+        ClampStamina();
+        OnStaminaTick?.Invoke();
+    }
+
+    void SaveStamina()
+    {
+        _gameManager.SaveDataManager.SaveFloat("CurrentStamina", _currentStamina);
+    }
+
+    void ClampStamina()
+    {
+        _currentStamina = Mathf.Clamp(_currentStamina, 0, _maxStamina);
+    }
+
     public void Dash(float xAxis)
     {
         _rb.velocity = new Vector2(xAxis * _dashSpeed * Time.fixedDeltaTime, 0f);
-    }
 
-    public void EnableDash()
-    {
-        canDash = true;
-        _gameManager.SaveDataManager.SaveBool("CanDash", true);
+        ClampStamina();
+        OnStaminaTick?.Invoke();
     }
 
     public void LookAtMouse()
@@ -148,6 +206,33 @@ public class Player : MonoBehaviour
     public void FreezeVelocity()
     {
         _rb.velocity = Vector2.zero;
+    }
+
+    public void CeroGravity()
+    {
+        _rb.gravityScale = 0;
+    }
+
+    public void NormalGravity()
+    {
+        _rb.gravityScale = _defaultGravity;
+    }
+
+    public void Climb()
+    {
+        fsm.ChangeState(StateName.Climb);
+    }
+
+    public void ReturnJumps()
+    {
+        _currentJumps = MaxJumps;
+    }
+
+    public IEnumerator GiveStaminaStartTick()
+    {
+        yield return new WaitForSeconds(_waitTimeToReturnStamina);
+
+        OnUpdate += ReturnStamina;
     }
 }
 
@@ -271,7 +356,7 @@ public class OnAirState : IState
         _controller.OnAirInputs();
         if (_player.GroundCheck.IsGrounded)
         {
-            _player._currentJumps = _player.MaxJumps;
+            _player.ReturnJumps();
             _player.fsm.ChangeState(StateName.Idle);
         }
     }
@@ -309,10 +394,15 @@ public class DashState : IState
             else
                 _dashDirection = 1;
         }
+
+        _player.OnUpdate -= _player.ReturnStamina;
+        _player.TakeStamina();
+        _player.StopAllCoroutines();
     }
 
     public void OnExit()
     {
+        _player.StartCoroutine(_player.GiveStaminaStartTick());
     }
 
     public void OnFixedUpdate()
@@ -327,5 +417,38 @@ public class DashState : IState
 
         if (_player.GroundCheck.IsGrounded) _player.fsm.ChangeState(StateName.OnAir);
         else _player.fsm.ChangeState(StateName.Idle);
+    }
+}
+public class ClimState : IState
+{
+    Player _player;
+    PlayerController _controller;
+
+    public ClimState(Player player, PlayerController controller)
+    {
+        _player = player;
+        _controller = controller;
+    }
+
+    public void OnEnter()
+    {
+        _player.FreezeVelocity();
+        _player.CeroGravity();
+        _player.ReturnJumps();
+    }
+
+    public void OnExit()
+    {
+        _player.NormalGravity();
+    }
+
+    public void OnFixedUpdate()
+    {
+        _player.ClimbMove(_controller.yAxis);
+    }
+
+    public void OnUpdate()
+    {
+        _controller.ClimbingInputs();
     }
 }

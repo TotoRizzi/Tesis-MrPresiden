@@ -17,7 +17,6 @@ public class LevelManager : MonoBehaviour
         _currentLevel = _gameManager.SaveDataManager.GetInt("CurrentLevel", 0);
 
         bool isSaved = _gameManager.SaveDataManager.GetBool("HasSavedLevel", false);
-        Debug.Log(isSaved);
         if (isSaved)
             _newLevelOrder = _gameManager.SaveDataManager.Getrray("Level ", _numberOfLevels);
         else

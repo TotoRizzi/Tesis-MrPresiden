@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum StateName
 {
-    Idle, Move, Jump, OnAir, Dash,   //Player
-    SH_Patrol, SH_Attack,            //SimpleHumanoid
-    CD_Idle, CD_Charge
+    Idle, Move, Jump, OnAir, Dash, Climb, //Player
+    SH_Patrol, SH_Attack,                 //SimpleHumanoid
+    CD_Idle, CD_Charge                    //ChargeDrone
 }
 
 public class StateMachine : MonoBehaviour

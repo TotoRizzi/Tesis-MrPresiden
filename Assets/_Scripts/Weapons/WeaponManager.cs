@@ -19,7 +19,7 @@ public class WeaponManager : MonoBehaviour
         _mainWeaponContainer = transform.GetChild(0);
         _secundaryWeaponContainer = transform.GetChild(1);
         _currentSecundaryWeapon = _secundaryWeaponContainer.GetComponentInChildren<Weapon>();
-        _currentSecundaryWeapon.PickUp();
+        _currentSecundaryWeapon.PickUp(true);
         _lookAtMouse += SecundaryWeapon;
 
         LoadWeapon();
@@ -115,6 +115,7 @@ public class WeaponManager : MonoBehaviour
             GameManager.instance.SaveDataManager.SaveString("MainWeapon", _currentMainWeapon.GetWeaponData.name);
             GameManager.instance.SaveDataManager.SaveInt("Ammo", _currentMainWeapon.GetComponent<FireWeapon>().GetCurrentAmmo);
         }
+        else PlayerPrefs.DeleteKey("MainWeapon");
     }
     public void LoadWeapon()
     {

@@ -1,29 +1,25 @@
-using System.Collections;
 using UnityEngine;
 using Weapons;
-
+using System.Linq;
 public class Knife : Weapon
 {
-    Vector3 _direction;
-    bool _go;
-    bool _attack;
-    private void Update()
+    Animator _anim;
+    IDamageable _player;
+    [SerializeField] Vector2 _capsuleSize = new Vector2(1.6f, 1.1f);
+    protected override void Start()
     {
-        Vector3 direction = _go ? _direction : _weaponManager.SecundaryWeaponContainer.position - transform.position;
-
-        if (_attack) transform.position += direction.normalized * _weaponData.knifeSpeed * Time.deltaTime;
+        base.Start();
+        _anim = GetComponent<Animator>();
+        _player = GetComponentInParent<IDamageable>();
     }
     public override void WeaponAction(Vector2 bulletDirection)
     {
-        StartCoroutine(Boomerang());
-        _direction = bulletDirection;
+        _anim.SetTrigger("Attack");
+        transform.right = bulletDirection;
     }
-    IEnumerator Boomerang()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        _attack = _go = true;
-        yield return new WaitForSeconds(_weaponData.attackRange);
-        _go = false;
-        yield return new WaitUntil(() => Vector2.Distance(_weaponManager.SecundaryWeaponContainer.position, transform.position) <= .01f);
-        _attack = _go;
+        var damageable = collision.GetComponent<IDamageable>();
+        if (damageable != null) damageable.TakeDamage(_weaponData.damage);
     }
 }

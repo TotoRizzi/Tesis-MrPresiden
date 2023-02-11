@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public event Action OnGameLost;
     public event Action OnGameWon;
     public event Action OnAchievementReached;
+    public event Action OnSpiked;
 
     [Header("Layers")]
     [SerializeField] LayerMask _groundLayer, _playerLayer, _weaponLayer, _dynamicBodies, _borderLayer;
@@ -94,20 +95,18 @@ public class GameManager : MonoBehaviour
         _levelManager = GetComponent<LevelManager>();
     }
 
-    public void LevelUpPlayer()
-    {
-
-    }
     public void GameWon()
     {
-        OnGameWon();
-        Debug.Log("GameWon");
+        OnGameWon?.Invoke();
     }
     public void GameLost()
     {
-        OnGameLost();
+        OnGameLost?.Invoke();
     }
-
+    public void Spiked()
+    {
+        OnSpiked?.Invoke();
+    }
     public void GiveAchievement()
     {
         OnAchievementReached?.Invoke();

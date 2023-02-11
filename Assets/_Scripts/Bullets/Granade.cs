@@ -8,8 +8,6 @@ public class Granade : MonoBehaviour
 
     Rigidbody2D _rb;
     Vector2 _direction;
-
-    float _triggerForce = .5f;
     float _damage;
     private void Awake()
     {
@@ -17,11 +15,11 @@ public class Granade : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var entity = collision.gameObject.GetComponent<IDamageable>();
-
-        if (entity != null) entity.TakeDamage(_damage);
-
-        if (collision.relativeVelocity.magnitude >= _triggerForce) Explosion();
+        if (collision != null)
+        {
+            Explosion();
+            FRY_Granades.Instance.ReturnBullet(this);
+        }
     }
 
     public void ThrowGranade()
@@ -31,18 +29,16 @@ public class Granade : MonoBehaviour
     void Explosion()
     {
         var collisions = Physics2D.CircleCastAll(transform.position, _explosionRadius, Vector2.one, GameManager.instance.DynamicBodiesLayer).
-                                                                                                                                            Where(x => x.collider.GetComponent<Rigidbody2D>() != null && !x.collider.GetComponent<Player>()).
+                                                                                                                                            Where(x => x.collider.GetComponent<IDamageable>() != null && x.collider.GetComponent<Rigidbody2D>() != null && !x.collider.GetComponent<Player>()).
                                                                                                                                             Select(x => x.collider.GetComponent<Rigidbody2D>());
         if (collisions.Count() <= 0) return;
 
         foreach (var item in collisions)
         {
-            var breakable = item.GetComponent<IBreakable>();
-            if (breakable != null) breakable.Break();
+            var breakable = item.GetComponent<IDamageable>();
+            if (breakable != null) breakable.TakeDamage(_damage);
             item.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
         }
-
-        FRY_Granades.Instance.ReturnBullet(this);
     }
 
     #region BUILDER 
@@ -72,6 +68,7 @@ public class Granade : MonoBehaviour
 
     #endregion
 
+    #region FACTORY
     private void Reset()
     {
         _rb.velocity = Vector2.zero;
@@ -85,4 +82,6 @@ public class Granade : MonoBehaviour
         g.Reset();
         g.gameObject.SetActive(false);
     }
+
+    #endregion
 }

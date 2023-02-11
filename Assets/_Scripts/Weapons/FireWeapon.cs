@@ -31,7 +31,7 @@ public class FireWeapon : Weapon
         FRY_Bullet.Instance.pool.GetObject().
                                             SetDmg(_weaponData.damage).
                                             SetSpeed(_weaponData.bulletSpeed).
-                                            //SetLayer(Layers.PlayerAttack).
+                                            SetLayer(Layers.PlayerAttack).
                                             SetPosition(_bulletSpawn.position).
                                             SetDirection(bulletDirection);
     }

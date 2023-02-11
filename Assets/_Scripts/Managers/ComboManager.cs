@@ -25,6 +25,7 @@ public class ComboManager : MonoBehaviour
 
         _gameManager.EnemyManager.OnEnemyKilled += EnemyKilled;
         _gameManager.OnGameWon += SlowTime;
+        _gameManager.OnSpiked += RestartCombo;
 
         _currentPoints = _gameManager.SaveDataManager.GetFloat("CurrentPoints", 0);
         _pointsForAchieve = _gameManager.PointsForAchievement;
@@ -100,6 +101,15 @@ public class ComboManager : MonoBehaviour
         
         _gameManager.SaveDataManager.SaveFloat("CurrentPoints", 0);
         _gameManager.SaveDataManager.SaveFloat("PointsTillNextAchieve", _pointsForAchieve);
+    }
+
+    void RestartCombo()
+    {
+        _currentComboExpireTime = 0;
+        _currentComboCount = 0;
+
+        UpdateUiText();
+        UpdateComboBar();
     }
 
     void UpdateUiText()
