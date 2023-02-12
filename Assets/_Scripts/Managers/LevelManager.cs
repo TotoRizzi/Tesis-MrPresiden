@@ -10,6 +10,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] int _numberOfLevels;
     int[] _newLevelOrder;
 
+    bool _isInCoroutine = false;
+
     private void Start()
     {
         _gameManager = GameManager.instance;
@@ -49,11 +51,16 @@ public class LevelManager : MonoBehaviour
 
     public void NextLevel()
     {
-        if(_gameManager.UiManager != null) _gameManager.UiManager.CloseCurtain();
-        StartCoroutine(ChangeLevel());
+        if(!_isInCoroutine) StartCoroutine(ChangeLevel());
+
+        if (_gameManager.UiManager == null) return;
+
+        _gameManager.UiManager.CloseCurtain();
+        _gameManager.Player.PausePlayer();
     }
     IEnumerator ChangeLevel()
     {
+        _isInCoroutine = true;
         yield return new WaitForSeconds(1f);
         int fixedCurrentLevel = _currentLevel;
         _currentLevel++;

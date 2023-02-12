@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Diagnostics;
 
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
@@ -26,7 +27,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(float dmg)
     {
-        Debug.Log("TakeDamage");
+        UnityEngine.Debug.Log(new StackTrace().GetFrame(0).GetMethod().Name);
+
         if (_invincible) return;
 
         StartCoroutine(Invincible());

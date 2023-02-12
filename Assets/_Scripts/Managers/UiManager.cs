@@ -23,6 +23,9 @@ public class UiManager : MonoBehaviour
     [Header("Curtain")]
     [SerializeField] Animator _curainAnim;
 
+    [Header("Pause")]
+    [SerializeField] GameObject _pauseMenu;
+
     public void UpdateStaminaBar(float current, float max)
     {
         _staminaBar.fillAmount = current / max;
@@ -60,5 +63,14 @@ public class UiManager : MonoBehaviour
     public void CloseCurtain()
     {
         if(_curainAnim != null)_curainAnim.Play("Close");
+    }
+
+    public void ShowPauseMenu()
+    {
+        _pauseMenu.SetActive(true);
+    }
+    public void HidePauseMenu()
+    {
+        _pauseMenu.SetActive(false);
     }
 }

@@ -16,7 +16,6 @@ public class Trap_MovingSaw : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(_wayPointMovement);
         _wayPointMovement.Move();
     }
 }

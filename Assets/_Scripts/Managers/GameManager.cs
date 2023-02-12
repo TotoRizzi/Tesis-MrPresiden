@@ -75,6 +75,9 @@ public class GameManager : MonoBehaviour
     private LevelManager _levelManager;
     public LevelManager LevelManager { get { return _levelManager; } private set { } }
 
+    private PauseManager _pauseManager;
+    public PauseManager PauseManager { get { return _pauseManager; } private set { } }
+
     DropManager _dropManager;
     public DropManager DropManager { get { return _dropManager; } }
 

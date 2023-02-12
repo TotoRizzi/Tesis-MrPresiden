@@ -8,7 +8,6 @@ public class Enemy_DamageOnTrigger : MonoBehaviour
     [SerializeField] float _dmg;
 
     Collider2D _collider;
-    bool _isInCoroutine;
 
     private void Start()
     {
@@ -17,17 +16,15 @@ public class Enemy_DamageOnTrigger : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (_isInCoroutine) return;
-
+        if (!collision.CompareTag("Player")) return;
         _player.TakeDamage(_dmg);
+        Debug.Log("Damageando al player" + gameObject.GetComponentInParent<Transform>().name);
         StartCoroutine(ActivateAndDesactivateColldier());
     }
     IEnumerator ActivateAndDesactivateColldier()
     {
-        _isInCoroutine = true;
         _collider.enabled = false;
         yield return new WaitForSeconds(1f);
         _collider.enabled = true;
-        _isInCoroutine = false;
     }
 }

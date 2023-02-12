@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float _speed;
 
+    bool _canMove = true;
+
     Vector3 _playerDefaultSpriteSize;
     [SerializeField] Transform _playerSprite;
     public Transform PlayerSprite { get { return _playerSprite; } private set { } }
@@ -116,12 +118,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        OnUpdate?.Invoke();
+        if(_canMove) OnUpdate?.Invoke();
     }
 
     private void FixedUpdate()
     {
-        fsm.FixedUpdate();
+        if(_canMove) fsm.FixedUpdate();
     }
 
     public void Move(float axis)
@@ -206,6 +208,7 @@ public class Player : MonoBehaviour
     public void FreezeVelocity()
     {
         _rb.velocity = Vector2.zero;
+        OnIdle();
     }
 
     public void CeroGravity()
@@ -233,6 +236,16 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(_waitTimeToReturnStamina);
 
         OnUpdate += ReturnStamina;
+    }
+
+    public void PausePlayer()
+    {
+        _canMove = false;
+        FreezeVelocity();
+    }
+    public void UnPausePlayer()
+    {
+        _canMove = true;
     }
 }
 
