@@ -11,7 +11,10 @@ public class Scene_Manager : MonoBehaviour
         _gameManager.OnGameLost += GameLost;
         _gameManager.OnSpiked += RestartLevel;
     }
-
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.T)) RestartLevel();
+    }
     public void LoadLevel(int level)
     {
         SceneManager.LoadScene("Level " + level);
@@ -28,6 +31,6 @@ public class Scene_Manager : MonoBehaviour
     }
     void RestartLevel()
     {
-        LoadLevel(SceneManager.GetActiveScene().buildIndex);
+        LoadLevel(SceneManager.GetActiveScene().name);
     }
 }

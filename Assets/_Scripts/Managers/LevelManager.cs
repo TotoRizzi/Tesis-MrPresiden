@@ -49,6 +49,12 @@ public class LevelManager : MonoBehaviour
 
     public void NextLevel()
     {
+        if(_gameManager.UiManager != null) _gameManager.UiManager.CloseCurtain();
+        StartCoroutine(ChangeLevel());
+    }
+    IEnumerator ChangeLevel()
+    {
+        yield return new WaitForSeconds(1f);
         int fixedCurrentLevel = _currentLevel;
         _currentLevel++;
 

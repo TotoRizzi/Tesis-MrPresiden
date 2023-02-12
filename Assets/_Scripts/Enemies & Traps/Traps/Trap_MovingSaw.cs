@@ -11,7 +11,7 @@ public class Trap_MovingSaw : MonoBehaviour
 
     void Start()
     {
-        _wayPointMovement = new Movement_BasicWayPoint(this.transform, _waypointSpeed, _wayPoints, true);
+        _wayPointMovement = new Movement_BasicTransformWayPoint(this.transform, _waypointSpeed, _wayPoints, true);
     }
 
     private void Update()

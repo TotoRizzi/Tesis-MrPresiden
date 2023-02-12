@@ -20,6 +20,9 @@ public class UiManager : MonoBehaviour
     [SerializeField] Image _currentWeaponImg;
     [SerializeField] TextMeshProUGUI _currentWeaponAmmoAmount;
 
+    [Header("Curtain")]
+    [SerializeField] Animator _curainAnim;
+
     public void UpdateStaminaBar(float current, float max)
     {
         _staminaBar.fillAmount = current / max;
@@ -53,5 +56,9 @@ public class UiManager : MonoBehaviour
     public void UpdateCurrentAmmo(float currentAmmoAmount)
     {
         _currentWeaponAmmoAmount.text = currentAmmoAmount.ToString();
+    }
+    public void CloseCurtain()
+    {
+        if(_curainAnim != null)_curainAnim.Play("Close");
     }
 }

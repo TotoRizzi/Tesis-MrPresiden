@@ -2,28 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement_BasicWayPoint : IMovement
+public class Movement_BasicRigidBodyWaypoint : IMovement
 {
     Transform[] _wayPoints;
     Transform _transform;
     float _speed;
     int _index;
-    Vector3 _dir;
+    float _dir;
+    Rigidbody2D _rb;
 
-    bool _bothAxis;
-
-    public Movement_BasicWayPoint(Transform transform, float speed, Transform[] wayPoints, bool bothAxis = false)
+    public Movement_BasicRigidBodyWaypoint(Rigidbody2D rb, Transform transform, float speed, Transform[] wayPoints)
     {
         _transform = transform;
         _wayPoints = wayPoints;
         _speed = speed;
-        _bothAxis = bothAxis;
+        _rb = rb;
 
         ChangeDir();
     }
+
     public void Move()
     {
-        _transform.position += _dir.normalized * _speed * Time.deltaTime;
+        _rb.velocity = new Vector2(_dir * _speed * Time.fixedDeltaTime, _rb.velocity.y);
+
         if (Vector3.Distance(_transform.position, _wayPoints[_index].position) <= .2f) ChangeDir();
     }
 
@@ -36,10 +37,9 @@ public class Movement_BasicWayPoint : IMovement
             _index = 0;
         }
 
-        _dir = (_wayPoints[_index].position - _transform.position);
-        if(!_bothAxis) _dir.y = 0;
-        _dir.z = 0;
+        float newDir = (_wayPoints[_index].position.x - _transform.position.x);
 
-        _dir.Normalize();
+        if (newDir > 0) _dir = 1;
+        else _dir = -1;
     }
 }

@@ -26,6 +26,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(float dmg)
     {
+        Debug.Log("TakeDamage");
         if (_invincible) return;
 
         StartCoroutine(Invincible());

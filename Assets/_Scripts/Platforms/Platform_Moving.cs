@@ -8,13 +8,15 @@ public class Platform_Moving : MonoBehaviour
 
     [SerializeField] Transform[] _wayPoints;
     [SerializeField] float _speed;
+    Rigidbody2D _rb;
 
     private void Start()
     {
-        _wayPointMovement = new Movement_BasicWayPoint(transform, _speed, _wayPoints, true);
+        _rb = GetComponent<Rigidbody2D>();
+        _wayPointMovement = new Movement_BasicTransformWayPoint(transform, _speed, _wayPoints);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         _wayPointMovement.Move();
     }

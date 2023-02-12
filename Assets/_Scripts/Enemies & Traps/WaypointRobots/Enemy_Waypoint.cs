@@ -15,7 +15,7 @@ public class Enemy_Waypoint : Enemy
     {
         base.Start();
 
-        _wayPointMovement = new Movement_BasicWayPoint(this.transform, _waypointSpeed, _wayPoints);
+        _wayPointMovement = new Movement_BasicTransformWayPoint(this.transform, _waypointSpeed, _wayPoints);
 
         OnUpdate += _wayPointMovement.Move;
     }
