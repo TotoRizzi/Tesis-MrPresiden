@@ -17,7 +17,9 @@ public class FRY_PickUps : MonoBehaviour
 
     public PickUp ObjectCreator()
     {
-        return Instantiate(_prefab);
+        var pickUp = Instantiate(_prefab);
+        pickUp.transform.SetParent(transform);
+        return pickUp;
     }
 
     public void ReturnObject(PickUp p)

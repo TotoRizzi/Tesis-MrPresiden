@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class FRY_Bullet : MonoBehaviour
 {
     static FRY_Bullet _instance;
@@ -22,7 +19,9 @@ public class FRY_Bullet : MonoBehaviour
 
     public Bullet BulletCreator()
     {
-        return Instantiate(_prefab);
+        var bullet = Instantiate(_prefab);
+        bullet.transform.SetParent(transform);
+        return bullet;
     }
 
     public void ReturnBullet(Bullet b)

@@ -2,8 +2,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] float _speed;
-    [SerializeField] float _maxDistance;
 
+    float _maxDistance;
     float _currentDistance;
     float _dmg;
     Vector3 _direction;
@@ -49,6 +49,12 @@ public class Bullet : MonoBehaviour
     public Bullet SetSpeed(float speed)
     {
         _speed = speed;
+        return this;
+    }
+
+    public Bullet SetDistance(float distance)
+    {
+        _maxDistance = distance;
         return this;
     }
 

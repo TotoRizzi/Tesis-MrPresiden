@@ -22,7 +22,9 @@ public class FRY_EnemyBloodSplatter : MonoBehaviour
 
     public SR_BloodSplatter ObjectCreator()
     {
-        return Instantiate(_prefab);
+        var enemy = Instantiate(_prefab);
+        enemy.transform.SetParent(transform);
+        return enemy;
     }
 
     public void ReturnObject(SR_BloodSplatter b)

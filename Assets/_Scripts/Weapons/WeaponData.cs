@@ -11,6 +11,7 @@ public class WeaponData : ScriptableObject
     [HideInInspector] public int initialAmmo;
     [HideInInspector] public Sprite mainSprite;
     [HideInInspector] public Sprite selectedSprite;
+    [HideInInspector] public string weaponSoundName;
 
 
     //FireWeapons
@@ -41,6 +42,9 @@ public class WeaponDataEditor : Editor
         weaponData.mainSprite = (Sprite)EditorGUILayout.ObjectField("Main Sprite", weaponData.mainSprite, typeof(Sprite), false);
 
         weaponData.selectedSprite = (Sprite)EditorGUILayout.ObjectField("Selected Sprite", weaponData.selectedSprite, typeof(Sprite), false);
+
+        EditorGUILayout.LabelField("Weapon Sound Name");
+        weaponData.weaponSoundName = EditorGUILayout.TextField(weaponData.weaponSoundName, GUILayout.MaxWidth(100));
 
         if (weaponData.weaponType == WeaponType.MainWeapon) FireWeapons(weaponData);
         else Knifes(weaponData);

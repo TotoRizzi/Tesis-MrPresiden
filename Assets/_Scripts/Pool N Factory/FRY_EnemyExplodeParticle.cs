@@ -22,7 +22,9 @@ public class FRY_EnemyExplodeParticle : MonoBehaviour
 
     public PS_EnemyExplode ObjectCreator()
     {
-        return Instantiate(_prefab);
+        var particle = Instantiate(_prefab);
+        particle.transform.SetParent(transform);
+        return particle;
     }
 
     public void ReturnObject(PS_EnemyExplode b)

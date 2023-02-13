@@ -19,7 +19,9 @@ public class FRY_FollowDrone : MonoBehaviour
 
     public Enemy_FollowDrone ObjectCreator()
     {
-        return Instantiate(_prefab);
+        var drone = Instantiate(_prefab);
+        drone.transform.SetParent(transform);
+        return drone;
     }
 
     public void ReturnObject(Enemy_FollowDrone b)

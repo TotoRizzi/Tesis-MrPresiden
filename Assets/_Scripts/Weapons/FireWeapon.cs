@@ -22,7 +22,7 @@ public class FireWeapon : Weapon
 
         _currentAmmo--;
         UpdateAmmoAmount();
-
+        _gameManager.SoundManager.PlaySound(_weaponData.weaponSoundName);
         FireWeaponShoot(bulletDirection);
     }
 
@@ -33,7 +33,8 @@ public class FireWeapon : Weapon
                                             SetSpeed(_weaponData.bulletSpeed).
                                             SetLayer(Layers.PlayerAttack).
                                             SetPosition(_bulletSpawn.position).
-                                            SetDirection(bulletDirection);
+                                            SetDirection(bulletDirection).
+                                            SetDistance(2f);
     }
 
     public void UpdateAmmoAmount()
