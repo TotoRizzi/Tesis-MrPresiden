@@ -245,6 +245,12 @@ public class Player : MonoBehaviour
         fsm.ChangeState(StateName.Climb);
     }
 
+    public void StopClimging()
+    {
+        if(fsm.IsInState(StateName.Climb))
+            fsm.ChangeState(StateName.Idle);
+    }
+
     public void ReturnJumps()
     {
         _currentJumps = MaxJumps;

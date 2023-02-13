@@ -11,6 +11,7 @@ public enum StateName
 public class StateMachine : MonoBehaviour
 {
     private IState currentState;
+
     private Dictionary<StateName, IState> allStates = new Dictionary<StateName, IState>();
 
     public void Update()
@@ -32,5 +33,10 @@ public class StateMachine : MonoBehaviour
         if (currentState != null) currentState.OnExit();
         currentState = allStates[key];
         currentState.OnEnter();
+    }
+
+    public bool IsInState(StateName key)
+    {
+        return currentState == allStates[key] ? true : false ;
     }
 }

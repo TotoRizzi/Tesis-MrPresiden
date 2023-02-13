@@ -17,4 +17,8 @@ public class Ladder : MonoBehaviour
         _player.gameObject.transform.position = new Vector2(transform.position.x, collision.gameObject.transform.position.y);
         _player.Climb();
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        _player.StopClimging();
+    }
 }
