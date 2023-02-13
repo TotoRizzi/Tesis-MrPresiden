@@ -5,6 +5,8 @@ using UnityEngine;
 public class Enemy_KamikazeRobot : Enemy_Waypoint
 {
     [SerializeField] float _dropSpeed;
+    [SerializeField] float _overlapCircleRadius = 1.5f;
+    [SerializeField] float _dmg;
 
     public override void Start()
     {
@@ -25,7 +27,15 @@ public class Enemy_KamikazeRobot : Enemy_Waypoint
             OnUpdate -= _wayPointMovement.Move;
         }
     }
+    public override void Die()
+    {
+        var player = Physics2D.OverlapCircle(transform.position, _overlapCircleRadius, gameManager.PlayerLayer);
 
+        if (player)
+            player.GetComponent<IDamageable>().TakeDamage(_dmg);
+
+        base.Die();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag != "Bullet")

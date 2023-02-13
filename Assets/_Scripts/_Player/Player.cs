@@ -224,9 +224,10 @@ public class Player : MonoBehaviour
         _gameManager.SaveDataManager.SaveInt("MaxJumps", _maxJumps);
     }
 
-    public void FreezeVelocity()
+    public void FreezeVelocity(bool xAxis = false)
     {
-        _rb.velocity = Vector2.zero;
+        if (xAxis) _rb.velocity = new Vector2(0, _rb.velocity.y);
+        else _rb.velocity = Vector2.zero;
         OnIdle();
     }
 
@@ -288,13 +289,11 @@ public class IdleState : IState
 
     public void OnEnter()
     {
-        _player.FreezeVelocity();
         _player.OnIdle();
     }
 
     public void OnExit()
     {
-
     }
 
     public void OnFixedUpdate()
@@ -325,6 +324,7 @@ public class MoveState : IState
 
     public void OnExit()
     {
+        _player.FreezeVelocity();
     }
 
     public void OnFixedUpdate()
@@ -441,6 +441,7 @@ public class DashState : IState
     public void OnExit()
     {
         _player.StartCoroutine(_player.GiveStaminaStartTick());
+        _player.FreezeVelocity();
     }
 
     public void OnFixedUpdate()
