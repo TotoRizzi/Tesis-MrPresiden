@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Turret : Enemy_Shooting
+public class Enemy_RotatingTurret : Enemy_Shooting
 {
     public override void Start()
     {

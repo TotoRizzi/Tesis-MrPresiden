@@ -14,31 +14,6 @@ public class RoomController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
-        {
-            _camera.MoveCamera(transform);
-            foreach (var item in _enemiesInRoom)
-            {
-                if (item)
-                    item.enabled = true;
-            }
-        }
-        else
-        {
-            var enemy = collision.GetComponent<Enemy>();
-            _enemiesInRoom.Add(enemy);
-            enemy.enabled = false;
-        }
-        
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag != "Player") return;
-
-        foreach (var item in _enemiesInRoom)
-        {
-            if(item)
-                item.enabled = false;
-        }
+        _camera.MoveCamera(transform);     
     }
 }

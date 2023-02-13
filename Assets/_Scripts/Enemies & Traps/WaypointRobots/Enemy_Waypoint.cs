@@ -9,7 +9,6 @@ public class Enemy_Waypoint : Enemy
 
     [SerializeField] Transform[] _wayPoints; 
     [SerializeField] float _waypointSpeed;
-    [SerializeField] Transform _sprite; 
 
     public override void Start()
     {

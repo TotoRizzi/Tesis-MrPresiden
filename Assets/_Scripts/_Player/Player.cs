@@ -29,11 +29,14 @@ public class Player : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float _speed;
 
-    bool _canMove = true;
+    bool _canMove = false;
 
     Vector3 _playerDefaultSpriteSize;
     [SerializeField] Transform _playerSprite;
     public Transform PlayerSprite { get { return _playerSprite; } private set { } }
+
+    float _maxDelayCanMove = .1f;
+    float _currentDelayCanMove;
     #endregion
 
     #region Jump
@@ -82,6 +85,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(CanMoveDelay());
+
         //Components
         fsm = new StateMachine();
         _controller = new PlayerController(this, GetComponent<PlayerView>());
@@ -96,6 +101,7 @@ public class Player : MonoBehaviour
         OnUpdate += LookAtMouse;
         OnUpdate += ReturnStamina;
         OnStaminaTick += SaveStamina;
+        _gameManager.OnSpiked += FullStamina;
 
         //Events
         _gameManager.EnemyManager.OnEnemyKilled += GiveStaminaOnKill;
@@ -126,6 +132,13 @@ public class Player : MonoBehaviour
         if(_canMove) fsm.FixedUpdate();
     }
 
+    IEnumerator CanMoveDelay()
+    {
+        yield return new WaitForSeconds(_maxDelayCanMove);
+
+        _canMove = true;
+    }
+
     public void Move(float axis)
     {
         _rb.velocity = new Vector2(axis * _speed * Time.fixedDeltaTime, _rb.velocity.y);
@@ -145,6 +158,12 @@ public class Player : MonoBehaviour
         OnJump();
         _rb.AddForce(Vector3.up * _jumpForce, ForceMode2D.Impulse);
         _currentJumps--;
+    }
+
+    void FullStamina()
+    {
+        _currentStamina = _maxStamina;
+        SaveStamina();
     }
 
     public void ReturnStamina()
