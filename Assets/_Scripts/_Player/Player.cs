@@ -298,7 +298,6 @@ public class IdleState : IState
     public void OnEnter()
     {
         _player.OnIdle();
-        _player.FreezeVelocity();
     }
 
     public void OnExit()
@@ -333,7 +332,7 @@ public class MoveState : IState
 
     public void OnExit()
     {
-        //_player.FreezeVelocity();
+        _player.FreezeVelocity();
     }
 
     public void OnFixedUpdate()
@@ -359,6 +358,7 @@ public class JumpState : IState
 
     public void OnEnter()
     {
+        _player.FreezeVelocity();
         _player.Jump();
         _player.StartCoroutine(_player.OnAirDelay());
     }
@@ -452,8 +452,9 @@ public class DashState : IState
 
     public void OnExit()
     {
+        _player.FreezeVelocity();
+
         _player.StartCoroutine(_player.GiveStaminaStartTick());
-        //_player.FreezeVelocity();
     }
 
     public void OnFixedUpdate()

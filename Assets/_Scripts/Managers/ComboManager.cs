@@ -121,8 +121,7 @@ public class ComboManager : MonoBehaviour
 
     void UpdateUiText()
     {
-        _gameManager.UiManager.UpdateNextAchievementPoints(_pointsForAchieve);
-        _gameManager.UiManager.UpdatePoints(_currentPoints);
+        _gameManager.UiManager.UpdatePointsBar(_currentPoints, _pointsForAchieve);
     }
     void UpdateComboBar()
     {

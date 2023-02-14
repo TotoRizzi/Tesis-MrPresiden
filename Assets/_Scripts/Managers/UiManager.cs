@@ -13,8 +13,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI _comboCountText;
 
     [Header("Points")]
-    [SerializeField] TextMeshProUGUI _pointsText;
-    [SerializeField] TextMeshProUGUI _nextAchievementPointsText;
+    [SerializeField] Image _pointsBar;
 
     [Header("CurrentWeapon")]
     [SerializeField] Image _currentWeaponImg;
@@ -37,14 +36,9 @@ public class UiManager : MonoBehaviour
         _comboCountText.text = currentComboCount.ToString();
     }
 
-    public void UpdatePoints(float points)
+    public void UpdatePointsBar(float current, float max)
     {
-        _pointsText.text = points.ToString();
-    }
-
-    public void UpdateNextAchievementPoints(float points)
-    {
-        _nextAchievementPointsText.text = points.ToString();
+        _pointsBar.fillAmount = current / max;
     }
 
     public void UpdateHealthBar(float current, float max)
