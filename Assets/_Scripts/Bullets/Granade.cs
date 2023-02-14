@@ -6,12 +6,17 @@ public class Granade : MonoBehaviour
     [SerializeField] float _explosionRadius;
     [SerializeField] float _explosionForce;
 
+    float _gravityScale = 1.5f;
+    float _fallGravityMultiplier = 3;
+
     public float ThrowForce { get { return _throwForce; } }
 
     Rigidbody2D _rb;
     Vector2 _direction;
     float _damage;
     LayerMask _groundLayer;
+
+    bool _falling => _rb.velocity.y < 0;
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -24,11 +29,16 @@ public class Granade : MonoBehaviour
     {
         transform.right = _rb.velocity;
     }
+    private void FixedUpdate()
+    {
+        _rb.AddForce(_falling ? Vector2.down * (_gravityScale * _fallGravityMultiplier) : Vector2.down * _gravityScale);
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision != null)
         {
             Explosion();
+            GameManager.instance.SoundManager.PlaySound("Grenade_Destroy");
             FRY_Granades.Instance.ReturnBullet(this);
         }
     }
@@ -43,7 +53,6 @@ public class Granade : MonoBehaviour
                                                                                                                                             Where(x => x.collider.GetComponent<IDamageable>() != null && x.collider.GetComponent<Rigidbody2D>() != null && !x.collider.GetComponent<Player>()).
                                                                                                                                             Select(x => x.collider.GetComponent<Rigidbody2D>());
         if (collisions.Count() <= 0) return;
-
         foreach (var item in collisions)
         {
             if (!InSight(item.position, _groundLayer)) return;

@@ -18,7 +18,11 @@ public class FireWeapon : Weapon
     }
     public override void WeaponAction(Vector2 bulletDirection)
     {
-        if (_currentAmmo <= 0) return;
+        if (_currentAmmo <= 0)
+        {
+            _gameManager.SoundManager.PlaySound("Not_Ammo");
+            return;
+        }
 
         _currentAmmo--;
         UpdateAmmoAmount();
