@@ -7,11 +7,8 @@ public class Enemy_ChargeDrone : Enemy
     StateMachine _fsm;
 
     [Header ("Idle")]
-    [SerializeField] float _rotationSpeed;
-    public float RotationSpeed { get { return _rotationSpeed; } }
-
-    [SerializeField] float _idleTime;
-    public float IdleTime { get { return _idleTime; } }
+    [SerializeField] float _idleWaitTime;
+    public float IdleWaitTime { get { return _idleWaitTime; } }
 
     [Header("Charge")]
     [SerializeField] float _chargeSpeed;
@@ -39,6 +36,10 @@ public class Enemy_ChargeDrone : Enemy
     {
         return DistanceToPlayer();
     }
+    public void LookAtPlayer()
+    {
+        transform.right = GetDistanceToPlayer().normalized;
+    }
 }
 
 public class CD_Idle : IState
@@ -47,6 +48,8 @@ public class CD_Idle : IState
     StateMachine _fsm;
     Enemy_ChargeDrone _enemy;
     Player _player;
+
+    float _currentIdleTime;
 
     public CD_Idle(StateMachine fsm, Enemy_ChargeDrone enemy)
     {
@@ -59,7 +62,7 @@ public class CD_Idle : IState
 
     public void OnEnter()
     {
-
+        _currentIdleTime = 0;
     }
 
     public void OnExit()
@@ -73,16 +76,10 @@ public class CD_Idle : IState
 
     public void OnUpdate()
     {
-        Vector3 vectorToTarget = _player.transform.position - _enemy.transform.position;
-        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
-        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-        _enemy.transform.rotation = Quaternion.Lerp(_enemy.transform.rotation, q, Time.deltaTime * _enemy.RotationSpeed);
+        _currentIdleTime += Time.deltaTime;
+        _enemy.LookAtPlayer();
 
-
-        if (Physics2D.Raycast(_enemy.transform.position, _enemy.transform.right, _enemy.GetDistanceToPlayer().magnitude, _gameManager.PlayerLayer))
-        {
-            _fsm.ChangeState(StateName.CD_Charge);
-        }
+        if(_currentIdleTime > _enemy.IdleWaitTime) _fsm.ChangeState(StateName.CD_Charge);
     }
 }
 public class CD_Charge : IState

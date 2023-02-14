@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected Vector3 DistanceToPlayer()
     {
-        return ((gameManager.Player.transform.position + transform.up) - transform.position);
+        return ((gameManager.Player.transform.position + Vector3.up) - transform.position);
     }
 
     protected bool CanSeePlayer()

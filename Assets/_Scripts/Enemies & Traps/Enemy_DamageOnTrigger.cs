@@ -18,7 +18,7 @@ public class Enemy_DamageOnTrigger : MonoBehaviour
     {
         if (!collision.CompareTag("Player")) return;
         _player.TakeDamage(_dmg);
-        Debug.Log("Damageando al player" + gameObject.GetComponentInParent<Transform>().name);
+
         StartCoroutine(ActivateAndDesactivateColldier());
     }
     IEnumerator ActivateAndDesactivateColldier()

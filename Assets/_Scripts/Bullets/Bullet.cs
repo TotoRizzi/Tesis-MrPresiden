@@ -3,7 +3,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] float _speed;
 
-    float _maxDistance;
+    float _maxDistance = 5;
     float _currentDistance;
     float _dmg;
     Vector3 _direction;
