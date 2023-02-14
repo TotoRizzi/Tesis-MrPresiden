@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
         //StateMachine
         fsm.AddState(StateName.Idle, new IdleState(this, _controller));
         fsm.AddState(StateName.Move, new MoveState(this, _controller));
-        fsm.AddState(StateName.Jump, new JumpState(this));
+        fsm.AddState(StateName.Jump, new JumpState(this, _controller));
         fsm.AddState(StateName.OnAir, new OnAirState(this, _controller));
         fsm.AddState(StateName.Dash, new DashState(this, _controller));
         fsm.AddState(StateName.Climb, new ClimState(this, _controller));
@@ -264,6 +264,14 @@ public class Player : MonoBehaviour
         OnUpdate += ReturnStamina;
     }
 
+    public IEnumerator OnAirDelay()
+    {
+        yield return new WaitForSeconds(.2f);
+
+        if (fsm.IsInState(StateName.Jump))
+            fsm.ChangeState(StateName.OnAir);
+    }
+
     public void PausePlayer()
     {
         _canMove = false;
@@ -341,15 +349,18 @@ public class MoveState : IState
 public class JumpState : IState
 {
     Player _player;
+    PlayerController _controller;
 
-    public JumpState(Player player)
+    public JumpState(Player player, PlayerController controller)
     {
         _player = player;
+        _controller = controller;
     }
 
     public void OnEnter()
     {
         _player.Jump();
+        _player.StartCoroutine(_player.OnAirDelay());
     }
 
     public void OnExit()
@@ -358,11 +369,11 @@ public class JumpState : IState
 
     public void OnFixedUpdate()
     {
+        _player.Move(_controller.xAxis);
     }
 
     public void OnUpdate()
     {
-        _player.fsm.ChangeState(StateName.OnAir);
     }
 }
 public class OnAirState : IState
