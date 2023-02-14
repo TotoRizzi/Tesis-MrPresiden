@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5696940316872760341}
   - component: {fileID: 780487468847245912}
   - component: {fileID: 6034120907847639225}
+  - component: {fileID: 4088419304027367941}
   m_Layer: 13
   m_Name: Sniper
   m_TagString: Untagged
@@ -175,6 +176,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponData: {fileID: 11400000, guid: 8deb3d5dddb071d4ea187f037ebbe458, type: 2}
   _uiSignPosition: {fileID: 3883546025439302427}
+--- !u!114 &4088419304027367941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5614521715814990548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f5acdf191c5b043ad7d206e8900109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cursor: {fileID: 11400000, guid: d5fa78193e7516241b29de82e9a76029, type: 2}
 --- !u!1 &8065988612331856375
 GameObject:
   m_ObjectHideFlags: 0
