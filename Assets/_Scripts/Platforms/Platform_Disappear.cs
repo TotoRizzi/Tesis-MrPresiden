@@ -16,7 +16,7 @@ public class Platform_Disappear : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(Disappear());
+        if(collision.CompareTag("Player")) StartCoroutine(Disappear());
     }
     IEnumerator Disappear()
     {
