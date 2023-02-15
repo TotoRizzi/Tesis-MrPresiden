@@ -19,6 +19,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         _gameManager = GameManager.instance;
         _gameManager.OnAchievementReached += AddHealth;
+        _gameManager.OnSpiked += EffectsOnDeath;
 
         _maxHp = _gameManager.SaveDataManager.GetFloat("MaxHp", _defaultHp);
         _currentHp = _gameManager.SaveDataManager.GetFloat("CurrentHp", _maxHp);
@@ -58,8 +59,27 @@ public class PlayerHealth : MonoBehaviour, IDamageable
             item.material.color = Color.white;
         }
     }
+
     public void Die()
     {
+        EffectsOnDeath();
+        StartCoroutine(MenuDelay());
+    }
+
+    void EffectsOnDeath()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            _gameManager.EffectsManager.HumanoindKilled(transform.position + Vector3.up);
+            _gameManager.SoundManager.PlaySound("Enemy_Dead");
+        }
+
+        Destroy(gameObject);
+    }
+
+    IEnumerator MenuDelay()
+    {
+        yield return new WaitForSeconds(.5f);
         _gameManager.GameLost();
     }
 

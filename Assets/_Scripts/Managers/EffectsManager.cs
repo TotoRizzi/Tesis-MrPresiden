@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EffectsManager : MonoBehaviour
 {
-    public void HumanoindEnemyKilled(Vector3 pos)
+    public void HumanoindKilled(Vector3 pos)
     {
         FRY_EnemyExplodeParticle.Instance.pool.GetObject().SetPosition(pos);
         FRY_EnemyBloodSplatter.Instance.pool.GetObject().SetPosition(pos);

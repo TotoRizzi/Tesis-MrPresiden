@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class Scene_Manager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class Scene_Manager : MonoBehaviour
         _gameManager = GameManager.instance;
 
         _gameManager.OnGameLost += GameLost;
-        _gameManager.OnSpiked += RestartLevel;
+        _gameManager.OnSpiked += ()  => StartCoroutine(RestartLevel());
     }
     void Update()
     {
@@ -29,8 +30,10 @@ public class Scene_Manager : MonoBehaviour
     {
         LoadLevel("Menu");
     }
-    void RestartLevel()
+    IEnumerator RestartLevel()
     {
+        yield return new WaitForSeconds(1f);
         LoadLevel(SceneManager.GetActiveScene().name);
     }
+    
 }

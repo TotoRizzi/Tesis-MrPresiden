@@ -23,7 +23,7 @@ public class Trap_Mine : Enemy
     public override void Die()
     {
         gameManager.EnemyManager.RemoveEnemy(this);
-        gameManager.EffectsManager.HumanoindEnemyKilled(transform.position);
+        gameManager.EffectsManager.HumanoindKilled(transform.position);
 
         Destroy(_parentGO);
     }

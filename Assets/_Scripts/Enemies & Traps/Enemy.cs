@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public virtual void Die()
     {
         gameManager.EnemyManager.RemoveEnemy(this);
-        gameManager.EffectsManager.HumanoindEnemyKilled(transform.position);
+        gameManager.EffectsManager.HumanoindKilled(transform.position);
 
         Destroy(gameObject);
     }
@@ -61,12 +61,12 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected Vector3 DistanceToPlayer()
     {
-        return ((gameManager.Player.transform.position + Vector3.up) - transform.position);
+        return gameManager.Player ? (gameManager.Player.transform.position + Vector3.up) - transform.position : Vector3.zero;
     }
 
     protected bool CanSeePlayer()
     {
-        return !Physics2D.Raycast(transform.position, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.BorderLayer);
+        return gameManager.Player ? !Physics2D.Raycast(transform.position, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.BorderLayer) : false;
     }
 
     protected void ResetHp()

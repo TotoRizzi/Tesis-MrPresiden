@@ -40,7 +40,7 @@ public class Enemy_FollowDrone : Enemy
     void ReturnObject()
     {
         gameManager.EnemyManager.RemoveEnemy(this);
-        gameManager.EffectsManager.HumanoindEnemyKilled(transform.position);
+        gameManager.EffectsManager.HumanoindKilled(transform.position);
         FRY_FollowDrone.Instance.ReturnObject(this);
     }
     public override void Die()
