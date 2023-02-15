@@ -29,9 +29,12 @@ public class Enemy_ChargeDrone : Enemy
         _fsm.AddState(StateName.CD_Charge, new CD_Charge(_fsm, this));
         _fsm.ChangeState(StateName.CD_Idle);
 
-        OnUpdate += _fsm.Update;
+        OnUpdate += FalseUpdate;
     }
-
+    void FalseUpdate()
+    {
+        if(CanSeePlayer()) _fsm.Update();
+    }
     public Vector3 GetDistanceToPlayer()
     {
         return DistanceToPlayer();

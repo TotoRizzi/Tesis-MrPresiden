@@ -266,7 +266,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator OnAirDelay()
     {
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(.1f);
 
         if (fsm.IsInState(StateName.Jump))
             fsm.ChangeState(StateName.OnAir);
@@ -297,6 +297,7 @@ public class IdleState : IState
 
     public void OnEnter()
     {
+        _player.FreezeVelocity(true);
         _player.OnIdle();
     }
 

@@ -7,12 +7,11 @@ public class Enemy_KamikazeRobot : Enemy_Waypoint
     [SerializeField] float _dropSpeed;
     [SerializeField] float _overlapCircleRadius = 1.5f;
     [SerializeField] float _dmg;
-    [SerializeField] bool _static;
 
     public override void Start()
     {
         base.Start();
-        if(!_static)OnUpdate += Attack;
+        OnUpdate += Attack;
     }
 
     void Drop()

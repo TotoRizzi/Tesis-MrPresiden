@@ -131,14 +131,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031fedff922800c4bb01962a0dc8fbc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 1568787525670866302}
   _maxHp: 3
   bulletSpawnPosition: {fileID: 1016096214225782244}
   armPivot: {fileID: 1016096215764580469}
-  sprite: {fileID: 1568787525670866302}
   weaponSprite: {fileID: 8626169468434367995}
   bulletDamage: 1
   bulletSpeed: 20
-  attackSpeed: 2
+  attackSpeed: 1.2
 --- !u!61 &1016096215589035423
 BoxCollider2D:
   m_ObjectHideFlags: 0
