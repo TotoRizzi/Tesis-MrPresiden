@@ -5,7 +5,7 @@ public class ChangeCursor : MonoBehaviour
 
     CursorData _defaultCursor;
     bool _hasExit;
-    void Start()
+    void Awake()
     {
         _defaultCursor = Resources.Load<CursorData>("DefaultCursor");   
     }
@@ -25,10 +25,10 @@ public class ChangeCursor : MonoBehaviour
     }
     void SetDefaultCursor()
     {
-        Cursor.SetCursor(_defaultCursor.cursorTexture, _defaultCursor.cursorHotspot, CursorMode.Auto);
+        Cursor.SetCursor(_defaultCursor.cursorTexture, _defaultCursor.cursorHotspot, CursorMode.ForceSoftware);
     }
     void SetCursor()
     {
-        Cursor.SetCursor(_cursor.cursorTexture, _cursor.cursorHotspot, CursorMode.Auto);
+        Cursor.SetCursor(_cursor.cursorTexture, _cursor.cursorHotspot, CursorMode.ForceSoftware);
     }
 }
