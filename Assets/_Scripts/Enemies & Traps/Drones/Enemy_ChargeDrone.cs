@@ -17,6 +17,9 @@ public class Enemy_ChargeDrone : Enemy
     [SerializeField] float _chargeDistance;
     public float ChargeDistance { get { return _chargeDistance; } }
 
+    [SerializeField] GameObject _particles;
+    public GameObject Particles { get { return _particles; } }
+
     public override void Start()
     {
         base.Start();
@@ -65,6 +68,7 @@ public class CD_Idle : IState
 
     public void OnEnter()
     {
+        _enemy.Particles.SetActive(false);
         _currentIdleTime = 0;
     }
 
@@ -103,6 +107,8 @@ public class CD_Charge : IState
 
     public void OnEnter()
     {
+        _enemy.Particles.SetActive(true);
+
     }
 
     public void OnExit()
