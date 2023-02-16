@@ -62,8 +62,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public void Die()
     {
-        EffectsOnDeath();
         StartCoroutine(MenuDelay());
+        EffectsOnDeath();
     }
 
     void EffectsOnDeath()
@@ -74,7 +74,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
             _gameManager.SoundManager.PlaySound("Enemy_Dead");
         }
 
-        Destroy(gameObject);
+        _gameManager.Player.PausePlayer();
+        _gameManager.Player.PlayerSprite.gameObject.SetActive(false);
     }
 
     IEnumerator MenuDelay()

@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
     public Transform PlayerSprite { get { return _playerSprite; } private set { } }
 
     float _maxDelayCanMove = .1f;
-    float _currentDelayCanMove;
     #endregion
 
     #region Jump
@@ -275,11 +274,13 @@ public class Player : MonoBehaviour
     public void PausePlayer()
     {
         _canMove = false;
+        CeroGravity();
         FreezeVelocity();
     }
     public void UnPausePlayer()
     {
         _canMove = true;
+        NormalGravity();
     }
 }
 
