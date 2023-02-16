@@ -24,7 +24,7 @@ public class ComboManager : MonoBehaviour
         _gameManager = GameManager.instance;
 
         _gameManager.EnemyManager.OnEnemyKilled += EnemyKilled;
-        _gameManager.OnGameWon += SlowTime;
+        _gameManager.OnRoomWon += SlowTime;
         _gameManager.OnSpiked += RestartCombo;
 
         _currentPoints = _gameManager.SaveDataManager.GetFloat("CurrentPoints", 0);
