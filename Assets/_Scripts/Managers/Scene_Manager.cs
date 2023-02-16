@@ -36,4 +36,8 @@ public class Scene_Manager : MonoBehaviour
         LoadLevel(SceneManager.GetActiveScene().name);
     }
     
+    public void GoToMenu()
+    {
+        LoadLevel("Menu");
+    }
 }

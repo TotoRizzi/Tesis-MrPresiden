@@ -27,4 +27,10 @@ public class MenuManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void BTN_GoToMenu()
+    {
+        _gameManager.SceneManager.GoToMenu();
+
+    }
 }
