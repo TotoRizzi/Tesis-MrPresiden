@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class MenuManager : MonoBehaviour
 {
     GameManager _gameManager;
@@ -32,5 +29,9 @@ public class MenuManager : MonoBehaviour
     {
         _gameManager.SceneManager.GoToMenu();
 
+    }
+    public void BTN_Tutorial()
+    {
+        _gameManager.SceneManager.LoadLevel("Tutorial1");
     }
 }

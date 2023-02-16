@@ -1,21 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class NextSceneOnTrigger : MonoBehaviour
 {
     GameManager _gameManager;
 
+    [SerializeField] bool _isTutorial;
     [SerializeField] GameObject _door;
     Collider2D _collider;
     Animator _anim;
-
     private void Start()
     {
         _gameManager = GameManager.instance;
         _gameManager.OnRoomWon += ShowDoor;
         _collider = GetComponent<Collider2D>();
-        _anim = GetComponent<Animator>();
+        _anim = GetComponentInChildren<Animator>();
         HideDoor();
     }
     void ShowDoor()
@@ -29,6 +26,7 @@ public class NextSceneOnTrigger : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (_isTutorial) return;
         _gameManager.LevelManager.NextLevel();
     }
 }
