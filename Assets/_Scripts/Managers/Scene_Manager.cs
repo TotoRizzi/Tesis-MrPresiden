@@ -10,6 +10,7 @@ public class Scene_Manager : MonoBehaviour
         _gameManager = GameManager.instance;
 
         _gameManager.OnGameLost += GameLost;
+        _gameManager.OnGameWon += GameWon;
         _gameManager.OnSpiked += ()  => StartCoroutine(RestartLevel());
     }
     void Update()
@@ -29,6 +30,10 @@ public class Scene_Manager : MonoBehaviour
     void GameLost()
     {
         LoadLevel("Menu");
+    }    
+    void GameWon()
+    {
+        LoadLevel("WinScreen");
     }
     IEnumerator RestartLevel()
     {

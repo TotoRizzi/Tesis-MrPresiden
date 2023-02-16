@@ -71,5 +71,9 @@ public class LevelManager : MonoBehaviour
 
             _gameManager.SceneManager.LoadLevel(_newLevelOrder[fixedCurrentLevel]);
         }
+        else
+        {
+            _gameManager.GameWon();
+        }
     }
 }

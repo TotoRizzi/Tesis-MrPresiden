@@ -21,7 +21,7 @@ public class EnemyManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
-        if (_allEnemies.Count == 0) _gameManager.GameWon();
+        if (_allEnemies.Count == 0) _gameManager.RoomWon();
     }
 
     public void AddEnemy(Enemy enemy)
@@ -39,6 +39,6 @@ public class EnemyManager : MonoBehaviour
         _allEnemies.Remove(enemy);
         _gameManager.SoundManager.PlaySound("Enemy_Dead");
 
-        if (_allEnemies.Count == 0) _gameManager.GameWon();
+        if (_allEnemies.Count == 0) _gameManager.RoomWon();
     }
 }

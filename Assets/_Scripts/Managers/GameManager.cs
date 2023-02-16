@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     public event Action OnGameLost;
     public event Action OnGameWon;
+    public event Action OnRoomWon;
     public event Action OnAchievementReached;
     public event Action OnSpiked;
 
@@ -98,6 +99,10 @@ public class GameManager : MonoBehaviour
         _levelManager = GetComponent<LevelManager>();
     }
 
+    public void RoomWon()
+    {
+        OnRoomWon?.Invoke();
+    }
     public void GameWon()
     {
         OnGameWon?.Invoke();

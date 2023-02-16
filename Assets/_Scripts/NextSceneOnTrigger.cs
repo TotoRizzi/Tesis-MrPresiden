@@ -13,7 +13,7 @@ public class NextSceneOnTrigger : MonoBehaviour
     private void Start()
     {
         _gameManager = GameManager.instance;
-        _gameManager.OnGameWon += ShowDoor;
+        _gameManager.OnRoomWon += ShowDoor;
         _collider = GetComponent<Collider2D>();
         _anim = GetComponent<Animator>();
         HideDoor();
