@@ -33,5 +33,6 @@ public class MenuManager : MonoBehaviour
     public void BTN_Tutorial()
     {
         _gameManager.SceneManager.LoadLevel("Tutorial1");
+        _gameManager.SaveDataManager.Reset();
     }
 }

@@ -21,7 +21,6 @@ public class Platform_Disappear : MonoBehaviour
     IEnumerator Disappear()
     {
         yield return new WaitForSeconds(_timeToDisappear);
-
         _sprite.SetActive(false);
 
         foreach (var item in _colliders)

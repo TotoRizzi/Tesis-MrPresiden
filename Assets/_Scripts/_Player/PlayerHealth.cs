@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using System.Diagnostics;
 
@@ -75,7 +75,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         }
 
         _gameManager.Player.PausePlayer();
-        _gameManager.Player.PlayerSprite.gameObject.SetActive(false);
+        foreach (Transform item in GetComponentsInChildren<Transform>().Where(x => x != transform))
+            item.gameObject.SetActive(false);
     }
 
     IEnumerator MenuDelay()
