@@ -14,7 +14,7 @@ public class AmmoPickUp : PickUp
     }
     public override void PickUpAction()
     {
-        _weaponManager.GetMainWeapon.AddAmmo(amount);
+        _weaponManager.GetMainWeapon?.AddAmmo(amount);
         base.PickUpAction();
     }
 }

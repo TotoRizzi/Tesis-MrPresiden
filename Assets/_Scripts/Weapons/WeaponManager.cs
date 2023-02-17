@@ -12,7 +12,7 @@ public class WeaponManager : MonoBehaviour
     Action _lookAtMouse = delegate { };
 
     public Transform SecundaryWeaponContainer { get { return _secundaryWeaponContainer; } }
-    public FireWeapon GetMainWeapon { get { return _currentMainWeapon.GetComponent<FireWeapon>(); } }
+    public FireWeapon GetMainWeapon { get { return _currentMainWeapon?.GetComponent<FireWeapon>(); } }
     private void Start()
     {
         _mainCamera = Camera.main;
@@ -35,8 +35,6 @@ public class WeaponManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G)) ThrowWeapon();
 
         if (Input.GetKeyDown(KeyCode.E)) SetWeapon();
-
-        if (Input.GetKeyDown(KeyCode.R)) SaveWeapon();
     }
 
     #region Weapon Funcs
@@ -84,6 +82,7 @@ public class WeaponManager : MonoBehaviour
         _currentMainWeapon = null;
         _mainWeaponContainer.eulerAngles = Vector2.zero;
         _lookAtMouse -= MainWeapon;
+        GameManager.instance.UiManager.SetDefaultWeaponSprite();
     }
     void MainWeapon()
     {

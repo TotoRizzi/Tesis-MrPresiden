@@ -16,6 +16,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] Image _pointsBar;
 
     [Header("CurrentWeapon")]
+    Sprite _notEquipedWeaponSprite;
     [SerializeField] Image _currentWeaponImg;
     [SerializeField] TextMeshProUGUI _currentWeaponAmmoAmount;
 
@@ -24,6 +25,10 @@ public class UiManager : MonoBehaviour
 
     [Header("Pause")]
     [SerializeField] GameObject _pauseMenu;
+    private void Awake()
+    {
+        _notEquipedWeaponSprite = _currentWeaponImg.sprite;
+    }
 
     public void UpdateStaminaBar(float current, float max)
     {
@@ -49,6 +54,11 @@ public class UiManager : MonoBehaviour
     public void UpdateCurrentWeapon(Sprite currentWeaponSprite)
     {
         _currentWeaponImg.sprite = currentWeaponSprite;
+    }
+    public void SetDefaultWeaponSprite()
+    {
+        _currentWeaponImg.sprite = _notEquipedWeaponSprite;
+        _currentWeaponAmmoAmount.text = 0.ToString();
     }
     public void UpdateCurrentAmmo(float currentAmmoAmount)
     {
