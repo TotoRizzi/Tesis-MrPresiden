@@ -11,7 +11,7 @@ public class MenuManager : MonoBehaviour
     public void BTN_Play()
     {
         _gameManager.SaveDataManager.Reset();
-        _gameManager.LevelManager.SetNewOrderOfLevels();
+        //_gameManager.LevelManager.SetNewOrderOfLevels();
         _gameManager.LevelManager.NextLevel();
     }
 

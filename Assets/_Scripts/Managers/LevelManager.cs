@@ -15,13 +15,15 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         _gameManager = GameManager.instance;
+        _currentLevel = _gameManager.SaveDataManager.GetInt("CurrentLevel", 1);
 
+        /*
         bool isSaved = _gameManager.SaveDataManager.GetBool("HasSavedLevel", false);
         if (isSaved)
         {
             _newLevelOrder = _gameManager.SaveDataManager.Getrray("Level ", _numberOfLevels);
             _currentLevel = _gameManager.SaveDataManager.GetInt("CurrentLevel", 0);
-        }
+        }*/
     }
     public void SetNewOrderOfLevels()
     {
@@ -65,6 +67,7 @@ public class LevelManager : MonoBehaviour
         int fixedCurrentLevel = _currentLevel;
         _currentLevel++;
 
+        /*
         if (fixedCurrentLevel < _newLevelOrder.Length)
         {
             _gameManager.SaveDataManager.SaveInt("CurrentLevel", _currentLevel);
@@ -74,6 +77,9 @@ public class LevelManager : MonoBehaviour
         else
         {
             _gameManager.GameWon();
-        }
+        }*/
+        _gameManager.SaveDataManager.SaveInt("CurrentLevel", _currentLevel);
+        _gameManager.SceneManager.LoadLevel(("Level " + fixedCurrentLevel));
+
     }
 }
