@@ -9,9 +9,11 @@ public class Platform_Disappear : MonoBehaviour
 
     [SerializeField] GameObject _sprite;
     Collider2D[] _colliders;
+    Animator _anim;
 
     private void Start()
     {
+        _anim = GetComponent<Animator>();
         _colliders = GetComponents<BoxCollider2D>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -20,6 +22,7 @@ public class Platform_Disappear : MonoBehaviour
     }
     IEnumerator Disappear()
     {
+        _anim.Play("Breaking");
         yield return new WaitForSeconds(_timeToDisappear);
         _sprite.SetActive(false);
 
@@ -40,5 +43,7 @@ public class Platform_Disappear : MonoBehaviour
         {
             item.enabled = true;
         }
+        _anim.Play("Idle");
+
     }
 }

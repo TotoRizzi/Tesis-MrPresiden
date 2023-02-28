@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 4982299367180991297}
   - component: {fileID: 2435884290681187629}
   - component: {fileID: 3464333621968912229}
+  - component: {fileID: 960904723198157926}
   m_Layer: 6
   m_Name: Platform_Disappearing
   m_TagString: Untagged
@@ -111,7 +112,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2435884290681187626}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.06, y: -1.56, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1.575, z: 1}
   m_Children:
   - {fileID: 2435884290159541662}
@@ -130,8 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 482a4f64b0c3422488f8cace13dba9c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeToDisappear: 0.5
-  _timeToAppear: 2
+  _timeToDisappear: 2
+  _timeToAppear: 1.5
   _sprite: {fileID: 2435884290159541663}
 --- !u!61 &2435884290681187628
 BoxCollider2D:
@@ -229,4 +230,23 @@ MonoBehaviour:
   - {x: -0.9048543, y: 0, z: 0}
   m_ShapePathHash: -806738509
   m_Mesh: {fileID: 0}
-  m_InstanceId: 34732
+  m_InstanceId: 71864
+--- !u!95 &960904723198157926
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2435884290681187626}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d201731b215c91845a5f558ad3fc1667, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
