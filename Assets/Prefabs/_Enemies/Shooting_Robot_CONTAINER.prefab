@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 1345984880184226451}
   - component: {fileID: 790934455467268714}
   - component: {fileID: 790934455467268717}
+  - component: {fileID: 375995543649621983}
   m_Layer: 10
   m_Name: Shooting_Robot
   m_TagString: Untagged
@@ -201,6 +202,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &375995543649621983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790934455467268716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f5acdf191c5b043ad7d206e8900109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cursor: {fileID: 11400000, guid: 000df3e2938c74a409e2e0b58b4f38e0, type: 2}
 --- !u!1 &790934455625950168
 GameObject:
   m_ObjectHideFlags: 0

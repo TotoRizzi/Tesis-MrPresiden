@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6164677665812734091}
   - component: {fileID: 5534345026791346802}
   - component: {fileID: 1584438887116759122}
+  - component: {fileID: 6007407914684323107}
   m_Layer: 18
   m_Name: BreakableWhitePot_S
   m_TagString: Untagged
@@ -54,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -146,6 +147,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destroyedVersion: {fileID: 3123367336333425024, guid: 3e7a3b34e49e3bd4fb747c3e6be75152, type: 3}
+--- !u!114 &6007407914684323107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3123367336333425024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f5acdf191c5b043ad7d206e8900109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cursor: {fileID: 11400000, guid: 000df3e2938c74a409e2e0b58b4f38e0, type: 2}
 --- !u!1 &7671568050169115200
 GameObject:
   m_ObjectHideFlags: 0

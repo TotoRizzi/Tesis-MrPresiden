@@ -29,7 +29,7 @@ public class PlayerFinalAnimation : MonoBehaviour
     {
         _anim.Play("Empty");
         if (_inGrounded)
-            _rb.AddForce(Vector2.up * 2,ForceMode2D.Impulse);
+            _rb.AddForce(Vector2.up * 15,ForceMode2D.Impulse);
     }
     public void PresidentNear()
     {

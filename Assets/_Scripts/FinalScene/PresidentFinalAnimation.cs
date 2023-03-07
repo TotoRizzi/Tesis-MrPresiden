@@ -23,7 +23,7 @@ public class PresidentFinalAnimation : MonoBehaviour
     {
         transform.localScale = new Vector2(-1, 1);
         if (_inGrounded)
-            _rb.AddForce(Vector2.up * 2, ForceMode2D.Impulse);
+            _rb.AddForce(Vector2.up * 15, ForceMode2D.Impulse);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

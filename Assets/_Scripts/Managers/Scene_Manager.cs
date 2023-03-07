@@ -16,6 +16,7 @@ public class Scene_Manager : MonoBehaviour
     void Update()
     {
         if (Input.GetKey(KeyCode.T)) RestartLevel();
+        if (Input.GetKey(KeyCode.U)) LoadLevel("WinScreen");
     }
     public void LoadLevel(int level)
     {

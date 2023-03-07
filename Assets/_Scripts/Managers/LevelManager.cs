@@ -79,7 +79,7 @@ public class LevelManager : MonoBehaviour
             _gameManager.GameWon();
         }*/
         _gameManager.SaveDataManager.SaveInt("CurrentLevel", _currentLevel);
-        _gameManager.SceneManager.LoadLevel(("Level " + fixedCurrentLevel));
+        _gameManager.SceneManager.LoadLevel(("Level " + _currentLevel));
 
     }
 }
