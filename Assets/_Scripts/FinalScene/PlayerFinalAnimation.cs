@@ -8,17 +8,22 @@ public class PlayerFinalAnimation : MonoBehaviour
     bool _inGrounded => Physics2D.Raycast(_groundCheck.position, Vector2.down, .1f, GameManager.instance.GroundLayer);
 
     bool _president;
+
+    System.Action _currentAction;
     void Start()
     {
         _anim = GetComponentInChildren<Animator>();
         _rb = GetComponent<Rigidbody2D>();
+        _currentAction = RunState;
     }
     void Update()
     {
-        if (!_president)
-            transform.position += transform.right * 4 * Time.deltaTime;
-        else
-            JumpState();
+        _currentAction();
+    }
+    void RunState()
+    {
+        _anim.Play("Run");
+        transform.position += transform.right * 4 * Time.deltaTime;
     }
     private void JumpState()
     {
@@ -28,12 +33,14 @@ public class PlayerFinalAnimation : MonoBehaviour
     }
     public void PresidentNear()
     {
-        _president = true;
-        StartCoroutine(GoMenu());
+        _currentAction = JumpState;
+        StartCoroutine(Escape());
     }
-    IEnumerator GoMenu()
+    IEnumerator Escape()
     {
-        yield return new WaitForSeconds(4f);
-        GameManager.instance.SceneManager.GoToMenu();
+        yield return new WaitForSeconds(3f);
+        _currentAction = delegate { };
+        yield return new WaitForSeconds(1f);
+        _currentAction = RunState;
     }
 }
