@@ -7,7 +7,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 {
     GameManager _gameManager;
 
-    [SerializeField] Renderer[] _allPlayerSprites;
+    [SerializeField] SpriteRenderer[] _allPlayerSprites;
     [SerializeField] float _defaultHp;
     float _maxHp;
     float _currentHp;
@@ -47,17 +47,13 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         _invincible = true;
 
         foreach (var item in _allPlayerSprites)
-        {
-            item.material.color = Color.red;
-        }
+            item.color = Color.red;
 
         yield return new WaitForSeconds(_invincibilityTime);
 
         _invincible = false;
         foreach (var item in _allPlayerSprites)
-        {
-            item.material.color = Color.white;
-        }
+            item.color = Color.white;
     }
 
     public void Die()
