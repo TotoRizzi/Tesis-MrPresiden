@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2435884290159541662}
   - component: {fileID: 2435884290159541649}
+  - component: {fileID: 6178312207047327925}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -82,6 +83,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6178312207047327925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2435884290159541663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 3d9b2f0f000000005963b32aa39c47404d2c7b87e751e7c3
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+  m_ShapePathHash: 160822549
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -53724
 --- !u!1 &2435884290681187626
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +122,6 @@ GameObject:
   - component: {fileID: 2435884290681187628}
   - component: {fileID: 4982299367180991297}
   - component: {fileID: 2435884290681187629}
-  - component: {fileID: 3464333621968912229}
   - component: {fileID: 960904723198157926}
   m_Layer: 6
   m_Name: Platform_Disappearing
@@ -205,32 +231,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.7138224, y: 0.078475714}
   m_EdgeRadius: 0
---- !u!114 &3464333621968912229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2435884290681187626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 0
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 3d9b2f0f000000005963b32aa39c47404d2c7b87e751e7c3
-  m_ShapePath:
-  - {x: -0.9048548, y: -0.22203256, z: 0}
-  - {x: 0.9155092, y: -0.22203256, z: 0}
-  - {x: 0.9, y: 0, z: 0}
-  - {x: -0.9048543, y: 0, z: 0}
-  m_ShapePathHash: -806738509
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 71864
 --- !u!95 &960904723198157926
 Animator:
   serializedVersion: 3
