@@ -5,6 +5,7 @@ public class NextSceneOnTrigger : MonoBehaviour
 
     [SerializeField] bool _isTutorial;
     [SerializeField] GameObject _door;
+    [SerializeField] GameObject lightParent;
     Collider2D _collider;
     Animator _anim;
     private void Start()
@@ -18,10 +19,12 @@ public class NextSceneOnTrigger : MonoBehaviour
     void ShowDoor()
     {
         _collider.enabled = true;
+        lightParent.SetActive(true);
         _anim.Play("Open");
     }
     void HideDoor()
     {
+        lightParent.SetActive(false);
         _collider.enabled = false;
     }
     private void OnTriggerEnter2D(Collider2D collision)
