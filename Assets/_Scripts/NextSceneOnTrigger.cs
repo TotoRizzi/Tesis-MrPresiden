@@ -29,5 +29,9 @@ public class NextSceneOnTrigger : MonoBehaviour
     {
         if (_isTutorial) return;
         Helpers.GameManager.LoadSceneManager.LoadLevel(_nextScene);
+        if (Helpers.GameManager.UiManager == null) return;
+
+        Helpers.GameManager.UiManager.CloseCurtain();
+        Helpers.GameManager.Player.PausePlayer();
     }
 }
