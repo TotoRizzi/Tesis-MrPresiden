@@ -1,17 +1,15 @@
 using UnityEngine;
 public class NextSceneOnTrigger : MonoBehaviour
 {
-    GameManager _gameManager;
-
     [SerializeField] bool _isTutorial;
-    [SerializeField] GameObject _door;
+    [SerializeField] int _nextScene;
     [SerializeField] GameObject lightParent;
+
     Collider2D _collider;
     Animator _anim;
     private void Start()
     {
-        _gameManager = GameManager.instance;
-        _gameManager.OnRoomWon += ShowDoor;
+        Helpers.GameManager.OnRoomWon += ShowDoor;
         _collider = GetComponent<Collider2D>();
         _anim = GetComponentInChildren<Animator>();
         HideDoor();
@@ -30,6 +28,6 @@ public class NextSceneOnTrigger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (_isTutorial) return;
-        _gameManager.LevelManager.NextLevel();
+        Helpers.GameManager.LoadSceneManager.LoadLevel(_nextScene);
     }
 }

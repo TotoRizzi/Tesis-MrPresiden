@@ -52,6 +52,10 @@ public class GameManager : MonoBehaviour
     Player _player;
     public Player Player { get { return _player; } private set { } }
 
+    [SerializeField] LoadSceneManager _loadSceneManager;
+
+    public LoadSceneManager LoadSceneManager { get { return _loadSceneManager; } private set { } }
+
     private ComboManager _comboManager;
     public ComboManager ComboManager { get { return _comboManager; } private set { } }
 
@@ -94,7 +98,7 @@ public class GameManager : MonoBehaviour
         _effectsManager = GetComponent<EffectsManager>();
         _uiManager = GetComponent<UiManager>();
         _saveDataManager = GetComponent<SaveDataManager>();
-        _sceneManager = GetComponent <Scene_Manager>();
+        //_sceneManager = GetComponent <Scene_Manager>();
         _dropManager = GetComponent <DropManager>();
         _levelManager = GetComponent<LevelManager>();
     }

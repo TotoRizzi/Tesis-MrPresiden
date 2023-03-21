@@ -11,7 +11,7 @@ public class Scene_Manager : MonoBehaviour
 
         _gameManager.OnGameLost += GameLost;
         _gameManager.OnGameWon += GameWon;
-        _gameManager.OnSpiked += ()  => StartCoroutine(RestartLevel());
+        _gameManager.OnSpiked += () => StartCoroutine(RestartLevel());
     }
     void Update()
     {
