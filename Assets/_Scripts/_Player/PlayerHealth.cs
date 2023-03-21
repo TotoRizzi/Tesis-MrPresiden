@@ -67,7 +67,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         for (int i = 0; i < 3; i++)
         {
             _gameManager.EffectsManager.HumanoindKilled(transform.position + Vector3.up);
-            _gameManager.SoundManager.PlaySound("Enemy_Dead");
+            Helpers.AudioManager.PlaySFX("Enemy_Dead");
         }
 
         _gameManager.Player.PausePlayer();
