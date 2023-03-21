@@ -28,7 +28,7 @@ public class PlayerController
 
     public void IdleInputs()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _player.CanJump)
             _player.fsm.ChangeState(StateName.Jump);
         else if (xAxis != 0)
             _player.fsm.ChangeState(StateName.Move);
@@ -38,7 +38,7 @@ public class PlayerController
 
     public void MovingInputs()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _player.CanJump)
             _player.fsm.ChangeState(StateName.Jump);
         else if (xAxis == 0)
             _player.fsm.ChangeState(StateName.Idle);
@@ -50,7 +50,7 @@ public class PlayerController
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && _player.CanDash)
             _player.fsm.ChangeState(StateName.Dash);
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Space) && _player.CanJump)
             _player.fsm.ChangeState(StateName.Jump);
     }
 
@@ -58,7 +58,7 @@ public class PlayerController
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && _player.CanDash)
             _player.fsm.ChangeState(StateName.Dash);
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Space) && _player.CanJump)
             _player.fsm.ChangeState(StateName.Jump);
     }
 }

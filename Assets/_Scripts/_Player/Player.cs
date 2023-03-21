@@ -49,6 +49,8 @@ public class Player : MonoBehaviour
     public int _currentJumps = 1;
   
     bool _canJump => _currentJumps > 0;
+
+    public bool CanJump { get { return _canJump; } private set { } }
     #endregion
 
     #region Stamina
@@ -150,8 +152,6 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
-        if (!_canJump) return;
-
         FreezeVelocity();
 
         OnJump();
@@ -360,7 +360,7 @@ public class JumpState : IState
 
     public void OnEnter()
     {
-        _player.FreezeVelocity();
+        //_player.FreezeVelocity();
         _player.Jump();
         _player.StartCoroutine(_player.OnAirDelay());
     }
