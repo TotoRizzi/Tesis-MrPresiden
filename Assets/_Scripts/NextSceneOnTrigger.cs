@@ -28,9 +28,9 @@ public class NextSceneOnTrigger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (_isTutorial) return;
-        Helpers.GameManager.LoadSceneManager.LoadLevel(_nextScene);
         if (Helpers.GameManager.UiManager == null) return;
 
+        Helpers.GameManager.LoadSceneManager.LoadLevel(_nextScene);
         Helpers.GameManager.UiManager.CloseCurtain();
         Helpers.GameManager.Player.PausePlayer();
     }
