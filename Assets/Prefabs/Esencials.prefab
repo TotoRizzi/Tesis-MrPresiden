@@ -416,7 +416,6 @@ GameObject:
   - component: {fileID: 1707881769362260654}
   - component: {fileID: 1707881769362260655}
   - component: {fileID: 1707881769362260624}
-  - component: {fileID: 1707881769362260653}
   - component: {fileID: 1707881769362260652}
   - component: {fileID: 1707881769362260651}
   - component: {fileID: 1707881769362260650}
@@ -514,44 +513,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543d19e78b5fdd44893b2b8f5a2a1741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1707881769362260653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1707881769362260627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2b88260176171141b0465a4e6cb8cf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundEffects:
-  - soundName: Player_Jump
-    clip: {fileID: 8300000, guid: 3f2d06697612c8d47ba891435db5a1b5, type: 3}
-  - soundName: Player_Dash
-    clip: {fileID: 8300000, guid: 9806964266d36ad4188ca62887c8eae1, type: 3}
-  - soundName: Player_PowerUp
-    clip: {fileID: 8300000, guid: 5647b7838dc94be42a53ba0396f32ffe, type: 3}
-  - soundName: Enemy_Dead
-    clip: {fileID: 8300000, guid: 42ee988c9d8490844a382791683be17b, type: 3}
-  - soundName: Weapon_Rifle
-    clip: {fileID: 8300000, guid: ad492bc7fffc7164cbb7e6eccc1b7c15, type: 3}
-  - soundName: Weapon_Sniper
-    clip: {fileID: 8300000, guid: 8ee112e7ba4be9849bb5388b3dc88323, type: 3}
-  - soundName: Weapon_Knife
-    clip: {fileID: 8300000, guid: bd1eed8ddaeb61c4685cfe70eba05230, type: 3}
-  - soundName: Weapon_Pistol
-    clip: {fileID: 8300000, guid: 70665f2cf2dc98646a144464ddc41d34, type: 3}
-  - soundName: Weapon_Shotgun
-    clip: {fileID: 8300000, guid: a015c6ada78889e4f985ab8c8db9962e, type: 3}
-  - soundName: Weapon_GranadesLauncher
-    clip: {fileID: 8300000, guid: 1c82c545880c83d49b6145414b3bf865, type: 3}
-  - soundName: Not_Ammo
-    clip: {fileID: 8300000, guid: c75601755e9a1ae499519fa9cfc9917c, type: 3}
-  - soundName: Grenade_Destroy
-    clip: {fileID: 8300000, guid: 3bea10892cf3ed04792f20b9fdea8abe, type: 3}
-  soundEffectSource: {fileID: 1707881770548231271}
 --- !u!114 &1707881769362260652
 MonoBehaviour:
   m_ObjectHideFlags: 0

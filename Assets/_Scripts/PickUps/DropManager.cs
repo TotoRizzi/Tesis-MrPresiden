@@ -13,11 +13,10 @@ public class DropManager : MonoBehaviour
     {
         _pickUps.Add(_pickUpsCollection[0], 50);
 
-        _weapons.Add(_weaponsCollection[0], 20);
-        _weapons.Add(_weaponsCollection[1], 20);
-        _weapons.Add(_weaponsCollection[2], 20);
-        _weapons.Add(_weaponsCollection[3], 20);
-        _weapons.Add(_weaponsCollection[4], 20);
+        _weapons.Add(_weaponsCollection[0], 25);
+        _weapons.Add(_weaponsCollection[1], 25);
+        _weapons.Add(_weaponsCollection[2], 25);
+        _weapons.Add(_weaponsCollection[3], 25);
     }
     public PickUp GetPickUpDrop() => RWS(_pickUps);
     public Weapon GetWeaponDrop() => RWS(_weapons);

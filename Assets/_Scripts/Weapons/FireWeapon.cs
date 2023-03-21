@@ -20,13 +20,13 @@ public class FireWeapon : Weapon
     {
         if (_currentAmmo <= 0)
         {
-            _gameManager.SoundManager.PlaySound("Not_Ammo");
+            Helpers.AudioManager.PlaySFX("Not_Ammo");
             return;
         }
 
         _currentAmmo--;
         UpdateAmmoAmount();
-        _gameManager.SoundManager.PlaySound(_weaponData.weaponSoundName);
+        Helpers.AudioManager.PlaySFX(_weaponData.weaponSoundName);
         FireWeaponShoot(bulletDirection);
     }
 
