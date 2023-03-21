@@ -16,7 +16,7 @@ public class Knife : Weapon
     {
         _anim.SetTrigger("Attack");
         transform.right = bulletDirection;
-        Helpers.AudioManager.PlaySFX(_weaponData.weaponSoundName);
+        _gameManager.SoundManager.PlaySound(_weaponData.weaponSoundName);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

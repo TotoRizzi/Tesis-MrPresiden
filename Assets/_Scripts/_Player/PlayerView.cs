@@ -32,12 +32,12 @@ public class PlayerView : MonoBehaviour
 
     public void Jump()
     {
-        Helpers.AudioManager.PlaySFX("Player_Jump");
+        _gameManager.SoundManager.PlaySound("Player_Jump");
     }
 
     public void Dash()
     {
-        Helpers.AudioManager.PlaySFX("Player_Dash");
+        _gameManager.SoundManager.PlaySound("Player_Dash");
     }
 }
 

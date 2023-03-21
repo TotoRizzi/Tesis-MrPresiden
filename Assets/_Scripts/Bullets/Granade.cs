@@ -38,7 +38,7 @@ public class Granade : MonoBehaviour
         if (collision != null)
         {
             Explosion();
-            Helpers.AudioManager.PlaySFX("Grenade_Destroy");
+            GameManager.instance.SoundManager.PlaySound("Grenade_Destroy");
             FRY_Granades.Instance.ReturnBullet(this);
         }
     }

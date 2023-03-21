@@ -37,7 +37,7 @@ public class EnemyManager : MonoBehaviour
 
         OnEnemyKilled();
         _allEnemies.Remove(enemy);
-        Helpers.AudioManager.PlaySFX("Enemy_Dead");
+        _gameManager.SoundManager.PlaySound("Enemy_Dead");
 
         if (_allEnemies.Count == 0) _gameManager.RoomWon();
     }
