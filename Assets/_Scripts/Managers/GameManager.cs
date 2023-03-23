@@ -98,6 +98,7 @@ public class GameManager : MonoBehaviour
         _effectsManager = GetComponent<EffectsManager>();
         _uiManager = GetComponent<UiManager>();
         _saveDataManager = GetComponent<SaveDataManager>();
+        _pauseManager = GetComponent<PauseManager>();
         //_sceneManager = GetComponent <Scene_Manager>();
         _dropManager = GetComponent <DropManager>();
         _levelManager = GetComponent<LevelManager>();
