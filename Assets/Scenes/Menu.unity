@@ -3113,7 +3113,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2137556973
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3488,9 +3488,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 521680909}
     m_Modifications:
+    - target: {fileID: 332970968956548025, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970968956548025, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970968956548025, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970968956548025, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970969003486652, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_text
+      value: Full Screen
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970969003486652, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_fontSize
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970969003486652, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970969276665417, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 332970969835917396, guid: 79db02f00b865b546b51315b226f3878, type: 3}
       propertyPath: m_Name
       value: VideoSettings
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970969835917396, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 332970969835917397, guid: 79db02f00b865b546b51315b226f3878, type: 3}
       propertyPath: m_Pivot.x
@@ -3579,6 +3615,38 @@ PrefabInstance:
     - target: {fileID: 332970969835917398, guid: 79db02f00b865b546b51315b226f3878, type: 3}
       propertyPath: _isMenu
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970970375723742, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970970375723742, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970970375723742, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970970375723742, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970970832948574, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970970832948574, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970970832948574, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 332970970832948574, guid: 79db02f00b865b546b51315b226f3878, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 332970970894335642, guid: 79db02f00b865b546b51315b226f3878, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target

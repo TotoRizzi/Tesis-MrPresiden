@@ -10,26 +10,28 @@ public class VideoSettings : MonoBehaviour
         _resolutions = Screen.resolutions;
 
         _resolutionDropDown.ClearOptions();
-    
+
         List<string> options = new List<string>();
         int currentResolutionIndex = 0;
         for (int i = 0; i < _resolutions.Length; i++)
         {
             string option = _resolutions[i].width + "x" + _resolutions[i].height;
             options.Add(option);
-    
-            if (_resolutions[i].width == Helpers.CurrentResolution.width && _resolutions[i].height == Helpers.CurrentResolution.height)
+
+            if (_resolutions[i].width == Screen.width && _resolutions[i].height == Screen.height)
                 currentResolutionIndex = i;
         }
         _resolutionDropDown.AddOptions(options);
-    
+
         _resolutionDropDown.value = currentResolutionIndex;
-    
+
         _qualityDropDown.value = QualitySettings.GetQualityLevel();
-        _qualityDropDown.RefreshShownValue();
-    
-        _windowModeDropDown.value = (int)Screen.fullScreenMode;
-        _windowModeDropDown.RefreshShownValue();
+
+        _windowModeDropDown.value = Screen.fullScreenMode == FullScreenMode.FullScreenWindow ? 0 : 1;
+
+        _resolutionDropDown.onValueChanged.AddListener(SetResolution);
+        _qualityDropDown.onValueChanged.AddListener(SetQuality);
+        _windowModeDropDown.onValueChanged.AddListener(SetWindowMode);
     }
     public void SetQuality(int qualityIndex)
     {
@@ -37,14 +39,12 @@ public class VideoSettings : MonoBehaviour
     }
     public void SetWindowMode(int screenMode)
     {
-        FullScreenMode newMode = screenMode == 0? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
+        FullScreenMode newMode = screenMode == 0 ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
         Screen.fullScreenMode = newMode;
-        Helpers.WindowMode = newMode;
     }
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = _resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-        Helpers.CurrentResolution = resolution;
     }
 }
