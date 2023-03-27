@@ -7,8 +7,6 @@ public class PlayerFinalAnimation : MonoBehaviour
     Rigidbody2D _rb;
     bool _inGrounded => Physics2D.Raycast(_groundCheck.position, Vector2.down, .1f, GameManager.instance.GroundLayer);
 
-    bool _president;
-
     System.Action _currentAction;
     void Start()
     {
@@ -42,5 +40,14 @@ public class PlayerFinalAnimation : MonoBehaviour
         _currentAction = delegate { };
         yield return new WaitForSeconds(1f);
         _currentAction = RunState;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<NextSceneOnTrigger>())
+        {
+            _anim.Play("Empty");
+            _currentAction = delegate { };
+        }
     }
 }

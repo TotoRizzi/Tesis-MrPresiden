@@ -32,6 +32,6 @@ public class NextSceneOnTrigger : MonoBehaviour
 
         Helpers.GameManager.LoadSceneManager.LoadLevel(_nextScene);
         Helpers.GameManager.UiManager.CloseCurtain();
-        Helpers.GameManager.Player.PausePlayer();
+        if(Helpers.GameManager.Player) Helpers.GameManager.Player.PausePlayer();
     }
 }
