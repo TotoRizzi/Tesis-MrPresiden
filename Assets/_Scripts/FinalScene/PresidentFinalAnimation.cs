@@ -35,6 +35,12 @@ public class PresidentFinalAnimation : MonoBehaviour
             StartCoroutine(Escape());
             player.PresidentNear();
         }
+
+        if (collision.GetComponent<NextSceneOnTrigger>())
+        {
+            _anim.Play("Empty");
+            _currentAction = delegate { };
+        }
     }
 
     IEnumerator Escape()
