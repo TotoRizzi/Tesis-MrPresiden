@@ -20,12 +20,13 @@ public class GameManager : MonoBehaviour
     public event Action OnSpiked;
 
     [Header("Layers")]
-    [SerializeField] LayerMask _groundLayer, _playerLayer, _weaponLayer, _dynamicBodies, _borderLayer;
+    [SerializeField] LayerMask _groundLayer, _playerLayer, _weaponLayer, _dynamicBodies, _borderLayer, _bulletLayer;
     public LayerMask GroundLayer { get { return _groundLayer; } private set { } }
     public LayerMask BorderLayer { get { return _borderLayer; } private set { } }
     public LayerMask PlayerLayer { get { return _playerLayer; } private set { } }
     public LayerMask WeaponLayer { get { return _weaponLayer; } private set { } }
     public LayerMask DynamicBodiesLayer { get { return _dynamicBodies; } private set { } }
+    public LayerMask BulletLayer { get { return _bulletLayer; } private set { } }
 
 
     [Header("Camera")]

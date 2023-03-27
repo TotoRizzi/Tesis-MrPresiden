@@ -14,14 +14,13 @@ public class Bullet : MonoBehaviour
         if (_currentDistance > _maxDistance)
             ReturnBullet();
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var entity = collision.GetComponent<IDamageable>();
 
         if (entity != null) entity.TakeDamage(_dmg);
 
-        ReturnBullet(); 
+        ReturnBullet();
     }
 
     #region BUILDER
@@ -66,12 +65,12 @@ public class Bullet : MonoBehaviour
     }
     public static void TurnOn(Bullet b)
     {
-        b.Reset();
         b.gameObject.SetActive(true);
     }
 
     public static void TurnOff(Bullet b)
     {
+        b.Reset();
         b.gameObject.SetActive(false);
     }
     void ReturnBullet()
