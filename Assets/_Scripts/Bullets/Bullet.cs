@@ -19,6 +19,7 @@ public class Bullet : MonoBehaviour
         var entity = collision.GetComponent<IDamageable>();
 
         if (entity != null) entity.TakeDamage(_dmg);
+        else Helpers.AudioManager.PlaySFX("Bullet_GroundHit");
 
         ReturnBullet();
     }

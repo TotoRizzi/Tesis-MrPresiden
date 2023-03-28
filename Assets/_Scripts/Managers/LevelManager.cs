@@ -64,20 +64,8 @@ public class LevelManager : MonoBehaviour
     {
         _isInCoroutine = true;
         yield return new WaitForSeconds(1f);
-        int fixedCurrentLevel = _currentLevel;
         _currentLevel++;
 
-        /*
-        if (fixedCurrentLevel < _newLevelOrder.Length)
-        {
-            _gameManager.SaveDataManager.SaveInt("CurrentLevel", _currentLevel);
-
-            _gameManager.SceneManager.LoadLevel(_newLevelOrder[fixedCurrentLevel]);
-        }
-        else
-        {
-            _gameManager.GameWon();
-        }*/
         _gameManager.SaveDataManager.SaveInt("CurrentLevel", _currentLevel);
         _gameManager.SceneManager.LoadLevel(("Level " + _currentLevel));
 

@@ -50,9 +50,6 @@ public class GameManager : MonoBehaviour
 
     private EffectsManager _effectsManager;
     public EffectsManager EffectsManager { get { return _effectsManager; } private set { } }
-
-    private SoundManager _soundManager;
-    public SoundManager SoundManager { get { return _soundManager; } private set { } }
     
     private UiManager _uiManager;
     public UiManager UiManager { get { return _uiManager; } private set { } }
@@ -78,7 +75,6 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
 
         _player = FindObjectOfType<Player>();
-        _soundManager = GetComponent<SoundManager>();
         _enemyManager = GetComponent<EnemyManager>();
         _effectsManager = GetComponent<EffectsManager>();
         _uiManager = GetComponent<UiManager>();

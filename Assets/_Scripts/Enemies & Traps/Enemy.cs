@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public event Action OnUpdate;
 
     [SerializeField] protected Transform sprite;
-    private Renderer _renderer;
+    private SpriteRenderer _renderer;
     private float _onHitRedTime = .2f;
 
     [Header("Health")]
@@ -23,8 +23,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
         gameManager.EnemyManager.AddEnemy(this);
         _currentHp = _maxHp;
-        _renderer = sprite.GetComponent<Renderer>();
-        if (!_renderer) _renderer = sprite.GetChild(0).GetComponent<Renderer>();
+        _renderer = sprite.GetComponent<SpriteRenderer>();
+        if (!_renderer) _renderer = sprite.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
     public virtual void Update()
@@ -52,11 +52,11 @@ public class Enemy : MonoBehaviour, IDamageable
 
     IEnumerator ChangeColor()
     {
-        _renderer.material.color = Color.red;
+        _renderer.color = Color.red;
 
         yield return new WaitForSeconds(_onHitRedTime);
 
-        _renderer.material.color = Color.white;
+        _renderer.color = Color.white;
     }
 
     protected Vector3 DistanceToPlayer()
