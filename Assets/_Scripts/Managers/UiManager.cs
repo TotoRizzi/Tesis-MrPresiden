@@ -35,17 +35,6 @@ public class UiManager : MonoBehaviour
         _staminaBar.fillAmount = current / max;
     }
 
-    public void UpDateComboBar(float current, float max, float currentComboCount)
-    {
-        _comboBar.fillAmount = current / max;
-        _comboCountText.text = currentComboCount.ToString();
-    }
-
-    public void UpdatePointsBar(float current, float max)
-    {
-        _pointsBar.fillAmount = current / max;
-    }
-
     public void UpdateHealthBar(float current, float max)
     {
         _healthBar.fillAmount = current / max;

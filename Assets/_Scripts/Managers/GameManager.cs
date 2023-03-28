@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     public event Action OnGameLost;
     public event Action OnGameWon;
     public event Action OnRoomWon;
-    public event Action OnAchievementReached;
     public event Action OnSpiked;
 
     [Header("Layers")]
@@ -35,16 +34,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] float _cameraSpeed;
     public float CameraSpeed { get { return _cameraSpeed; } private set { } }
 
-    [Header("Combos")]
-    [SerializeField] float _comboExpireTime = 4f;
-    public float ComboExpireTime { get { return _comboExpireTime; } private set { } }
-
-    [SerializeField] float _pointsForAchievement = 50;
-    public float PointsForAchievement { get { return _pointsForAchievement; } private set { } }    
-    
-    [SerializeField] float _comboExpireTimeMultiplier = .2f;
-    public float ComboExpireTimeMultiplier { get { return _comboExpireTimeMultiplier; } private set { } }
-
     [Header("Enemies")]
     [SerializeField] int _pointsPerEnemy = 10;
     public int PointsPerEnemy { get { return _pointsPerEnemy; } private set { } }
@@ -55,9 +44,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] LoadSceneManager _loadSceneManager;
 
     public LoadSceneManager LoadSceneManager { get { return _loadSceneManager; } private set { } }
-
-    private ComboManager _comboManager;
-    public ComboManager ComboManager { get { return _comboManager; } private set { } }
 
     private EnemyManager _enemyManager;
     public EnemyManager EnemyManager { get { return _enemyManager; } private set { } }
@@ -93,7 +79,6 @@ public class GameManager : MonoBehaviour
 
         _player = FindObjectOfType<Player>();
         _soundManager = GetComponent<SoundManager>();
-        _comboManager = GetComponent<ComboManager>();
         _enemyManager = GetComponent<EnemyManager>();
         _effectsManager = GetComponent<EffectsManager>();
         _uiManager = GetComponent<UiManager>();
@@ -119,9 +104,5 @@ public class GameManager : MonoBehaviour
     public void Spiked()
     {
         OnSpiked?.Invoke();
-    }
-    public void GiveAchievement()
-    {
-        OnAchievementReached?.Invoke();
     }
 }

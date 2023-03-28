@@ -18,7 +18,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private void Start()
     {
         _gameManager = GameManager.instance;
-        _gameManager.OnAchievementReached += AddHealth;
         _gameManager.OnSpiked += EffectsOnDeath;
 
         _maxHp = _gameManager.SaveDataManager.GetFloat("MaxHp", _defaultHp);
@@ -79,16 +78,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         yield return new WaitForSeconds(.5f);
         _gameManager.GameLost();
-    }
-
-    void AddHealth()
-    {
-        _currentHp++;
-        if (_currentHp > _maxHp)
-            _maxHp++;
-
-        SaveData();
-        UpdateUi();
     }
 
     void SaveData()
