@@ -11,14 +11,18 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     [SerializeField] float _defaultHp;
     float _maxHp;
     float _currentHp;
+    Vector3 _initialPos;
 
     [SerializeField] float _invincibilityTime = .1f;
     bool _invincible = false;
 
     private void Start()
     {
-        _gameManager = GameManager.instance;
+        _initialPos = transform.position;
+        _gameManager = Helpers.GameManager;
+
         _gameManager.OnSpiked += EffectsOnDeath;
+        _gameManager.OnSpiked += RestartPosition;
 
         _maxHp = _gameManager.SaveDataManager.GetFloat("MaxHp", _defaultHp);
         _currentHp = _gameManager.SaveDataManager.GetFloat("CurrentHp", _maxHp);
@@ -63,15 +67,21 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     void EffectsOnDeath()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            _gameManager.EffectsManager.HumanoindKilled(transform.position + Vector3.up);
-            Helpers.AudioManager.PlaySFX("Enemy_Dead");
-        }
+        _gameManager.EffectsManager.HumanoindKilled(transform.position + Vector3.up);
+        Helpers.AudioManager.PlaySFX("Enemy_Dead");
 
         _gameManager.Player.PausePlayer();
-        foreach (Transform item in GetComponentsInChildren<Transform>().Where(x => x != transform))
+        foreach (var item in _allPlayerSprites)            
             item.gameObject.SetActive(false);
+    }
+
+    void RestartPosition()
+    {
+        transform.position = _initialPos;
+        _gameManager.Player.UnPausePlayer();
+
+        foreach (var item in _allPlayerSprites)
+            item.gameObject.SetActive(true);
     }
 
     IEnumerator MenuDelay()

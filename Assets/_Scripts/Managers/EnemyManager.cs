@@ -13,15 +13,6 @@ public class EnemyManager : MonoBehaviour
     private void Start()
     {
         _gameManager = GameManager.instance;
-
-        StartCoroutine(CheckForEnemies());
-    }
-
-    IEnumerator CheckForEnemies()
-    {
-        yield return new WaitForEndOfFrame();
-
-        if (_allEnemies.Count == 0) _gameManager.RoomWon();
     }
 
     public void AddEnemy(Enemy enemy)

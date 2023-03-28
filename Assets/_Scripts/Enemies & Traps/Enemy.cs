@@ -19,8 +19,9 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual void Start()
     {
-        gameManager = GameManager.instance;
+        gameManager = Helpers.GameManager;
 
+        gameManager.OnSpiked += ReturnObject;
         gameManager.EnemyManager.AddEnemy(this);
         _currentHp = _maxHp;
         _renderer = sprite.GetComponent<SpriteRenderer>();
@@ -44,10 +45,13 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual void Die()
     {
-        gameManager.EnemyManager.RemoveEnemy(this);
+        ReturnObject();
         gameManager.EffectsManager.HumanoindKilled(transform.position);
 
-        Destroy(gameObject);
+        //gameManager.EnemyManager.RemoveEnemy(this);
+        //gameManager.EffectsManager.HumanoindKilled(transform.position);
+
+        //Destroy(gameObject);
     }
 
     IEnumerator ChangeColor()
@@ -72,5 +76,32 @@ public class Enemy : MonoBehaviour, IDamageable
     protected void ResetHp()
     {
         _currentHp = _maxHp;
+    }
+
+    public Enemy SetPosition(Vector3 pos)
+    {
+        transform.position = pos;
+        return this;
+    }
+
+    private void Reset()
+    {
+        _currentHp = _maxHp;
+        if (gameManager) gameManager.EnemyManager.AddEnemy(this);
+    }
+
+    public static void TurnOn(Enemy b)
+    {
+        b.Reset();
+        b.gameObject.SetActive(true);
+    }
+
+    public static void TurnOff(Enemy b)
+    {
+        b.gameObject.SetActive(false);
+    }
+    public virtual void ReturnObject()
+    {
+        gameManager.EnemyManager.RemoveEnemy(this);
     }
 }

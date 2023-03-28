@@ -46,6 +46,12 @@ public class Enemy_ChargeDrone : Enemy
     {
         transform.right = GetDistanceToPlayer().normalized;
     }
+    public override void ReturnObject()
+    {
+        base.ReturnObject();
+        FRY_Enemy_ChargeDrone.Instance.pool.ReturnObject(this);
+        _fsm.ChangeState(StateName.CD_Idle);
+    }
 }
 
 public class CD_Idle : IState

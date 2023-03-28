@@ -22,7 +22,7 @@ public class Enemy_FollowDrone : Enemy
         return this;
     }
 
-    private void Reset()
+   /* private void Reset()
     {
         ResetHp();
         if(gameManager) gameManager.EnemyManager.AddEnemy(this);
@@ -36,12 +36,12 @@ public class Enemy_FollowDrone : Enemy
     public static void TurnOff(Enemy_FollowDrone b)
     {
         b.gameObject.SetActive(false);
-    }
-    void ReturnObject()
+    }*/
+    public override void ReturnObject()
     {
         gameManager.EnemyManager.RemoveEnemy(this);
         gameManager.EffectsManager.HumanoindKilled(transform.position);
-        FRY_FollowDrone.Instance.ReturnObject(this);
+        //FRY_FollowDrone.Instance.ReturnObject(this);
     }
     public override void Die()
     {

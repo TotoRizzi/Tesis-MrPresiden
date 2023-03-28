@@ -4,7 +4,7 @@ public class SaveDataManager : MonoBehaviour
 {
     private void Start()
     {
-        GameManager.instance.OnGameLost += Reset;
+        Helpers.GameManager.OnGameLost += Reset;
     }
 
     private void Update()

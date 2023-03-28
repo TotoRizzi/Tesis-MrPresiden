@@ -12,7 +12,7 @@ public class LoadSceneManager : MonoBehaviour
 
         Helpers.GameManager.OnGameLost += () => LoadLevel("Menu");
         Helpers.GameManager.OnGameWon += () => LoadLevel("WinScreen");
-        Helpers.GameManager.OnSpiked += () => LoadLevel(SceneManager.GetActiveScene().buildIndex);
+        //Helpers.GameManager.OnSpiked += () => LoadLevel(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void LoadLevel(int levelIndex) => StartCoroutine(ChangeScene(levelIndex));

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 public class NextSceneOnTrigger : MonoBehaviour
 {
     [SerializeField] bool _isTutorial;
@@ -10,6 +11,8 @@ public class NextSceneOnTrigger : MonoBehaviour
     private void Start()
     {
         Helpers.GameManager.OnRoomWon += ShowExit;
+        Helpers.GameManager.OnSpiked += () => StartCoroutine(HideExit());
+
         _collider = GetComponent<Collider2D>();
         _anim = GetComponentInChildren<Animator>();
         HideExit();
@@ -20,10 +23,12 @@ public class NextSceneOnTrigger : MonoBehaviour
         lightParent.SetActive(true);
         _anim.Play("Open");
     }
-    void HideExit()
+    IEnumerator HideExit()
     {
+        yield return new WaitForEndOfFrame();
         lightParent.SetActive(false);
         _collider.enabled = false;
+        _anim.Play("Closed");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
