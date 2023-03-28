@@ -15,7 +15,7 @@ public class NextSceneOnTrigger : MonoBehaviour
 
         _collider = GetComponent<Collider2D>();
         _anim = GetComponentInChildren<Animator>();
-        HideExit();
+        StartCoroutine(HideExit());
     }
     void ShowExit()
     {

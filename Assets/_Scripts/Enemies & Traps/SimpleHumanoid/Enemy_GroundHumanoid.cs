@@ -9,12 +9,8 @@ public class Enemy_GroundHumanoid : Enemy
 
     public Transform Sprite { get { return sprite; } private set { } }
 
-
-    [SerializeField] Transform[] _wayPoints = null;
-    public Transform[] WayPoints { get { return _wayPoints; } private set { } }
-
-    [SerializeField] float _waypointSpeed = 1f;
-    public float WaypointSpeed { get { return _waypointSpeed; } private set { } }
+    [SerializeField] float _speed = 1f;
+    public float Speed { get { return _speed; } private set { } }
 
     [SerializeField] float _sightRange = 10f;
     public float SightRange { get { return _sightRange; } private set { } }
@@ -22,6 +18,7 @@ public class Enemy_GroundHumanoid : Enemy
     [SerializeField] float _stopAttackingTime = 1f;
     public float StopAttackingTime { get { return _stopAttackingTime; } private set { } }
 
+    public bool isFacingRight = true;
 
     public override void Start()
     {
@@ -55,7 +52,6 @@ public class SH_PatrolState : IState
 {
     StateMachine _fsm;
     Enemy_GroundHumanoid _enemy;
-    GameManager gameManager;
 
     Vector3 _dir;
     int _index;
@@ -64,14 +60,12 @@ public class SH_PatrolState : IState
     {
         _fsm = fsm;
         _enemy = enemy;
-
-        gameManager = GameManager.instance;
     }
 
     public void OnEnter()
     {
         _enemy.OnPatrolStart();
-        ChangeDir();
+        Flip();
     }
 
     public void OnExit() 
@@ -82,46 +76,40 @@ public class SH_PatrolState : IState
 
     public void OnUpdate()
     {
-        Debug.Log("Patrolling");
-
-        //Patrulla y si lo ve al player, lo ataca
-
         Move();
 
-        /*if (Physics2D.Raycast(_enemy.transform.position, _enemy.GetDistanceToPlayer().normalized, _enemy.SightRange, gameManager.PlayerLayer) && 
-            !Physics2D.Raycast(_enemy.transform.position, _enemy.GetDistanceToPlayer().normalized, _enemy.GetDistanceToPlayer().magnitude, gameManager.GroundLayer))*/
         if(_enemy.GetCanSeePlayer())
             _fsm.ChangeState(StateName.SH_Attack);
     }
 
     void Move()
     {
-        _enemy.transform.position += _dir * _enemy.WaypointSpeed * Time.deltaTime;
+        _enemy.transform.position += _dir * _enemy.Speed * Time.deltaTime;
 
-        if(Mathf.Abs(_enemy.transform.position.x - _enemy.WayPoints[_index].position.x) <= .3f) ChangeDir();
-        //if (Vector3.Distance(_enemy.transform.position, _enemy.WayPoints[_index].position) <= .3f) ChangeDir();
+        if (Physics2D.Raycast(_enemy.transform.position, _enemy.transform.localScale, 1f, Helpers.GameManager.GroundLayer)) Flip();
+        Debug.DrawLine(_enemy.transform.position, _enemy.Sprite.right);
     }
 
-    void ChangeDir()
+    void Flip()
     {
-        _index++;
-
-        if (_index > _enemy.WayPoints.Length - 1)
+        Vector3 newScale = Vector3.one;
+        
+        if (_enemy.isFacingRight)
         {
-            _index = 0;
+            _enemy.isFacingRight = false;
+            newScale.x = -1;
+
+            _dir = -Vector3.right;
+        }
+        else
+        {
+            _enemy.isFacingRight = true;
+            newScale.x = 1;
+            _dir = Vector3.right;
+
         }
 
-        _dir = (_enemy.WayPoints[_index].position - _enemy.transform.position);
-        _dir.y = 0;
-        _dir.z = 0;
-
-        _dir.Normalize();
-        Flip(_dir);
-    }
-
-    void Flip(Vector3 dir)
-    {
-        _enemy.Sprite.right = dir;
+        _enemy.transform.localScale = newScale;
     }
 }
 public class SH_AttackState : IState
@@ -144,6 +132,10 @@ public class SH_AttackState : IState
     {
         _enemy.OnAttackStart();
         _isInCoroutine = false;
+
+        //Si no lo seteas a uno se rompe el brazo y apunta para atras por como esta seteado el flip del patrol
+        _enemy.transform.localScale = Vector3.one;
+
     }
 
     public void OnExit() 

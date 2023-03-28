@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_RotatingTurret : Enemy_Shooting
+public class Enemy_Sniper : Enemy_Shooting
 {
     public override void Start()
     {
@@ -17,5 +17,11 @@ public class Enemy_RotatingTurret : Enemy_Shooting
                                             .SetDmg(bulletDamage)
                                             .SetLayer(Layers.EnemyAttack)
                                             .SetSpeed(bulletSpeed);
+    }
+
+    public override void ReturnObject()
+    {
+        base.ReturnObject();
+        FRY_Enemy_Sniper.Instance.pool.ReturnObject(this);
     }
 }

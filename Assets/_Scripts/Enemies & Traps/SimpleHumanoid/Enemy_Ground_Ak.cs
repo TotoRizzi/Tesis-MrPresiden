@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_GroundHumanoid_Shooting : Enemy_GroundHumanoid
+public class Enemy_Ground_Ak : Enemy_GroundHumanoid
 {
     [SerializeField] Transform _bulletSpawnPosition;
     [SerializeField] Transform _armPivot;
@@ -77,5 +77,11 @@ public class Enemy_GroundHumanoid_Shooting : Enemy_GroundHumanoid
 
         _weaponSprite.localScale = newWeaponLocalScale;
         sprite.right = newScale;
+    }
+
+    public override void ReturnObject()
+    {
+        base.ReturnObject();
+        FRY_Enemy_Ground_Ak.Instance.pool.ReturnObject(this);
     }
 }
