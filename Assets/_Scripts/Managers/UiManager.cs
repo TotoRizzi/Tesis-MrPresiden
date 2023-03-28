@@ -8,13 +8,6 @@ public class UiManager : MonoBehaviour
     [SerializeField] Image _healthBar = null;
     [SerializeField] Image _staminaBar = null;
 
-    [Header("Combo")]
-    [SerializeField] Image _comboBar = null;
-    [SerializeField] TextMeshProUGUI _comboCountText;
-
-    [Header("Points")]
-    [SerializeField] Image _pointsBar;
-
     [Header("CurrentWeapon")]
     Sprite _notEquipedWeaponSprite;
     [SerializeField] Image _currentWeaponImg;
