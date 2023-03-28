@@ -4,6 +4,7 @@ public static class Helpers
 {
     static GameManager _gameManager;
     static AudioManager _audioManager;
+    static Camera _mainCamera;
     public static GameManager GameManager
     {
         get
@@ -18,6 +19,14 @@ public static class Helpers
         {
             if (_audioManager == null) _audioManager = AudioManager.Instance;
             return _audioManager;
+        }
+    }
+    public static Camera MainCamera
+    {
+        get
+        {
+            if (_mainCamera == null) _mainCamera = Camera.main;
+            return _mainCamera;
         }
     }
 }

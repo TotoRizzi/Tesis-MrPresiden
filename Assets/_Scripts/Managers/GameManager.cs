@@ -69,6 +69,9 @@ public class GameManager : MonoBehaviour
     DropManager _dropManager;
     public DropManager DropManager { get { return _dropManager; } }
 
+    LevelTimerManager _levelTimerManager;
+    public LevelTimerManager LevelTimerManager { get { return _levelTimerManager; } }
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -83,6 +86,7 @@ public class GameManager : MonoBehaviour
         //_sceneManager = GetComponent <Scene_Manager>();
         _dropManager = GetComponent <DropManager>();
         _levelManager = GetComponent<LevelManager>();
+        _levelTimerManager = GetComponent<LevelTimerManager>();
     }
 
     public void RoomWon()
