@@ -1133,7 +1133,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   RotationModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 3
@@ -5941,7 +5941,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   RotationModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 3
@@ -10761,7 +10761,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   RotationModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 3
@@ -15565,7 +15565,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   RotationModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 3
@@ -19252,8 +19252,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5202251846767030386, guid: 3e330e12b57b837449e931c7e58189ac, type: 3}
+      propertyPath: CollisionModule.m_Bounce.scalar
+      value: 1.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 5202251846767030386, guid: 3e330e12b57b837449e931c7e58189ac, type: 3}
       propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6652751164888345955, guid: 3e330e12b57b837449e931c7e58189ac, type: 3}
       propertyPath: m_RootOrder
