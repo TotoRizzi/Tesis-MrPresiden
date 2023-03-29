@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Enemy_Waypoint : Enemy
 {
-
-    protected IMovement _wayPointMovement;
-
-    [SerializeField] Transform[] _wayPoints; 
-    [SerializeField] float _waypointSpeed;
+    [SerializeField] float _speed;
     [SerializeField] bool _static;
+
+    Vector3 _dir;
+    bool _isFacingRight = true;
 
 
     public override void Start()
@@ -17,8 +16,38 @@ public class Enemy_Waypoint : Enemy
         base.Start();
 
         if (_static) return;
-        _wayPointMovement = new Movement_BasicTransformWayPoint(this.transform, _waypointSpeed, _wayPoints);
 
-        OnUpdate += _wayPointMovement.Move;
+        OnUpdate += Move;
+
+        Flip();
+    }
+
+    protected void Move()
+    {
+        transform.position += _dir * _speed * Time.deltaTime;
+
+        if (Physics2D.Raycast(transform.position, transform.localScale, .5f, Helpers.GameManager.GroundLayer)) Flip();
+    }
+
+    void Flip()
+    {
+        Vector3 newScale = Vector3.one;
+
+        if (_isFacingRight)
+        {
+            _isFacingRight = false;
+            newScale.x = -1;
+
+            _dir = -Vector3.right;
+        }
+        else
+        {
+            _isFacingRight = true;
+            newScale.x = 1;
+            _dir = Vector3.right;
+
+        }
+
+        transform.localScale = newScale;
     }
 }

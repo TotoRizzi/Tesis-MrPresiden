@@ -68,4 +68,10 @@ public class Enemy_ShootingRobot : Enemy_Waypoint
         }
 
     }
+
+    public override void ReturnObject()
+    {
+        base.ReturnObject();
+        FRY_Enemy_ShootingRobot.Instance.pool.ReturnObject(this);
+    }
 }

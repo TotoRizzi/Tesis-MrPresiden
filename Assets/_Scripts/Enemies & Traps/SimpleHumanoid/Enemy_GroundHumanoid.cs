@@ -54,7 +54,6 @@ public class SH_PatrolState : IState
     Enemy_GroundHumanoid _enemy;
 
     Vector3 _dir;
-    int _index;
 
     public SH_PatrolState(StateMachine fsm, Enemy_GroundHumanoid enemy)
     {

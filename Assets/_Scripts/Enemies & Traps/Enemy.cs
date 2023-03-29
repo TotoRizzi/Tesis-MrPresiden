@@ -79,7 +79,7 @@ public class Enemy : MonoBehaviour, IDamageable
         return this;
     }
 
-    private void Reset()
+    public virtual void Reset()
     {
         _currentHp = _maxHp;
         if (gameManager) gameManager.EnemyManager.AddEnemy(this);
