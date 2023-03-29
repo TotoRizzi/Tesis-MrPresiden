@@ -6,6 +6,8 @@ public class PauseManager : MonoBehaviour
     Stack<IScreen> _stack;
 
     [SerializeField] Transform _mainGame;
+
+    public bool Paused { get { return _paused; } }
     private void Awake()
     {
         _stack = new Stack<IScreen>();

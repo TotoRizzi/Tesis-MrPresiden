@@ -9,7 +9,6 @@ public class SawPresident : MonoBehaviour
     }
     void Update()
     {
-        transform.position = Vector3.Lerp(_initialPosition, _targetPosition.position, Helpers.GameManager.LevelTimerManager.Timer / Helpers.GameManager.LevelTimerManager.LevelMaxTime);
-        if (Input.GetKeyDown(KeyCode.R)) Helpers.GameManager.LevelTimerManager.Timer -= 1;
+        transform.position = Vector3.Lerp(_initialPosition, _targetPosition.position, Helpers.LevelTimerManager.Timer / Helpers.LevelTimerManager.LevelMaxTime);
     }
 }
