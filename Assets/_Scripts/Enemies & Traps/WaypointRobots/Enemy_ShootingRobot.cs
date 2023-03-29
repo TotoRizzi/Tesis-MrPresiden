@@ -22,7 +22,7 @@ public class Enemy_ShootingRobot : Enemy_Waypoint
         _armRotation = new Movement_RotateObject(transform, _armPivot);
        
         OnUpdate += CalculateAttack;
-        OnUpdate += _armRotation.Move;
+        OnUpdate += () => { if (CanSeePlayer()) _armRotation.Move(); };
     }
 
     void CalculateAttack()
@@ -68,7 +68,14 @@ public class Enemy_ShootingRobot : Enemy_Waypoint
         }
 
     }
+    public override void Reset()
+    {
+        _currentAttackSpeed = 0;
+        _currentTimeBetweenBullets = 0;
+        _currentBulletsShot = 0;
 
+        base.Reset();
+    }
     public override void ReturnObject()
     {
         base.ReturnObject();

@@ -98,5 +98,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public virtual void ReturnObject()
     {
         gameManager.EnemyManager.RemoveEnemy(this);
+        _renderer.color = Color.white;
+
     }
 }

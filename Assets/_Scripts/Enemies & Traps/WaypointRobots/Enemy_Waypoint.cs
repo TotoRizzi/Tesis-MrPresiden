@@ -7,6 +7,8 @@ public class Enemy_Waypoint : Enemy
     [SerializeField] float _speed;
     [SerializeField] bool _static;
 
+    [SerializeField] Transform _bodyToRotate;
+
     Vector3 _dir;
     bool _isFacingRight = true;
 
@@ -14,8 +16,10 @@ public class Enemy_Waypoint : Enemy
     public override void Start()
     {
         base.Start();
-
+        
         if (_static) return;
+
+        if(!_bodyToRotate) _bodyToRotate = transform;
 
         OnUpdate += Move;
 
@@ -26,7 +30,7 @@ public class Enemy_Waypoint : Enemy
     {
         transform.position += _dir * _speed * Time.deltaTime;
 
-        if (Physics2D.Raycast(transform.position, transform.localScale, .5f, Helpers.GameManager.GroundLayer)) Flip();
+        if (Physics2D.Raycast(transform.position, _bodyToRotate.localScale, .5f, Helpers.GameManager.GroundLayer)) Flip();
     }
 
     void Flip()
@@ -48,6 +52,6 @@ public class Enemy_Waypoint : Enemy
 
         }
 
-        transform.localScale = newScale;
+        _bodyToRotate.localScale = newScale;
     }
 }

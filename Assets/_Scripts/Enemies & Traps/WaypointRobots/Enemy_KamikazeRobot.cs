@@ -19,26 +19,28 @@ public class Enemy_KamikazeRobot : Enemy_Waypoint
     void Drop()
     {
         transform.position += -transform.up * _dropSpeed * Time.deltaTime;
+        Debug.Log("Dropping");
     }
 
     public void Attack()
     {
+        OnUpdate -= Drop;
         if (Physics2D.Raycast(transform.position, -Vector2.up, 10f, gameManager.PlayerLayer))
         {
             _isDropping = true;
             OnUpdate += Drop;
             OnUpdate -= Move;
+            OnUpdate -= Attack;
         }
     }
     public override void Die()
     {
+
         var player = Physics2D.OverlapCircle(transform.position, _overlapCircleRadius, gameManager.PlayerLayer);
 
         if (player)
             player.GetComponent<IDamageable>().TakeDamage(_dmg);
 
-        OnUpdate -= Drop;
-        OnUpdate -= Attack;
 
         base.Die();
     }
@@ -55,7 +57,13 @@ public class Enemy_KamikazeRobot : Enemy_Waypoint
     }
     public override void Reset()
     {
-        _isDropping = false;
+        OnUpdate += Attack;
+
+        if (_isDropping)
+        {
+            _isDropping = false;
+            OnUpdate += Move;
+        }
         base.Reset();
     }
 }

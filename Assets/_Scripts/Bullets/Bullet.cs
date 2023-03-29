@@ -7,6 +7,12 @@ public class Bullet : MonoBehaviour
     float _currentDistance;
     float _dmg;
     Vector3 _direction;
+
+    private void Start()
+    {
+        Helpers.GameManager.OnSpiked += ReturnBullet;
+    }
+
     private void Update()
     {
         transform.position += _direction.normalized * _speed * Time.deltaTime;

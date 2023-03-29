@@ -17,6 +17,8 @@ public class Enemy_Ground_Ak : Enemy_GroundHumanoid
     public override void OnPatrolStart()
     {
         _anim.Play("Run");
+        sprite.right = Vector3.right;
+
     }
 
     public override void OnAttackStart()

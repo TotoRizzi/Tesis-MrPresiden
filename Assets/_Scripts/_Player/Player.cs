@@ -469,8 +469,7 @@ public class DashState : IState
         _currentDashDuration += Time.deltaTime;
         if (_currentDashDuration < _player.DashDuration) return;
 
-        if (_player.GroundCheck.IsGrounded) _player.fsm.ChangeState(StateName.OnAir);
-        else _player.fsm.ChangeState(StateName.Idle);
+        _player.fsm.ChangeState(StateName.OnAir);
     }
 }
 public class ClimState : IState

@@ -46,6 +46,12 @@ public class Enemy_GroundHumanoid : Enemy
 
     public virtual void OnPatrolStart() { }
     public virtual void OnAttackStart() { }
+
+    public override void ReturnObject()
+    {
+        base.ReturnObject();
+        _fsm.ChangeState(StateName.SH_Patrol);
+    }
 }
 
 public class SH_PatrolState : IState
@@ -64,6 +70,7 @@ public class SH_PatrolState : IState
     public void OnEnter()
     {
         _enemy.OnPatrolStart();
+
         Flip();
     }
 
@@ -115,7 +122,6 @@ public class SH_AttackState : IState
 {
     StateMachine _fsm;
     Enemy_GroundHumanoid _enemy;
-    GameManager gameManager;
 
     bool _isInCoroutine = false;
 
@@ -123,8 +129,6 @@ public class SH_AttackState : IState
     {
         _fsm = fsm;
         _enemy = enemy;
-
-        gameManager = GameManager.instance;
     }
 
     public void OnEnter()
@@ -148,8 +152,6 @@ public class SH_AttackState : IState
     {
         _enemy.OnAttack();
 
-        /*if (!Physics2D.Raycast(_enemy.transform.position, _enemy.GetDistanceToPlayer().normalized, _enemy.SightRange, gameManager.PlayerLayer) ||
-            Physics2D.Raycast(_enemy.transform.position, _enemy.GetDistanceToPlayer().normalized, _enemy.GetDistanceToPlayer().magnitude, gameManager.GroundLayer))*/
         if(!_enemy.GetCanSeePlayer())
         {
             if (!_isInCoroutine)
@@ -158,7 +160,6 @@ public class SH_AttackState : IState
                 _isInCoroutine = true;
             }
         }
-        //else if (_isInCoroutine) _enemy.StopAllCoroutines();
     }
 
     IEnumerator StopAttackingCoroutine()
