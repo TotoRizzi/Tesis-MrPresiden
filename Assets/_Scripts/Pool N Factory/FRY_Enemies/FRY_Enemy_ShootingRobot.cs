@@ -23,7 +23,7 @@ public class FRY_Enemy_ShootingRobot : MonoBehaviour
     public Enemy_ShootingRobot ObjectCreator()
     {
         var o = Instantiate(_prefab);
-        o.transform.SetParent(transform);
+        o.transform.SetParent(GameObject.Find("MainGame").transform);
         return o;
     }
 
