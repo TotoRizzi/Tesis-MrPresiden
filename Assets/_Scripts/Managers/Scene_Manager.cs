@@ -9,8 +9,8 @@ public class Scene_Manager : MonoBehaviour
     {
         _gameManager = GameManager.instance;
 
-        _gameManager.OnGameLost += GameLost;
-        _gameManager.OnGameWon += GameWon;
+        //_gameManager.OnGameLost += GameLost;
+        //_gameManager.OnGameWon += GameWon;
     }
     void Update()
     {
