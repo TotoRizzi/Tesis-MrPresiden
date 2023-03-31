@@ -20,7 +20,7 @@ public class FRY_Bullet : MonoBehaviour
     public Bullet BulletCreator()
     {
         var bullet = Instantiate(_prefab);
-        bullet.transform.SetParent(transform);
+        bullet.transform.SetParent(GameObject.Find("MainGame").transform);
         return bullet;
     }
 

@@ -1,17 +1,26 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Playables;
+
 public class LevelTimerManager : MonoBehaviour
 {
     [SerializeField] float _timer;
     [SerializeField] float _levelMaxTime;
     [SerializeField] float _timeToDiscount;
-    [SerializeField] GameObject _cinematicCamera;
     public float Timer { get { return _timer; } set { _timer = value; } }
     public float LevelMaxTime { get { return _levelMaxTime; } }
 
+    PlayableDirector _timeline;
+    GameObject _cinematicCamera;
     bool _stopTimer;
 
     public event System.Action RedButton;
+    private void Awake()
+    {
+        _cinematicCamera = Helpers.MainCamera.transform.GetChild(0).gameObject;
+        _cinematicCamera.SetActive(false);
+        _timeline = GameObject.Find("Timeline").GetComponent<PlayableDirector>();
+    }
     void Start()
     {
         Helpers.GameManager.EnemyManager.OnEnemyKilled += () => EarnTime(_timeToDiscount);
@@ -39,6 +48,7 @@ public class LevelTimerManager : MonoBehaviour
             }
         }
         _cinematicCamera.SetActive(true);
+        _timeline.Play();
     }
     public void StopTimer()
     {
