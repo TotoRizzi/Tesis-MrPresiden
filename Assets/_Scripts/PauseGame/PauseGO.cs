@@ -14,7 +14,6 @@ public class PauseGO : IScreen
         foreach (var keyValue in _before)
         {
             keyValue.Key.enabled = keyValue.Value;
-            //Helpers.LevelTimerManager.StartTimer();
             var rb = keyValue.Key.GetComponent<Rigidbody2D>();
             if (rb) rb.WakeUp();
         }
@@ -26,7 +25,18 @@ public class PauseGO : IScreen
         foreach (var b in _root.GetComponentsInChildren<Behaviour>())
         {
             _before[b] = b.enabled;
-            //Helpers.LevelTimerManager.StopTimer();
+            var rb = b.GetComponent<Rigidbody2D>();
+            if (rb) rb.Sleep();
+            b.enabled = false;
+        }
+    }
+
+    public void PauseObjectsInCinematic()
+    {
+        foreach (var b in _root.GetComponentsInChildren<Behaviour>())
+        {
+            if (b.gameObject.tag == "Cinematica") continue;
+            _before[b] = b.enabled;
             var rb = b.GetComponent<Rigidbody2D>();
             if (rb) rb.Sleep();
             b.enabled = false;

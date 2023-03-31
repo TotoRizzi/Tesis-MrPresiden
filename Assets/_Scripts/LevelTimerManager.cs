@@ -49,6 +49,7 @@ public class LevelTimerManager : MonoBehaviour
         }
         _cinematicCamera.SetActive(true);
         _timeline.Play();
+        Helpers.GameManager.PauseManager.PauseObjectsInCinematic();
     }
     public void StopTimer()
     {

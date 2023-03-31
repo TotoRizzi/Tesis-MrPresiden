@@ -58,4 +58,9 @@ public class PauseManager : MonoBehaviour
     }
 
     public void TurnPause() => _paused = !_paused;
+
+    public void PauseObjectsInCinematic()
+    {
+        _stack.Peek().PauseObjectsInCinematic();
+    }
 }
