@@ -22,7 +22,9 @@ public class Enemy : MonoBehaviour, IDamageable
         gameManager = Helpers.GameManager;
 
         gameManager.OnSpiked += ReturnObject;
+
         gameManager.EnemyManager.AddEnemy(this);
+
         _currentHp = _maxHp;
         _renderer = sprite.GetComponent<SpriteRenderer>();
         if (!_renderer) _renderer = sprite.GetChild(0).GetComponent<SpriteRenderer>();
@@ -45,6 +47,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual void Die()
     {
+        gameManager.EnemyManager.RemoveEnemy(this);
+
         ReturnObject();
         gameManager.EffectsManager.HumanoindKilled(transform.position);
     }
@@ -97,7 +101,6 @@ public class Enemy : MonoBehaviour, IDamageable
     }
     public virtual void ReturnObject()
     {
-        gameManager.EnemyManager.RemoveEnemy(this);
         _renderer.color = Color.white;
     }
 }

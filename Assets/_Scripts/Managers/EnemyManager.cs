@@ -12,7 +12,9 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        _gameManager = GameManager.instance;
+        _gameManager = Helpers.GameManager;
+
+        _gameManager.OnSpiked += ResetLevel;
     }
 
     public void AddEnemy(Enemy enemy)
@@ -31,5 +33,10 @@ public class EnemyManager : MonoBehaviour
         Helpers.AudioManager.PlaySFX("Enemy_Dead");
 
         if (_allEnemies.Count == 0) _gameManager.RoomWon();
+    }
+
+    public void ResetLevel()
+    {
+        _allEnemies.Clear();
     }
 }

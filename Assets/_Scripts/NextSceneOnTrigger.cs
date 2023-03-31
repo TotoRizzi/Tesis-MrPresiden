@@ -8,6 +8,7 @@ public class NextSceneOnTrigger : MonoBehaviour
 
     Collider2D _collider;
     Animator _anim;
+
     private void Start()
     {
         Helpers.GameManager.OnRoomWon += ShowExit;
@@ -19,16 +20,17 @@ public class NextSceneOnTrigger : MonoBehaviour
     }
     void ShowExit()
     {
+        _anim.SetBool("IsOpen", true);
         _collider.enabled = true;
         lightParent.SetActive(true);
-        _anim.Play("Open");
     }
     IEnumerator HideExit()
     {
         yield return new WaitForEndOfFrame();
         lightParent.SetActive(false);
         _collider.enabled = false;
-        _anim.Play("Closed");
+        _anim.SetBool("IsOpen", false);
+        Debug.Log("Closed");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
