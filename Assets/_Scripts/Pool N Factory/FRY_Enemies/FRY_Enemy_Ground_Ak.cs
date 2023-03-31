@@ -23,7 +23,7 @@ public class FRY_Enemy_Ground_Ak : MonoBehaviour
     public Enemy_Ground_Ak ObjectCreator()
     {
         var o = Instantiate(_prefab);
-        o.transform.SetParent(transform);
+        o.transform.SetParent(GameObject.Find("MainGame").transform);
         return o;
     }
 
