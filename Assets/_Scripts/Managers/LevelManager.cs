@@ -57,7 +57,7 @@ public class LevelManager : MonoBehaviour
 
         if (_gameManager.UiManager == null) return;
 
-        _gameManager.UiManager.CloseCurtain();
+        //_gameManager.UiManager.CloseCurtain();
         _gameManager.Player.PausePlayer();
     }
     IEnumerator ChangeLevel()

@@ -40,7 +40,7 @@ public class NextSceneOnTrigger : MonoBehaviour
         if (Helpers.GameManager.UiManager == null) return;
 
         Helpers.GameManager.LoadSceneManager.LoadLevel(_nextScene);
-        Helpers.GameManager.UiManager.CloseCurtain();
+        //Helpers.GameManager.UiManager.CloseCurtain();
         if(Helpers.GameManager.Player) Helpers.GameManager.Player.PausePlayer();
     }
 }

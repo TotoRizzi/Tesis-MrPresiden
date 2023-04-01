@@ -13,12 +13,6 @@ public class UiManager : MonoBehaviour
     [SerializeField] Image _IMGcurrentWeaponImg;
     [SerializeField] TextMeshProUGUI _TXTcurrentWeaponAmmoAmount;
 
-    [Header("Curtain")]
-    [SerializeField] Animator _ANIMcurainAnim;
-
-    [Header("Pause")]
-    [SerializeField] GameObject _GOpauseMenu;
-
     [Header("GameTime")]
     [SerializeField] TextMeshProUGUI _TXTdeathCount;
 
@@ -55,17 +49,17 @@ public class UiManager : MonoBehaviour
     {
         _TXTcurrentWeaponAmmoAmount.text = currentAmmoAmount.ToString();
     }
-    public void CloseCurtain()
-    {
-        if(_ANIMcurainAnim != null)_ANIMcurainAnim.Play("Close");
-    }
-
-    public void ShowPauseMenu()
-    {
-        _GOpauseMenu.SetActive(true);
-    }
-    public void HidePauseMenu()
-    {
-        _GOpauseMenu.SetActive(false);
-    }
+    //public void CloseCurtain()
+    //{
+    //    if(_ANIMcurainAnim != null)_ANIMcurainAnim.Play("Close");
+    //}
+    //
+    //public void ShowPauseMenu()
+    //{
+    //    _GOpauseMenu.SetActive(true);
+    //}
+    //public void HidePauseMenu()
+    //{
+    //    _GOpauseMenu.SetActive(false);
+    //}
 }
