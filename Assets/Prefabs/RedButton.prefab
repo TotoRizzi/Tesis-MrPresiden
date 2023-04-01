@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5964462376524754582}
   - component: {fileID: 5964462376524754583}
-  - component: {fileID: 5964462376524754580}
+  - component: {fileID: 6433446877992992877}
   m_Layer: 20
-  m_Name: NextSceneOnTrigger
+  m_Name: RedButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.5, y: 0.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -58,9 +58,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5}
+  m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
---- !u!114 &5964462376524754580
+--- !u!114 &6433446877992992877
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -69,11 +69,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5964462376524754581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4f1b963753ca8e4d83632a9ed7bb389, type: 3}
+  m_Script: {fileID: 11500000, guid: fca3ad480e297ab499960c5eeeffd5d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTutorial: 0
-  _nextScene: 4
   lightParent: {fileID: 5818335302872045405}
 --- !u!1001 &2414008733863370632
 PrefabInstance:
@@ -163,7 +161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3878723538179192267, guid: 385b843a8afb77240aace13378686e9b, type: 3}
       propertyPath: m_InstanceId
-      value: -4662
+      value: -269814
       objectReference: {fileID: 0}
     - target: {fileID: 5122959213463829004, guid: 385b843a8afb77240aace13378686e9b, type: 3}
       propertyPath: m_RootOrder
@@ -171,11 +169,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5122959213463829004, guid: 385b843a8afb77240aace13378686e9b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5122959213463829004, guid: 385b843a8afb77240aace13378686e9b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 5122959213463829004, guid: 385b843a8afb77240aace13378686e9b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -183,19 +181,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5122959213463829004, guid: 385b843a8afb77240aace13378686e9b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 5122959213463829004, guid: 385b843a8afb77240aace13378686e9b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5122959213463829004, guid: 385b843a8afb77240aace13378686e9b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5122959213463829004, guid: 385b843a8afb77240aace13378686e9b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: 5122959213463829004, guid: 385b843a8afb77240aace13378686e9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -207,7 +205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5122959213463829004, guid: 385b843a8afb77240aace13378686e9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2470314908446552984, guid: 385b843a8afb77240aace13378686e9b, type: 3}

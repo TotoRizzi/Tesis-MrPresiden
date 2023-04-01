@@ -1,8 +1,7 @@
-using UnityEngine;
 using System.Collections;
-public class NextSceneOnTrigger : MonoBehaviour
+using UnityEngine;
+public class RedButton : MonoBehaviour
 {
-    [SerializeField] int _nextScene;
     [SerializeField] GameObject lightParent;
 
     Collider2D _collider;
@@ -32,9 +31,7 @@ public class NextSceneOnTrigger : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (Helpers.GameManager.UiManager == null) return;
-
-        Helpers.GameManager.LoadSceneManager.LoadLevel(_nextScene);
-        if(Helpers.GameManager.Player) Helpers.GameManager.Player.PausePlayer();
+        Helpers.LevelTimerManager.RedButton();
+        Helpers.GameManager.CinematicManager.PlayVictoryCinematic();
     }
 }

@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: 74130909745753400}
   - component: {fileID: 3803697255170089862}
   - component: {fileID: 1889881096245116235}
+  - component: {fileID: 4037572099271379933}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -340,9 +341,6 @@ MonoBehaviour:
   _borderLayer:
     serializedVersion: 2
     m_Bits: 65536
-  _invisibleWallLayer:
-    serializedVersion: 2
-    m_Bits: 8388608
   _cameraShakeDuration: 0.2
   _cameraSpeed: 0.2
   _pointsPerEnemy: 10
@@ -461,7 +459,19 @@ MonoBehaviour:
   _timer: 0
   _levelMaxTime: 5
   _timeToDiscount: 1
-  _cinematicCamera: {fileID: 2631416385357818961}
+--- !u!114 &4037572099271379933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707881769362260627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce3d1bd462a87d44a06b64bbecbaaef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cinemacticCamera: {fileID: 2631416385357818961}
 --- !u!1 &2303437058315371554
 GameObject:
   m_ObjectHideFlags: 0

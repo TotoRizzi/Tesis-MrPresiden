@@ -73,6 +73,10 @@ public class GameManager : MonoBehaviour
     StatisticsManager _statisticsManager;
     public StatisticsManager StatisticsManager { get { return _statisticsManager; } }
 
+    CinematicManager _cinematicManager;
+
+    public CinematicManager CinematicManager { get { return _cinematicManager; } }
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -88,6 +92,7 @@ public class GameManager : MonoBehaviour
         _dropManager = GetComponent <DropManager>();
         _levelManager = GetComponent<LevelManager>();
         _statisticsManager = GetComponent<StatisticsManager>();
+        _cinematicManager = GetComponent<CinematicManager>();
     }
 
     public void RoomWon()

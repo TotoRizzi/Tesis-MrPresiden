@@ -8,10 +8,9 @@ public class LevelManager : MonoBehaviour
     GameManager _gameManager;
     [SerializeField] int _currentLevel;
     [SerializeField] int _numberOfLevels;
+
     int[] _newLevelOrder;
-
     bool _isInCoroutine = false;
-
     private void Start()
     {
         _gameManager = GameManager.instance;
