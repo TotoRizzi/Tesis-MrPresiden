@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
         if(_canMove) fsm.FixedUpdate();
     }
 
-    IEnumerator CanMoveDelay()
+    public IEnumerator CanMoveDelay()
     {
         yield return new WaitForSeconds(_maxDelayCanMove);
 

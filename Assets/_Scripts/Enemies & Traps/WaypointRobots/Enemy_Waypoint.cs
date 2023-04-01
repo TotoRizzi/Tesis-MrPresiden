@@ -30,7 +30,7 @@ public class Enemy_Waypoint : Enemy
     {
         transform.position += _dir * _speed * Time.deltaTime;
 
-        if (Physics2D.Raycast(transform.position, _bodyToRotate.localScale, .5f, Helpers.GameManager.GroundLayer)) Flip();
+        if (Physics2D.Raycast(transform.position, _bodyToRotate.localScale, .5f, Helpers.GameManager.InvisibleWallLayer)) Flip();
     }
 
     void Flip()

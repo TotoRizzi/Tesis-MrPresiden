@@ -92,7 +92,7 @@ public class SH_PatrolState : IState
     {
         _enemy.transform.position += _dir * _enemy.Speed * Time.deltaTime;
 
-        if (Physics2D.Raycast(_enemy.transform.position, _enemy.transform.localScale, 1f, Helpers.GameManager.GroundLayer)) Flip();
+        if (Physics2D.Raycast(_enemy.transform.position, _enemy.transform.localScale, 1f, Helpers.GameManager.InvisibleWallLayer)) Flip();
         Debug.DrawLine(_enemy.transform.position, _enemy.Sprite.right);
     }
 
