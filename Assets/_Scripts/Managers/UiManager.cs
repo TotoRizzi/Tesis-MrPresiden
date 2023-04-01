@@ -5,58 +5,67 @@ using TMPro;
 public class UiManager : MonoBehaviour
 {
     [Header("Player")]
-    [SerializeField] Image _healthBar = null;
-    [SerializeField] Image _staminaBar = null;
+    [SerializeField] Image _IMGhealthBar = null;
+    [SerializeField] Image _IMGstaminaBar = null;
 
     [Header("CurrentWeapon")]
     Sprite _notEquipedWeaponSprite;
-    [SerializeField] Image _currentWeaponImg;
-    [SerializeField] TextMeshProUGUI _currentWeaponAmmoAmount;
+    [SerializeField] Image _IMGcurrentWeaponImg;
+    [SerializeField] TextMeshProUGUI _TXTcurrentWeaponAmmoAmount;
 
     [Header("Curtain")]
-    [SerializeField] Animator _curainAnim;
+    [SerializeField] Animator _ANIMcurainAnim;
 
     [Header("Pause")]
-    [SerializeField] GameObject _pauseMenu;
+    [SerializeField] GameObject _GOpauseMenu;
+
+    [Header("GameTime")]
+    [SerializeField] TextMeshProUGUI _TXTdeathCount;
+
     private void Awake()
     {
-        _notEquipedWeaponSprite = _currentWeaponImg.sprite;
+        _notEquipedWeaponSprite = _IMGcurrentWeaponImg.sprite;
+    }
+
+    public void UpdateDeathCount(int current)
+    {
+        _TXTdeathCount.text = current.ToString();
     }
 
     public void UpdateStaminaBar(float current, float max)
     {
-        _staminaBar.fillAmount = current / max;
+        _IMGstaminaBar.fillAmount = current / max;
     }
 
     public void UpdateHealthBar(float current, float max)
     {
-        _healthBar.fillAmount = current / max;
+        _IMGhealthBar.fillAmount = current / max;
     }
 
     public void UpdateCurrentWeapon(Sprite currentWeaponSprite)
     {
-        _currentWeaponImg.sprite = currentWeaponSprite;
+        _IMGcurrentWeaponImg.sprite = currentWeaponSprite;
     }
     public void SetDefaultWeaponSprite()
     {
-        _currentWeaponImg.sprite = _notEquipedWeaponSprite;
-        _currentWeaponAmmoAmount.text = 0.ToString();
+        _IMGcurrentWeaponImg.sprite = _notEquipedWeaponSprite;
+        _TXTcurrentWeaponAmmoAmount.text = 0.ToString();
     }
     public void UpdateCurrentAmmo(float currentAmmoAmount)
     {
-        _currentWeaponAmmoAmount.text = currentAmmoAmount.ToString();
+        _TXTcurrentWeaponAmmoAmount.text = currentAmmoAmount.ToString();
     }
     public void CloseCurtain()
     {
-        if(_curainAnim != null)_curainAnim.Play("Close");
+        if(_ANIMcurainAnim != null)_ANIMcurainAnim.Play("Close");
     }
 
     public void ShowPauseMenu()
     {
-        _pauseMenu.SetActive(true);
+        _GOpauseMenu.SetActive(true);
     }
     public void HidePauseMenu()
     {
-        _pauseMenu.SetActive(false);
+        _GOpauseMenu.SetActive(false);
     }
 }
