@@ -53,26 +53,18 @@ public class Player : MonoBehaviour
     public bool CanJump { get { return _canJump; } private set { } }
     #endregion
 
-    #region Stamina
-
-    [Header("Stamina")]
-    [SerializeField] float _staminaPerKill = 10;
-    [SerializeField] float _maxStamina = 50;
-    public float MaxStamina { get { return _maxStamina; } private set { } }
-    float _currentStamina;
-    public float CurrentStamina { get { return _currentStamina; } private set { } }
-
-    #endregion
-
     #region Dash
     [Header("Dash")]
-    [SerializeField] float _staminaDashCost;
-    [SerializeField] float _waitTimeToReturnStamina = 1f;
     [SerializeField] float _dashSpeed;
     [SerializeField] float _dashDuration;
-    private bool _canDash => _currentStamina > 0;
-    public bool CanDash { get { return _canDash; } private set { } }
     public float DashDuration { get { return _dashDuration; } private set { } }
+
+    float _maxDashCd = 2f;
+    float _currentDashCd = 2f;
+
+    bool _canDash => _currentDashCd >= _maxDashCd;
+    public bool CanDash { get { return _canDash; } private set { } }
+
     #endregion
 
     #region View
@@ -82,7 +74,6 @@ public class Player : MonoBehaviour
     public Action OnJump;
     public Action OnStaminaTick;
     #endregion
-
 
     private void Start()
     {
@@ -100,16 +91,9 @@ public class Player : MonoBehaviour
         OnUpdate += fsm.Update;
         OnUpdate += _controller.OnUpdate;
         OnUpdate += LookAtMouse;
-        OnUpdate += ReturnStamina;
-        OnStaminaTick += SaveStamina;
-        _gameManager.OnSpiked += FullStamina;
-
-        //Events
-        _gameManager.EnemyManager.OnEnemyKilled += GiveStaminaOnKill;
 
         //Variables
         _maxJumps = 1;
-        _currentStamina = _gameManager.SaveDataManager.GetFloat("CurrentStamina", _maxStamina);
         _playerDefaultSpriteSize = _playerSprite.localScale;
         _defaultGravity = _rb.gravityScale;
 
@@ -159,49 +143,22 @@ public class Player : MonoBehaviour
         _currentJumps--;
     }
 
-    void FullStamina()
-    {
-        _currentStamina = _maxStamina;
-        SaveStamina();
-    }
-
-    public void ReturnStamina()
-    {
-        if (_currentStamina >= _maxStamina) return;
-
-        _currentStamina += Time.deltaTime;
-
-        OnStaminaTick?.Invoke();
-    }
-
-    public void TakeStamina()
-    {
-        _currentStamina -= _staminaDashCost;
-    }
-
-    void GiveStaminaOnKill()
-    {
-        _currentStamina += _staminaPerKill;
-        ClampStamina();
-        OnStaminaTick?.Invoke();
-    }
-
-    void SaveStamina()
-    {
-        _gameManager.SaveDataManager.SaveFloat("CurrentStamina", _currentStamina);
-    }
-
-    void ClampStamina()
-    {
-        _currentStamina = Mathf.Clamp(_currentStamina, 0, _maxStamina);
-    }
-
     public void Dash(float xAxis)
     {
+        _currentDashCd = 0;
         _rb.velocity = new Vector2(xAxis * _dashSpeed * Time.fixedDeltaTime, 0f);
 
-        ClampStamina();
-        OnStaminaTick?.Invoke();
+        StartCoroutine(ReturnDashCd());
+    }
+
+    IEnumerator ReturnDashCd()
+    {
+        while(_currentDashCd < _maxDashCd)
+        {
+            _currentDashCd += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        yield return null;
     }
 
     public void LookAtMouse()
@@ -254,13 +211,6 @@ public class Player : MonoBehaviour
     public void ReturnJumps()
     {
         _currentJumps = MaxJumps;
-    }
-
-    public IEnumerator GiveStaminaStartTick()
-    {
-        yield return new WaitForSeconds(_waitTimeToReturnStamina);
-
-        OnUpdate += ReturnStamina;
     }
 
     public IEnumerator OnAirDelay()
@@ -447,16 +397,12 @@ public class DashState : IState
                 _dashDirection = 1;
         }
 
-        _player.OnUpdate -= _player.ReturnStamina;
-        _player.TakeStamina();
         _player.StopAllCoroutines();
     }
 
     public void OnExit()
     {
         _player.FreezeVelocity();
-
-        _player.StartCoroutine(_player.GiveStaminaStartTick());
     }
 
     public void OnFixedUpdate()

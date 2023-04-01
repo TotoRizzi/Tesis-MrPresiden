@@ -25,11 +25,6 @@ public class PlayerView : MonoBehaviour
         _anim.Play("Idle");
     }
 
-    public void StaminaTick()
-    {
-        _gameManager.UiManager.UpdateStaminaBar(_player.CurrentStamina, _player.MaxStamina);
-    }
-
     public void Jump()
     {
         Helpers.AudioManager.PlaySFX("Player_Jump");

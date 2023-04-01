@@ -17,7 +17,6 @@ public class PlayerController
         _player.OnMove += v.Run;
         _player.OnJump += v.Jump;
         _player.OnDash += v.Dash;
-        _player.OnStaminaTick += v.StaminaTick;
     }
 
     public void OnUpdate()
