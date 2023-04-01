@@ -12,7 +12,7 @@ public class NextSceneOnTrigger : MonoBehaviour
     private void Start()
     {
         Helpers.GameManager.OnRoomWon += ShowExit;
-        Helpers.GameManager.OnSpiked += () => StartCoroutine(HideExit());
+        Helpers.GameManager.OnPlayerDead += () => StartCoroutine(HideExit());
 
         _collider = GetComponent<Collider2D>();
         _anim = GetComponentInChildren<Animator>();

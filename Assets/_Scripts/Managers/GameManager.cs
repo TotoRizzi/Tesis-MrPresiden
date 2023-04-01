@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public event Action OnGameLost;
     public event Action OnGameWon;
     public event Action OnRoomWon;
-    public event Action OnSpiked;
+    public event Action OnPlayerDead;
 
     [Header("Layers")]
     [SerializeField] LayerMask _groundLayer, _playerLayer, _weaponLayer, _dynamicBodies, _borderLayer;
@@ -101,8 +101,8 @@ public class GameManager : MonoBehaviour
     {
         OnGameLost?.Invoke();
     }
-    public void Spiked()
+    public void PlayerDead()
     {
-        OnSpiked?.Invoke();
+        OnPlayerDead?.Invoke();
     }
 }

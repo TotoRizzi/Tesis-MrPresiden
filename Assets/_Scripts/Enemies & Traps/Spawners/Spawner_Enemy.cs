@@ -6,7 +6,7 @@ public abstract class Spawner_Enemy : MonoBehaviour
 {
     private void Start()
     {
-        Helpers.GameManager.OnSpiked += () => StartCoroutine(SpawnEnemy());
+        Helpers.GameManager.OnPlayerDead += () => StartCoroutine(SpawnEnemy());
         StartCoroutine(SpawnEnemy());
     }
     public abstract IEnumerator SpawnEnemy();

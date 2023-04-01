@@ -14,7 +14,7 @@ public class EnemyManager : MonoBehaviour
     {
         _gameManager = Helpers.GameManager;
 
-        _gameManager.OnSpiked += ResetLevel;
+        _gameManager.OnPlayerDead += ResetLevel;
     }
 
     public void AddEnemy(Enemy enemy)

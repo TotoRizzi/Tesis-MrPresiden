@@ -10,13 +10,13 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        Helpers.GameManager.OnSpiked += ReturnBullet;
+        Helpers.GameManager.OnPlayerDead += ReturnBullet;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        transform.position += _direction.normalized * _speed * Time.deltaTime;
-        _currentDistance += Time.deltaTime;
+        transform.position += _direction.normalized * _speed * Time.fixedDeltaTime;
+        _currentDistance += Time.fixedDeltaTime;
         if (_currentDistance > _maxDistance)
             ReturnBullet();
     }

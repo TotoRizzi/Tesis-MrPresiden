@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         gameManager = Helpers.GameManager;
 
-        gameManager.OnSpiked += ReturnObject;
+        gameManager.OnPlayerDead += ReturnObject;
 
         gameManager.EnemyManager.AddEnemy(this);
 
