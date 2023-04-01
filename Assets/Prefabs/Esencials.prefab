@@ -436,7 +436,7 @@ MonoBehaviour:
   _TXTcurrentWeaponAmmoAmount: {fileID: 0}
   _ANIMcurainAnim: {fileID: 0}
   _GOpauseMenu: {fileID: 0}
-  _TXTgameTime: {fileID: 0}
+  _TXTdeathCount: {fileID: 0}
 --- !u!114 &5551415109629708641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,6 +498,7 @@ MonoBehaviour:
   _timer: 0
   _levelMaxTime: 5
   _timeToDiscount: 1
+  _cinematicCamera: {fileID: 2631416385357818961}
 --- !u!1 &2303437058315371554
 GameObject:
   m_ObjectHideFlags: 0
