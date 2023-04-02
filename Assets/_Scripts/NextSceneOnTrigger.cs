@@ -28,9 +28,8 @@ public class NextSceneOnTrigger : MonoBehaviour
         lightParent.SetActive(false);
         _collider.enabled = false;
         _anim.SetBool("IsOpen", false);
-        Debug.Log("Closed");
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D()
     {
         if (Helpers.GameManager.UiManager == null) return;
 

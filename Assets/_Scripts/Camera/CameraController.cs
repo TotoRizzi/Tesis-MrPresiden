@@ -22,6 +22,28 @@ public class CameraController : MonoBehaviour
         Vector3 targetPosition = new Vector3(xClamp, yClamp, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, targetPosition, _smooth * Time.deltaTime);
     }
+    public void StartCameraShake(float duration) => StartCoroutine(CameraShake(duration));
+    public void StartShaking() => StartCoroutine(Shaking());
+
+    IEnumerator CameraShake(float duration)
+    {
+        Vector3 startPosition = transform.localPosition;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            float x = Random.Range(-1f, 1f) * .1f;
+            float y = Random.Range(-1f, 1f) * .1f;
+
+            transform.localPosition = new Vector3(startPosition.x + x, startPosition.y + y, startPosition.z);
+
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        transform.localPosition = startPosition;
+    }
     IEnumerator Shaking()
     {
         Debug.Log("Shaking");
