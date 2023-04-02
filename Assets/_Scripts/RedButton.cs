@@ -29,9 +29,10 @@ public class RedButton : MonoBehaviour
         _anim.SetBool("IsOpen", false);
         Debug.Log("Closed");
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D( )
     {
         Helpers.LevelTimerManager.RedButton();
+        Helpers.GameManager.PauseManager.PauseObjectsInCinematic();
         Helpers.GameManager.CinematicManager.PlayVictoryCinematic();
     }
 }

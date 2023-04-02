@@ -25,24 +25,6 @@ public class PauseManager : MonoBehaviour
 
             TurnPause();
         }
-
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    _paused = !_paused;
-        //
-        //    if (_paused)
-        //    {
-        //        Helpers.GameManager.Player.PausePlayer();
-        //        Helpers.GameManager.UiManager.ShowPauseMenu();
-        //        Time.timeScale = 0;
-        //    }
-        //    else
-        //    {
-        //        Helpers.GameManager.Player.UnPausePlayer();
-        //        Helpers.GameManager.UiManager.HidePauseMenu();
-        //        Time.timeScale = 1;
-        //    }
-        //}
     }
     public void Pop()
     {
