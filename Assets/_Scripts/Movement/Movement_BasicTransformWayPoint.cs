@@ -24,6 +24,7 @@ public class Movement_BasicTransformWayPoint : IMovement
     public void Move()
     {
         _transform.position += _dir.normalized * _speed * Time.deltaTime;
+        _transform.localRotation *= Quaternion.Euler(0,0, 180);
         if (Vector3.Distance(_transform.position, _wayPoints[_index].position) <= .2f) ChangeDir();
     }
 

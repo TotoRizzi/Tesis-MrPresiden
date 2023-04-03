@@ -32,8 +32,8 @@ public class CameraController : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            float x = Random.Range(-1f, 1f) * .1f;
-            float y = Random.Range(-1f, 1f) * .1f;
+            float x = Random.Range(-1f, 1f) * .015f;
+            float y = Random.Range(-1f, 1f) * .015f;
 
             transform.localPosition = new Vector3(startPosition.x + x, startPosition.y + y, startPosition.z);
 
