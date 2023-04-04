@@ -53,6 +53,12 @@ public class PlayerController
             _player.fsm.ChangeState(StateName.Jump);
     }
 
+    public void OnJumpInputs()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.CanDash)
+            _player.fsm.ChangeState(StateName.Dash);
+    }
+
     public void ClimbingInputs()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && _player.CanDash)

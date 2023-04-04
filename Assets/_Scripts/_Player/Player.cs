@@ -213,14 +213,6 @@ public class Player : MonoBehaviour
         _currentJumps = MaxJumps;
     }
 
-    public IEnumerator OnAirDelay()
-    {
-        yield return new WaitForSeconds(.1f);
-
-        if (fsm.IsInState(StateName.Jump))
-            fsm.ChangeState(StateName.OnAir);
-    }
-
     public void PausePlayer()
     {
         _canMove = false;
@@ -302,6 +294,9 @@ public class JumpState : IState
     Player _player;
     PlayerController _controller;
 
+    float _onAirTimer = .1f;
+    float _currentOnAirTimer;
+
     public JumpState(Player player, PlayerController controller)
     {
         _player = player;
@@ -311,8 +306,8 @@ public class JumpState : IState
     public void OnEnter()
     {
         //_player.FreezeVelocity();
+        _currentOnAirTimer = 0;
         _player.Jump();
-        _player.StartCoroutine(_player.OnAirDelay());
     }
 
     public void OnExit()
@@ -326,6 +321,12 @@ public class JumpState : IState
 
     public void OnUpdate()
     {
+        _controller.OnJumpInputs();
+        _currentOnAirTimer += Time.deltaTime;
+        if(_currentOnAirTimer <= _onAirTimer)
+        {
+            _player.fsm.ChangeState(StateName.OnAir);
+        }
     }
 }
 public class OnAirState : IState
