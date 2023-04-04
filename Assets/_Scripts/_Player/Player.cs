@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     [SerializeField] Transform _playerSprite;
     public Transform PlayerSprite { get { return _playerSprite; } private set { } }
 
-    float _maxDelayCanMove = .1f;
+    float _maxDelayCanMove = .2f;
     #endregion
 
     #region Jump
@@ -221,7 +221,7 @@ public class Player : MonoBehaviour
     }
     public void UnPausePlayer()
     {
-        _canMove = true;
+        StartCoroutine(CanMoveDelay());
         NormalGravity();
     }
 }
