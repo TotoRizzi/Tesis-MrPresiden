@@ -19,6 +19,8 @@ public class Bullet : MonoBehaviour
         _currentDistance += Time.fixedDeltaTime;
         if (_currentDistance > _maxDistance)
             ReturnBullet();
+
+        RaycastHit2D dmg = Physics2D.Raycast(transform.position, _direction.normalized, .4f);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
