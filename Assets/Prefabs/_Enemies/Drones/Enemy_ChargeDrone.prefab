@@ -5032,6 +5032,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8856837495568563153}
   - component: {fileID: 5011122896554927714}
+  - component: {fileID: 2035578359266657021}
   m_Layer: 0
   m_Name: RobotChase
   m_TagString: Untagged
@@ -5104,6 +5105,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2035578359266657021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7034085680315342874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 3d9b2f0f000000005963b32aa39c47404d2c7b87e751e7c3
+  m_ShapePath:
+  - {x: -0.35233107, y: -0.6938096, z: 0}
+  - {x: 0.34158707, y: -0.7009731, z: 0}
+  - {x: 0.33800575, y: 0.10288652, z: 0}
+  - {x: 0.008249257, y: 0.8591377, z: 0}
+  - {x: -0.35591245, y: 0.10646796, z: 0}
+  m_ShapePathHash: -1816243603
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -464798
 --- !u!1 &8765321337936934920
 GameObject:
   m_ObjectHideFlags: 0

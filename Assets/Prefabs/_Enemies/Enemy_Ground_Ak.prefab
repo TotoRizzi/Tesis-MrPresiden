@@ -123,6 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1729968458583891517}
   - component: {fileID: 1729968458583891516}
+  - component: {fileID: 5346883816836284577}
   m_Layer: 0
   m_Name: Enemy_Head
   m_TagString: Untagged
@@ -195,6 +196,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5346883816836284577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729968458583891458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 3d9b2f0f000000005963b32aa39c47404d2c7b87e751e7c3
+  m_ShapePath:
+  - {x: -0.27412638, y: -0.43811193, z: 0}
+  - {x: 0.28997713, y: -0.43018654, z: 0}
+  - {x: 0.5158508, y: -0.39405406, z: 0}
+  - {x: -0.5079254, y: -0.38612878, z: 0}
+  m_ShapePathHash: 155286588
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -460320
 --- !u!1 &1729968458609842711
 GameObject:
   m_ObjectHideFlags: 0
