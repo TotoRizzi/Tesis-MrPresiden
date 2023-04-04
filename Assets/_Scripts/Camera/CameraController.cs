@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] float[] _clampX = new float[2];
     [SerializeField] float[] _clampY = new float[2];
     [SerializeField] float _smooth;
+    [SerializeField] bool _static;
     private void Start()
     {
         _gameManager = GameManager.instance;
@@ -17,10 +18,13 @@ public class CameraController : MonoBehaviour
     }
     private void LateUpdate()
     {
-        float xClamp = Mathf.Clamp(_player.transform.position.x, _clampX[0], _clampX[1]);
-        float yClamp = Mathf.Clamp(_player.transform.position.y, _clampY[0], _clampY[1]);
-        Vector3 targetPosition = new Vector3(xClamp, yClamp, transform.position.z);
-        transform.position = Vector3.Lerp(transform.position, targetPosition, _smooth * Time.deltaTime);
+        if (_static)
+        {
+            float xClamp = Mathf.Clamp(_player.transform.position.x, _clampX[0], _clampX[1]);
+            float yClamp = Mathf.Clamp(_player.transform.position.y, _clampY[0], _clampY[1]);
+            Vector3 targetPosition = new Vector3(xClamp, yClamp, transform.position.z);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, _smooth * Time.deltaTime);
+        }
     }
     public void StartCameraShake(float duration) => StartCoroutine(CameraShake(duration));
     public void StartShaking() => StartCoroutine(Shaking());
