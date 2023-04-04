@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (_static)
+        if (!_static)
         {
             float xClamp = Mathf.Clamp(_player.transform.position.x, _clampX[0], _clampX[1]);
             float yClamp = Mathf.Clamp(_player.transform.position.y, _clampY[0], _clampY[1]);
