@@ -46,7 +46,6 @@ public class Enemy_KamikazeRobot : Enemy_Waypoint
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(!_isDropping || collision.tag == "Bullet");
         if (!_isDropping || collision.tag == "Bullet") return;
             Die();
     }
