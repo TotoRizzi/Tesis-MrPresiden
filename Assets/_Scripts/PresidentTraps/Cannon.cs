@@ -1,33 +1,73 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 public class Cannon : MonoBehaviour
 {
-    [SerializeField] Transform _fuseStart, _finishStart, _sparks;
+    [SerializeField] Transform[] _points;
+    [SerializeField] Transform _sparks;
 
     LineRenderer _lineRenderer;
     Vector3 _offset = new Vector3(-.15f, 0);
-    Vector3 _initialPos;
-    Vector3 _targetPos;
     void Start()
     {
         _lineRenderer = GetComponent<LineRenderer>();
-        _lineRenderer.positionCount = 2;
-        _lineRenderer.SetPosition(0, _fuseStart.position);
-        _lineRenderer.SetPosition(1, _finishStart.position);
-        _initialPos = _lineRenderer.GetPosition(0);
-        _targetPos = _lineRenderer.GetPosition(1);
+        _lineRenderer.positionCount = _points.Length;
+        for (int i = 0; i <= _points.Length - 1; i++)
+            _lineRenderer.SetPosition(i, _points[i].position);
+
         StartCoroutine(Mecha());
     }
     IEnumerator Mecha()
     {
+        int index = 0;
+        Vector3[] positions = _points.Select(x => x.position).ToArray();
         while (Helpers.LevelTimerManager.Timer <= Helpers.LevelTimerManager.LevelMaxTime)
         {
-            _fuseStart.position = Vector3.Lerp(_initialPos, _targetPos, Helpers.LevelTimerManager.Timer / Helpers.LevelTimerManager.LevelMaxTime);
-            _lineRenderer.SetPosition(0, _fuseStart.position);
-            _sparks.position = _fuseStart.position + _offset;
+            for (int i = 0; i <= index; i++)
+            {
+                _points[i].position = MultiLerp(Helpers.LevelTimerManager.Timer / Helpers.LevelTimerManager.LevelMaxTime, positions);
+                _lineRenderer.SetPosition(i, _points[i].position);
+            }
+            _sparks.position = _points[index].position + _offset;
+            if (Vector3.Distance(_points[index].position, _points[index + 1].position) <= 0.01f && index + 1 <= _points.Length) index++;
+
             yield return null;
         }
         _sparks.gameObject.SetActive(false);
         _lineRenderer.positionCount = 0;
+    }
+
+    Vector3 MultiLerp(float time, Vector3[] points)
+    {
+        if (points.Length == 1)
+            return points[0];
+        else if (points.Length == 2)
+            return Vector3.Lerp(points[0], points[1], time);
+
+        if (time == 0)
+            return points[0];
+
+        if (time == 1)
+            return points[points.Length - 1];
+
+        float t = time * (points.Length - 1);
+
+        Vector3 pointA = Vector3.zero;
+        Vector3 pointB = Vector3.zero;
+
+        for (int i = 0; i < points.Length; i++)
+        {
+            if (t < i)
+            {
+                pointA = points[i - 1];
+                pointB = points[i];
+                return Vector3.Lerp(pointA, pointB, t - (i - 1));
+            }
+            else if (t == (float)i)
+            {
+                return points[i];
+            }
+        }
+        return Vector3.zero;
     }
 }
