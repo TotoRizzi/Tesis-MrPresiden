@@ -5,6 +5,9 @@ public class Cannon : MonoBehaviour
 {
     [SerializeField] Transform[] _points;
     [SerializeField] Transform _sparks;
+    [SerializeField] Transform _ballSpawn;
+    [SerializeField] GameObject _ball;
+    [SerializeField] float _ballForce;
 
     LineRenderer _lineRenderer;
     Vector3 _offset = new Vector3(-.15f, 0);
@@ -29,14 +32,17 @@ public class Cannon : MonoBehaviour
                 _lineRenderer.SetPosition(i, _points[i].position);
             }
             _sparks.position = _points[index].position + _offset;
-            if (Vector3.Distance(_points[index].position, _points[index + 1].position) <= 0.01f && index + 1 <= _points.Length) index++;
-
+            if (Vector3.Distance(_points[index].position, _points[index + 1].position) <= 0.01f) index++;
+            if (index + 1 == _points.Length) break;
             yield return null;
         }
-        _sparks.gameObject.SetActive(false);
         _lineRenderer.positionCount = 0;
     }
-
+    public void Shoot()
+    {
+        GameObject ball = Instantiate(_ball, _ballSpawn.position, Quaternion.identity);
+        ball.GetComponent<Rigidbody2D>().AddForce(Vector2.right * _ballForce, ForceMode2D.Impulse);
+    }
     Vector3 MultiLerp(float time, Vector3[] points)
     {
         if (points.Length == 1)
