@@ -20,4 +20,8 @@ public class CinematicManager : MonoBehaviour
         _cinemacticCamera.SetActive(true);
         _victoryTimeline.Play();
     }
+    public void LerpSize(float a, float b, float time)
+    {
+        _cinemacticCamera.GetComponent<Camera>().orthographicSize = Mathf.Lerp(a, b, time);
+    }
 }
