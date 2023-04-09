@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 public class NextSceneOnTrigger : MonoBehaviour
 {
-    [SerializeField] int _nextScene;
+    [SerializeField] string _nextScene;
     [SerializeField] GameObject lightParent;
 
     Collider2D _collider;
@@ -28,6 +28,7 @@ public class NextSceneOnTrigger : MonoBehaviour
         lightParent.SetActive(false);
         _collider.enabled = false;
         _anim.SetBool("IsOpen", false);
+
     }
     private void OnTriggerEnter2D()
     {

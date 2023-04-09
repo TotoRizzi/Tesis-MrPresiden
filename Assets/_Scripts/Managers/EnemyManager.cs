@@ -15,6 +15,17 @@ public class EnemyManager : MonoBehaviour
         _gameManager = Helpers.GameManager;
 
         _gameManager.OnPlayerDead += ResetLevel;
+        Helpers.GameManager.OnPlayerDead += () => StartCoroutine(CheckForEmptyLevel());
+
+
+        StartCoroutine(CheckForEmptyLevel());
+    }
+
+    IEnumerator CheckForEmptyLevel()
+    {
+        yield return new WaitForSeconds(.1f);
+
+        if (_allEnemies.Count == 0) _gameManager.RoomWon();
     }
 
     public void AddEnemy(Enemy enemy)
