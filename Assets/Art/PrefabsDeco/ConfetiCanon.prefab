@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4027577721707679309}
   m_Layer: 0
   m_Name: ConfetiCanon
-  m_TagString: Untagged
+  m_TagString: Cinematica
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,7 +152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2301125166052270121, guid: c5179a5aade4ad848a29b981691c11c9, type: 3}
       propertyPath: VelocityModule.x.scalar
-      value: 1.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2301125166052270121, guid: c5179a5aade4ad848a29b981691c11c9, type: 3}
       propertyPath: VelocityModule.y.scalar
@@ -392,7 +392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2301125166052270121, guid: c5179a5aade4ad848a29b981691c11c9, type: 3}
       propertyPath: VelocityModule.x.maxCurve.m_Curve.Array.data[1].time
-      value: 0.20747167
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2301125166052270121, guid: c5179a5aade4ad848a29b981691c11c9, type: 3}
       propertyPath: VelocityModule.y.maxCurve.m_Curve.Array.data[1].time
@@ -428,7 +428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2301125166052270121, guid: c5179a5aade4ad848a29b981691c11c9, type: 3}
       propertyPath: VelocityModule.x.maxCurve.m_Curve.Array.data[1].value
-      value: 0.0114528015
+      value: -0.009596698
       objectReference: {fileID: 0}
     - target: {fileID: 2301125166052270121, guid: c5179a5aade4ad848a29b981691c11c9, type: 3}
       propertyPath: VelocityModule.y.maxCurve.m_Curve.Array.data[1].value
@@ -918,6 +918,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Confeti
       objectReference: {fileID: 0}
+    - target: {fileID: 2915096178515679009, guid: c5179a5aade4ad848a29b981691c11c9, type: 3}
+      propertyPath: m_TagString
+      value: Cinematica
+      objectReference: {fileID: 0}
     - target: {fileID: 8439431611677571477, guid: c5179a5aade4ad848a29b981691c11c9, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -964,8 +968,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5179a5aade4ad848a29b981691c11c9, type: 3}
+--- !u!1 &5859770281558170961 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2915096178515679009, guid: c5179a5aade4ad848a29b981691c11c9, type: 3}
+  m_PrefabInstance: {fileID: 8729830412243487344}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &880582197794485221 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8439431611677571477, guid: c5179a5aade4ad848a29b981691c11c9, type: 3}
   m_PrefabInstance: {fileID: 8729830412243487344}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &7406639784483695193 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2301125166052270121, guid: c5179a5aade4ad848a29b981691c11c9, type: 3}
+  m_PrefabInstance: {fileID: 8729830412243487344}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &425505185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5859770281558170961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: bc0d594fc4af21f48b9c2569ab099a2b, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7406639784483695193}
+          m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
