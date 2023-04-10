@@ -4,9 +4,6 @@ public class MenuManager : MonoBehaviour
     public void BTN_Play()
     {
         PlayerPrefs.DeleteAll();
-        //_gameManager.LevelManager.SetNewOrderOfLevels();
-        //_gameManager.LevelManager.NextLevel();
-        Helpers.GameManager.LoadSceneManager.LoadLevel("level 1");
     }
 
     public void BTN_Credits()
