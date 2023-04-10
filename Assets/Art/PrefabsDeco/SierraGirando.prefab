@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4015433482012328396}
   - component: {fileID: 6320641662143640015}
+  - component: {fileID: 353347337}
   m_Layer: 0
   m_Name: SierraGirando
   m_TagString: Cinematica
@@ -45,6 +46,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetPosition: {fileID: 0}
+--- !u!95 &353347337
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5977937144336602653}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8801050555334615600
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +179,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sparks
       objectReference: {fileID: 0}
+    - target: {fileID: 4241674316159165810, guid: 281085cfeb327b6468833263236f9149, type: 3}
+      propertyPath: CollisionModule.collisionMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241674316159165810, guid: 281085cfeb327b6468833263236f9149, type: 3}
+      propertyPath: CollisionModule.collidesWith.m_Bits
+      value: 67648
+      objectReference: {fileID: 0}
     - target: {fileID: 5777180586706681038, guid: 281085cfeb327b6468833263236f9149, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -176,21 +204,69 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5777180586706681038, guid: 281085cfeb327b6468833263236f9149, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.38268343
+      objectReference: {fileID: 0}
+    - target: {fileID: 5777180586706681038, guid: 281085cfeb327b6468833263236f9149, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5777180586706681038, guid: 281085cfeb327b6468833263236f9149, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5777180586706681038, guid: 281085cfeb327b6468833263236f9149, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.92387956
+      objectReference: {fileID: 0}
+    - target: {fileID: 5777180586706681038, guid: 281085cfeb327b6468833263236f9149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 135
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 281085cfeb327b6468833263236f9149, type: 3}
+--- !u!1 &2016922374279108321 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 956674017305547386, guid: 281085cfeb327b6468833263236f9149, type: 3}
+  m_PrefabInstance: {fileID: 1637979604795147419}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5086796980794521685 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5777180586706681038, guid: 281085cfeb327b6468833263236f9149, type: 3}
   m_PrefabInstance: {fileID: 1637979604795147419}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &3199299099681022441 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4241674316159165810, guid: 281085cfeb327b6468833263236f9149, type: 3}
+  m_PrefabInstance: {fileID: 1637979604795147419}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &952067484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016922374279108321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 6db9bb587c4d4974ea6f4e6d7cdb520f, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3199299099681022441}
+          m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
