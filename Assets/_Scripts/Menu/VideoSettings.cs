@@ -11,19 +11,21 @@ public class VideoSettings : MonoBehaviour
     {
         #region Language 
         _languageDropDown.ClearOptions();
+        _languageDropDown.AddOptions(languages);
 
-        if(LanguageManager.Instance.selectedLanguage == Languages.eng)
+        _languageDropDown.value = (int)LanguageManager.Instance.selectedLanguage;
+
+        if(_languageDropDown.value == 0)
         {
-            languages[0] = "Ingles";
-            languages[1] = "Español";
+            _languageDropDown.options[0].text = "English";
+            _languageDropDown.options[1].text = "Spanish";
         }
         else
         {
-            languages[0] = "English";
-            languages[1] = "Spanish";
+            _languageDropDown.options[0].text = "Ingles";
+            _languageDropDown.options[1].text = "Español";
         }
 
-        _languageDropDown.AddOptions(languages);
 
         #endregion
 
@@ -66,16 +68,18 @@ public class VideoSettings : MonoBehaviour
         LanguageManager.Instance.selectedLanguage = (Languages)language;
         LanguageManager.Instance.OnUpdate();
 
-        if (LanguageManager.Instance.selectedLanguage == Languages.eng)
+        if (_languageDropDown.value == 0)
         {
-            languages[0] = "Ingles";
-            languages[1] = "Español";
+            _languageDropDown.options[0].text = languages[0] = "English";
+            _languageDropDown.options[1].text = languages[1] = "Spanish";
         }
         else
         {
-            languages[0] = "English";
-            languages[1] = "Spanish";
+            _languageDropDown.options[0].text = languages[0] = "Ingles";
+            _languageDropDown.options[1].text = languages[1] = "Español";
         }
+
+        _languageDropDown.RefreshShownValue();
     }
     public void SetWindowMode(int screenMode)
     {
