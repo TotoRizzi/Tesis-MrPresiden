@@ -4,9 +4,31 @@ using TMPro;
 public class VideoSettings : MonoBehaviour
 {
     Resolution[] _resolutions;
-    [SerializeField] TMP_Dropdown _resolutionDropDown, _qualityDropDown, _windowModeDropDown;
+    [SerializeField] TMP_Dropdown _resolutionDropDown, _qualityDropDown, _windowModeDropDown, _languageDropDown;
+
+    List<string> languages = new List<string>() { "English", "Spanish" };
     private void Start()
     {
+        #region Language 
+        _languageDropDown.ClearOptions();
+
+        if(LanguageManager.Instance.selectedLanguage == Languages.eng)
+        {
+            languages[0] = "Ingles";
+            languages[1] = "Español";
+        }
+        else
+        {
+            languages[0] = "English";
+            languages[1] = "Spanish";
+        }
+
+        _languageDropDown.AddOptions(languages);
+
+        #endregion
+
+        #region Resolution
+
         _resolutions = Screen.resolutions;
 
         _resolutionDropDown.ClearOptions();
@@ -25,6 +47,8 @@ public class VideoSettings : MonoBehaviour
 
         _resolutionDropDown.value = currentResolutionIndex;
 
+        #endregion
+
         _qualityDropDown.value = QualitySettings.GetQualityLevel();
 
         _windowModeDropDown.value = Screen.fullScreenMode == FullScreenMode.FullScreenWindow ? 0 : 1;
@@ -36,6 +60,22 @@ public class VideoSettings : MonoBehaviour
     public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
+    }
+    public void SetLanguage(int language)
+    {
+        LanguageManager.Instance.selectedLanguage = (Languages)language;
+        LanguageManager.Instance.OnUpdate();
+
+        if (LanguageManager.Instance.selectedLanguage == Languages.eng)
+        {
+            languages[0] = "Ingles";
+            languages[1] = "Español";
+        }
+        else
+        {
+            languages[0] = "English";
+            languages[1] = "Spanish";
+        }
     }
     public void SetWindowMode(int screenMode)
     {
