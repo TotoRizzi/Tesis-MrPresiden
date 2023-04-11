@@ -7,20 +7,25 @@ public class InputManager : MonoBehaviour
     Dictionary<string, KeyCode> _buttonKeys;
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else Destroy(gameObject);
     }
     private void OnEnable()
     {
         _buttonKeys = new Dictionary<string, KeyCode>();
 
-        _buttonKeys["Right"] = KeyCode.D;
-        _buttonKeys["Left"] = KeyCode.A;
-        _buttonKeys["Up"] = KeyCode.W;
-        _buttonKeys["Down"] = KeyCode.S;
+        _buttonKeys["Move Right"] = KeyCode.D;
+        _buttonKeys["Move Left"] = KeyCode.A;
+        _buttonKeys["Move Up"] = KeyCode.W;
+        _buttonKeys["Move Down"] = KeyCode.S;
         _buttonKeys["Jump"] = KeyCode.Space;
         _buttonKeys["Dash"] = KeyCode.LeftShift;
-        _buttonKeys["PickUp"] = KeyCode.E;
-        _buttonKeys["ThrowWeapon"] = KeyCode.G;
+        _buttonKeys["Pick Up"] = KeyCode.E;
+        _buttonKeys["Throw Weapon"] = KeyCode.G;
         _buttonKeys["Shoot"] = KeyCode.Mouse0;
         _buttonKeys["Melee"] = KeyCode.Mouse1;
     }
@@ -59,9 +64,9 @@ public class InputManager : MonoBehaviour
     public float GetAxisRaw(string axis)
     {
         if (axis == "Horizontal")
-            return GetButton("Right") ? 1f : GetButton("Left") ? -1f : 0;
+            return GetButton("Move Right") ? 1f : GetButton("Move Left") ? -1f : 0;
         else if (axis == "Vertical")
-            return GetButton("Up") ? 1f : GetButton("Down") ? -1f : 0;
+            return GetButton("Move Up") ? 1f : GetButton("Move Down") ? -1f : 0;
         else return default;
     }
 }

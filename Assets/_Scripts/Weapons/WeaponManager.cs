@@ -34,9 +34,9 @@ public class WeaponManager : MonoBehaviour
 
         if (_inputManager.GetButtonDown("Melee") && _currentSecundaryWeapon) _currentSecundaryWeapon.Attack(GetMouseDirectionSecundary());
 
-        if (_inputManager.GetButtonDown("ThrowWeapon")) ThrowWeapon();
+        if (_inputManager.GetButtonDown("Throw Weapon")) ThrowWeapon();
 
-        if (_inputManager.GetButtonDown("PickUp")) SetWeapon();
+        if (_inputManager.GetButtonDown("Pick Up")) SetWeapon();
     }
 
     #region Weapon Funcs
