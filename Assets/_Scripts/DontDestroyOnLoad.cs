@@ -1,7 +1,7 @@
 using UnityEngine;
-public class Music : MonoBehaviour
+public class DontDestroyOnLoad : MonoBehaviour
 {
-    static Music Instance;
+    DontDestroyOnLoad Instance;
     private void Awake()
     {
         if (Instance == null)

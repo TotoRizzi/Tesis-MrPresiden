@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class PlayerController
 {
     Player _player;
-
+    InputManager _inputManager;
     public float xAxis { get; private set; }
     public float yAxis { get; private set; }
 
     public PlayerController(Player player, PlayerView v)
     {
+        _inputManager = InputManager.Instance;
+
         _player = player;
 
         _player.OnIdle += v.Idle;
@@ -21,49 +19,49 @@ public class PlayerController
 
     public void OnUpdate()
     {
-        xAxis = Input.GetAxisRaw("Horizontal");
-        yAxis = Input.GetAxisRaw("Vertical");
+        xAxis = _inputManager.GetAxisRaw("Horizontal");
+        yAxis = _inputManager.GetAxisRaw("Vertical");
     }
 
     public void IdleInputs()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _player.CanJump)
+        if (_inputManager.GetButtonDown("Jump") && _player.CanJump)
             _player.fsm.ChangeState(StateName.Jump);
         else if (xAxis != 0)
             _player.fsm.ChangeState(StateName.Move);
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.CanDash)
+        if (_inputManager.GetButtonDown("Dash") && _player.CanDash)
             _player.fsm.ChangeState(StateName.Dash);
     }
 
     public void MovingInputs()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _player.CanJump)
+        if (_inputManager.GetButtonDown("Jump") && _player.CanJump)
             _player.fsm.ChangeState(StateName.Jump);
         else if (xAxis == 0)
             _player.fsm.ChangeState(StateName.Idle);
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.CanDash)
+        if (_inputManager.GetButtonDown("Dash") && _player.CanDash)
             _player.fsm.ChangeState(StateName.Dash);
     }
 
     public void OnAirInputs()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.CanDash)
+        if (_inputManager.GetButtonDown("Dash") && _player.CanDash)
             _player.fsm.ChangeState(StateName.Dash);
-        else if (Input.GetKeyDown(KeyCode.Space) && _player.CanJump)
+        else if (_inputManager.GetButtonDown("Jump") && _player.CanJump)
             _player.fsm.ChangeState(StateName.Jump);
     }
 
     public void OnJumpInputs()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.CanDash)
+        if (_inputManager.GetButtonDown("Dash") && _player.CanDash)
             _player.fsm.ChangeState(StateName.Dash);
     }
 
     public void ClimbingInputs()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _player.CanDash)
+        if (_inputManager.GetButtonDown("Dash") && _player.CanDash)
             _player.fsm.ChangeState(StateName.Dash);
-        else if (Input.GetKeyDown(KeyCode.Space) && _player.CanJump)
+        else if (_inputManager.GetButtonDown("Jump") && _player.CanJump)
             _player.fsm.ChangeState(StateName.Jump);
     }
 }

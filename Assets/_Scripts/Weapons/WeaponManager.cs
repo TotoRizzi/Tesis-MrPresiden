@@ -9,12 +9,14 @@ public class WeaponManager : MonoBehaviour
     Camera _mainCamera;
     Transform _mainWeaponContainer;
     Transform _secundaryWeaponContainer;
+    InputManager _inputManager;
     Action _lookAtMouse = delegate { };
 
     public Transform SecundaryWeaponContainer { get { return _secundaryWeaponContainer; } }
     public FireWeapon GetMainWeapon { get { return _currentMainWeapon?.GetComponent<FireWeapon>(); } }
     private void Start()
     {
+        _inputManager = InputManager.Instance;
         _mainCamera = Camera.main;
         _mainWeaponContainer = transform.GetChild(0);
         _secundaryWeaponContainer = transform.GetChild(1);
@@ -28,13 +30,13 @@ public class WeaponManager : MonoBehaviour
     {
         _lookAtMouse?.Invoke();
 
-        if (Input.GetMouseButton(0) && _currentMainWeapon) _currentMainWeapon.Attack(GetMouseDirectionMain());
+        if (_inputManager.GetButtonDown("Shoot") && _currentMainWeapon) _currentMainWeapon.Attack(GetMouseDirectionMain());
 
-        if (Input.GetMouseButton(1) && _currentSecundaryWeapon) _currentSecundaryWeapon.Attack(GetMouseDirectionSecundary());
+        if (_inputManager.GetButtonDown("Melee") && _currentSecundaryWeapon) _currentSecundaryWeapon.Attack(GetMouseDirectionSecundary());
 
-        if (Input.GetKeyDown(KeyCode.G)) ThrowWeapon();
+        if (_inputManager.GetButtonDown("ThrowWeapon")) ThrowWeapon();
 
-        if (Input.GetKeyDown(KeyCode.E)) SetWeapon();
+        if (_inputManager.GetButtonDown("PickUp")) SetWeapon();
     }
 
     #region Weapon Funcs
