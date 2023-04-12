@@ -27,7 +27,7 @@ public class InputManager : MonoBehaviour
         _buttonKeys["Pick Up"] = KeyCode.E;
         _buttonKeys["Throw Weapon"] = KeyCode.G;
         _buttonKeys["Shoot"] = KeyCode.Mouse0;
-        _buttonKeys["Melee"] = KeyCode.Mouse1;
+        _buttonKeys["Knife"] = KeyCode.Mouse1;
     }
     public bool GetButtonDown(string buttonName)
     {

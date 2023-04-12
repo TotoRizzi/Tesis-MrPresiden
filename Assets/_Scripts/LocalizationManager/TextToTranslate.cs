@@ -4,6 +4,8 @@ public class TextToTranslate : MonoBehaviour
 {
     [SerializeField] string _ID;
     [SerializeField] TextMeshProUGUI _myView;
+
+    public string ID { get { return _ID; } set { _ID = value; } }
     private void Awake()
     {
         LanguageManager.Instance.OnUpdate += ChangeLang;

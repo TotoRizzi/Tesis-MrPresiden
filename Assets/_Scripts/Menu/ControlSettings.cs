@@ -24,8 +24,11 @@ public class ControlSettings : MonoBehaviour
             go.transform.SetParent(_parentKeysItems);
             go.transform.localScale = Vector3.one;
 
-            TextMeshProUGUI text = go.transform.Find("ButtonName").GetComponent<TextMeshProUGUI>();
+            var buttonName = go.transform.Find("ButtonName");
+            TextMeshProUGUI text = buttonName.GetComponent<TextMeshProUGUI>();
             text.text = bn;
+            TextToTranslate language = buttonName.GetComponent<TextToTranslate>();
+            language.ID = "ID_" + bn.Replace(" ", string.Empty);
 
             TextMeshProUGUI keyNameText = go.transform.Find("Button/KeyName").GetComponent<TextMeshProUGUI>();
             keyNameText.text = _inputManager.KeyNameForButton(bn);
