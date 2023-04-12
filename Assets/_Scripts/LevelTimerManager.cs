@@ -18,12 +18,12 @@ public class LevelTimerManager : MonoBehaviour
     {
         Helpers.GameManager.EnemyManager.OnEnemyKilled += _stopTrapMode ? (Action)StopTrap : (Action)GoBackTrap;
         RedButton += WinLevel;
-        StartCoroutine(LevelTimer());
     }
     private void OnDisable()
     {
         RedButton -= WinLevel;
     }
+    public void StartLevelTimer() { StartCoroutine(LevelTimer()); }
     IEnumerator LevelTimer()
     {
         WaitForSeconds wait = new WaitForSeconds(_timeToDiscount);
