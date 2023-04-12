@@ -32,7 +32,7 @@ public class WeaponManager : MonoBehaviour
 
         if (_inputManager.GetButtonDown("Shoot") && _currentMainWeapon) _currentMainWeapon.Attack(GetMouseDirectionMain());
 
-        if (_inputManager.GetButtonDown("Melee") && _currentSecundaryWeapon) _currentSecundaryWeapon.Attack(GetMouseDirectionSecundary());
+        if (_inputManager.GetButtonDown("Knife") && _currentSecundaryWeapon) _currentSecundaryWeapon.Attack(GetMouseDirectionSecundary());
 
         if (_inputManager.GetButtonDown("Throw Weapon")) ThrowWeapon();
 
