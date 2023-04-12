@@ -12,6 +12,7 @@ public class LevelTimerManager : MonoBehaviour
 
     bool _stopTimer;
     bool _stopTrap;
+    bool _firstTime;
 
     public Action RedButton;
     void Start()
@@ -26,6 +27,8 @@ public class LevelTimerManager : MonoBehaviour
     public void StartLevelTimer() { StartCoroutine(LevelTimer()); }
     IEnumerator LevelTimer()
     {
+        if (_firstTime) yield break;
+        _firstTime = true;
         WaitForSeconds wait = new WaitForSeconds(_timeToDiscount);
         while (_timer <= _levelMaxTime)
         {
