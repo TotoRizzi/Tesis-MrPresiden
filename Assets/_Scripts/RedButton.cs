@@ -3,8 +3,6 @@ using UnityEngine;
 public class RedButton : MonoBehaviour
 {
     [SerializeField] GameObject lightParent;
-    [SerializeField] bool _tutorial;
-    [SerializeField] string _nextSceneName;
 
     Collider2D _collider;
     Animator _anim;
@@ -33,8 +31,6 @@ public class RedButton : MonoBehaviour
     }
     private void OnTriggerEnter2D( )
     {
-        if (_tutorial) Helpers.GameManager.LoadSceneManager.LoadLevel(_nextSceneName);
-
         Helpers.LevelTimerManager.RedButton();
         Helpers.GameManager.PauseManager.PauseObjectsInCinematic();
         Helpers.GameManager.CinematicManager.PlayVictoryCinematic();
