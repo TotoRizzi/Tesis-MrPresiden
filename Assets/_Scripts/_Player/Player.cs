@@ -266,11 +266,12 @@ public class MoveState : IState
     public MoveState(Player player, PlayerController controller)
     {
         _player = player;
-        _controller = controller;
+        _controller = controller;       
     }
 
     public void OnEnter()
     {
+        Helpers.LevelTimerManager.StartLevelTimer();
         _player.OnMove();
     }
 
@@ -305,6 +306,8 @@ public class JumpState : IState
 
     public void OnEnter()
     {
+        Helpers.LevelTimerManager.StartLevelTimer();
+
         //_player.FreezeVelocity();
         _currentOnAirTimer = 0;
         _player.Jump();
@@ -380,6 +383,8 @@ public class DashState : IState
 
     public void OnEnter()
     {
+        Helpers.LevelTimerManager.StartLevelTimer();
+
         _player.OnDash();
 
         _currentDashDuration = 0;
