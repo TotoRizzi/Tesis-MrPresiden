@@ -32,10 +32,9 @@ public class FireWeapon : Weapon
 
     protected virtual void FireWeaponShoot(Vector2 bulletDirection)
     {
-        FRY_Bullet.Instance.pool.GetObject().
+        FRY_PlayerBullet.Instance.pool.GetObject().
                                             SetDmg(_weaponData.damage).
                                             SetSpeed(_weaponData.bulletSpeed).
-                                            SetLayer(Layers.PlayerAttack).
                                             SetPosition(_bulletSpawn.position).
                                             SetDirection(bulletDirection).
                                             SetDistance(2f);

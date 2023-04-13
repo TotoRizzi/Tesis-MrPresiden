@@ -12,10 +12,9 @@ public class Enemy_Sniper : Enemy_Shooting
 
     void Shoot()
     {
-        FRY_Bullet.Instance.pool.GetObject().SetPosition(bulletSpawnPosition.position)
+        FRY_EnemyBullet.Instance.pool.GetObject().SetPosition(bulletSpawnPosition.position)
                                             .SetDirection(armPivot.right)
                                             .SetDmg(bulletDamage)
-                                            .SetLayer(Layers.EnemyAttack)
                                             .SetSpeed(bulletSpeed);
     }
 

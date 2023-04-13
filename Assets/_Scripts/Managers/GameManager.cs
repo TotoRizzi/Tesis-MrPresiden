@@ -1,14 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
-
-public enum Layers
-{
-    PlayerAttack = 11,
-    EnemyAttack = 12
-}
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;

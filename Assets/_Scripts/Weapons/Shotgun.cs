@@ -6,10 +6,9 @@ public class Shotgun : FireWeapon
     {
         for (int i = 0; i <= _directions.Length - 1; i++)
         {
-            var bullet = FRY_Bullet.Instance.pool.GetObject().
+            FRY_PlayerBullet.Instance.pool.GetObject().
                                                 SetDirection(_directions[i].position - _bulletSpawn.position).
                                                 SetDmg(_weaponData.damage).
-                                                SetLayer(Layers.PlayerAttack).
                                                 SetPosition(_bulletSpawn.position).
                                                 SetSpeed(_weaponData.bulletSpeed).
                                                 SetDistance(.25f);

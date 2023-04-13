@@ -49,10 +49,9 @@ public class Enemy_Ground_Ak : Enemy_GroundHumanoid
 
     void Shoot()
     {
-        FRY_Bullet.Instance.pool.GetObject().SetPosition(_bulletSpawnPosition.position)
+        FRY_EnemyBullet.Instance.pool.GetObject().SetPosition(_bulletSpawnPosition.position)
                                             .SetDirection(_armPivot.right)
                                             .SetDmg(_bulletDamage)
-                                            .SetLayer(Layers.EnemyAttack)
                                             .SetSpeed(_bulletSpeed);
     }
 

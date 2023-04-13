@@ -79,13 +79,6 @@ public class Granade : MonoBehaviour
         _direction = direction;
         return this;
     }
-
-    public Granade SetLayer(Layers layer)
-    {
-        gameObject.layer = (int)layer;
-        return this;
-    }
-
     public Granade SetDamage(float damage)
     {
         _damage = damage;
