@@ -17,6 +17,7 @@ public class EnemyBullet : Bullet
             if (enemy != null) enemy.TakeDamage(_dmg);
 
             ReturnBullet();
+            Instantiate(pos, raycast.point, Quaternion.identity);
         }
     }
 

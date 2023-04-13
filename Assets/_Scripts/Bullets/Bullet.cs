@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public abstract class Bullet : MonoBehaviour
 {
     protected float _speed;
@@ -10,6 +7,7 @@ public abstract class Bullet : MonoBehaviour
     protected float _dmg;
     protected Vector3 _direction;
 
+    [SerializeField] protected GameObject pos;
     [SerializeField] protected LayerMask _bulletLayer;
     protected virtual void Start()
     {
