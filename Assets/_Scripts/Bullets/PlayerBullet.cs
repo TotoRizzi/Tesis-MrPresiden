@@ -72,6 +72,7 @@ public class PlayerBullet : Bullet
     }
     protected override void ReturnBullet()
     {
+        base.ReturnBullet();
         FRY_PlayerBullet.Instance.ReturnBullet(this);
     }
 }

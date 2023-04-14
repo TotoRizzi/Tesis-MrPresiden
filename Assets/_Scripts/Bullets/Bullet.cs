@@ -6,13 +6,18 @@ public abstract class Bullet : MonoBehaviour
     protected float _currentDistance;
     protected float _dmg;
     protected Vector3 _direction;
+    protected TrailRenderer _trail;
 
     [SerializeField] protected GameObject pos;
     [SerializeField] protected LayerMask _bulletLayer;
     protected virtual void Start()
     {
         Helpers.GameManager.OnPlayerDead += ReturnBullet;
+        _trail = GetComponent<TrailRenderer>();
     }
 
-    protected abstract void ReturnBullet();
+    protected virtual void ReturnBullet()
+    {
+        _trail.Clear();
+    }
 }

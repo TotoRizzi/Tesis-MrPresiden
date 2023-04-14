@@ -68,6 +68,7 @@ public class EnemyBullet : Bullet
     }
     protected override void ReturnBullet()
     {
+        base.ReturnBullet();
         FRY_EnemyBullet.Instance.ReturnBullet(this);
     }
 }

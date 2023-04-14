@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5115879686293160678}
   - component: {fileID: 7877310107761406592}
   - component: {fileID: 1908984936763359540}
-  m_Layer: 15
+  m_Layer: 11
   m_Name: Granade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1078434979
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6adb3fac2851032419327ac7487e20ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -147,5 +147,3 @@ MonoBehaviour:
   _throwForce: 10
   _explosionRadius: 2
   _explosionForce: 600
-  _gravityScale: 1.5
-  _fallGravityMultiplier: 3
