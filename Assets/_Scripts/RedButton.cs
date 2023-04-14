@@ -2,8 +2,6 @@ using System.Collections;
 using UnityEngine;
 public class RedButton : MonoBehaviour
 {
-    [SerializeField] GameObject lightParent;
-
     Collider2D _collider;
     Animator _anim;
     private void Start()
@@ -19,12 +17,10 @@ public class RedButton : MonoBehaviour
     {
         _anim.SetBool("IsOpen", true);
         _collider.enabled = true;
-        lightParent.SetActive(true);
     }
     IEnumerator HideExit()
     {
         yield return new WaitForEndOfFrame();
-        lightParent.SetActive(false);
         _collider.enabled = false;
         _anim.SetBool("IsOpen", false);
         Debug.Log("Closed");

@@ -10,6 +10,8 @@ public class EnemyManager : MonoBehaviour
 
     public event Action OnEnemyKilled;
 
+    int _maxEnemies;
+
     private void Start()
     {
         _gameManager = Helpers.GameManager;
@@ -25,7 +27,10 @@ public class EnemyManager : MonoBehaviour
     {
         yield return new WaitForSeconds(.1f);
 
-        if (_allEnemies.Count == 0) _gameManager.RoomWon();
+        _maxEnemies = _allEnemies.Count;
+        if (_maxEnemies == 0) _gameManager.RoomWon();
+        else
+            _gameManager.UiManager.UpdateEnemyCount(0, _allEnemies.Count);
     }
 
     public void AddEnemy(Enemy enemy)
@@ -41,7 +46,9 @@ public class EnemyManager : MonoBehaviour
 
         OnEnemyKilled();
         _allEnemies.Remove(enemy);
+        
         Helpers.AudioManager.PlaySFX("Enemy_Dead");
+        Helpers.GameManager.UiManager.UpdateEnemyCount(_allEnemies.Count - _maxEnemies, _maxEnemies);
 
         if (_allEnemies.Count == 0) _gameManager.RoomWon();
     }
