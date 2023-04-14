@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public event Action OnUpdate;
 
+    [SerializeField] GameObject _feedBack;
+
     [SerializeField] protected Transform sprite;
     private SpriteRenderer _renderer;
     private float _onHitRedTime = .2f;
@@ -51,6 +53,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
         ReturnObject();
         gameManager.EffectsManager.HumanoindKilled(transform.position);
+        Instantiate(_feedBack, transform.position, Quaternion.identity);
     }
 
     IEnumerator ChangeColor()
