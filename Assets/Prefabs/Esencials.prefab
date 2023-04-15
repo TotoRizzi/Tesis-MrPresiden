@@ -981,7 +981,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.2, z: 0}
   m_ShapePathHash: -1906480883
   m_Mesh: {fileID: 0}
-  m_InstanceId: 109158
+  m_InstanceId: 127104
 --- !u!1 &859833147576569514
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,9 +1427,6 @@ MonoBehaviour:
   _timer: 0
   _levelMaxTime: 5
   _timeToDiscount: 1
-  _levelLights: []
-  _globalLight: {fileID: 0}
-  _levelLightsAnimator: {fileID: 2494926203854269427}
 --- !u!114 &4037572099271379933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1462,10 +1459,10 @@ MonoBehaviour:
   - {fileID: 51360675450513244}
   - {fileID: 5311286875053316269}
   _colors:
-  - {r: 1, g: 0.8726415, b: 0.8726415, a: 0}
+  - {r: 1, g: 1, b: 1, a: 0}
   - {r: 1, g: 0.28773582, b: 0.28773582, a: 0}
   _lerpSpeed: 0.1
-  _minLerpSpeed: 0.5
+  _minLerpSpeed: 0.7
   _maxTimer: 3
 --- !u!1 &2303437058315371554
 GameObject:
@@ -1774,7 +1771,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2494926203854269426}
-  - component: {fileID: 2494926203854269427}
   m_Layer: 0
   m_Name: LevelLights
   m_TagString: Untagged
@@ -1803,25 +1799,6 @@ Transform:
   m_Father: {fileID: 6057323810991696548}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2494926203854269427
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2494926203854269429}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e3e929a20211a1e49adf80ca854ba676, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2566736729711227540
 GameObject:
   m_ObjectHideFlags: 0
