@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum StateName
 {
-    Idle, Move, Jump, OnAir, Dash, Climb, //Player
-    SH_Patrol, SH_Attack,                 //SimpleHumanoid
-    CD_Idle, CD_Charge,                   //ChargeDrone
-    LIGHT_GoingRed, LIGHT_GoingWhite, LIGHT_Open      //Lights
+    Idle, Move, Jump, OnAir, Dash, Climb,               //Player
+    SH_Patrol, SH_Attack,                               //SimpleHumanoid
+    CD_Idle, CD_Charge,                                 //ChargeDrone
+    LIGHT_GoingRed, LIGHT_GoingWhite, LIGHT_Normal      //Lights
 }
 
 public class StateMachine : MonoBehaviour

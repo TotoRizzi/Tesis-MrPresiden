@@ -37,9 +37,6 @@ public class LevelLightsManager : MonoBehaviour
 
     [SerializeField] [Range(0.0f, 1.0f)] float _startBlinkingLights;
 
-    bool _lightsAreBlinking = false;
-    public bool LightsAreBlinking { get { return _lightsAreBlinking; } private set { } }
-
     private void Start()
     {
         _levelTimerManager = Helpers.LevelTimerManager;
@@ -48,10 +45,13 @@ public class LevelLightsManager : MonoBehaviour
 
         _fsm.AddState(StateName.LIGHT_GoingRed, new GoingRed(_fsm, this));
         _fsm.AddState(StateName.LIGHT_GoingWhite, new GoingWhite(_fsm, this));
+        _fsm.AddState(StateName.LIGHT_Normal, new GoingNormal(_fsm, this));
         _fsm.ChangeState(StateName.LIGHT_GoingRed);
 
         OnUpdate += _fsm.Update;
         OnUpdate += CheckForBlinkingLights;
+
+        Helpers.GameManager.EnemyManager.OnEnemyKilled += () => _fsm.ChangeState(StateName.LIGHT_Normal); 
     }
 
     private void Update()
@@ -63,7 +63,6 @@ public class LevelLightsManager : MonoBehaviour
     {
         if (Helpers.LevelTimerManager.Timer / Helpers.LevelTimerManager.LevelMaxTime >= _startBlinkingLights)
         {
-            _lightsAreBlinking = true;
             StartBlinkLights();
             OnUpdate -= CheckForBlinkingLights;
         }
@@ -75,15 +74,6 @@ public class LevelLightsManager : MonoBehaviour
         {
             var blinkingLight = item.GetComponent<BrokenLight>();
             if (blinkingLight) blinkingLight.enabled = true;
-        }
-    }
-
-    public void StopBlinkingLights()
-    {
-        foreach (var item in _blinkingLights)
-        {
-            var blinkingLight = item.GetComponent<BrokenLight>();
-            if (blinkingLight) blinkingLight.enabled = false;
         }
     }
 }
@@ -189,7 +179,8 @@ public class GoingNormal : IState
 
     public void OnEnter()
     {
-        _manager.StopBlinkingLights();
+        _currentTimer = 0;
+
 
         foreach (var item in _manager.Lights)
         {
@@ -199,7 +190,6 @@ public class GoingNormal : IState
 
     public void OnExit()
     {
-        if (_manager.LightsAreBlinking) _manager.StartBlinkLights();
     }
 
     public void OnFixedUpdate()
@@ -210,5 +200,7 @@ public class GoingNormal : IState
     public void OnUpdate()
     {
         _currentTimer += Time.deltaTime;
+
+        if (_currentTimer >= Helpers.LevelTimerManager.TimeToDiscount) _fsm.ChangeState(StateName.LIGHT_GoingRed);
     }
 }
