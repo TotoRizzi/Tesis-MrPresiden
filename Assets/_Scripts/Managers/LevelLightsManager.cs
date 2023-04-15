@@ -17,12 +17,14 @@ public class LevelLightsManager : MonoBehaviour
     LevelTimerManager _levelTimerManager;
     public LevelTimerManager LevelTimerManager { get { return _levelTimerManager; } private set { } }
 
+    [SerializeField] float _minLerpSpeed = .5f;
+
     [SerializeField] float _maxTimer = 2f;
     public float MaxTimer 
     { 
         get 
         { 
-            return _maxTimer * ((Helpers.LevelTimerManager.LevelMaxTime - Helpers.LevelTimerManager.Timer) / Helpers.LevelTimerManager.LevelMaxTime); 
+            return Mathf.Clamp((_maxTimer * ((Helpers.LevelTimerManager.LevelMaxTime - Helpers.LevelTimerManager.Timer) / Helpers.LevelTimerManager.LevelMaxTime)), _minLerpSpeed, _maxTimer); 
         } 
         private set { } 
     }

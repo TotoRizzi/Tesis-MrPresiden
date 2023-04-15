@@ -981,7 +981,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.2, z: 0}
   m_ShapePathHash: -1906480883
   m_Mesh: {fileID: 0}
-  m_InstanceId: 205618
+  m_InstanceId: 109158
 --- !u!1 &859833147576569514
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,6 +1256,7 @@ GameObject:
   - component: {fileID: 3803697255170089862}
   - component: {fileID: 1889881096245116235}
   - component: {fileID: 4037572099271379933}
+  - component: {fileID: 5515249986433541230}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -1426,6 +1427,8 @@ MonoBehaviour:
   _timer: 0
   _levelMaxTime: 5
   _timeToDiscount: 1
+  _levelLights: []
+  _globalLight: {fileID: 0}
   _levelLightsAnimator: {fileID: 2494926203854269427}
 --- !u!114 &4037572099271379933
 MonoBehaviour:
@@ -1440,6 +1443,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cinemacticCamera: {fileID: 2631416385357818961}
+--- !u!114 &5515249986433541230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707881769362260627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf166890a051664f89e6f8144bcdc73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lights:
+  - {fileID: 51360676882187111}
+  - {fileID: 51360676469578119}
+  - {fileID: 51360674982049307}
+  - {fileID: 51360675450513244}
+  - {fileID: 5311286875053316269}
+  _colors:
+  - {r: 1, g: 0.8726415, b: 0.8726415, a: 0}
+  - {r: 1, g: 0.28773582, b: 0.28773582, a: 0}
+  _lerpSpeed: 0.1
+  _minLerpSpeed: 0.5
+  _maxTimer: 3
 --- !u!1 &2303437058315371554
 GameObject:
   m_ObjectHideFlags: 0
