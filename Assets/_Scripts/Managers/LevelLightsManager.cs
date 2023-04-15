@@ -68,9 +68,26 @@ public class GoingRed : IState
         _currentTimer += Time.deltaTime;
 
         foreach (var item in _manager.Lights)
-            item.color = Color.Lerp(item.color, _manager.Colors[1], _manager.LerpSpeed * Time.deltaTime * _manager.LevelTimerManager.Timer / _manager.LevelTimerManager.LevelMaxTime * 10);
+        {
+            Color initialColor = item.color;
 
-        if (_currentTimer >= _manager.LevelTimerManager.Timer / _manager.LevelTimerManager.LevelMaxTime * 10) _fsm.ChangeState(StateName.LIGHT_GoingWhite); 
+            if(_currentTimer < 1)
+            {
+                item.color = Color.Lerp(initialColor, _manager.Colors[1], _currentTimer * _manager.LerpSpeed);
+            }
+        }
+
+        if (_currentTimer >= 1f) _fsm.ChangeState(StateName.LIGHT_GoingWhite);
+
+        /*
+        while (ticks < 1)
+        {
+            ticks += Time.deltaTime;
+            delayedHealthBar.fillAmount = Mathf.Lerp(initialColor, currentHealth / maxHealth, ticks);
+            yield return new WaitForEndOfFrame();
+        }
+
+        yield return null;*/
     }
 }
 public class GoingWhite : IState
@@ -104,8 +121,15 @@ public class GoingWhite : IState
         _currentTimer += Time.deltaTime;
 
         foreach (var item in _manager.Lights)
-            item.color = Color.Lerp(item.color, _manager.Colors[0], _manager.LerpSpeed * Time.deltaTime * _manager.LevelTimerManager.Timer / _manager.LevelTimerManager.LevelMaxTime * 10);
+        {
+            Color initialColor = item.color;
 
-        if (_currentTimer >= _manager.LevelTimerManager.Timer / _manager.LevelTimerManager.LevelMaxTime * 10) _fsm.ChangeState(StateName.LIGHT_GoingRed);
+            if (_currentTimer < 1)
+            {
+                item.color = Color.Lerp(initialColor, _manager.Colors[0], _currentTimer * _manager.LerpSpeed);
+            }
+        }
+
+        if (_currentTimer >= 2f) _fsm.ChangeState(StateName.LIGHT_GoingRed);
     }
 }
