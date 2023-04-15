@@ -8,5 +8,6 @@ public class EffectsManager : MonoBehaviour
     {
         FRY_EnemyExplodeParticle.Instance.pool.GetObject().SetPosition(pos);
         FRY_EnemyBloodSplatter.Instance.pool.GetObject().SetPosition(pos);
+        FRY_ClockFeedback.Instance.pool.GetObject().SetPosition(pos);
     }
 }
