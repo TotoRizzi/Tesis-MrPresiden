@@ -8,6 +8,7 @@ public class LevelTimerManager : MonoBehaviour
     [SerializeField] float _timeToDiscount;
     public float Timer { get { return _timer; } set { _timer = value; } }
     public float LevelMaxTime { get { return _levelMaxTime; } }
+    public float TimeToDiscount { get { return _timeToDiscount; } }
 
     bool _stopTimer;
     bool _stopTrap;
