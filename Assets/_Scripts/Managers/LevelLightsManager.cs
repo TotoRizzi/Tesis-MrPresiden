@@ -17,6 +17,15 @@ public class LevelLightsManager : MonoBehaviour
     LevelTimerManager _levelTimerManager;
     public LevelTimerManager LevelTimerManager { get { return _levelTimerManager; } private set { } }
 
+    [SerializeField] float _maxTimer = 2f;
+    public float MaxTimer 
+    { 
+        get 
+        { 
+            return _maxTimer * ((Helpers.LevelTimerManager.LevelMaxTime - Helpers.LevelTimerManager.Timer) / Helpers.LevelTimerManager.LevelMaxTime); 
+        } 
+        private set { } 
+    }
 
     StateMachine _fsm;
 
@@ -77,17 +86,7 @@ public class GoingRed : IState
             }
         }
 
-        if (_currentTimer >= 1f) _fsm.ChangeState(StateName.LIGHT_GoingWhite);
-
-        /*
-        while (ticks < 1)
-        {
-            ticks += Time.deltaTime;
-            delayedHealthBar.fillAmount = Mathf.Lerp(initialColor, currentHealth / maxHealth, ticks);
-            yield return new WaitForEndOfFrame();
-        }
-
-        yield return null;*/
+        if (_currentTimer >= _manager.MaxTimer) _fsm.ChangeState(StateName.LIGHT_GoingWhite);
     }
 }
 public class GoingWhite : IState
@@ -130,6 +129,6 @@ public class GoingWhite : IState
             }
         }
 
-        if (_currentTimer >= 2f) _fsm.ChangeState(StateName.LIGHT_GoingRed);
+        if (_currentTimer >= _manager.MaxTimer) _fsm.ChangeState(StateName.LIGHT_GoingRed);
     }
 }

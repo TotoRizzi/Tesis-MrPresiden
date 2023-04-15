@@ -32,7 +32,7 @@ public class LevelTimerManager : MonoBehaviour
     {
         if (_firstTime) yield break;
         //_levelLightsAnimator.Play("LevelLight_Open");
-        _globalLight.color = Color.red;
+        //_globalLight.color = Color.red;
         _firstTime = true;
         WaitForSeconds wait = new WaitForSeconds(_timeToDiscount);
         while (_timer <= _levelMaxTime)
@@ -43,7 +43,7 @@ public class LevelTimerManager : MonoBehaviour
                 if (_stopTimer) yield break;                            //Cuando pongo pausa
                 if (_stopTrap)
                 {
-                    _globalLight.color = Color.white;
+                   // _globalLight.color = Color.white;
                     yield return wait;                                  //Cuando muere un enemigo
                     //_levelLightsAnimator.SetBool("_stopLights", false);
                 }
