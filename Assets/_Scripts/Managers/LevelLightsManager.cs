@@ -37,6 +37,12 @@ public class LevelLightsManager : MonoBehaviour
 
     [SerializeField] [Range(0.0f, 1.0f)] float _startBlinkingLights;
 
+    [SerializeField] SpriteRenderer _onOffLight;
+    public SpriteRenderer OnOffLight { get { return _onOffLight; }  private set { } }
+
+    [SerializeField] Color[] _onOffLightColors;
+    public Color[] OnOffLightColors { get { return _onOffLightColors; } private set { } }
+
     private void Start()
     {
         _levelTimerManager = Helpers.LevelTimerManager;
@@ -51,7 +57,8 @@ public class LevelLightsManager : MonoBehaviour
         OnUpdate += _fsm.Update;
         OnUpdate += CheckForBlinkingLights;
 
-        Helpers.GameManager.EnemyManager.OnEnemyKilled += () => _fsm.ChangeState(StateName.LIGHT_Normal); 
+        Helpers.GameManager.EnemyManager.OnEnemyKilled += () => _fsm.ChangeState(StateName.LIGHT_Normal);
+        _onOffLight.color = _onOffLightColors[1];
     }
 
     private void Update()
@@ -181,6 +188,7 @@ public class GoingNormal : IState
     {
         _currentTimer = 0;
 
+        _manager.OnOffLight.color = _manager.OnOffLightColors[0];
 
         foreach (var item in _manager.Lights)
         {
@@ -190,6 +198,7 @@ public class GoingNormal : IState
 
     public void OnExit()
     {
+        _manager.OnOffLight.color = _manager.OnOffLightColors[1];
     }
 
     public void OnFixedUpdate()
