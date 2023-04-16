@@ -39,7 +39,7 @@ public class VideoSettings : MonoBehaviour
         else
         {
             _languageDropDown.options[0].text = "Ingles";
-            _languageDropDown.options[1].text = "Español";
+            _languageDropDown.options[1].text = "Espanol";
 
             _qualityDropDown.options[0].text = "Bajo";
             _qualityDropDown.options[1].text = "Medio";
@@ -102,7 +102,7 @@ public class VideoSettings : MonoBehaviour
         else
         {
             _languageDropDown.options[0].text = _languages[0] = "Ingles";
-            _languageDropDown.options[1].text = _languages[1] = "Español";
+            _languageDropDown.options[1].text = _languages[1] = "Espanol";
 
             _qualityDropDown.options[0].text = "Bajo";
             _qualityDropDown.options[1].text = "Medio";
