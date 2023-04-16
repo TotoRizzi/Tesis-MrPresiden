@@ -17,7 +17,7 @@ public class FRY_Granades : MonoBehaviour
     public Granade BulletCreator()
     {
         var grenade = Instantiate(_prefab);
-        grenade.transform.SetParent(transform);
+        grenade.transform.SetParent(GameObject.Find("MainGame").transform);
         return grenade;
     }
 
