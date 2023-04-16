@@ -57,9 +57,6 @@ public class LevelLightsManager : MonoBehaviour
         _fsm.AddState(StateName.LIGHT_Normal, new GoingNormal(_fsm, this));
         _fsm.ChangeState(StateName.LIGHT_GoingRed);
 
-        OnUpdate += _fsm.Update;
-        OnUpdate += CheckForBlinkingLights;
-
         Helpers.GameManager.EnemyManager.OnEnemyKilled += () => _fsm.ChangeState(StateName.LIGHT_Normal);
         _onOffLight.color = _onOffLightColors[1];
     }
@@ -67,6 +64,18 @@ public class LevelLightsManager : MonoBehaviour
     private void Update()
     {
         OnUpdate?.Invoke();
+    }
+
+    public void StartLights()
+    {
+        OnUpdate += _fsm.Update;
+        OnUpdate += CheckForBlinkingLights;
+    }
+
+    public void StopLights()
+    {
+        OnUpdate -= _fsm.Update;
+        StopBLinkingLights();
     }
 
     void CheckForBlinkingLights()
