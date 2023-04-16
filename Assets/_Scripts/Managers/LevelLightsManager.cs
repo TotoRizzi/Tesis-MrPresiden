@@ -74,6 +74,8 @@ public class LevelLightsManager : MonoBehaviour
 
     public void StopLights()
     {
+        _onOffLight.color = _onOffLightColors[0];
+
         OnUpdate -= _fsm.Update;
         StopBLinkingLights();
     }
