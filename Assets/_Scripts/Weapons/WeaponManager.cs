@@ -30,13 +30,13 @@ public class WeaponManager : MonoBehaviour
     {
         _lookAtMouse?.Invoke();
 
-        if (_inputManager.GetButton("Shoot") && _currentMainWeapon)
+        if (_inputManager.GetButton("Shoot") && _currentMainWeapon) _currentMainWeapon.Attack(GetMouseDirectionMain());
+
+        if (_inputManager.GetButton("Knife") && _currentSecundaryWeapon)
         {
             Helpers.LevelTimerManager.StartLevelTimer();
-            _currentMainWeapon.Attack(GetMouseDirectionMain());
+            _currentSecundaryWeapon.Attack(GetMouseDirectionSecundary());
         }
-
-        if (_inputManager.GetButton("Knife") && _currentSecundaryWeapon) _currentSecundaryWeapon.Attack(GetMouseDirectionSecundary());
 
         if (_inputManager.GetButtonDown("Throw Weapon")) ThrowWeapon();
 

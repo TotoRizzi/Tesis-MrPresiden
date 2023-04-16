@@ -24,6 +24,7 @@ public class FireWeapon : Weapon
             return;
         }
 
+        Helpers.LevelTimerManager.StartLevelTimer();
         _currentAmmo--;
         UpdateAmmoAmount();
         Helpers.AudioManager.PlaySFX(_weaponData.weaponSoundName);
