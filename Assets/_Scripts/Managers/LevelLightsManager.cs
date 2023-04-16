@@ -4,10 +4,9 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class LevelLightsManager : MonoBehaviour
 {
+    public static LevelLightsManager Instance;
+
     Action OnUpdate;
-    
-    LevelTimerManager _levelTimerManager;
-    public LevelTimerManager LevelTimerManager { get { return _levelTimerManager; } private set { } }
 
     StateMachine _fsm;
 
@@ -46,10 +45,12 @@ public class LevelLightsManager : MonoBehaviour
 
     [SerializeField] BrokenLight[] _brokenLights;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
-        _levelTimerManager = Helpers.LevelTimerManager;
-
         _fsm = new StateMachine();
 
         _fsm.AddState(StateName.LIGHT_GoingRed, new GoingRed(_fsm, this));

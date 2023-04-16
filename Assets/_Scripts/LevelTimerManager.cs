@@ -13,12 +13,14 @@ public class LevelTimerManager : MonoBehaviour
     bool _stopTimer;
     bool _stopTrap;
     bool _firstTime;
+    LevelLightsManager _levelLightsManager;
 
     public Action RedButton;
     void Start()
     {
         Helpers.GameManager.EnemyManager.OnEnemyKilled += StopTrap;
         RedButton += WinLevel;
+        _levelLightsManager = LevelLightsManager.Instance;
     }
     private void OnDisable()
     {
@@ -29,6 +31,7 @@ public class LevelTimerManager : MonoBehaviour
     {
         if (_firstTime) yield break;
         _firstTime = true;
+        _levelLightsManager.StartLights();
         WaitForSeconds wait = new WaitForSeconds(_timeToDiscount);
         while (_timer <= _levelMaxTime)
         {
@@ -48,6 +51,7 @@ public class LevelTimerManager : MonoBehaviour
     public void WinLevel()
     {
         _stopTimer = true;
+        _levelLightsManager.StopLights();
         Helpers.GameManager.EnemyManager.OnEnemyKilled -= StopTrap;
     }
     void StopTrap()
