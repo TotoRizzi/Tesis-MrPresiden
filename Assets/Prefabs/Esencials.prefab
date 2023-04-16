@@ -431,14 +431,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51360675030127160}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61d0f39fa6910b24aaf690e9f14b39b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minTime: 0.3
-  maxTime: 1.5
-  targetObject: {fileID: 51360676882187105}
+  _minTime: 0.07
+  _maxTime: 0.3
+  _targetObject: {fileID: 51360676882187105}
 --- !u!1 &51360675450513242
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,14 +602,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51360675691251928}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61d0f39fa6910b24aaf690e9f14b39b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minTime: 0.3
-  maxTime: 1.5
-  targetObject: {fileID: 51360676469578113}
+  _minTime: 0.07
+  _maxTime: 0.3
+  _targetObject: {fileID: 51360676469578113}
 --- !u!1 &51360676469578113
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,14 +773,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51360676760925699}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61d0f39fa6910b24aaf690e9f14b39b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minTime: 0.3
-  maxTime: 1.5
-  targetObject: {fileID: 51360675450513242}
+  _minTime: 0.07
+  _maxTime: 0.3
+  _targetObject: {fileID: 51360675450513242}
 --- !u!1 &51360676829882180
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,14 +872,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51360676829882180}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61d0f39fa6910b24aaf690e9f14b39b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minTime: 0.3
-  maxTime: 1.5
-  targetObject: {fileID: 51360674982049309}
+  _minTime: 0.07
+  _maxTime: 0.3
+  _targetObject: {fileID: 51360674982049309}
 --- !u!1 &51360676882187105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,7 +1060,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.2, z: 0}
   m_ShapePathHash: -1906480883
   m_Mesh: {fileID: 0}
-  m_InstanceId: 95336
+  m_InstanceId: 59158
 --- !u!1 &859833147576569514
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,11 +1620,6 @@ MonoBehaviour:
   - {fileID: 51360674982049307}
   - {fileID: 51360675450513244}
   - {fileID: 5311286875053316269}
-  _blinkingLights:
-  - {fileID: 51360675030127160}
-  - {fileID: 51360675691251928}
-  - {fileID: 51360676829882180}
-  - {fileID: 51360676760925699}
   _colors:
   - {r: 1, g: 1, b: 1, a: 0}
   - {r: 1, g: 0.28773582, b: 0.28773582, a: 0}
@@ -1636,6 +1631,11 @@ MonoBehaviour:
   _onOffLightColors:
   - {r: 1, g: 0.96268547, b: 0, a: 1}
   - {r: 1, g: 0, b: 0, a: 1}
+  _brokenLights:
+  - {fileID: 4971815815962445393}
+  - {fileID: 747374315546383682}
+  - {fileID: 5739174969265769553}
+  - {fileID: 5867438332353910265}
 --- !u!1 &2303437058315371554
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,8 +14,6 @@ public class LevelLightsManager : MonoBehaviour
     [SerializeField] Light2D[] _lights;
     public Light2D[] Lights { get { return _lights; } private set { } }
 
-    [SerializeField] GameObject[] _blinkingLights;
-
     [SerializeField] Color[] _colors;
     public Color[] Colors { get { return _colors; } private set { } }
 
@@ -42,6 +40,11 @@ public class LevelLightsManager : MonoBehaviour
 
     [SerializeField] Color[] _onOffLightColors;
     public Color[] OnOffLightColors { get { return _onOffLightColors; } private set { } }
+
+    bool _lightsAreBlinking = false;
+    public bool LightsAreBlinking { get { return _lightsAreBlinking; } private set { } }
+
+    [SerializeField] BrokenLight[] _brokenLights;
 
     private void Start()
     {
@@ -77,10 +80,18 @@ public class LevelLightsManager : MonoBehaviour
 
     public void StartBlinkLights()
     {
-        foreach (var item in _blinkingLights)
+        _lightsAreBlinking = true;
+        foreach (var item in _brokenLights)
         {
-            var blinkingLight = item.GetComponent<BrokenLight>();
-            if (blinkingLight) blinkingLight.enabled = true;
+            item.CanBlink();
+        }
+    }
+
+    public void StopBLinkingLights()
+    {
+        foreach (var item in _brokenLights)
+        {
+            item.CantBlink();
         }
     }
 }
@@ -188,6 +199,7 @@ public class GoingNormal : IState
     {
         _currentTimer = 0;
 
+        if (_manager.LightsAreBlinking) _manager.StopBLinkingLights();
         _manager.OnOffLight.color = _manager.OnOffLightColors[0];
 
         foreach (var item in _manager.Lights)
@@ -198,6 +210,8 @@ public class GoingNormal : IState
 
     public void OnExit()
     {
+        if(_manager.LightsAreBlinking) _manager.StartBlinkLights();
+
         _manager.OnOffLight.color = _manager.OnOffLightColors[1];
     }
 

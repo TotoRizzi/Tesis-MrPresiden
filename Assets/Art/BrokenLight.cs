@@ -1,36 +1,51 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BrokenLight : MonoBehaviour
 {
-    public float minTime = 0.07f;
-    public float maxTime = 0.3f;
 
-    public GameObject targetObject;
+    [SerializeField] float _minTime = 0.07f;
+    [SerializeField] float _maxTime = 0.3f;
 
-    private bool isBlinking = false;
+    [SerializeField] GameObject _targetObject;
 
-    void Start()
+    float _currentBlinkingTimer;
+
+    float _blinkTime;
+
+    bool _canBlink;
+
+    private void Update()
     {
-        StartCoroutine(Blink());
+        if (_canBlink) CheckBlink();
     }
 
-    IEnumerator Blink()
+    void CheckBlink()
     {
-        while (true)
-        {
-            isBlinking = true;
-            targetObject.SetActive(!targetObject.activeSelf);
-            float blinkTime = Random.Range(minTime, maxTime);
-            yield return new WaitForSeconds(blinkTime);
-            isBlinking = false;
-            yield return null;
-        }
+        _currentBlinkingTimer += Time.deltaTime;
+
+        if (_currentBlinkingTimer < _blinkTime) return;
+
+        _targetObject.SetActive(!_targetObject.activeSelf);
+
+        _currentBlinkingTimer = 0;
+        _blinkTime = UnityEngine.Random.Range(_minTime, _maxTime);
     }
 
-    public bool IsBlinking()
+    public void CanBlink()
     {
-        return isBlinking;
+        _canBlink = true;
+        _currentBlinkingTimer = 0;
+    }
+
+    public void CantBlink()
+    {
+        _canBlink = false;
+        TurnOnLights();
+        _currentBlinkingTimer = 0;
+    }
+
+    void TurnOnLights()
+    {
+        _targetObject.SetActive(true);
     }
 }
