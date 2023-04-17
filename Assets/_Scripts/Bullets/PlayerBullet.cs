@@ -17,7 +17,6 @@ public class PlayerBullet : Bullet
             var enemy = raycast.collider.GetComponent<IDamageable>();
             if (enemy != null) enemy.TakeDamage(_dmg);
             else Helpers.AudioManager.PlaySFX("Bullet_GroundHit");
-            Instantiate(pos, raycast.point, Quaternion.identity);
             ReturnBullet();
         }
 
