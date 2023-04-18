@@ -11,7 +11,7 @@ public class CinematicManager : MonoBehaviour
         _initialTimeline = GameObject.Find("InitialTimeline").GetComponent<PlayableDirector>();
         _defeatTimeline = GameObject.Find("DefeatTimeline").GetComponent<PlayableDirector>();
         _victoryTimeline = GameObject.Find("VictoryTimeline").GetComponent<PlayableDirector>();
-        var currentScene = "asd " + SceneManager.GetActiveScene().name;
+        var currentScene = "Timeline " + SceneManager.GetActiveScene().name;
         Debug.Log(PlayerPrefs.HasKey(currentScene));
         if (!PlayerPrefs.HasKey(currentScene)) _initialTimeline.Play();
         PlayerPrefs.SetString(currentScene, currentScene);
