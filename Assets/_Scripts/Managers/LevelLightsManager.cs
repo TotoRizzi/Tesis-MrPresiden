@@ -10,27 +10,11 @@ public class LevelLightsManager : MonoBehaviour
 
     StateMachine _fsm;
 
-    [SerializeField] Light2D[] _lights;
+    Light2D[] _lights;
     public Light2D[] Lights { get { return _lights; } private set { } }
 
     [SerializeField] Color[] _colors;
     public Color[] Colors { get { return _colors; } private set { } }
-
-    [SerializeField] float _lerpSpeed = .5f;
-    public float LerpSpeed { get { return _lerpSpeed; } private set { } }
-
-
-    [SerializeField] float _minLerpSpeed = .5f;
-
-    [SerializeField] float _maxTimer = 2f;
-    public float MaxTimer 
-    { 
-        get 
-        { 
-            return Mathf.Clamp((_maxTimer * ((Helpers.LevelTimerManager.LevelMaxTime - Helpers.LevelTimerManager.Timer) / Helpers.LevelTimerManager.LevelMaxTime)), _minLerpSpeed, _maxTimer); 
-        } 
-        private set { } 
-    }
 
     [SerializeField] [Range(0.0f, 1.0f)] float _startBlinkingLights;
 
@@ -43,7 +27,7 @@ public class LevelLightsManager : MonoBehaviour
     bool _lightsAreBlinking = false;
     public bool LightsAreBlinking { get { return _lightsAreBlinking; } private set { } }
 
-    [SerializeField] BrokenLight[] _brokenLights;
+    BrokenLight[] _brokenLights;
 
     private void Awake()
     {
@@ -51,16 +35,20 @@ public class LevelLightsManager : MonoBehaviour
     }
     private void Start()
     {
+        _lights = GetComponentsInChildren<Light2D>();
+        _brokenLights = GetComponentsInChildren<BrokenLight>();
+        _onOffLight = GameObject.Find("IMG_OnOffLight_Color").GetComponent<SpriteRenderer>();
+
         _fsm = new StateMachine();
 
         _fsm.AddState(StateName.LIGHT_GoingRed, new GoingRed(_fsm, this));
-        _fsm.AddState(StateName.LIGHT_GoingWhite, new GoingWhite(_fsm, this));
         _fsm.AddState(StateName.LIGHT_Normal, new GoingNormal(_fsm, this));
         _fsm.ChangeState(StateName.LIGHT_GoingRed);
 
         Helpers.GameManager.EnemyManager.OnEnemyKilled += () => _fsm.ChangeState(StateName.LIGHT_Normal);
         _onOffLight.color = _onOffLightColors[1];
-    }
+
+    } 
 
     private void Update()
     {
@@ -123,7 +111,7 @@ public class GoingRed : IState
 
     public void OnEnter()
     {
-        _currentTimer = 0;
+        //_currentTimer = 0;
     }
 
     public void OnExit()
@@ -136,62 +124,11 @@ public class GoingRed : IState
 
     public void OnUpdate()
     {
-        _currentTimer += Time.deltaTime;
-
+        _currentTimer += Time.deltaTime / Helpers.LevelTimerManager.LevelMaxTime;
         foreach (var item in _manager.Lights)
         {
-            Color initialColor = item.color;
-
-            if(_currentTimer < 1)
-            {
-                item.color = Color.Lerp(initialColor, _manager.Colors[1], _currentTimer * _manager.LerpSpeed);
-            }
+            item.color = Color.Lerp(_manager.Colors[0], _manager.Colors[1], _currentTimer);
         }
-
-        if (_currentTimer >= _manager.MaxTimer) _fsm.ChangeState(StateName.LIGHT_GoingWhite);
-    }
-}
-public class GoingWhite : IState
-{
-    StateMachine _fsm;
-    LevelLightsManager _manager;
-
-    float _currentTimer;
-
-    public GoingWhite(StateMachine fsm, LevelLightsManager manager)
-    {
-        _fsm = fsm;
-        _manager = manager;
-    }
-
-    public void OnEnter()
-    {
-        _currentTimer = 0;
-    }
-
-    public void OnExit()
-    {
-    }
-
-    public void OnFixedUpdate()
-    {
-    }
-
-    public void OnUpdate()
-    {
-        _currentTimer += Time.deltaTime;
-
-        foreach (var item in _manager.Lights)
-        {
-            Color initialColor = item.color;
-
-            if (_currentTimer < 1)
-            {
-                item.color = Color.Lerp(initialColor, _manager.Colors[0], _currentTimer * _manager.LerpSpeed);
-            }
-        }
-
-        if (_currentTimer >= _manager.MaxTimer) _fsm.ChangeState(StateName.LIGHT_GoingRed);
     }
 }
 public class GoingNormal : IState
