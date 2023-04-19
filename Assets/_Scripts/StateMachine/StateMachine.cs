@@ -6,7 +6,7 @@ public enum StateName
     Idle, Move, Jump, OnAir, Dash, Climb,               //Player
     SH_Patrol, SH_Attack,                               //SimpleHumanoid
     CD_Idle, CD_Charge,                                 //ChargeDrone
-    LIGHT_GoingRed, LIGHT_Normal      //Lights
+    LIGHT_GoingRed, LIGHT_Normal                        //Lights
 }
 
 public class StateMachine : MonoBehaviour
