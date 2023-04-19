@@ -36,7 +36,7 @@ public class Enemy_ChargeDrone : Enemy
     }
     void FalseUpdate()
     {
-        if(CanSeePlayer()) _fsm.Update();
+        /*if(CanSeePlayer())*/ _fsm.Update();
     }
     public Vector3 GetDistanceToPlayer()
     {
@@ -51,6 +51,11 @@ public class Enemy_ChargeDrone : Enemy
         base.ReturnObject();
         FRY_Enemy_ChargeDrone.Instance.pool.ReturnObject(this);
         _fsm.ChangeState(StateName.CD_Idle);
+    }
+
+    public bool SeePlayer()
+    {
+        return CanSeePlayer();
     }
 }
 
@@ -89,6 +94,7 @@ public class CD_Idle : IState
 
     public void OnUpdate()
     {
+        if(!_enemy.SeePlayer()) return;
         _currentIdleTime += Time.deltaTime;
         _enemy.LookAtPlayer();
 
