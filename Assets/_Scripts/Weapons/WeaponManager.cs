@@ -13,6 +13,7 @@ public class WeaponManager : MonoBehaviour
     Action _lookAtMouse = delegate { };
 
     public Transform SecundaryWeaponContainer { get { return _secundaryWeaponContainer; } }
+    public Transform MainWeaponContainer { get { return _mainWeaponContainer; } }
     public FireWeapon GetMainWeapon { get { return _currentMainWeapon?.GetComponent<FireWeapon>(); } }
     private void Start()
     {
@@ -84,7 +85,15 @@ public class WeaponManager : MonoBehaviour
     }
     private void ThrowWeapon()
     {
-        _currentMainWeapon?.ThrowOut(GetMouseDirectionMain()).SetParent(null);
+        RaycastHit2D raycast = Physics2D.Raycast(_mainWeaponContainer.position, GetMousePosition(), 1f, LayerMask.GetMask("Border"));
+        if (raycast)
+        {
+            _currentMainWeapon.transform.position += (Vector3)raycast.normal / 2;
+            _currentMainWeapon?.ThrowOut(raycast.normal).SetParent(null);
+        }
+        else
+            _currentMainWeapon?.ThrowOut(GetMouseDirectionMain()).SetParent(null);
+
         _currentMainWeapon = null;
         _mainWeaponContainer.eulerAngles = Vector2.zero;
         _lookAtMouse -= MainWeapon;

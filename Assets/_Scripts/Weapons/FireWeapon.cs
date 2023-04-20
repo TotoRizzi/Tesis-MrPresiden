@@ -28,7 +28,10 @@ public class FireWeapon : Weapon
         _currentAmmo--;
         UpdateAmmoAmount();
         Helpers.AudioManager.PlaySFX(_weaponData.weaponSoundName);
-        FireWeaponShoot(bulletDirection);
+        RaycastHit2D raycast = Physics2D.Raycast(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position, Vector2.Distance(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position), LayerMask.GetMask("Border"));
+
+        if (!raycast)
+            FireWeaponShoot(bulletDirection);
     }
 
     protected virtual void FireWeaponShoot(Vector2 bulletDirection)
