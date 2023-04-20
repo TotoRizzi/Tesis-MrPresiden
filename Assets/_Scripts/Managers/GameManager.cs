@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
         _levelManager = GetComponent<LevelManager>();
         _statisticsManager = GetComponent<StatisticsManager>();
         _cinematicManager = GetComponent<CinematicManager>();
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     public void RoomWon()
