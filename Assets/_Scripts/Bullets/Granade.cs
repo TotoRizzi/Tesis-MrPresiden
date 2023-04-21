@@ -6,8 +6,6 @@ public class Granade : MonoBehaviour
     [SerializeField] float _explosionRadius;
     [SerializeField] float _explosionForce;
 
-    GameObject _explosion;
-
     float _gravityScale = 1.5f;
     float _fallGravityMultiplier = 3;
 
@@ -41,7 +39,7 @@ public class Granade : MonoBehaviour
         {
             Explosion();
             Helpers.AudioManager.PlaySFX("Grenade_Destroy");
-            if (_explosion) Instantiate(_explosion, transform.position, Quaternion.identity);
+            FRY_GrenadeExplosion.Instance.pool.GetObject().SetPosition(transform.position);
             FRY_Granades.Instance.ReturnBullet(this);
         }
     }
@@ -72,7 +70,6 @@ public class Granade : MonoBehaviour
 
     #region BUILDER 
 
-
     public Granade SetPosition(Vector2 position)
     {
         transform.position = position;
@@ -86,12 +83,6 @@ public class Granade : MonoBehaviour
     public Granade SetDamage(float damage)
     {
         _damage = damage;
-        return this;
-    }
-
-    public Granade SetExplosion(GameObject granadeExplosion)
-    {
-        _explosion = granadeExplosion;
         return this;
     }
 

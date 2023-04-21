@@ -6,8 +6,7 @@ public class GranadeLauncher : FireWeapon
         var granade = FRY_Granades.Instance.pool.GetObject().
                                             SetDamage(_weaponData.damage).
                                             SetPosition(_bulletSpawn.position).
-                                            SetDirection(bulletDirection).
-                                            SetExplosion(_weaponData.bulletExplosion);
+                                            SetDirection(bulletDirection);
         granade.ThrowGranade();
     }
 }

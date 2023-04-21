@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-
 public class GrenadeExplosion : MonoBehaviour
 {
     [SerializeField] float _timeToReturn;
@@ -17,11 +16,23 @@ public class GrenadeExplosion : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
-        ReturnObject();
+        FRY_GrenadeExplosion.Instance.ReturnObject(this);
     }
-
-    void ReturnObject()
+    public static void TurnOn(GrenadeExplosion g)
     {
-
+        g.gameObject.SetActive(true);
     }
+    public static void TurnOff(GrenadeExplosion g)
+    {
+        g.gameObject.SetActive(false);
+    }
+
+    #region BUILDER
+    public GrenadeExplosion SetPosition(Vector3 position)
+    {
+        transform.position = position;
+        return this;
+    }
+
+    #endregion
 }
