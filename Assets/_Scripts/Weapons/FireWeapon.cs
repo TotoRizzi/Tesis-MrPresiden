@@ -4,17 +4,22 @@ public class FireWeapon : Weapon
 {
     protected Transform _bulletSpawn;
     protected int _currentAmmo;
-
+    LayerMask _borderMask;
     public int GetCurrentAmmo { get { return _currentAmmo; } set { _currentAmmo = value; } }
     protected override void Awake()
     {
         base.Awake();
+        _borderMask = LayerMask.GetMask("Border");
         _currentAmmo = _weaponData.initialAmmo;
     }
     protected override void Start()
     {
         base.Start();
         _bulletSpawn = transform.GetChild(0);
+    }
+    private void Update()
+    {
+        Debug.DrawLine(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position, Color.red);
     }
     public override void WeaponAction(Vector2 bulletDirection)
     {
@@ -28,9 +33,9 @@ public class FireWeapon : Weapon
         _currentAmmo--;
         UpdateAmmoAmount();
         Helpers.AudioManager.PlaySFX(_weaponData.weaponSoundName);
-        RaycastHit2D raycast = Physics2D.Raycast(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position, Vector2.Distance(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position), LayerMask.GetMask("Border"));
-
-        if (!raycast)
+        RaycastHit2D raycast = Physics2D.Raycast(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position, Vector2.Distance(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position), _borderMask);
+        Collider2D overlapCircle = Physics2D.OverlapCircle(_bulletSpawn.position, .05f, _borderMask);
+        if (!raycast && !overlapCircle || raycast && !overlapCircle)
             FireWeaponShoot(bulletDirection);
     }
 

@@ -1755,7 +1755,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.6, y: 0.25}
+  m_Offset: {x: 0.5, y: 0.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1766,7 +1766,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &3887100381741624811
 MonoBehaviour:
@@ -1791,6 +1791,7 @@ GameObject:
   - component: {fileID: 4522345236166161673}
   - component: {fileID: 4522345236166161674}
   - component: {fileID: 4522345236166161675}
+  - component: {fileID: 4191762094796610903}
   m_Layer: 15
   m_Name: KeyTxt
   m_TagString: Untagged
@@ -1914,6 +1915,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4191762094796610903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4522345236166161676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69cc8ec85d94df74182fb10ab087ca52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _keyName: Pick Up
 --- !u!1 &4522345236265354305
 GameObject:
   m_ObjectHideFlags: 0
@@ -1925,6 +1939,7 @@ GameObject:
   - component: {fileID: 4522345236265354318}
   - component: {fileID: 4522345236265354319}
   - component: {fileID: 4522345236265354304}
+  - component: {fileID: 1641928325472732127}
   m_Layer: 15
   m_Name: ToEquipTxt
   m_TagString: Untagged
@@ -2048,6 +2063,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1641928325472732127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4522345236265354305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66bf741bccf10214db745ddce9f19cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ID: ID_PickUp
+  _myView: {fileID: 4522345236265354304}
 --- !u!1 &4522345236306044574
 GameObject:
   m_ObjectHideFlags: 0

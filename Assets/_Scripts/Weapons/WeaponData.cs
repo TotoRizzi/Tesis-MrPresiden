@@ -11,7 +11,7 @@ public class WeaponData : ScriptableObject
     [HideInInspector] public Sprite mainSprite;
     [HideInInspector] public Sprite selectedSprite;
     [HideInInspector] public string weaponSoundName;
-    [HideInInspector] public GameObject _bulletExplosion;
+    [HideInInspector] public GameObject bulletExplosion;
 
 
     //FireWeapons
