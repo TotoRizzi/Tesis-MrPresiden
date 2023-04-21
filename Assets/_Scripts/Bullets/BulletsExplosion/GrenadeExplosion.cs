@@ -3,11 +3,14 @@ using UnityEngine;
 public class GrenadeExplosion : MonoBehaviour
 {
     [SerializeField] float _timeToReturn;
-    void Start()
+    void OnEnable()
     {
         StartCoroutine(DisableObject());
     }
-
+    private void OnDisable()
+    {
+        StopCoroutine(DisableObject());
+    }
     IEnumerator DisableObject()
     {
         float timer = 0;

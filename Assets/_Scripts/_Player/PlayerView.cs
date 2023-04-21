@@ -7,12 +7,11 @@ public class PlayerView : MonoBehaviour
     GameManager _gameManager;
 
     [SerializeField] Animator _anim;
-    Player _player;
+    [SerializeField] ParticleSystem _dashParticle;
 
     private void Start()
     {
         _gameManager = GameManager.instance;
-        _player = _gameManager.Player;
     }
 
     public void Run()
@@ -32,6 +31,7 @@ public class PlayerView : MonoBehaviour
 
     public void Dash()
     {
+        _dashParticle.Play();
         Helpers.AudioManager.PlaySFX("Player_Dash");
     }
 }
