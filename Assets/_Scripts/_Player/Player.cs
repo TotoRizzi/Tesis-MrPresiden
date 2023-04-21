@@ -10,6 +10,7 @@ using System;
 public class Player : MonoBehaviour
 {
     public event Action OnUpdate;
+    public Action ExitClimb;
 
     #region Components
     [HideInInspector] public StateMachine fsm;
@@ -445,6 +446,7 @@ public class ClimState : IState
     public void OnExit()
     {
         _player.NormalGravity();
+        _player.ExitClimb();
     }
 
     public void OnFixedUpdate()
