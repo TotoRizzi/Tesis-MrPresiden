@@ -66,6 +66,7 @@ public class Platform_Disappear : MonoBehaviour
     {
         OnUpdate = null;
         _currentTimeToAppear = 0;
+        _currentTimeToDisappear = 0;
 
         _sprite.SetActive(true);
 
@@ -85,32 +86,5 @@ public class Platform_Disappear : MonoBehaviour
         {
             item.enabled = false;
         }
-    }
-
-    IEnumerator Disappear()
-    {
-        _anim.Play("Breaking");
-        yield return new WaitForSeconds(_timeToDisappear);
-        _sprite.SetActive(false);
-
-        foreach (var item in _colliders)
-        {
-            item.enabled = false;
-        }
-
-        StartCoroutine(Appear());
-    }
-    IEnumerator Appear()
-    {
-        yield return new WaitForSeconds(_timeToAppear);
-
-        _sprite.SetActive(true);
-
-        foreach (var item in _colliders)
-        {
-            item.enabled = true;
-        }
-        _anim.Play("Idle");
-
     }
 }
