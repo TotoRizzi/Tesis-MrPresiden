@@ -10,28 +10,24 @@ public class FireWeapon : Weapon
     {
         base.Awake();
         _borderMask = LayerMask.GetMask("Border");
-        _currentAmmo = _weaponData.initialAmmo;
+        //_currentAmmo = _weaponData.initialAmmo;
     }
     protected override void Start()
     {
         base.Start();
         _bulletSpawn = transform.GetChild(0);
     }
-    private void Update()
-    {
-        Debug.DrawLine(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position, Color.red);
-    }
     public override void WeaponAction(Vector2 bulletDirection)
     {
-        if (_currentAmmo <= 0)
-        {
-            Helpers.AudioManager.PlaySFX("Not_Ammo");
-            return;
-        }
+        //if (_currentAmmo <= 0)
+        //{
+        //    Helpers.AudioManager.PlaySFX("Not_Ammo");
+        //    return;
+        //}
 
         Helpers.LevelTimerManager.StartLevelTimer();
-        _currentAmmo--;
-        UpdateAmmoAmount();
+        //_currentAmmo--;
+        //UpdateAmmoAmount();
         Helpers.AudioManager.PlaySFX(_weaponData.weaponSoundName);
         RaycastHit2D raycast = Physics2D.Raycast(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position, Vector2.Distance(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position), _borderMask);
         Collider2D overlapCircle = Physics2D.OverlapCircle(_bulletSpawn.position, .05f, _borderMask);
