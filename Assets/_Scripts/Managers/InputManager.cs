@@ -25,7 +25,7 @@ public class InputManager : MonoBehaviour
         _buttonKeys["Jump"] = KeyCode.Space;
         _buttonKeys["Dash"] = KeyCode.LeftShift;
         _buttonKeys["Pick Up"] = KeyCode.E;
-        _buttonKeys["Throw Weapon"] = KeyCode.G;
+        //_buttonKeys["Throw Weapon"] = KeyCode.G;
         _buttonKeys["Shoot"] = KeyCode.Mouse0;
         _buttonKeys["Knife"] = KeyCode.Mouse1;
     }

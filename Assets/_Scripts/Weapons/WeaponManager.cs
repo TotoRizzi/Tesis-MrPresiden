@@ -25,7 +25,7 @@ public class WeaponManager : MonoBehaviour
         _currentSecundaryWeapon.PickUp(true);
         _lookAtMouse += SecundaryWeapon;
 
-        LoadWeapon();
+        //LoadWeapon();
     }
     private void Update()
     {
@@ -39,7 +39,7 @@ public class WeaponManager : MonoBehaviour
             _currentSecundaryWeapon.Attack(GetMouseDirectionSecundary());
         }
 
-        if (_inputManager.GetButtonDown("Throw Weapon")) ThrowWeapon();
+        //if (_inputManager.GetButtonDown("Throw Weapon")) ThrowWeapon();
 
         if (_inputManager.GetButtonDown("Pick Up")) SetWeapon();
     }
@@ -122,26 +122,26 @@ public class WeaponManager : MonoBehaviour
 
     #endregion
 
-    public void SaveWeapon()
-    {
-        if (_currentMainWeapon)
-        {
-            GameManager.instance.SaveDataManager.SaveString("MainWeapon", _currentMainWeapon.GetWeaponData.name);
-            GameManager.instance.SaveDataManager.SaveInt("Ammo", _currentMainWeapon.GetComponent<FireWeapon>().GetCurrentAmmo);
-        }
-        else PlayerPrefs.DeleteKey("MainWeapon");
-    }
-    public void LoadWeapon()
-    {
-        if (PlayerPrefs.HasKey("MainWeapon"))
-        {
-            var weapon = Instantiate(Resources.Load<Weapon>($"Weapons/{PlayerPrefs.GetString("MainWeapon")}"));
-            weapon.GetComponent<FireWeapon>().GetCurrentAmmo = PlayerPrefs.GetInt("Ammo", default);
-            EquipWeapon(weapon);
-        }
-    }
-    private void OnDestroy()
-    {
-        SaveWeapon();
-    }
+    //public void SaveWeapon()
+    //{
+    //    if (_currentMainWeapon)
+    //    {
+    //        GameManager.instance.SaveDataManager.SaveString("MainWeapon", _currentMainWeapon.GetWeaponData.name);
+    //        GameManager.instance.SaveDataManager.SaveInt("Ammo", _currentMainWeapon.GetComponent<FireWeapon>().GetCurrentAmmo);
+    //    }
+    //    else PlayerPrefs.DeleteKey("MainWeapon");
+    //}
+    //public void LoadWeapon()
+    //{
+    //    if (PlayerPrefs.HasKey("MainWeapon"))
+    //    {
+    //        var weapon = Instantiate(Resources.Load<Weapon>($"Weapons/{PlayerPrefs.GetString("MainWeapon")}"));
+    //        weapon.GetComponent<FireWeapon>().GetCurrentAmmo = PlayerPrefs.GetInt("Ammo", default);
+    //        EquipWeapon(weapon);
+    //    }
+    //}
+    //private void OnDestroy()
+    //{
+    //    SaveWeapon();
+    //}
 }
