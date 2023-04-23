@@ -13,7 +13,12 @@ public class Enemy_FollowDrone : Enemy
         base.Start();
 
         _myMovement = new Movement_BasicFollowTarget(transform, GameManager.instance.Player.transform, speed);
-        OnUpdate += _myMovement.Move;
+        OnUpdate += MoveIfPlayerInSight;
+    }
+
+    void MoveIfPlayerInSight()
+    {
+        if (CanSeePlayer()) _myMovement.Move();
     }
 
     public override void ReturnObject()

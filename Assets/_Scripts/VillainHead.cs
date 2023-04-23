@@ -16,7 +16,7 @@ public class VillainHead : MonoBehaviour
 
     private void Update()
     {
-        MoveHead();
+        //MoveHead();
     }
 
     void MoveHead()
