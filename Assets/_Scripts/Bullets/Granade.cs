@@ -33,6 +33,16 @@ public class Granade : MonoBehaviour
     {
         _rb.AddForce(_falling ? Vector2.down * (_gravityScale * _fallGravityMultiplier) : Vector2.down * _gravityScale);
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision)
+        {
+            Explosion();
+            Helpers.AudioManager.PlaySFX("Grenade_Destroy");
+            FRY_GrenadeExplosion.Instance.pool.GetObject().SetPosition(transform.position);
+            FRY_Granades.Instance.ReturnBullet(this);
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision != null)
