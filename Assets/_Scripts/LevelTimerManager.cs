@@ -27,7 +27,7 @@ public class LevelTimerManager : MonoBehaviour
     {
         RedButton -= WinLevel;
     }
-    public void StartLevelTimer() { StartCoroutine(LevelTimer()); }
+    public void StartLevelTimer() { if (enabled) StartCoroutine(LevelTimer()); }
     IEnumerator LevelTimer()
     {
         if (_firstTime) yield break;
