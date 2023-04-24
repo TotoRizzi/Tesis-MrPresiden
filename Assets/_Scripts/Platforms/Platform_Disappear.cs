@@ -13,6 +13,8 @@ public class Platform_Disappear : MonoBehaviour
     float _currentTimeToDisappear;
 
     [SerializeField] GameObject _sprite;
+    [SerializeField] ParticleSystem _dustPS;
+
     Collider2D[] _colliders;
     Animator _anim;
 
@@ -49,7 +51,10 @@ public class Platform_Disappear : MonoBehaviour
 
         AppearPlatform();
     }
-
+    public void PlayDust()
+    {
+        _dustPS.Play();
+    }
     void CheckDisappear()
     {
         _currentTimeToDisappear += Time.deltaTime;
