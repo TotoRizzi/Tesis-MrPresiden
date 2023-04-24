@@ -5,7 +5,7 @@ public class RedButton : MonoBehaviour
     Collider2D _collider;
     Animator _anim;
 
-    [SerializeField] GameObject lightParent;
+    //[SerializeField] GameObject lightParent;
     [SerializeField] SpriteRenderer _buttonSprite;
     private void Start()
     {
@@ -20,7 +20,7 @@ public class RedButton : MonoBehaviour
     {
         _anim.SetBool("IsOpen", true);
         _collider.enabled = true;
-        lightParent.SetActive(true);
+        //lightParent.SetActive(true);
         _buttonSprite.color = Color.red;
     }
     IEnumerator HideExit()
@@ -28,7 +28,7 @@ public class RedButton : MonoBehaviour
         yield return new WaitForEndOfFrame();
         _collider.enabled = false;
         _anim.SetBool("IsOpen", false);
-        lightParent.SetActive(false);
+        //lightParent.SetActive(false);
         _buttonSprite.color = Color.white;
     }
     private void OnTriggerEnter2D( )

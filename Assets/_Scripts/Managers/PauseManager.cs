@@ -15,6 +15,7 @@ public class PauseManager : MonoBehaviour
     private void Start()
     {
         Push(new PauseGO(_mainGame));
+        Helpers.LevelTimerManager.OnLevelDefeat += PauseObjectsInCinematic;
     }
     private void Update()
     {

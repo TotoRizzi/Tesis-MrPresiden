@@ -7,6 +7,8 @@ public class CinematicManager : MonoBehaviour
     [SerializeField, Tooltip("Está como hijo de la Main Camera")] GameObject _cinemacticCamera;
     void Start()
     {
+        Helpers.LevelTimerManager.OnLevelDefeat += PlayDefeatCinematic;
+
         _cinemacticCamera.SetActive(false);
         _initialTimeline = GameObject.Find("InitialTimeline").GetComponent<PlayableDirector>();
         _defeatTimeline = GameObject.Find("DefeatTimeline").GetComponent<PlayableDirector>();

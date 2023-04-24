@@ -48,6 +48,8 @@ public class LevelLightsManager : MonoBehaviour
         Helpers.GameManager.EnemyManager.OnEnemyKilled += () => _fsm.ChangeState(StateName.LIGHT_Normal);
         _onOffLight.color = _onOffLightColors[1];
 
+        Helpers.LevelTimerManager.OnLevelStart += StartLights;
+        Helpers.LevelTimerManager.RedButton += StopLights;
     } 
 
     private void Update()
