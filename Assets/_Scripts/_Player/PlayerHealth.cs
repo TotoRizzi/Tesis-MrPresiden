@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         _initialPos = transform.position;
         _gameManager = Helpers.GameManager;
 
-        _gameManager.OnPlayerDead += Die;
+       // _gameManager.OnPlayerDead += Die;
     }
 
     public void TakeDamage(float dmg)
@@ -25,11 +25,11 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public void Die()
     {
-        EffectsOnDeath();
-        RestartPosition();
+        //EffectsOnDeath();
+        //RestartPosition();
     }
 
-    void EffectsOnDeath()
+    public void EffectsOnDeath()
     {
         _gameManager.EffectsManager.HumanoindKilled(transform.position + Vector3.up);
         Helpers.AudioManager.PlaySFX("Enemy_Dead");
@@ -39,7 +39,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
             item.gameObject.SetActive(false);
     }
 
-    void RestartPosition()
+    public void RestartPosition()
     {
         transform.position = _initialPos;
         _gameManager.Player.UnPausePlayer();

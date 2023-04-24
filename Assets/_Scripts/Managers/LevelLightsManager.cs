@@ -49,7 +49,9 @@ public class LevelLightsManager : MonoBehaviour
         _onOffLight.color = _onOffLightColors[1];
 
         Helpers.LevelTimerManager.OnLevelStart += StartLights;
+
         Helpers.LevelTimerManager.RedButton += StopLights;
+        Helpers.LevelTimerManager.OnLevelDefeat += StopLights;
     } 
 
     private void Update()
@@ -66,7 +68,10 @@ public class LevelLightsManager : MonoBehaviour
     public void StopLights()
     {
         _onOffLight.color = _onOffLightColors[0];
-
+        foreach (var item in _lights)
+        {
+            item.color = _colors[0];
+        }
         OnUpdate -= _fsm.Update;
         StopBLinkingLights();
     }
