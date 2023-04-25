@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour, IDamageable
         gameManager.EnemyManager.RemoveEnemy(this);
 
         ReturnObject();
-        gameManager.EffectsManager.HumanoindKilled(transform.position);
+        gameManager.EffectsManager.EnemyKilled(transform.position);
     }
 
     IEnumerator ChangeColor()

@@ -16,17 +16,9 @@ public class UiManager : MonoBehaviour
     [Header("GameTime")]
     [SerializeField] TextMeshProUGUI _TXTdeathCount;
 
-    [Header("RedButton")]
-    [SerializeField] TextMeshProUGUI _TXTenemyCount;
-
     private void Awake()
     {
         _notEquipedWeaponSprite = _IMGcurrentWeaponImg.sprite;
-    }
-
-    public void UpdateEnemyCount(int currentKilled, int allEnemyCount)
-    {
-        _TXTenemyCount.text = Mathf.Abs(currentKilled).ToString() + " / " + allEnemyCount.ToString();
     }
 
     public void UpdateDeathCount(int current)

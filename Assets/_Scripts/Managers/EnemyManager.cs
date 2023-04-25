@@ -29,8 +29,6 @@ public class EnemyManager : MonoBehaviour
 
         _maxEnemies = _allEnemies.Count;
         if (_maxEnemies == 0) _gameManager.RoomWon();
-        else
-            _gameManager.UiManager.UpdateEnemyCount(0, _allEnemies.Count);
     }
 
     public void AddEnemy(Enemy enemy)
@@ -48,9 +46,13 @@ public class EnemyManager : MonoBehaviour
         _allEnemies.Remove(enemy);
         
         Helpers.AudioManager.PlaySFX("Enemy_Dead");
-        Helpers.GameManager.UiManager.UpdateEnemyCount(_allEnemies.Count - _maxEnemies, _maxEnemies);
 
         if (_allEnemies.Count == 0) _gameManager.RoomWon();
+    }
+
+    public string EnemyCountString()
+    {
+        return Mathf.Abs(_allEnemies.Count - _maxEnemies).ToString() + "/" + _maxEnemies.ToString();
     }
 
     public void ResetLevel()
