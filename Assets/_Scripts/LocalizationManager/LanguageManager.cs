@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Threading;
 using UnityEngine.Networking;
 public enum Languages
 {
@@ -10,7 +11,7 @@ public enum Languages
 }
 public class LanguageManager : MonoBehaviour
 {
-    public Languages selectedLanguage;
+    [HideInInspector] public Languages selectedLanguage;
 
     [SerializeField] string _externalURL;
     Dictionary<Languages, Dictionary<string, string>> _languageManager;
@@ -28,6 +29,8 @@ public class LanguageManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+
+        selectedLanguage = Thread.CurrentThread.CurrentCulture.Name == "en-US" ? Languages.eng : Languages.spa;
     }
     private void Start()
     {
