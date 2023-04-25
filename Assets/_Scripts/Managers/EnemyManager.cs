@@ -52,7 +52,7 @@ public class EnemyManager : MonoBehaviour
 
     public string EnemyCountString()
     {
-        return Mathf.Abs(_allEnemies.Count - _maxEnemies).ToString() + "/" + _maxEnemies.ToString();
+        return Mathf.Abs(_allEnemies.Count - _maxEnemies).ToString() + "/ " + _maxEnemies.ToString();
     }
 
     public void ResetLevel()
