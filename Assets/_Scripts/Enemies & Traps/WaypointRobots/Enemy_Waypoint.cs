@@ -30,7 +30,7 @@ public class Enemy_Waypoint : Enemy
     {
         transform.position += _dir * _speed * Time.deltaTime;
 
-        if (Physics2D.Raycast(transform.position, _bodyToRotate.localScale, .5f, Helpers.GameManager.InvisibleWallLayer)) Flip();
+        //if (Physics2D.Raycast(transform.position, _bodyToRotate.localScale, .5f, Helpers.GameManager.InvisibleWallLayer)) Flip();
     }
 
     void Flip()
@@ -53,5 +53,14 @@ public class Enemy_Waypoint : Enemy
         }
 
         _bodyToRotate.localScale = newScale;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "InvisibleWall")
+        {
+            Flip();
+            Debug.Log("InsivibleWall");
+        }
     }
 }
