@@ -3,17 +3,8 @@ using TMPro;
 public class EquipableUI : MonoBehaviour
 {
     [SerializeField] Canvas _weaponCanvas;
-    [SerializeField] TextMeshProUGUI _keyTxt;
-    [SerializeField] TextMeshProUGUI _toEquipTxt;
-
-    const string KEY = "E";
-    const string TO_EQUIP = "TO EQUIP";
-
     private void Start()
     {
-        _keyTxt.text = KEY;
-        _toEquipTxt.text = TO_EQUIP;
-
         SetActive(false);
     }
 
