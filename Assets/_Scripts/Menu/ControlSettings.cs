@@ -3,20 +3,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Linq;
 public class ControlSettings : MonoBehaviour
 {
     InputManager _inputManager;
     [SerializeField] GameObject _keyItemPrefab;
     [SerializeField] Transform _parentKeysItems;
-    Dictionary<string, TextMeshProUGUI> _buttonToLabel;
 
     string _keyToRebind = null;
     Color _originalColor;
+    Dictionary<string, Button> _buttons;
     void Start()
     {
         _inputManager = FindObjectOfType<InputManager>();
         string[] buttonNames = _inputManager.GetButtonNames();
-        _buttonToLabel = new Dictionary<string, TextMeshProUGUI>();
+        _buttons = new Dictionary<string, Button>();
         for (int i = 0; i < buttonNames.Length; i++)
         {
             string bn = buttonNames[i];
@@ -25,23 +26,22 @@ public class ControlSettings : MonoBehaviour
             go.transform.localScale = Vector3.one;
 
             var buttonName = go.transform.Find("ButtonName");
-            TextMeshProUGUI text = buttonName.GetComponent<TextMeshProUGUI>();
-            text.text = bn;
             TextToTranslate language = buttonName.GetComponent<TextToTranslate>();
             language.ID = "ID_" + bn.Replace(" ", string.Empty);
 
-            TextMeshProUGUI keyNameText = go.transform.Find("Button/KeyName").GetComponent<TextMeshProUGUI>();
-            keyNameText.text = _inputManager.KeyNameForButton(bn);
-            _buttonToLabel[bn] = keyNameText;
+            Button button = go.transform.Find("Button").GetComponent<Button>();
+            Image buttonImg = button.GetComponent<Image>();
+            buttonImg.sprite = _inputManager.KeySpriteForButton(bn);
 
-            Button keyBindButton = go.transform.Find("Button").GetComponent<Button>();
-            keyBindButton.onClick.AddListener(() =>
+            _buttons[bn] = button;
+
+            button.onClick.AddListener(() =>
             {
-                keyBindButton.GetComponent<Image>().color = Color.gray;
+                buttonImg.color = Color.gray;
                 StartRebindFor(bn);
             });
 
-            _originalColor = keyBindButton.GetComponent<Image>().color;
+            _originalColor = buttonImg.color;
         }
     }
     private void Update()
@@ -54,10 +54,7 @@ public class ControlSettings : MonoBehaviour
                 {
                     if (Input.GetKeyDown(kc))
                     {
-                        _inputManager.SetButtonForKey(_keyToRebind, kc);
-                        _buttonToLabel[_keyToRebind].text = kc.ToString();
-                        _buttonToLabel[_keyToRebind].GetComponentInParent<Image>().color = _originalColor;
-                        _keyToRebind = null;
+                        SetKey(kc);
                         break;
                     }
                 }
@@ -67,5 +64,14 @@ public class ControlSettings : MonoBehaviour
     void StartRebindFor(string buttonName)
     {
         _keyToRebind = buttonName;
+    }
+
+    void SetKey(KeyCode kc)
+    {
+        Sprite sprite = _inputManager.keysData.First(x => x.input == kc).keySprite;
+        _inputManager.SetButtonForKey(_keyToRebind, kc, sprite);
+        _buttons[_keyToRebind].GetComponent<Image>().color = _originalColor;
+        _buttons[_keyToRebind].GetComponent<Image>().sprite = sprite;
+        _keyToRebind = null;
     }
 }

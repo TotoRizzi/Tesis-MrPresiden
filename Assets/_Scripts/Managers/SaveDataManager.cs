@@ -6,12 +6,6 @@ public class SaveDataManager : MonoBehaviour
     {
         Helpers.GameManager.OnGameLost += Reset;
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P)) Reset();
-    }
-
     public void SaveFloat(string name, float value)
     {
         PlayerPrefs.SetFloat(name, value);
@@ -80,7 +74,6 @@ public class SaveDataManager : MonoBehaviour
     }
     public void Reset()
     {
-        Debug.Log("Reset");
         PlayerPrefs.DeleteAll();
     }
 }

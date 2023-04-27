@@ -4,7 +4,9 @@ using System.Linq;
 public class InputManager : MonoBehaviour
 {
     public static InputManager Instance;
+    public KeyData[] keysData;
     Dictionary<string, KeyCode> _buttonKeys;
+    Dictionary<string, Sprite> _buttonKeysData;
     private void Awake()
     {
         if (Instance == null)
@@ -17,6 +19,7 @@ public class InputManager : MonoBehaviour
     private void OnEnable()
     {
         _buttonKeys = new Dictionary<string, KeyCode>();
+        _buttonKeysData = new Dictionary<string, Sprite>();
 
         _buttonKeys["Move Right"] = KeyCode.D;
         _buttonKeys["Move Left"] = KeyCode.A;
@@ -28,6 +31,9 @@ public class InputManager : MonoBehaviour
         //_buttonKeys["Throw Weapon"] = KeyCode.G;
         _buttonKeys["Shoot"] = KeyCode.Mouse0;
         _buttonKeys["Knife"] = KeyCode.Mouse1;
+
+        foreach (var item in _buttonKeys)
+            _buttonKeysData[item.Key] = keysData.First(x => x.input == _buttonKeys[item.Key]).keySprite;
     }
     public bool GetButtonDown(string buttonName)
     {
@@ -57,9 +63,16 @@ public class InputManager : MonoBehaviour
 
         return _buttonKeys[buttonName].ToString();
     }
-    public void SetButtonForKey(string buttonName, KeyCode keyCode)
+    public Sprite KeySpriteForButton(string buttonName)
+    {
+        if (!_buttonKeys.ContainsKey(buttonName)) return null;
+
+        return _buttonKeysData[buttonName];
+    }
+    public void SetButtonForKey(string buttonName, KeyCode keyCode, Sprite buttonSprite)
     {
         _buttonKeys[buttonName] = keyCode;
+        _buttonKeysData[buttonName] = buttonSprite;
     }
     public float GetAxisRaw(string axis)
     {

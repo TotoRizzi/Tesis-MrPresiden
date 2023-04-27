@@ -8,6 +8,8 @@ namespace Droppables
 
         [Range(0, 1)]
         protected float _probabilityDrop;
+
+        protected KeysUI _keyUI;
         public void Break()
         {
             if (_destroyedVersion != null)
