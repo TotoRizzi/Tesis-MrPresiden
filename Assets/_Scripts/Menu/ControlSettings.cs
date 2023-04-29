@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using System;
 using System.Linq;
 public class ControlSettings : MonoBehaviour
@@ -12,12 +11,11 @@ public class ControlSettings : MonoBehaviour
 
     string _keyToRebind = null;
     Color _originalColor;
-    Dictionary<string, Button> _buttons;
+    Dictionary<string, Button> _buttons = new Dictionary<string, Button>();
     void Start()
     {
         _inputManager = FindObjectOfType<InputManager>();
         string[] buttonNames = _inputManager.GetButtonNames();
-        _buttons = new Dictionary<string, Button>();
         for (int i = 0; i < buttonNames.Length; i++)
         {
             string bn = buttonNames[i];
@@ -31,7 +29,7 @@ public class ControlSettings : MonoBehaviour
 
             Button button = go.transform.Find("Button").GetComponent<Button>();
             Image buttonImg = button.GetComponent<Image>();
-            buttonImg.sprite = _inputManager.KeySpriteForButton(bn);
+            buttonImg.sprite = _inputManager.KeySpriteForButton(ref bn);
 
             _buttons[bn] = button;
 
@@ -68,7 +66,7 @@ public class ControlSettings : MonoBehaviour
 
     void SetKey(KeyCode kc)
     {
-        Sprite sprite = _inputManager.keysData.First(x => x.input == kc).keySprite;
+        Sprite sprite = _inputManager.keysData.FirstOrDefault(x => x.input == kc).keySprite;
         _inputManager.SetButtonForKey(_keyToRebind, kc, sprite);
         _buttons[_keyToRebind].GetComponent<Image>().color = _originalColor;
         _buttons[_keyToRebind].GetComponent<Image>().sprite = sprite;

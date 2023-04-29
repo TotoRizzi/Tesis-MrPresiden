@@ -21,6 +21,8 @@ public class InputManager : MonoBehaviour
         _buttonKeys = new Dictionary<string, KeyCode>();
         _buttonKeysData = new Dictionary<string, Sprite>();
 
+        keysData = Resources.LoadAll<KeyData>("KeysSO");
+
         _buttonKeys["Move Right"] = KeyCode.D;
         _buttonKeys["Move Left"] = KeyCode.A;
         _buttonKeys["Move Up"] = KeyCode.W;
@@ -32,8 +34,24 @@ public class InputManager : MonoBehaviour
         _buttonKeys["Shoot"] = KeyCode.Mouse0;
         _buttonKeys["Knife"] = KeyCode.Mouse1;
 
+        Debug.Log("hola");
+        Debug.Log("Cantidad de botones: " + _buttonKeys.Count);
         foreach (var item in _buttonKeys)
-            _buttonKeysData[item.Key] = keysData.First(x => x.input == _buttonKeys[item.Key]).keySprite;
+        {
+            foreach (var key in keysData)
+            {
+                if(key.input == item.Value)
+                {
+                    _buttonKeysData.Add(item.Key, key.keySprite);
+                    Debug.Log("Agrego " + item.Key);
+                    continue;
+                }
+            }
+        }
+    }
+    private void Start()
+    {
+        Debug.Log("Cantidad de ScriptableObjects: " + keysData.Length);
     }
     public bool GetButtonDown(string buttonName)
     {
@@ -63,11 +81,18 @@ public class InputManager : MonoBehaviour
 
         return _buttonKeys[buttonName].ToString();
     }
-    public Sprite KeySpriteForButton(string buttonName)
+    public Sprite KeySpriteForButton(ref string buttonName)
     {
-        if (!_buttonKeys.ContainsKey(buttonName)) return null;
+        if (!_buttonKeysData.ContainsKey(buttonName))
+        {
+            Debug.Log(buttonName);
+            Debug.Log("No lo contiene");
+            return null;
+        }
 
-        return _buttonKeysData[buttonName];
+        string spriteName = _buttonKeysData[buttonName].name;
+
+        return Resources.Load<Sprite>($"Keys/{spriteName}"); ;
     }
     public void SetButtonForKey(string buttonName, KeyCode keyCode, Sprite buttonSprite)
     {
