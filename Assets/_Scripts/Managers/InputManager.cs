@@ -34,8 +34,6 @@ public class InputManager : MonoBehaviour
         _buttonKeys["Shoot"] = KeyCode.Mouse0;
         _buttonKeys["Knife"] = KeyCode.Mouse1;
 
-        Debug.Log("hola");
-        Debug.Log("Cantidad de botones: " + _buttonKeys.Count);
         foreach (var item in _buttonKeys)
         {
             foreach (var key in keysData)
@@ -43,7 +41,6 @@ public class InputManager : MonoBehaviour
                 if(key.input == item.Value)
                 {
                     _buttonKeysData.Add(item.Key, key.keySprite);
-                    Debug.Log("Agrego " + item.Key);
                     continue;
                 }
             }
