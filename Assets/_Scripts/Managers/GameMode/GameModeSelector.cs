@@ -13,14 +13,10 @@ public class GameModeSelector : MonoBehaviour
     [SerializeField] GameModeManager easyGameMode, hardGameMode;
 
     int _myGameMode;
-    string _gameModeSaveName = "GameMode";
-
 
     private void Start()
     {
-        Instantiate(hardGameMode, this.transform);
-
-        /* _myGameMode = Helpers.GameManager.SaveDataManager.GetInt(_gameModeSaveName, (int) GameMode.EasyGameMode);
+        _myGameMode = Helpers.GameManager.SaveDataManager.GetInt(Helpers.GameManager.gameModeSaveName, (int) GameMode.EasyGameMode);
 
          switch(_myGameMode)
          {
@@ -33,6 +29,6 @@ public class GameModeSelector : MonoBehaviour
              default:
                  Debug.LogWarning("GameMode NOT FOUND");
                  break;
-         }*/
+         }
     }
 }

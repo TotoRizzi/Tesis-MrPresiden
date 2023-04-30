@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] int _defaultHardLives = 3;
     public int DefaultHardLives { get { return _defaultHardLives; } private set { } }
 
+    [HideInInspector] public string gameModeSaveName = "GameMode";
+
 
     [SerializeField] LoadSceneManager _loadSceneManager;
 
