@@ -406,7 +406,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.2, z: 0}
   m_ShapePathHash: -1906480883
   m_Mesh: {fileID: 0}
-  m_InstanceId: 37582
+  m_InstanceId: 56946
 --- !u!1 &859833147576569514
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,6 +764,7 @@ GameObject:
   - component: {fileID: 3803697255170089862}
   - component: {fileID: 1889881096245116235}
   - component: {fileID: 4037572099271379933}
+  - component: {fileID: 5088011039587331468}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -817,7 +818,7 @@ MonoBehaviour:
     m_Bits: 8388608
   _cameraShakeDuration: 0.2
   _cameraSpeed: 0.2
-  _pointsPerEnemy: 10
+  _defaultHardLives: 3
   _loadSceneManager: {fileID: 0}
 --- !u!114 &1707881769362260654
 MonoBehaviour:
@@ -946,6 +947,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cinemacticCamera: {fileID: 2631416385357818961}
+--- !u!114 &5088011039587331468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707881769362260627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a6dd37ac828f44dae5232fd3714234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2303437058315371554
 GameObject:
   m_ObjectHideFlags: 0
@@ -2886,6 +2899,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   easyGameMode: {fileID: 8455821093098426272, guid: 626a9546cb550734e9ac3c4a319f9d8f, type: 3}
+  hardGameMode: {fileID: 1117297943120697254, guid: e2b2cca83c866f44189fed604653d898, type: 3}
 --- !u!1 &6303560840489778376
 GameObject:
   m_ObjectHideFlags: 0

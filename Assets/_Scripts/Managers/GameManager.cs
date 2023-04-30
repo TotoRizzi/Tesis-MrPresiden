@@ -28,12 +28,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] float _cameraSpeed;
     public float CameraSpeed { get { return _cameraSpeed; } private set { } }
 
-    [Header("Enemies")]
-    [SerializeField] int _pointsPerEnemy = 10;
-    public int PointsPerEnemy { get { return _pointsPerEnemy; } private set { } }
-
     Player _player;
     public Player Player { get { return _player; } private set { } }
+
+    [Header("GameModes")]
+    [SerializeField] int _defaultHardLives = 3;
+    public int DefaultHardLives { get { return _defaultHardLives; } private set { } }
+
 
     [SerializeField] LoadSceneManager _loadSceneManager;
 
@@ -84,12 +85,14 @@ public class GameManager : MonoBehaviour
         _uiManager = GetComponent<UiManager>();
         _saveDataManager = GetComponent<SaveDataManager>();
         _pauseManager = GetComponent<PauseManager>();
-        //_sceneManager = GetComponent <Scene_Manager>();
+        _sceneManager = GetComponent <Scene_Manager>();
         _dropManager = GetComponent <DropManager>();
         _levelManager = GetComponent<LevelManager>();
         _statisticsManager = GetComponent<StatisticsManager>();
         _cinematicManager = GetComponent<CinematicManager>();
         Cursor.lockState = CursorLockMode.Confined;
+
+        StartCoroutine(LateStart());
     }
 
     IEnumerator LateStart()

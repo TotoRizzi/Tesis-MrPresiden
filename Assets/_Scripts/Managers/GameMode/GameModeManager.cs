@@ -7,7 +7,7 @@ public class GameModeManager : MonoBehaviour
     protected GameManager gameManager;
     protected PlayerHealth playerHealth;
 
-    private void Start()
+    public virtual void Start()
     {
         gameManager = Helpers.GameManager;
         playerHealth = gameManager.Player.GetComponent<PlayerHealth>();
