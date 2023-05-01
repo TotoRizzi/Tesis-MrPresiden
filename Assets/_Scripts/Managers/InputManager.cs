@@ -46,10 +46,6 @@ public class InputManager : MonoBehaviour
             }
         }
     }
-    private void Start()
-    {
-        Debug.Log("Cantidad de ScriptableObjects: " + keysData.Length);
-    }
     public bool GetButtonDown(string buttonName)
     {
         if (!_buttonKeys.ContainsKey(buttonName)) return false;
