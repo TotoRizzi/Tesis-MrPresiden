@@ -13,7 +13,6 @@ public class GameModeSelector : MonoBehaviour
     [SerializeField] GameModeManager easyGameMode, hardGameMode;
 
     int _myGameMode;
-
     private void Start()
     {
         _myGameMode = Helpers.GameManager.SaveDataManager.GetInt(Helpers.GameManager.gameModeSaveName, (int) GameMode.EasyGameMode);

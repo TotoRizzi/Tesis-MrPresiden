@@ -4,31 +4,23 @@ using TMPro;
 public class VideoSettings : MonoBehaviour
 {
     Resolution[] _resolutions;
-    [SerializeField] TMP_Dropdown _resolutionDropDown, _qualityDropDown, _windowModeDropDown, _languageDropDown;
+    [SerializeField] TMP_Dropdown _resolutionDropDown, _qualityDropDown, _windowModeDropDown;
 
-    List<string> _languages = new List<string>() { "English", "Spanish" };
     List<string> _qualities = new List<string>() { "Low", "Medium", "High" };
     List<string> _windowOptions = new List<string>() { "Full Screen", "Windowed" };
-    private void Start()
+
+    private void OnEnable()
     {
+        _qualityDropDown.ClearOptions();
+        _windowModeDropDown.ClearOptions();
+
         _qualityDropDown.AddOptions(_qualities);
         _windowModeDropDown.AddOptions(_windowOptions);
 
-        _qualityDropDown.value = QualitySettings.GetQualityLevel();
-
-        _windowModeDropDown.value = Screen.fullScreenMode == FullScreenMode.FullScreenWindow ? 0 : 1;
-
         #region Language 
-        _languageDropDown.ClearOptions();
-        _languageDropDown.AddOptions(_languages);
 
-        _languageDropDown.value = (int)LanguageManager.Instance.selectedLanguage;
-
-        if(_languageDropDown.value == 0)
+        if (LanguageManager.Instance.selectedLanguage == Languages.eng)
         {
-            _languageDropDown.options[0].text = "English";
-            _languageDropDown.options[1].text = "Spanish";
-
             _qualityDropDown.options[0].text = "Low";
             _qualityDropDown.options[1].text = "Medium";
             _qualityDropDown.options[2].text = "High";
@@ -38,9 +30,6 @@ public class VideoSettings : MonoBehaviour
         }
         else
         {
-            _languageDropDown.options[0].text = "Ingles";
-            _languageDropDown.options[1].text = "Espanol";
-
             _qualityDropDown.options[0].text = "Bajo";
             _qualityDropDown.options[1].text = "Medio";
             _qualityDropDown.options[2].text = "Alto";
@@ -49,9 +38,14 @@ public class VideoSettings : MonoBehaviour
             _windowModeDropDown.options[1].text = "Modo Ventana";
         }
 
-
         #endregion
 
+        _qualityDropDown.value = QualitySettings.GetQualityLevel();
+
+        _windowModeDropDown.value = Screen.fullScreenMode == FullScreenMode.FullScreenWindow ? 0 : 1;
+    }
+    private void Start()
+    {
         #region Resolution
 
         _resolutions = Screen.resolutions;
@@ -81,40 +75,6 @@ public class VideoSettings : MonoBehaviour
     public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
-    }
-    public void SetLanguage(int language)
-    {
-        LanguageManager.Instance.selectedLanguage = (Languages)language;
-        LanguageManager.Instance.OnUpdate();
-
-        if (_languageDropDown.value == 0)
-        {
-            _languageDropDown.options[0].text = _languages[0] = "English";
-            _languageDropDown.options[1].text = _languages[1] = "Spanish";
-
-            _qualityDropDown.options[0].text = "Low";
-            _qualityDropDown.options[1].text = "Medium";
-            _qualityDropDown.options[2].text = "High";
-
-            _windowModeDropDown.options[0].text = "Full Screen";
-            _windowModeDropDown.options[1].text = "Windowed";
-        }
-        else
-        {
-            _languageDropDown.options[0].text = _languages[0] = "Ingles";
-            _languageDropDown.options[1].text = _languages[1] = "Espanol";
-
-            _qualityDropDown.options[0].text = "Bajo";
-            _qualityDropDown.options[1].text = "Medio";
-            _qualityDropDown.options[2].text = "Alto";
-
-            _windowModeDropDown.options[0].text = "Pantalla Completa";
-            _windowModeDropDown.options[1].text = "Modo Ventana";
-        }
-
-        _languageDropDown.RefreshShownValue();
-        _qualityDropDown.RefreshShownValue();
-        _windowModeDropDown.RefreshShownValue();
     }
     public void SetWindowMode(int screenMode)
     {

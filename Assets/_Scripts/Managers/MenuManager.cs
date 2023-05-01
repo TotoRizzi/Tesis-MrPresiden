@@ -1,35 +1,16 @@
 using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] GameObject _gameModeCanvas;
-    [SerializeField] GameObject _playButton;
-
-    public void BTN_ShowGameModeCanvas()
+    public void BTN_Play()
     {
-        _gameModeCanvas.SetActive(true);
-    }
-
-    public void BTN_Easy()
-    {
+        var gameMode = Helpers.GameManager.SaveDataManager.GetInt(Helpers.GameManager.gameModeSaveName, (int)GameMode.EasyGameMode);
         PlayerPrefs.DeleteAll();
-
-        Helpers.GameManager.SaveDataManager.SaveInt(Helpers.GameManager.gameModeSaveName, (int)GameMode.EasyGameMode);
-        _playButton.SetActive(true);
+        Helpers.GameManager.SaveDataManager.SaveInt(Helpers.GameManager.gameModeSaveName, gameMode);
     }
-
-    public void BTN_Hard()
-    {
-        PlayerPrefs.DeleteAll();
-
-        Helpers.GameManager.SaveDataManager.SaveInt(Helpers.GameManager.gameModeSaveName, (int)GameMode.HardGameMode);
-        _playButton.SetActive(true);
-    }
-
     public void BTN_Credits()
     {
 
     }
-
     public void BTN_Quit()
     {
         Application.Quit();

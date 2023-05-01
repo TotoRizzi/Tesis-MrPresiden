@@ -1,0 +1,80 @@
+using UnityEngine;
+using TMPro;
+using System.Collections.Generic;
+public class GameOptionsSettings : MonoBehaviour
+{
+    [SerializeField] TMP_Dropdown _languageDD, _gameModeDD;
+
+    List<string> _languages = new List<string>() { "English", "Spanish" };
+    List<string> _gameModeOptions = new List<string>() { "Easy", "Hard" };
+    void Start()
+    {
+        #region GameMode
+
+        _gameModeDD.ClearOptions();
+        _gameModeDD.AddOptions(_gameModeOptions);
+
+        _gameModeDD.value = Helpers.GameManager.SaveDataManager.GetInt(Helpers.GameManager.gameModeSaveName, (int)GameMode.EasyGameMode);
+
+        #endregion
+
+        #region Language 
+        _languageDD.ClearOptions();
+        _languageDD.AddOptions(_languages);
+
+        _languageDD.value = (int)LanguageManager.Instance.selectedLanguage;
+
+        if (_languageDD.value == 0)
+        {
+            _languageDD.options[0].text = "English";
+            _languageDD.options[1].text = "Spanish";
+
+            _gameModeDD.options[0].text = "Easy";
+            _gameModeDD.options[1].text = "Hard";
+        }
+        else
+        {
+            _languageDD.options[0].text = "Ingles";
+            _languageDD.options[1].text = "Espanol";
+
+            _gameModeDD.options[0].text = "Facil";
+            _gameModeDD.options[1].text = "Dificil";
+        }
+
+        #endregion
+
+        _languageDD.onValueChanged.AddListener(SetLanguage);
+        _gameModeDD.onValueChanged.AddListener(SetGameMode);
+    }
+
+    public void SetLanguage(int language)
+    {
+        LanguageManager.Instance.selectedLanguage = (Languages)language;
+        LanguageManager.Instance.OnUpdate();
+
+        if (_languageDD.value == 0)
+        {
+            _languageDD.options[0].text = _languages[0] = "English";
+            _languageDD.options[1].text = _languages[1] = "Spanish";
+
+            _gameModeDD.options[0].text = "Easy";
+            _gameModeDD.options[1].text = "Hard";
+        }
+        else
+        {
+            _languageDD.options[0].text = _languages[0] = "Ingles";
+            _languageDD.options[1].text = _languages[1] = "Espanol";
+
+            _gameModeDD.options[0].text = "Facil";
+            _gameModeDD.options[1].text = "Dificil";
+        }
+
+        _languageDD.RefreshShownValue();
+        _gameModeDD.RefreshShownValue();
+    }
+
+    public void SetGameMode(int gameMode)
+    {
+        Helpers.GameManager.SaveDataManager.SaveInt(Helpers.GameManager.gameModeSaveName, (int)(GameMode)gameMode);
+    }
+}
