@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 1215670984764004938}
   - component: {fileID: 3887347447477559428}
   - component: {fileID: 3071493558376572362}
+  - component: {fileID: 8063570835115760388}
   m_Layer: 5
   m_Name: TXT_VillainText
   m_TagString: Untagged
@@ -256,7 +257,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -292,6 +293,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8063570835115760388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5725234389211809396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66bf741bccf10214db745ddce9f19cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ID: ID_Villain
+  _myView: {fileID: 3071493558376572362}
 --- !u!1 &7869620856365181315
 GameObject:
   m_ObjectHideFlags: 0

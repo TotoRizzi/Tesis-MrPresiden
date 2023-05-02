@@ -11,12 +11,14 @@ public class TutorialVillainText : MonoBehaviour
 
     private void Start()
     {
+        _sentence = GetComponentInChildren<TextMeshProUGUI>().text;
         StartCoroutine(Type());
     }
 
     IEnumerator Type()
     {
         var wait = new WaitForSeconds(_typingSpeed);
+        _textDispay.text = string.Empty;
         foreach (char letter in _sentence)
         {
             _textDispay.text += letter;
