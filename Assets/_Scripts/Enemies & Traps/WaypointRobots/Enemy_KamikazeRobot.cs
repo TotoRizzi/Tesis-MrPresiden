@@ -25,7 +25,7 @@ public class Enemy_KamikazeRobot : Enemy_Waypoint
     public void Attack()
     {
         OnUpdate -= Drop;
-        if (Physics2D.Raycast(transform.position, -Vector2.up, 10f, gameManager.PlayerLayer))
+        if (Physics2D.CircleCast(transform.position, 1, -Vector3.up, 10f, gameManager.PlayerLayer))
         {
             _isDropping = true;
             OnUpdate += Drop;
@@ -43,6 +43,11 @@ public class Enemy_KamikazeRobot : Enemy_Waypoint
 
 
         base.Die();
+    }
+    public Enemy IsStatic(bool _isStatic)
+    {
+        isStatic = _isStatic;   
+        return this;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

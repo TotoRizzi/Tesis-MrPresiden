@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy_Waypoint : Enemy
 {
     [SerializeField] float _speed;
-    [SerializeField] bool _static;
+    [SerializeField] protected bool isStatic;
 
     [SerializeField] Transform _bodyToRotate;
 
@@ -16,9 +16,7 @@ public class Enemy_Waypoint : Enemy
     public override void Start()
     {
         base.Start();
-        
-        if (_static) return;
-
+       
         if(!_bodyToRotate) _bodyToRotate = transform;
 
         OnUpdate += Move;
@@ -28,9 +26,9 @@ public class Enemy_Waypoint : Enemy
 
     protected void Move()
     {
-        transform.position += _dir * _speed * Time.deltaTime;
+        if (isStatic) return;
 
-        //if (Physics2D.Raycast(transform.position, _bodyToRotate.localScale, .5f, Helpers.GameManager.InvisibleWallLayer)) Flip();
+        transform.position += _dir * _speed * Time.deltaTime;
     }
 
     void Flip()
