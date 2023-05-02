@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Spawner_KamikazeRobot : Spawner_Enemy
 {
+    [SerializeField] bool _static;
+
     public override IEnumerator SpawnEnemy()
     {
         yield return new WaitForEndOfFrame();
-        FRY_Enemy_KamikazeRobot.Instance.pool.GetObject().SetPosition(transform.position);
+        Enemy_KamikazeRobot enemy = (Enemy_KamikazeRobot)FRY_Enemy_KamikazeRobot.Instance.pool.GetObject().SetPosition(transform.position);
+
+        enemy.IsStatic(_static);
     }
 }
 
