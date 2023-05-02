@@ -7,6 +7,9 @@ public class InputManager : MonoBehaviour
     public KeyData[] keysData;
     Dictionary<string, KeyCode> _buttonKeys;
     Dictionary<string, Sprite> _buttonKeysData;
+    List<KeyCode> _keysAllowed;
+
+    public List<KeyCode> KeysAllowed { get { return _keysAllowed; } }
     private void Awake()
     {
         if (Instance == null)
@@ -38,13 +41,17 @@ public class InputManager : MonoBehaviour
         {
             foreach (var key in keysData)
             {
-                if(key.input == item.Value)
+                if (key.input == item.Value)
                 {
                     _buttonKeysData.Add(item.Key, key.keySprite);
                     continue;
                 }
             }
         }
+    }
+    private void Start()
+    {
+        _keysAllowed = keysData.Select(x => x.input).ToList();
     }
     public bool GetButtonDown(string buttonName)
     {

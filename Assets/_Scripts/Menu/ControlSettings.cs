@@ -3,12 +3,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Linq;
+using System.Collections;
 public class ControlSettings : MonoBehaviour
 {
     InputManager _inputManager;
-    [SerializeField] GameObject _keyItemPrefab;
+    [SerializeField] GameObject _keyItemPrefab, _keyWarning;
     [SerializeField] Transform _parentKeysItems;
 
+    bool _isKeyWarningOn;
     string _keyToRebind = null;
     Color _originalColor;
     Dictionary<string, Button> _buttons = new Dictionary<string, Button>();
@@ -44,15 +46,22 @@ public class ControlSettings : MonoBehaviour
     }
     private void Update()
     {
-        if (_keyToRebind != null)
+        if (_keyToRebind == null) return;
+
+        if (Input.anyKey)
         {
-            if (Input.anyKey)
+            foreach (KeyCode kc in Enum.GetValues(typeof(KeyCode)))
             {
-                foreach (KeyCode kc in Enum.GetValues(typeof(KeyCode)))
+                if (Input.GetKeyDown(kc))
                 {
-                    if (Input.GetKeyDown(kc))
+                    if (_inputManager.KeysAllowed.Contains(kc))
                     {
                         SetKey(kc);
+                        break;
+                    }
+                    else
+                    {
+                        if(!_isKeyWarningOn) StartCoroutine(KeyWarning());
                         break;
                     }
                 }
@@ -71,5 +80,13 @@ public class ControlSettings : MonoBehaviour
         _buttons[_keyToRebind].GetComponent<Image>().color = _originalColor;
         _buttons[_keyToRebind].GetComponent<Image>().sprite = sprite;
         _keyToRebind = null;
+    }
+    IEnumerator KeyWarning()
+    {
+        _isKeyWarningOn = true;
+        _keyWarning.SetActive(true);
+        yield return new WaitForSeconds(2);
+        _keyWarning.SetActive(false);
+        _isKeyWarningOn = false;
     }
 }
