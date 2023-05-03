@@ -53,6 +53,17 @@ public class PauseGO : IScreen
             b.enabled = false;
         }
     }
+    public void UnpauseObjectsInCinematic()
+    {
+        foreach (var b in _root.GetComponentsInChildren<Behaviour>())
+        {
+            if (b.gameObject.tag == "Cinematica") continue;
+            _before[b] = b.enabled;
+            var rb = b.GetComponent<Rigidbody2D>();
+            if (rb) rb.WakeUp();
+            b.enabled = true;
+        }
+    }
     public void Free()
     {
         GameObject.Destroy(_root.gameObject);

@@ -17,4 +17,6 @@ public class ScreenPause : MonoBehaviour, IScreen
     public void Deactivate(){}
     public void PauseObjectsInCinematic(){}
     public void Free(){ Destroy(gameObject);}
+
+    public void UnpauseObjectsInCinematic(){}
 }

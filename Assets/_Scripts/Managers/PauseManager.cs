@@ -4,22 +4,23 @@ public class PauseManager : MonoBehaviour
 {
     bool _paused = false;
     Stack<IScreen> _stack;
+    CinematicManager _cinematicManager;
 
     [SerializeField] Transform _mainGame;
-
     public bool Paused { get { return _paused; } }
     private void Awake()
     {
         _stack = new Stack<IScreen>();
+        Push(new PauseGO(_mainGame));
     }
     private void Start()
     {
-        Push(new PauseGO(_mainGame));
+        _cinematicManager = Helpers.GameManager.CinematicManager;
         Helpers.LevelTimerManager.OnLevelDefeat += PauseObjectsInCinematic;
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) & !_cinematicManager.playingCinematic)
         {
             if (_paused) Pop();
             else Push(Instantiate(Resources.Load<ScreenPause>("PauseCanvas")));
@@ -45,5 +46,9 @@ public class PauseManager : MonoBehaviour
     public void PauseObjectsInCinematic()
     {
         _stack.Peek().PauseObjectsInCinematic();
+    }
+    public void UnpauseObjectsInCinematic()
+    {
+        _stack.Peek().UnpauseObjectsInCinematic();
     }
 }

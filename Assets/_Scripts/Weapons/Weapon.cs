@@ -6,7 +6,6 @@ namespace Weapons
     public abstract class Weapon : MonoBehaviour
     {
         [SerializeField] protected WeaponData _weaponData;
-        [SerializeField] protected Transform _uiSignPosition;
 
         protected float _weaponTimer;
         protected Rigidbody2D _rb;
@@ -44,7 +43,7 @@ namespace Weapons
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawRay(_uiSignPosition.position, Vector2.down * 1f);
+            Gizmos.DrawRay(transform.position, Vector2.down * 1f);
         }
         public void Attack(Vector2 bulletDirection)
         {

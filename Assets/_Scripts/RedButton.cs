@@ -34,7 +34,6 @@ public class RedButton : MonoBehaviour
     private void OnTriggerEnter2D( )
     {
         Helpers.LevelTimerManager.RedButton();
-        Helpers.GameManager.PauseManager.PauseObjectsInCinematic();
         Helpers.GameManager.CinematicManager.PlayVictoryCinematic();
     }
 }
