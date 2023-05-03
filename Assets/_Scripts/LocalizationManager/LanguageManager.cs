@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Networking;
-using System.Windows.Forms;
 using System.Threading;
-
 public enum Languages
 {
     eng,
@@ -33,7 +31,6 @@ public class LanguageManager : MonoBehaviour
             Destroy(gameObject);
 
         selectedLanguage = Thread.CurrentThread.CurrentCulture.Name == "en-US" ? Languages.eng : Languages.spa;
-        //selectedLanguage = InputLanguage.CurrentInputLanguage.Culture.Name == "en-US" ? Languages.eng : Languages.spa;
     }
     private void Start()
     {
