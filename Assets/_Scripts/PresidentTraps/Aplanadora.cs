@@ -1,13 +1,13 @@
 using UnityEngine;
 public class Aplanadora : MonoBehaviour
 {
-    [SerializeField] Transform[] _weels;
+    [SerializeField] Transform _weel;
     [SerializeField] Transform _aplanadoraWeel;
     [SerializeField] float _speed;
 
     bool _stop;
     LevelTimerManager _levelTimerManager;
-    Vector3 _dir = -Vector3.forward;
+    Vector3 _dir = Vector3.forward;
     private void Start()
     {
         _levelTimerManager = Helpers.LevelTimerManager;
@@ -17,11 +17,15 @@ public class Aplanadora : MonoBehaviour
     {
         bool stopWeel = _levelTimerManager.TrapStopped || _stop;
 
-        for (int i = 0; i < _weels.Length; i++)
-            _weels[i].Rotate(stopWeel ? _dir * _speed : Vector3.zero);
-
-        _aplanadoraWeel.Rotate(stopWeel ? _dir * _speed * .25f : Vector3.zero);
+        RotateWeel(_weel, _speed, stopWeel);
+        RotateWeel(_aplanadoraWeel, _speed * .25f, stopWeel);
     }
+    public void IncreaseSpeed(float amount) { _speed *= amount; }
     public void ReverseSpeed() { _speed *= -1; }
     public void StopAplanadora() { _speed = 0; }
+
+    void RotateWeel(Transform weel, float speed, bool stopWeel)
+    {
+        weel.Rotate(stopWeel ? _dir * speed : Vector3.zero);
+    }
 }

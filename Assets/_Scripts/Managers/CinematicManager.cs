@@ -6,7 +6,10 @@ public class CinematicManager : MonoBehaviour
     PlayableDirector _defeatTimeline, _victoryTimeline, _initialTimeline;
     [SerializeField, Tooltip("Está como hijo de la Main Camera")] GameObject _cinemacticCamera;
 
-    public bool playingCinematic => _initialTimeline.state == PlayState.Playing || _victoryTimeline.state == PlayState.Playing || _defeatTimeline.state == PlayState.Playing;
+    public bool playingCinematic
+    {
+        get { return _initialTimeline && _victoryTimeline && _defeatTimeline ? _initialTimeline.state == PlayState.Playing || _victoryTimeline.state == PlayState.Playing || _defeatTimeline.state == PlayState.Playing : default; }
+    }
     void Start()
     {
         Helpers.LevelTimerManager.OnLevelDefeat += PlayDefeatCinematic;
