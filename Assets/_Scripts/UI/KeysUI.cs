@@ -12,7 +12,7 @@ public class KeysUI : MonoBehaviour
     }
     public KeysUI SetButtonSprite(string inputName)
     {
-        _keyImg.sprite = InputManager.Instance.KeySpriteForButton(ref inputName);
+        _keyImg.sprite = InputManager.Instance.GetKeySpriteByName(inputName);
         return this;
     }
 

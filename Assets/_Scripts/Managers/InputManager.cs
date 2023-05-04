@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 public class InputManager : MonoBehaviour
 {
     public static InputManager Instance;
-    public KeyData[] keysData;
+    public KeyData[] _keysData;
     Dictionary<string, KeyCode> _buttonKeys;
     Dictionary<string, Sprite> _buttonKeysData;
     List<KeyCode> _keysAllowed;
-
     public List<KeyCode> KeysAllowed { get { return _keysAllowed; } }
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class InputManager : MonoBehaviour
         _buttonKeys = new Dictionary<string, KeyCode>();
         _buttonKeysData = new Dictionary<string, Sprite>();
 
-        keysData = Resources.LoadAll<KeyData>("KeysSO");
+        _keysData = Resources.LoadAll<KeyData>("KeysSO");
 
         _buttonKeys["Move Right"] = KeyCode.D;
         _buttonKeys["Move Left"] = KeyCode.A;
@@ -39,7 +39,7 @@ public class InputManager : MonoBehaviour
 
         foreach (var item in _buttonKeys)
         {
-            foreach (var key in keysData)
+            foreach (var key in _keysData)
             {
                 if (key.input == item.Value)
                 {
@@ -51,7 +51,7 @@ public class InputManager : MonoBehaviour
     }
     private void Start()
     {
-        _keysAllowed = keysData.Select(x => x.input).ToList();
+        _keysAllowed = _keysData.Select(x => x.input).ToList();
     }
     public bool GetButtonDown(string buttonName)
     {
@@ -81,23 +81,24 @@ public class InputManager : MonoBehaviour
 
         return _buttonKeys[buttonName].ToString();
     }
-    public Sprite KeySpriteForButton(ref string buttonName)
+    public void SetButtonForKey(string buttonName, KeyCode keyCode, Action<Sprite> SetNewButton, Action<string, Sprite> SetButtonAlreadyExist)
     {
-        if (!_buttonKeysData.ContainsKey(buttonName))
+        if (_buttonKeys.ContainsValue(keyCode))
         {
-            Debug.Log(buttonName);
-            Debug.Log("No lo contiene");
-            return null;
+            var keyToReplace = GetKeyNameByValue(keyCode);
+            var emptyKey = _keysData.FirstOrDefault(x => x.name == "NONE");
+            _buttonKeys[keyToReplace] = emptyKey.input;
+            _buttonKeysData[keyToReplace] = emptyKey.keySprite;
+
+            SetButtonAlreadyExist(keyToReplace, emptyKey.keySprite);
         }
 
-        string spriteName = _buttonKeysData[buttonName].name;
 
-        return Resources.Load<Sprite>($"Keys/{spriteName}"); ;
-    }
-    public void SetButtonForKey(string buttonName, KeyCode keyCode, Sprite buttonSprite)
-    {
+        Sprite keySprite = _keysData.FirstOrDefault(x => x.input == keyCode).keySprite;
         _buttonKeys[buttonName] = keyCode;
-        _buttonKeysData[buttonName] = buttonSprite;
+        _buttonKeysData[buttonName] = keySprite;
+
+        SetNewButton(keySprite);
     }
     public float GetAxisRaw(string axis)
     {
@@ -107,4 +108,11 @@ public class InputManager : MonoBehaviour
             return GetButton("Move Up") ? 1f : GetButton("Move Down") ? -1f : 0;
         else return default;
     }
+
+    #region UTILS
+
+    string GetKeyNameByValue(KeyCode keyCode) => _buttonKeys.FirstOrDefault(x => x.Value == keyCode).Key;
+    public Sprite GetKeySpriteByName(string keyName) => _buttonKeysData[keyName];
+
+    #endregion
 }

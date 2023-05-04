@@ -31,7 +31,7 @@ public class ControlSettings : MonoBehaviour
 
             Button button = go.transform.Find("Button").GetComponent<Button>();
             Image buttonImg = button.GetComponent<Image>();
-            buttonImg.sprite = _inputManager.KeySpriteForButton(ref bn);
+            buttonImg.sprite = _inputManager.GetKeySpriteByName(bn);
 
             _buttons[bn] = button;
 
@@ -75,11 +75,21 @@ public class ControlSettings : MonoBehaviour
 
     void SetKey(KeyCode kc)
     {
-        Sprite sprite = _inputManager.keysData.FirstOrDefault(x => x.input == kc).keySprite;
-        _inputManager.SetButtonForKey(_keyToRebind, kc, sprite);
+        _inputManager.SetButtonForKey(_keyToRebind, kc, SetNewButton, SetButtonAlreadyExist);
         _buttons[_keyToRebind].GetComponent<Image>().color = _originalColor;
-        _buttons[_keyToRebind].GetComponent<Image>().sprite = sprite;
         _keyToRebind = null;
+    }
+    public void SetButtonAlreadyExist(string buttonToReplace, Sprite sprite)
+    {
+        Button button = _buttons[buttonToReplace];
+        button.GetComponent<Image>().color = _originalColor;
+        button.GetComponent<Image>().sprite = sprite;
+    }
+    public void SetNewButton(Sprite sprite)
+    {
+        Button button = _buttons[_keyToRebind];
+        button.GetComponent<Image>().color = _originalColor;
+        button.GetComponent<Image>().sprite = sprite;
     }
     IEnumerator KeyWarning()
     {

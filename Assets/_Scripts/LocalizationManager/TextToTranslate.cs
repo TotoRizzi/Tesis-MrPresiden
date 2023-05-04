@@ -16,7 +16,7 @@ public class TextToTranslate : MonoBehaviour
     }
     void ChangeLang()
     {
-        string text = LanguageManager.Instance.GetTranslate(_ID).Replace("-", ",");
+        string text = LanguageManager.Instance.GetTranslate(_ID);
         _myView.text = text;
     }
     private void OnEnable()

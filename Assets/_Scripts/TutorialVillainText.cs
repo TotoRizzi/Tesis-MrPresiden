@@ -6,18 +6,19 @@ using TMPro;
 public class TutorialVillainText : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _textDispay;
-    [SerializeField] string _sentence;
     [SerializeField] float _typingSpeed;
+    string _sentence;
 
     private void Start()
     {
-        _sentence = GetComponentInChildren<TextMeshProUGUI>().text;
         StartCoroutine(Type());
     }
 
     IEnumerator Type()
     {
         var wait = new WaitForSeconds(_typingSpeed);
+        yield return new WaitUntil(() => _textDispay.text != string.Empty);
+        _sentence = _textDispay.text.Replace("-", ",");
         _textDispay.text = string.Empty;
         foreach (char letter in _sentence)
         {
