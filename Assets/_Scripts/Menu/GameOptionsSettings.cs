@@ -45,6 +45,9 @@ public class GameOptionsSettings : MonoBehaviour
 
         _languageDD.onValueChanged.AddListener(SetLanguage);
         _gameModeDD.onValueChanged.AddListener(SetGameMode);
+
+        _languageDD.RefreshShownValue();
+        _gameModeDD.RefreshShownValue();
     }
 
     public void SetLanguage(int language)
