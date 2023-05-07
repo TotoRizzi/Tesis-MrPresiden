@@ -29,8 +29,9 @@ public class PlayerView : MonoBehaviour
         Helpers.AudioManager.PlaySFX("Player_Jump");
     }
 
-    public void Dash()
+    public void Dash(Vector3 dir)
     {
+        _dashParticle.gameObject.transform.localScale = dir;
         _dashParticle.Play();
         Helpers.AudioManager.PlaySFX("Player_Dash");
     }

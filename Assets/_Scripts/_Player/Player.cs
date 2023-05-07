@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
     #region View
     public Action OnIdle;
     public Action OnMove;
-    public Action OnDash;
+    public Action<Vector3> OnDash;
     public Action OnJump;
     public Action OnStaminaTick;
     #endregion
@@ -386,10 +386,9 @@ public class DashState : IState
     {
         Helpers.LevelTimerManager.StartLevelTimer();
 
-        _player.OnDash();
 
         _currentDashDuration = 0;
-       
+        Vector3 newDashDir = Vector3.one;
         if(_controller.xAxis != 0)
         {
             _dashDirection = _controller.xAxis;
@@ -399,10 +398,17 @@ public class DashState : IState
             float angle = _player.WeaponManager.GetAngle();
         
             if (angle > 90 || angle < -90)
+            {
                 _dashDirection = -1;
+                newDashDir.x = -1;
+            }
             else
+            {
                 _dashDirection = 1;
+                newDashDir.x = 1;
+            }
         }
+        _player.OnDash(newDashDir);
 
         _player.StopAllCoroutines();
     }
