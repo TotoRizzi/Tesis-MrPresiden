@@ -4,16 +4,15 @@ public class NextSceneOnTrigger : MonoBehaviour
 {
     [SerializeField] string _nextScene;
     [SerializeField] GameObject lightParent;
+    [SerializeField] Animator _anim;
 
     Collider2D _collider;
-    Animator _anim;
     private void Start()
     {
         Helpers.GameManager.OnRoomWon += ShowExit;
         Helpers.GameManager.OnPlayerDead += () => StartCoroutine(HideExit());
 
         _collider = GetComponent<Collider2D>();
-        _anim = GetComponentInChildren<Animator>();
         StartCoroutine(HideExit());
     }
     void ShowExit()
@@ -35,6 +34,6 @@ public class NextSceneOnTrigger : MonoBehaviour
         if (Helpers.GameManager.UiManager == null) return;
 
         Helpers.GameManager.LoadSceneManager.LoadLevel(_nextScene);
-        if(Helpers.GameManager.Player) Helpers.GameManager.Player.PausePlayer();
+        if (Helpers.GameManager.Player) Helpers.GameManager.Player.PausePlayer();
     }
 }
