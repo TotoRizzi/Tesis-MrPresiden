@@ -31,4 +31,10 @@ public class TextToTranslate : MonoBehaviour
     {
         LanguageManager.Instance.OnUpdate -= ChangeLang;
     }
+    public void UpdateText(string id)
+    {
+        _ID = id;
+        string text  = LanguageManager.Instance.GetTranslate(_ID);
+        _myView.text = text;
+    }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class GameOptionsSettings : MonoBehaviour
 {
     [SerializeField] TMP_Dropdown _languageDD, _gameModeDD;
+    [SerializeField] TextToTranslate _gameModeTextToTranslate;
 
     List<string> _languages = new List<string>() { "English", "Spanish" };
     List<string> _gameModeOptions = new List<string>() { "Easy", "Hard" };
@@ -48,6 +49,8 @@ public class GameOptionsSettings : MonoBehaviour
 
         _languageDD.RefreshShownValue();
         _gameModeDD.RefreshShownValue();
+
+        _gameModeTextToTranslate.UpdateText(_gameModeDD.value == 0 ? "ID_Easy" : "ID_Hard");
     }
 
     public void SetLanguage(int language)
@@ -79,5 +82,6 @@ public class GameOptionsSettings : MonoBehaviour
     public void SetGameMode(int gameMode)
     {
         Helpers.GameManager.SaveDataManager.SaveInt(Helpers.GameManager.gameModeSaveName, (int)(GameMode)gameMode);
+        _gameModeTextToTranslate.UpdateText(_gameModeDD.value == 0 ? "ID_Easy" : "ID_Hard");
     }
 }
