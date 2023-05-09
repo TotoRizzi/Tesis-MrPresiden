@@ -31,6 +31,7 @@ public class LanguageManager : MonoBehaviour
             Destroy(gameObject);
 
         selectedLanguage = Thread.CurrentThread.CurrentCulture.Name == "en-US" ? Languages.eng : Languages.spa;
+
     }
     private void Start()
     {

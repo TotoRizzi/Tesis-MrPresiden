@@ -6,22 +6,15 @@ public class TextToTranslate : MonoBehaviour
     [SerializeField] TextMeshProUGUI _myView;
 
     public string ID { get { return _ID; } set { _ID = value; } }
-    private void Awake()
-    {
-        LanguageManager.Instance.OnUpdate += ChangeLang;
-    }
     private void Start()
     {
+        LanguageManager.Instance.OnUpdate += ChangeLang;
         ChangeLang();
     }
     void ChangeLang()
     {
         string text = LanguageManager.Instance.GetTranslate(_ID);
         _myView.text = text;
-    }
-    private void OnEnable()
-    {
-        LanguageManager.Instance.OnUpdate += ChangeLang;
     }
     private void OnDisable()
     {
