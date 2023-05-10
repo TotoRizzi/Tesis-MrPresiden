@@ -18,7 +18,7 @@ public class Aplanadora : MonoBehaviour
         bool stopWeel = _levelTimerManager.TrapStopped || _stop;
 
         RotateWeel(_weel, _speed, stopWeel);
-        RotateWeel(_aplanadoraWeel, _speed * .25f, stopWeel);
+        RotateWeel(_aplanadoraWeel, _speed * .5f, stopWeel);
     }
     public void IncreaseSpeed(float amount) { _speed *= amount; }
     public void ReverseSpeed() { _speed *= -1; }

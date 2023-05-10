@@ -15,4 +15,8 @@ public class ShowKeyUI : MonoBehaviour
     {
         if (collision.GetComponent<WeaponManager>()) _keyUI.ReturnObject();
     }
+    private void OnDestroy()
+    {
+        _keyUI.ReturnObject();
+    }
 }

@@ -4,6 +4,7 @@ namespace Droppables
     public abstract class Droppable : MonoBehaviour, IBreakable, IDamageable
     {
         [SerializeField] protected GameObject _destroyedVersion;
+        [SerializeField] protected Vector3 _offset;
         protected Transform _dropPosition;
 
         [Range(0, 1)]
