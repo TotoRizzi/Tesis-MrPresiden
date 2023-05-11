@@ -2,11 +2,12 @@ using UnityEngine;
 public class Trap_Walls : MonoBehaviour
 {
     enum WallsStates { GO, BACK, WAIT_TOP, WAIT_BASE }
-    Vector3 _initialPos, _targetPos;
+    Vector3[] _initialPos = new Vector3[2];
+    Vector3 _targetPos;
     EventFSM<WallsStates> _myFsm;
     Collider2D _coll;
 
-    [SerializeField] Trap_Walls _otherWall;
+    [SerializeField] Transform[] _walls;
 
     [Header("VARIABLES")]
     [SerializeField] float _waitBaseTime;
@@ -15,11 +16,14 @@ public class Trap_Walls : MonoBehaviour
     [SerializeField] float _goBaseTime;
     private void Start()
     {
-        _coll = GetComponent<Collider2D>();
-        _coll.enabled = false;
-        _initialPos = transform.position;
-        Vector3 posDif = _otherWall.transform.position - transform.position - (_otherWall.transform.position - transform.position) * .5f;
-        _targetPos = transform.position + posDif;
+        for (int i = 0; i < _walls.Length; i++)
+            _initialPos[i] = _walls[i].position;
+
+        _targetPos = (_walls[1].position + _walls[0].position) * .5f;
+
+        _coll = transform.GetChild(2).GetComponentInChildren<Collider2D>();
+        _coll.transform.position = _targetPos;
+        _coll.gameObject.SetActive(false);
 
         var go = new State<WallsStates>("GO");
         var back = new State<WallsStates>("BACK");
@@ -52,7 +56,9 @@ public class Trap_Walls : MonoBehaviour
         go.OnUpdate += () =>
         {
             timer += Time.deltaTime;
-            transform.position = Vector3.Lerp(_initialPos, _targetPos, timer / _goTopTime);
+
+            for (int i = 0; i < _walls.Length; i++)
+                _walls[i].position = Vector3.Lerp(_initialPos[i], _targetPos, timer / _goTopTime);
 
             if (timer / _goTopTime >= 1) _myFsm.SendInput(WallsStates.WAIT_TOP);
         };
@@ -64,7 +70,7 @@ public class Trap_Walls : MonoBehaviour
         wait_top.OnEnter += x =>
         {
             timer = 0;
-            _coll.enabled = true;
+            _coll.gameObject.SetActive(true);
         };
 
         wait_top.OnUpdate += () =>
@@ -73,7 +79,7 @@ public class Trap_Walls : MonoBehaviour
             if (timer >= _waitTopTime) _myFsm.SendInput(WallsStates.BACK);
         };
 
-        wait_top.OnExit += x => _coll.enabled = false;
+        wait_top.OnExit += x => _coll.gameObject.SetActive(false);
 
         #endregion
 
@@ -85,7 +91,9 @@ public class Trap_Walls : MonoBehaviour
         {
             timer += Time.deltaTime;
 
-            transform.position = Vector3.Lerp(_targetPos, _initialPos, timer / _goBaseTime);
+            for (int i = 0; i < _walls.Length; i++)
+                _walls[i].position = Vector3.Lerp(_targetPos, _initialPos[i], timer / _goTopTime);
+
             if (timer / _goBaseTime >= 1) _myFsm.SendInput(WallsStates.WAIT_BASE);
         };
 
@@ -97,14 +105,5 @@ public class Trap_Walls : MonoBehaviour
     private void Update()
     {
         _myFsm.Update();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            Helpers.GameManager.PlayerDead();
-            Debug.Log("Player");
-        }
     }
 }

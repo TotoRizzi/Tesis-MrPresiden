@@ -24,7 +24,7 @@ public class KeysUI : MonoBehaviour
     }
     public static void TurnOff(KeysUI k)
     {
-        k.gameObject.SetActive(false);
+        if (k) k.gameObject.SetActive(false);
     }
 
     public void ReturnObject()

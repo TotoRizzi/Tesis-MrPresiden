@@ -13,10 +13,10 @@ public class ShowKeyUI : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.GetComponent<WeaponManager>()) _keyUI.ReturnObject();
+        if (collision.GetComponent<WeaponManager>() && _keyUI) _keyUI.ReturnObject();
     }
     private void OnDestroy()
     {
-        _keyUI.ReturnObject();
+        if (_keyUI) _keyUI.ReturnObject();
     }
 }
