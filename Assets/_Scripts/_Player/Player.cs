@@ -452,7 +452,7 @@ public class ClimState : IState
     public void OnExit()
     {
         _player.NormalGravity();
-        _player.ExitClimb();
+        _player.ExitClimb?.Invoke();
     }
 
     public void OnFixedUpdate()

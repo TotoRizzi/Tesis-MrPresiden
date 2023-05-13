@@ -15,7 +15,7 @@ public class Ladder : MonoBehaviour
         _player = GameManager.instance.Player;
         _myCollider = GetComponent<BoxCollider2D>();
 
-        _player.ExitClimb += BlockCollider;
+        //_player.ExitClimb += BlockCollider;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
