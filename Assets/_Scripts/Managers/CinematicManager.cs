@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
+using System.Linq;
 public class CinematicManager : MonoBehaviour
 {
     PlayableDirector _defeatTimeline, _victoryTimeline, _initialTimeline;
     [SerializeField, Tooltip("Está como hijo de la Main Camera")] GameObject _cinemacticCamera;
+    [SerializeField] GameObject _skipCinematicUI;
 
     public bool playingCinematic
     {
@@ -18,7 +20,7 @@ public class CinematicManager : MonoBehaviour
         _initialTimeline = GameObject.Find("InitialTimeline").GetComponent<PlayableDirector>();
         _defeatTimeline = GameObject.Find("DefeatTimeline").GetComponent<PlayableDirector>();
         _victoryTimeline = GameObject.Find("VictoryTimeline").GetComponent<PlayableDirector>();
-        var currentScene = "Timeline " + SceneManager.GetActiveScene().name;
+        var currentScene = "initialTimeline " + SceneManager.GetActiveScene().name;
         if (!PlayerPrefs.HasKey(currentScene))
         {
             _initialTimeline.Play();
@@ -29,8 +31,12 @@ public class CinematicManager : MonoBehaviour
     }
     public void PlayDefeatCinematic()
     {
+        var defeatCinematic = "defeatTimeline " + SceneManager.GetActiveScene().name;
         _cinemacticCamera.SetActive(true);
         _defeatTimeline.Play();
+        if (PlayerPrefs.HasKey(defeatCinematic)) _skipCinematicUI.SetActive(true);
+
+        PlayerPrefs.SetString(defeatCinematic, defeatCinematic);
     }
     public void PlayVictoryCinematic()
     {
@@ -45,5 +51,11 @@ public class CinematicManager : MonoBehaviour
     public void LerpSize(float a, float b, float time)
     {
         _cinemacticCamera.GetComponent<Camera>().orthographicSize = Mathf.Lerp(a, b, time);
+    }
+
+    public void SkipDefeatCinematic()
+    {
+        _defeatTimeline.Pause();
+        Helpers.GameManager.LoadSceneManager.ReloadLevel();
     }
 }
