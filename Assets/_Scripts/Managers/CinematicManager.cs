@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
 using System.Linq;
+using System.Collections;
+
 public class CinematicManager : MonoBehaviour
 {
     PlayableDirector _defeatTimeline, _victoryTimeline, _initialTimeline;
@@ -34,9 +36,16 @@ public class CinematicManager : MonoBehaviour
         var defeatCinematic = "defeatTimeline " + SceneManager.GetActiveScene().name;
         _cinemacticCamera.SetActive(true);
         _defeatTimeline.Play();
-        if (PlayerPrefs.HasKey(defeatCinematic)) _skipCinematicUI.SetActive(true);
+
+        if (PlayerPrefs.HasKey(defeatCinematic)) StartCoroutine(ShowSkipUI());
 
         PlayerPrefs.SetString(defeatCinematic, defeatCinematic);
+    }
+
+    IEnumerator ShowSkipUI()
+    {
+        yield return new WaitForSeconds(1);
+        _skipCinematicUI.SetActive(true);
     }
     public void PlayVictoryCinematic()
     {
