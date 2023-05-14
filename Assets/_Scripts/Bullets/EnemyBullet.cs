@@ -3,13 +3,13 @@ public class EnemyBullet : Bullet
 {
     private void FixedUpdate()
     {
-        transform.forward = _direction;
+        transform.right = _direction;
         transform.position += _direction.normalized * _speed * Time.deltaTime;
         _currentDistance += Time.deltaTime;
         if (_currentDistance > _maxDistance)
             ReturnBullet();
 
-        RaycastHit2D raycast = Physics2D.Raycast(transform.position, transform.forward, .25f, _bulletLayer);
+        RaycastHit2D raycast = Physics2D.Raycast(transform.position, transform.right, .25f, _bulletLayer);
 
         if (raycast)
         {
