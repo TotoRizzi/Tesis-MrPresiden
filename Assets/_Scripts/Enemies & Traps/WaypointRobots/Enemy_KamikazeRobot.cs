@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_KamikazeRobot : Enemy_Waypoint
+public class Enemy_KamikazeRobot : Enemy
 {
     [SerializeField] float _dropSpeed;
     [SerializeField] float _overlapCircleRadius = 1.5f;
@@ -29,36 +29,34 @@ public class Enemy_KamikazeRobot : Enemy_Waypoint
         {
             _isDropping = true;
             OnUpdate += Drop;
-            OnUpdate -= Move;
             OnUpdate -= Attack;
         }
     }
     public override void Die()
     {
 
+        base.Die();
         var player = Physics2D.OverlapCircle(transform.position, _overlapCircleRadius, gameManager.PlayerLayer);
 
         if (player)
             player.GetComponent<IDamageable>().TakeDamage(_dmg);
 
 
-        base.Die();
     }
-    public Enemy IsStatic(bool _isStatic)
-    {
-        isStatic = _isStatic;   
-        return this;
-    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!_isDropping || collision.tag == "Bullet") return;
-            Die();
+        
+        Die();
     }
+
     public override void ReturnObject()
     {
         base.ReturnObject();
         FRY_Enemy_KamikazeRobot.Instance.pool.ReturnObject(this);
     }
+    
     public override void Reset()
     {
         OnUpdate += Attack;
@@ -66,7 +64,6 @@ public class Enemy_KamikazeRobot : Enemy_Waypoint
         if (_isDropping)
         {
             _isDropping = false;
-            OnUpdate += Move;
         }
         base.Reset();
     }

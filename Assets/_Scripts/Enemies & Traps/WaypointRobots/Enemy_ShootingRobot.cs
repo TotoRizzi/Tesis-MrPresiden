@@ -9,11 +9,7 @@ public class Enemy_ShootingRobot : Enemy_Waypoint
     [SerializeField] Transform _armPivot;
 
     [SerializeField] float _bulletSpeed = 10;
-    [SerializeField] float _bulletsPerShot = 3;
-    [SerializeField] float _timeBetweenBullets = .2f;
     [SerializeField] float _attackSpeed = 2f;
-    float _currentBulletsShot;
-    float _currentTimeBetweenBullets;
     float _currentAttackSpeed;
 
     public override void Start()
@@ -36,42 +32,22 @@ public class Enemy_ShootingRobot : Enemy_Waypoint
         {
             _currentAttackSpeed = 0;
 
-            OnUpdate += Shoot;
-            OnUpdate -= CalculateAttack;
+            Shoot();
         }
     }
 
     void Shoot()
     {
 
-        if(_currentBulletsShot < _bulletsPerShot)
-        {
-            _currentTimeBetweenBullets += Time.deltaTime;
-
-            if(_currentTimeBetweenBullets > _timeBetweenBullets)
-            {
-                FRY_EnemyBullet.Instance.pool.GetObject().SetDmg(1f)
-                                                    .SetSpeed(_bulletSpeed)
-                                                    .SetPosition(_bulletSpawnPosition.position)
-                                                    .SetDirection(_armPivot.right);
-                _currentTimeBetweenBullets = 0;
-                _currentBulletsShot++;
-            }
-        }
-        else
-        {
-            _currentBulletsShot = 0;
-
-            OnUpdate -= Shoot;
-            OnUpdate += CalculateAttack;
-        }
-
+        FRY_EnemyBullet.Instance.pool.GetObject().SetDmg(1f)
+                                            .SetSpeed(_bulletSpeed)
+                                            .SetPosition(_bulletSpawnPosition.position)
+                                            .SetDirection(_armPivot.right);
+     
     }
     public override void Reset()
     {
         _currentAttackSpeed = 0;
-        _currentTimeBetweenBullets = 0;
-        _currentBulletsShot = 0;
 
         base.Reset();
     }
