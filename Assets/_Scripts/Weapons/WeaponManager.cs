@@ -11,7 +11,7 @@ public class WeaponManager : MonoBehaviour
     Transform _secundaryWeaponContainer;
     InputManager _inputManager;
     Action _lookAtMouse = delegate { };
-
+    bool _onWeaponTrigger;
     public Transform SecundaryWeaponContainer { get { return _secundaryWeaponContainer; } }
     public Transform MainWeaponContainer { get { return _mainWeaponContainer; } }
     public FireWeapon GetMainWeapon { get { return _currentMainWeapon?.GetComponent<FireWeapon>(); } }
@@ -41,11 +41,11 @@ public class WeaponManager : MonoBehaviour
 
         //if (_inputManager.GetButtonDown("Throw Weapon")) ThrowWeapon();
 
-        if (_inputManager.GetButtonDown("Pick Up")) SetWeapon();
+        if (_inputManager.GetButtonDown("Pick Up") && _onWeaponTrigger) SetWeapon();
     }
 
     #region Weapon Funcs
-    void SetWeapon()
+    public void SetWeapon()
     {
         RaycastHit2D[] hit = Physics2D.RaycastAll(_mainWeaponContainer.position, GetMouseDirectionMain().normalized, 2f, GameManager.instance.WeaponLayer);
         if (hit.Length <= 0) return;
@@ -121,6 +121,15 @@ public class WeaponManager : MonoBehaviour
     Vector2 GetMouseDirectionSecundary() => (GetMousePosition() - (Vector2)_secundaryWeaponContainer.position).normalized;
 
     #endregion
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<ShowKeyUI>()) _onWeaponTrigger = true; 
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.GetComponent<ShowKeyUI>()) _onWeaponTrigger = false;
+    }
 
     //public void SaveWeapon()
     //{

@@ -4,6 +4,8 @@ public class RedButton : MonoBehaviour
 {
     Collider2D _collider;
     Animator _anim;
+    bool _isPlayerOnTrigger;
+    InputManager _inputManager;
 
     //[SerializeField] GameObject lightParent;
     [SerializeField] SpriteRenderer _buttonSprite;
@@ -12,9 +14,14 @@ public class RedButton : MonoBehaviour
         Helpers.GameManager.OnRoomWon += ShowExit;
         Helpers.GameManager.OnPlayerDead += () => StartCoroutine(HideExit());
 
+        _inputManager = InputManager.Instance;
         _collider = GetComponent<Collider2D>();
         _anim = GetComponentInChildren<Animator>();
         StartCoroutine(HideExit());
+    }
+    private void Update()
+    {
+        if (_inputManager.GetButtonDown("Pick Up") && _isPlayerOnTrigger) PlayRedButton(); 
     }
     void ShowExit()
     {
@@ -31,7 +38,15 @@ public class RedButton : MonoBehaviour
         //lightParent.SetActive(false);
         _buttonSprite.color = Color.white;
     }
-    private void OnTriggerEnter2D( )
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<WeaponManager>()) _isPlayerOnTrigger = true;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.GetComponent<WeaponManager>()) _isPlayerOnTrigger = false;
+    }
+    void PlayRedButton()
     {
         Helpers.LevelTimerManager.RedButton();
         Helpers.GameManager.CinematicManager.PlayVictoryCinematic();
