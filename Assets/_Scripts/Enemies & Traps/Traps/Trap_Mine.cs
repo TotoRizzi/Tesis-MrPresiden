@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class Trap_Mine : Enemy
 {
     [SerializeField] GameObject _damageOnTriggerGO;
@@ -23,7 +21,7 @@ public class Trap_Mine : Enemy
     public override void Die()
     {
         gameManager.EnemyManager.RemoveEnemy(this);
-        gameManager.EffectsManager.EnemyKilled(transform.position);
+        gameManager.EffectsManager.EnemyKilled(transform.position, _isRobot);
 
         Destroy(_parentGO);
     }

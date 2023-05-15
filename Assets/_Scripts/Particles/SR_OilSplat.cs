@@ -1,7 +1,7 @@
 using UnityEngine;
-public class SR_BloodSplatter : MonoBehaviour
+public class SR_OilSplat : MonoBehaviour
 {
-    public SR_BloodSplatter SetPosition(Vector3 pos)
+    public SR_OilSplat SetPosition(Vector3 pos)
     {
         Vector3 fixedPos = new Vector3(pos.x, pos.y, 2);
         transform.position = fixedPos;
@@ -13,18 +13,18 @@ public class SR_BloodSplatter : MonoBehaviour
     {
     }
 
-    public static void TurnOn(SR_BloodSplatter b)
+    public static void TurnOn(SR_OilSplat b)
     {
         b.Reset();
         b.gameObject.SetActive(true);
     }
 
-    public static void TurnOff(SR_BloodSplatter b)
+    public static void TurnOff(SR_OilSplat b)
     {
         b.gameObject.SetActive(false);
     }
     public virtual void ReturnObject()
     {
-        FRY_EnemyBloodSplatter.Instance.ReturnObject(this);
+        FRY_EnemyOilSplat.Instance.ReturnObject(this);
     }
 }

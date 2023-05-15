@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
@@ -10,6 +9,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public event Action OnUpdate;
 
     [SerializeField] protected Transform sprite;
+    [SerializeField] protected bool _isRobot = false;
     private SpriteRenderer _renderer;
     private float _onHitRedTime = .2f;
 
@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour, IDamageable
         gameManager.EnemyManager.RemoveEnemy(this);
 
         ReturnObject();
-        gameManager.EffectsManager.EnemyKilled(transform.position);
+        gameManager.EffectsManager.EnemyKilled(transform.position, _isRobot);
     }
 
     IEnumerator ChangeColor()

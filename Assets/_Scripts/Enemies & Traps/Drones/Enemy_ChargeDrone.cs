@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class Enemy_ChargeDrone : Enemy
 {
     StateMachine _fsm;
