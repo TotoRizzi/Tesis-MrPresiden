@@ -82,9 +82,15 @@ public class Enemy : MonoBehaviour, IDamageable
         transform.position = pos;
         return this;
     }
+    public Enemy Flip()
+    {
+        transform.localScale = new Vector3(1, -1, 1);
+        return this;
+    }
 
     public virtual void Reset()
     {
+        transform.localScale = new Vector3(1, 1, 1);
         _currentHp = _maxHp;
         if (gameManager) gameManager.EnemyManager.AddEnemy(this);
     }

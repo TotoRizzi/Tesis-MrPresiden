@@ -20,7 +20,7 @@ public class Movement_RotateObject : IMovement
     }
     public void Move()
     {
-        Vector3 dirToLookAt = (_gameManager.Player.transform.position + Vector3.up - _myTransform.position).normalized;
+        Vector3 dirToLookAt = (_gameManager.Player.transform.position + (Vector3.up / 2) - _myTransform.position).normalized;
         float angle = Mathf.Atan2(dirToLookAt.y, dirToLookAt.x) * Mathf.Rad2Deg;
 
         _armPivot.eulerAngles = new Vector3(0, 0, angle);
