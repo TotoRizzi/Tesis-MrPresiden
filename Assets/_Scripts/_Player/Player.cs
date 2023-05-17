@@ -425,6 +425,7 @@ public class DashState : IState
 
     public void OnUpdate()
     {
+        _controller.OnDashInputs();
         _currentDashDuration += Time.deltaTime;
         if (_currentDashDuration < _player.DashDuration) return;
 

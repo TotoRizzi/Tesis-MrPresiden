@@ -51,6 +51,12 @@ public class PlayerController
             _player.fsm.ChangeState(StateName.Jump);
     }
 
+    public void OnDashInputs()
+    {
+        if (_inputManager.GetButtonDown("Jump") && _player.CanJump)
+            _player.fsm.ChangeState(StateName.Jump);
+    }
+
     public void OnJumpInputs()
     {
         if (_inputManager.GetButtonDown("Dash") && _player.CanDash)
