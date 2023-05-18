@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
-using System.Linq;
 using System.Collections;
-
 public class CinematicManager : MonoBehaviour
 {
     PlayableDirector _defeatTimeline, _victoryTimeline, _initialTimeline;
@@ -23,6 +21,7 @@ public class CinematicManager : MonoBehaviour
         _defeatTimeline = GameObject.Find("DefeatTimeline").GetComponent<PlayableDirector>();
         _victoryTimeline = GameObject.Find("VictoryTimeline").GetComponent<PlayableDirector>();
         var currentScene = "initialTimeline " + SceneManager.GetActiveScene().name;
+
         if (!PlayerPrefs.HasKey(currentScene))
         {
             _initialTimeline.Play();
