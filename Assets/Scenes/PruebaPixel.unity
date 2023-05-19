@@ -4506,6 +4506,103 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9580529311449b8439126bec61056163, type: 3}
+--- !u!1001 &7702357372672059717
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 346902502409336610, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: m_Name
+      value: AbejasPT
+      objectReference: {fileID: 0}
+    - target: {fileID: 7496310206507003950, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: NoiseModule.frequency
+      value: 2.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 7496310206507003950, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: NoiseModule.octaveScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7496310206507003950, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: CollisionModule.radiusScale
+      value: 1.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 7496310206507003950, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: NoiseModule.strength.scalar
+      value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 7496310206507003950, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: CollisionModule.colliderForce
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7496310206507003950, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7496310206507003950, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: CollisionModule.m_Bounce.scalar
+      value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 7496310206507003950, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: CollisionModule.m_Dampen.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7496310206507003950, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7496310206507003950, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362230488136478189, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: m_RootOrder
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362230488136478189, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362230488136478189, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362230488136478189, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362230488136478189, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362230488136478189, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362230488136478189, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362230488136478189, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362230488136478189, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362230488136478189, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362230488136478189, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7e8e24305f5f0af4bb3e2adff58ccc33, type: 3}
 --- !u!1001 &8142211202164276428
 PrefabInstance:
   m_ObjectHideFlags: 0
