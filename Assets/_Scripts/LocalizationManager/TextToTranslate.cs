@@ -11,6 +11,10 @@ public class TextToTranslate : MonoBehaviour
         LanguageManager.Instance.OnUpdate += ChangeLang;
         ChangeLang();
     }
+    private void OnEnable()
+    {
+        ChangeLang();
+    }
     void ChangeLang()
     {
         string text = LanguageManager.Instance.GetTranslate(_ID);
