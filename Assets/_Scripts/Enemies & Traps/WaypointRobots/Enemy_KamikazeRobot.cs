@@ -27,9 +27,12 @@ public class Enemy_KamikazeRobot : Enemy
         OnUpdate -= Drop;
         if (Physics2D.CircleCast(transform.position, 1, -Vector3.up, 10f, gameManager.PlayerLayer))
         {
-            _isDropping = true;
-            OnUpdate += Drop;
-            OnUpdate -= Attack;
+            if(!Physics2D.Raycast(transform.position, -Vector3.up, (transform.position - Helpers.GameManager.Player.transform.position).magnitude, gameManager.GroundLayer))
+            {
+                _isDropping = true;
+                OnUpdate += Drop;
+                OnUpdate -= Attack;
+            }
         }
     }
     public override void Die()
