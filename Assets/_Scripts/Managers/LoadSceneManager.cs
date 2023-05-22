@@ -15,6 +15,19 @@ public class LoadSceneManager : MonoBehaviour
         //Helpers.GameManager.OnSpiked += () => LoadLevel(SceneManager.GetActiveScene().buildIndex);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            if (SceneManager.GetActiveScene().buildIndex == 21)
+            {
+                LoadLevel("WinScreen");
+                return;
+            }
+
+            LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+    }
     public void ReloadLevel() => StartCoroutine(ChangeScene(SceneManager.GetActiveScene().buildIndex));
     public void LoadLevel(int levelIndex) => StartCoroutine(ChangeScene(levelIndex));
     public void LoadLevel(string levelName) => StartCoroutine(ChangeScene(levelName));
