@@ -5,6 +5,7 @@ using System;
 public class Enemy : MonoBehaviour, IDamageable
 {
     protected GameManager gameManager;
+    [SerializeField] protected Animator anim;
 
     public event Action OnUpdate;
 

@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430734933}
   m_LocalRotation: {x: -0.7047779, y: 0.05734235, z: -0.05734227, w: 0.7047779}
-  m_LocalPosition: {x: -0.8543811, y: 0.017513275, z: -6.9786215}
+  m_LocalPosition: {x: -0.05, y: 0.017513275, z: -6.9786215}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1526690837879428613}
@@ -4849,7 +4849,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.66319346, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -4860,7 +4860,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.338099, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &6966172128750786804
 MonoBehaviour:
@@ -4900,7 +4900,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1757697566011987284}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8856837495568563153}
@@ -4976,6 +4976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 490b8509daff9d045812b27a91341bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 3370621201337494724}
   sprite: {fileID: 8856837495568563153}
   _isRobot: 1
   _maxHp: 3
@@ -4996,7 +4997,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.6371858, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5007,7 +5008,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.494144, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &6764628499263606919
 Rigidbody2D:
@@ -5069,7 +5070,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7034085680315342874}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.8043809, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1526690837879428613}
@@ -5152,7 +5153,7 @@ MonoBehaviour:
   - {x: -0.35591245, y: 0.10646796, z: 0}
   m_ShapePathHash: -1816243603
   m_Mesh: {fileID: 0}
-  m_InstanceId: 79476
+  m_InstanceId: 96086
 --- !u!1 &8765321337936934920
 GameObject:
   m_ObjectHideFlags: 0

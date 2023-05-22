@@ -5,7 +5,7 @@ public enum StateName
 {
     Idle, Move, Jump, OnAir, Dash, Climb,               //Player
     SH_Patrol, SH_Attack,                               //SimpleHumanoid
-    CD_Idle, CD_Charge,                                 //ChargeDrone
+    CD_Idle, CD_Charge, CD_LoadCharge,                  //ChargeDrone
     LIGHT_GoingRed, LIGHT_Normal                        //Lights
 }
 
