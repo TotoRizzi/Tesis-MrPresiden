@@ -106,6 +106,8 @@ public class Player : MonoBehaviour
         fsm.AddState(StateName.Dash, new DashState(this, _controller));
         fsm.AddState(StateName.Climb, new ClimState(this, _controller));
         fsm.ChangeState(StateName.Idle);
+
+        _gameManager.OnPlayerDead += () => fsm.ChangeState(StateName.Idle);
     }
 
     private void Update()
@@ -350,7 +352,7 @@ public class OnAirState : IState
 
     public void OnExit()
     {
-        
+        _player.ReturnJumps();
     }
 
     public void OnFixedUpdate()
@@ -362,10 +364,7 @@ public class OnAirState : IState
     {
         _controller.OnAirInputs();
         if (_player.GroundCheck.IsGrounded)
-        {
-            _player.ReturnJumps();
             _player.fsm.ChangeState(StateName.Idle);
-        }
     }
 }
 public class DashState : IState

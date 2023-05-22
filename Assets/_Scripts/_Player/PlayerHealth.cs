@@ -25,8 +25,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public void Die()
     {
-        //EffectsOnDeath();
-        //RestartPosition();
+
     }
 
     public void EffectsOnDeath()
