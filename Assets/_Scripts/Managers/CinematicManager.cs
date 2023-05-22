@@ -63,7 +63,7 @@ public class CinematicManager : MonoBehaviour
 
     public void SkipDefeatCinematic()
     {
-        _defeatTimeline.Pause();
+        _defeatTimeline.Stop();
         Helpers.GameManager.LoadSceneManager.ReloadLevel();
     }
 }
