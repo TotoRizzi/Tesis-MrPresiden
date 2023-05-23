@@ -4,6 +4,7 @@ public class FireWeapon : Weapon
 {
     protected Transform _bulletSpawn;
     protected int _currentAmmo;
+    protected Animator _muzzleFlashAnimator;
     LayerMask _borderMask;
     public int GetCurrentAmmo { get { return _currentAmmo; } set { _currentAmmo = value; } }
     protected override void Awake()
@@ -16,6 +17,7 @@ public class FireWeapon : Weapon
     {
         base.Start();
         _bulletSpawn = transform.GetChild(0);
+        _muzzleFlashAnimator = _bulletSpawn.GetChild(0).GetComponent<Animator>();
     }
     public override void WeaponAction(Vector2 bulletDirection)
     {
@@ -28,6 +30,7 @@ public class FireWeapon : Weapon
         Helpers.LevelTimerManager.StartLevelTimer();
         //_currentAmmo--;
         //UpdateAmmoAmount();
+        _muzzleFlashAnimator.Play("MuzzleFlash");
         Helpers.AudioManager.PlaySFX(_weaponData.weaponSoundName);
         RaycastHit2D raycast = Physics2D.Raycast(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position, Vector2.Distance(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position), _borderMask);
         Collider2D overlapCircle = Physics2D.OverlapCircle(_bulletSpawn.position, .05f, _borderMask);

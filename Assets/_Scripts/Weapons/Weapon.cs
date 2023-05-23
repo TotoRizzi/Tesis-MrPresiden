@@ -6,9 +6,11 @@ namespace Weapons
     public abstract class Weapon : MonoBehaviour
     {
         [SerializeField] protected WeaponData _weaponData;
+        [SerializeField] protected bool _droppableWeapon;
 
         protected float _weaponTimer;
         protected Rigidbody2D _rb;
+        protected Animator _animator;
         protected WeaponManager _weaponManager;
         protected SpriteRenderer _spriteRenderer;
         protected GameManager _gameManager;
@@ -17,6 +19,7 @@ namespace Weapons
         protected virtual void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+            if (_droppableWeapon) _animator = GetComponent<Animator>();
         }
         private void OnEnable()
         {
@@ -28,18 +31,18 @@ namespace Weapons
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _spriteRenderer.sprite = _weaponData.mainSprite;
         }
-        private void OnMouseEnter()
-        {
-            if (!CanPickUp) return;
-            _spriteRenderer.sprite = _weaponData.selectedSprite;
-            transform.position = new Vector3(transform.position.x, transform.position.y, -1);
-        }
-        private void OnMouseExit()
-        {
-            if (!CanPickUp) return;
-            _spriteRenderer.sprite = _weaponData.mainSprite;
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-        }
+        //private void OnMouseEnter()
+        //{
+        //    if (!CanPickUp) return;
+        //    _spriteRenderer.sprite = _weaponData.selectedSprite;
+        //    transform.position = new Vector3(transform.position.x, transform.position.y, -1);
+        //}
+        //private void OnMouseExit()
+        //{
+        //    if (!CanPickUp) return;
+        //    _spriteRenderer.sprite = _weaponData.mainSprite;
+        //    transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        //}
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
@@ -86,6 +89,8 @@ namespace Weapons
             _rb.simulated = knife;
             _rb.velocity = Vector2.zero;
             transform.eulerAngles = Vector3.zero;
+            if (_animator) _animator.enabled = false;
+            _spriteRenderer.sprite = _weaponData.mainSprite;
             return this;
         }
 
@@ -93,6 +98,7 @@ namespace Weapons
         {
             _rb.simulated = true;
             _rb.AddForce(direction * 3, ForceMode2D.Impulse);
+            _animator.enabled = true;
             return this;
         }
 
