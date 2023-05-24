@@ -7,7 +7,7 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance;
     public KeyData[] _keysData;
     Dictionary<string, KeyCode> _buttonKeys;
-    Dictionary<string, Sprite> _buttonKeysData;
+    Dictionary<string, Tuple<Sprite, Sprite>> _buttonKeysData;
     List<KeyCode> _keysAllowed;
     public List<KeyCode> KeysAllowed { get { return _keysAllowed; } }
     private void Awake()
@@ -22,7 +22,7 @@ public class InputManager : MonoBehaviour
     private void OnEnable()
     {
         _buttonKeys = new Dictionary<string, KeyCode>();
-        _buttonKeysData = new Dictionary<string, Sprite>();
+        _buttonKeysData = new Dictionary<string, Tuple<Sprite, Sprite>>();
 
         _keysData = Resources.LoadAll<KeyData>("KeysSO");
 
@@ -43,7 +43,7 @@ public class InputManager : MonoBehaviour
             {
                 if (key.input == item.Value)
                 {
-                    _buttonKeysData.Add(item.Key, key.keySprite);
+                    _buttonKeysData.Add(item.Key, Tuple.Create(key.keySprite, key.pressedKey));
                     continue;
                 }
             }
@@ -88,15 +88,16 @@ public class InputManager : MonoBehaviour
             var keyToReplace = GetKeyNameByValue(keyCode);
             var emptyKey = _keysData.FirstOrDefault(x => x.name == "NONE");
             _buttonKeys[keyToReplace] = emptyKey.input;
-            _buttonKeysData[keyToReplace] = emptyKey.keySprite;
+            _buttonKeysData[keyToReplace] = Tuple.Create(emptyKey.keySprite, emptyKey.pressedKey);
 
             SetButtonAlreadyExist(keyToReplace, emptyKey.keySprite);
         }
 
 
         Sprite keySprite = _keysData.FirstOrDefault(x => x.input == keyCode).keySprite;
+        Sprite pressedKey = _keysData.FirstOrDefault(x => x.input == keyCode).pressedKey;
         _buttonKeys[buttonName] = keyCode;
-        _buttonKeysData[buttonName] = keySprite;
+        _buttonKeysData[buttonName] = Tuple.Create(keySprite, pressedKey);
 
         SetNewButton(keySprite);
     }
@@ -112,7 +113,8 @@ public class InputManager : MonoBehaviour
     #region UTILS
 
     string GetKeyNameByValue(KeyCode keyCode) => _buttonKeys.FirstOrDefault(x => x.Value == keyCode).Key;
-    public Sprite GetKeySpriteByName(string keyName) => _buttonKeysData[keyName];
+    public Sprite GetKeySpriteByName(string keyName) => _buttonKeysData[keyName].Item1;
+    public Sprite GetPressedKeySpriteByName(string keyName) => _buttonKeysData[keyName].Item2;
 
     #endregion
 }

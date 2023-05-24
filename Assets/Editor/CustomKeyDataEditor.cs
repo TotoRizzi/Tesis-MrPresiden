@@ -16,6 +16,7 @@ public class CustomKeyDataEditor : Editor
         KeyData keyData = (KeyData)target;
 
         keyData.keySprite = (Sprite)EditorGUILayout.ObjectField("Key Sprite", keyData.keySprite, typeof(Sprite), false);
+        keyData.pressedKey = (Sprite)EditorGUILayout.ObjectField("Pressed Key", keyData.pressedKey, typeof(Sprite), false);
 
         EditorGUILayout.EndVertical();
 
