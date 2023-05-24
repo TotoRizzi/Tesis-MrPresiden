@@ -3,8 +3,8 @@ using UnityEngine;
 using Weapons;
 public class WeaponManager : MonoBehaviour
 {
-    [SerializeField] Weapon _currentMainWeapon;
-    [SerializeField] Weapon _currentSecundaryWeapon;
+    [SerializeField] Weapon _currentMainWeapon, _currentSecundaryWeapon;
+    [SerializeField] GameObject _rightHand, _leftHand;
 
     Camera _mainCamera;
     Transform _mainWeaponContainer;
@@ -82,6 +82,8 @@ public class WeaponManager : MonoBehaviour
         _currentMainWeapon.PickUp().SetParent(_mainWeaponContainer).SetPosition(_mainWeaponContainer.position);
         _currentMainWeapon.UpdateCurrentWeapon();
         _currentMainWeapon.GetComponent<FireWeapon>().UpdateAmmoAmount();
+        _rightHand.SetActive(false);
+        _leftHand.SetActive(false);
     }
     private void ThrowWeapon()
     {
@@ -98,6 +100,8 @@ public class WeaponManager : MonoBehaviour
         _mainWeaponContainer.eulerAngles = Vector2.zero;
         _lookAtMouse -= MainWeapon;
         GameManager.instance.UiManager.SetDefaultWeaponSprite();
+        _rightHand.SetActive(true);
+        _leftHand.SetActive(true);
     }
     void MainWeapon()
     {
