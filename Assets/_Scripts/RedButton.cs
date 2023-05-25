@@ -42,6 +42,10 @@ public class RedButton : MonoBehaviour
     {
         if (collision.GetComponent<WeaponManager>()) _isPlayerOnTrigger = true;
     }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.GetComponent<WeaponManager>()) _isPlayerOnTrigger = true;
+    }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.GetComponent<WeaponManager>()) _isPlayerOnTrigger = false;

@@ -5,10 +5,8 @@ public class KeysUI : MonoBehaviour
 {
     [SerializeField] Image _keyImg;
     Sprite _mainSprite, _pressedSprite;
-    private void Start()
-    {
-        StartCoroutine(PressedAnimation());
-    }
+
+    public bool active { get; set; }
     IEnumerator PressedAnimation()
     {
         var waitForSeconds = new WaitForSeconds(.5f);
@@ -32,18 +30,27 @@ public class KeysUI : MonoBehaviour
     {
         _mainSprite = InputManager.Instance.GetKeySpriteByName(inputName);
         _pressedSprite = InputManager.Instance.GetPressedKeySpriteByName(inputName);
+        if (active) StartCoroutine(PressedAnimation());
         return this;
     }
-
+    private void Reset()
+    {
+        active = false;
+        _keyImg.sprite = null;
+    }
     #endregion
-
     public static void TurnOn(KeysUI k)
     {
+        k.active = true;
         k.gameObject.SetActive(true);
     }
     public static void TurnOff(KeysUI k)
     {
-        if (k) k.gameObject.SetActive(false);
+        if (k)
+        {
+            k.Reset();
+            k.gameObject.SetActive(false);
+        }
     }
 
     public void ReturnObject()

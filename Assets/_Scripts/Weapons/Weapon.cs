@@ -90,7 +90,7 @@ namespace Weapons
             _rb.velocity = Vector2.zero;
             transform.eulerAngles = Vector3.zero;
             if (_animator) _animator.enabled = false;
-            _spriteRenderer.sprite = _weaponData.mainSprite;
+            if (_droppableWeapon) _spriteRenderer.sprite = _weaponData.mainSprite;
             return this;
         }
 

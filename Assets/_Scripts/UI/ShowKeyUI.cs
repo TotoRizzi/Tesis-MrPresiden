@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 public class ShowKeyUI : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class ShowKeyUI : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.GetComponent<WeaponManager>()) _keyUI.SetPosition(transform.position + Vector3.up).SetButtonSprite(_keyName);
+        if (collision.GetComponent<WeaponManager>()) _keyUI.SetPosition(transform.position + Vector3.up);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
