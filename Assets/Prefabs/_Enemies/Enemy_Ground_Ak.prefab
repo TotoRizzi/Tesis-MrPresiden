@@ -221,7 +221,7 @@ MonoBehaviour:
   - {x: -0.5079254, y: -0.38612878, z: 0}
   m_ShapePathHash: 155286588
   m_Mesh: {fileID: 0}
-  m_InstanceId: 64884
+  m_InstanceId: 218328
 --- !u!1 &1729968458609842711
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,8 +464,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f46bad7eee0977c4d97daaa6dddd72ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _feedBack: {fileID: 1729968459251276772}
+  anim: {fileID: 0}
   sprite: {fileID: 1729968459289125578}
+  _isRobot: 0
   _maxHp: 3
   _anim: {fileID: 0}
   _speed: 1
@@ -663,8 +664,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1075233411
+  m_SortingLayer: 2
   m_SortingOrder: 8
   m_Sprite: {fileID: 21300000, guid: 3d0233f22664cc14b8efa9e44ce33348, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
