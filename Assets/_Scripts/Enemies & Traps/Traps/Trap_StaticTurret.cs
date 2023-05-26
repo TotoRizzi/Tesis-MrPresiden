@@ -35,7 +35,7 @@ public class Trap_StaticTurret : MonoBehaviour
         if (_currentAttackSpeed > _attackSpeed)
         {
             FRY_EnemyBullet.Instance.pool.GetObject().SetPosition(_shootingPoint.position)
-                                                .SetDirection(transform.right)
+                                                .SetDirection(_shootingPoint.right)
                                                 .SetDmg(_damage)
                                                 .SetSpeed(_bulletSpeed);
             _currentAttackSpeed = 0;
