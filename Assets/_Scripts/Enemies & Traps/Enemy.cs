@@ -70,7 +70,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected bool CanSeePlayer()
     {
-        return gameManager.Player ? !Physics2D.Raycast(transform.position, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.BorderLayer) : false;
+        return gameManager.Player ? !Physics2D.CircleCast(transform.position, .2f, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.BorderLayer) : false;
     }
 
     protected void ResetHp()
