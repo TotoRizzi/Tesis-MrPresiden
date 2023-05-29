@@ -90,7 +90,7 @@ namespace Weapons
             _rb.velocity = Vector2.zero;
             transform.eulerAngles = Vector3.zero;
             if (_animator) _animator.enabled = false;
-            if (_droppableWeapon) _spriteRenderer.sprite = _weaponData.mainSprite;
+            if (_droppableWeapon) _spriteRenderer.sprite = _weaponData.handWeapon;
             return this;
         }
 
@@ -98,7 +98,8 @@ namespace Weapons
         {
             _rb.simulated = true;
             _rb.AddForce(direction * 3, ForceMode2D.Impulse);
-            _animator.enabled = true;
+            if (_animator) _animator.enabled = true;
+            _spriteRenderer.sprite = _weaponData.mainSprite;
             return this;
         }
 

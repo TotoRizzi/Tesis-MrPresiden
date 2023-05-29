@@ -25,6 +25,8 @@ public class CustomWeaponDataEditor : Editor
 
         weaponData.selectedSprite = (Sprite)EditorGUILayout.ObjectField("Selected Sprite", weaponData.selectedSprite, typeof(Sprite), false);
 
+        weaponData.handWeapon = (Sprite)EditorGUILayout.ObjectField("Hand Weapon", weaponData.handWeapon, typeof(Sprite), false);
+
         weaponData.bulletExplosion = (GameObject)EditorGUILayout.ObjectField("Bullet Explosion", weaponData.bulletExplosion, typeof(GameObject), false);
 
         EditorGUILayout.LabelField("Weapon Sound Name");
