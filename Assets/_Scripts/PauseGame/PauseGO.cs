@@ -20,7 +20,6 @@ public class PauseGO : IScreen
             if (rb)
             {
                 rb.WakeUp();
-                rb.simulated = true;
                 rb.AddForce(_rbForces[count], ForceMode2D.Impulse);
                 count++;
             }
@@ -38,7 +37,6 @@ public class PauseGO : IScreen
             {
                 _rbForces.Add(rb.velocity);
                 rb.Sleep();
-                rb.simulated = false;
             }
             b.enabled = false;
         }
