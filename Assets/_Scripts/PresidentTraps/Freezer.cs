@@ -23,7 +23,7 @@ public class Freezer : MonoBehaviour
 
         RuntimeAnimatorController ac = _presidentAnimator.runtimeAnimatorController;
         foreach (var anim in ac.animationClips)
-            if (anim.name == "Level 10") _animSpeed = anim.length;
+            if (anim.name == "Level 8") _animSpeed = anim.length;
 
         _iceStartColor = _ice.color;
 
