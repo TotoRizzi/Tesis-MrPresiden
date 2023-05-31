@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1226913322784011990}
   - component: {fileID: 2744944507126100144}
   - component: {fileID: 4949821543803570366}
+  - component: {fileID: 5463355056716467744}
   m_Layer: 20
   m_Name: KeyCard
   m_TagString: Untagged
@@ -71,6 +72,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &5463355056716467744
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4528332574081447951}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eaf1079e4a3a5fc439e57fbdd731e46e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7278154950818362365
 GameObject:
   m_ObjectHideFlags: 0
