@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour, IDamageable
         return gameManager.Player ? (gameManager.Player.transform.position + Vector3.up) - transform.position : Vector3.zero;
     }
 
-    protected bool CanSeePlayer()
+    public virtual bool CanSeePlayer()
     {
         return gameManager.Player ? !Physics2D.CircleCast(transform.position, .2f, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.BorderLayer) : false;
     }

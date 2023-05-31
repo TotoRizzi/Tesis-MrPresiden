@@ -21,6 +21,10 @@ public class Enemy_ShootingRobot : Enemy_Waypoint
         OnUpdate += () => { if (CanSeePlayer()) _armRotation.Move(); };
     }
 
+    public override bool CanSeePlayer()
+    {
+        return gameManager.Player ? !Physics2D.Raycast(transform.position, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.BorderLayer) : false;
+    }
     void CalculateAttack()
     {
         if (!CanSeePlayer()) return;
