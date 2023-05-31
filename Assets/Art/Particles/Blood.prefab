@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6893596400490989036}
   m_Layer: 10
   m_Name: Blood
-  m_TagString: Untagged
+  m_TagString: Cinematica
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4819,15 +4819,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Events:
     m_Signals:
-    - {fileID: 11400000, guid: de32f6c77ffb76b4b9780be2eab1deb6, type: 2}
-    - {fileID: 11400000, guid: 6b709dfae14f39848ab1baeb0b44fead, type: 2}
+    - {fileID: 11400000, guid: 1d0e830002ac39240a3a7707b0e2e687, type: 2}
+    - {fileID: 11400000, guid: aafe9ae09911dcf429ef344b61f85904, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 4241674316159165810}
           m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
           m_MethodName: Play
-          m_Mode: 6
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

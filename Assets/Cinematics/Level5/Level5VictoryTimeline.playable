@@ -437,7 +437,7 @@ MonoBehaviour:
   m_Time: 1.3333333333333333
   m_Retroactive: 0
   m_EmitOnce: 0
-  m_Asset: {fileID: 11400000, guid: 169c8d83c2b38504885b5857089edbe2, type: 2}
+  m_Asset: {fileID: 11400000, guid: aafe9ae09911dcf429ef344b61f85904, type: 2}
 --- !u!114 &-114204547010548365
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -477,6 +477,7 @@ MonoBehaviour:
   m_Tracks:
   - {fileID: -589570069421485083}
   - {fileID: 7003860733489514126}
+  - {fileID: 4835791578348695842}
   - {fileID: -3384131703459984260}
   - {fileID: 8484356485898834390}
   - {fileID: -979968760267242769}
@@ -486,6 +487,22 @@ MonoBehaviour:
     m_ScenePreview: 1
   m_DurationMode: 0
   m_MarkerTrack: {fileID: -114204547010548365}
+--- !u!114 &9113293733697702
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter(Clone)
+  m_EditorClassIdentifier: 
+  m_Time: 1.3333333333333333
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: aafe9ae09911dcf429ef344b61f85904, type: 2}
 --- !u!114 &2173412458049360661
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -508,6 +525,30 @@ MonoBehaviour:
   m_Loop: 0
   m_Version: 1
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &4835791578348695842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b46e36075dd1c124a8422c228e75e1fb, type: 3}
+  m_Name: Signal Track (3)
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children: []
+  m_Clips: []
+  m_Markers:
+    m_Objects:
+    - {fileID: 9113293733697702}
 --- !u!114 &5378093840207863926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -539,7 +580,7 @@ MonoBehaviour:
   m_Time: 0
   m_Retroactive: 0
   m_EmitOnce: 0
-  m_Asset: {fileID: 11400000, guid: aba43e9a4dac6a34da0a191f0d007ceb, type: 2}
+  m_Asset: {fileID: 11400000, guid: aafe9ae09911dcf429ef344b61f85904, type: 2}
 --- !u!114 &7003860733489514126
 MonoBehaviour:
   m_ObjectHideFlags: 1
