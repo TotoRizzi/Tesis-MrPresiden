@@ -348,6 +348,8 @@ public class OnAirState : IState
 
     public void OnEnter()
     {
+        if (_player.GroundCheck.IsGrounded)
+            _player.fsm.ChangeState(StateName.Idle);
     }
 
     public void OnExit()
