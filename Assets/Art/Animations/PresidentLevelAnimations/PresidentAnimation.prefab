@@ -10508,7 +10508,8 @@ MonoBehaviour:
   m_Events:
     m_Signals:
     - {fileID: 11400000, guid: 98a14e7c8f43cf14a9bf8e9394e32734, type: 2}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 3a49991251e71ba4fbd5fcd80e81ccf6, type: 2}
+    - {fileID: 11400000, guid: 60ea703797003cc4897f10d27cd4b24d, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -10536,6 +10537,20 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Level Defeat Animation
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 636846085525986385}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Level Won Animation
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!114 &6667381484988706487
