@@ -1,14 +1,14 @@
 using UnityEngine;
 public class Catapulta : MonoBehaviour
 {
-    Vector3 _initialRotation;
-    [SerializeField] Vector3 _targetRotation;
+    Quaternion _initialQuaterion;
+    [SerializeField ]Quaternion _targetQuaternion;
     void Start()
     {
-        _initialRotation = transform.eulerAngles;   
+        _initialQuaterion = transform.rotation;   
     }
     void Update()
     {
-        transform.eulerAngles = Vector3.Lerp(_initialRotation, _targetRotation, Helpers.LevelTimerManager.Timer / Helpers.LevelTimerManager.LevelMaxTime);
+        transform.rotation = Quaternion.Slerp(_initialQuaterion, _targetQuaternion, Helpers.LevelTimerManager.Timer / Helpers.LevelTimerManager.LevelMaxTime);
     }
 }
