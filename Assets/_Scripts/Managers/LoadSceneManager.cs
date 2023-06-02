@@ -20,7 +20,7 @@ public class LoadSceneManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F1))
         {
             if (SceneManager.GetActiveScene().name == "WinScreen" || SceneManager.GetActiveScene().name == "Menu") return;
-            if (SceneManager.GetActiveScene().buildIndex == 27)
+            if (SceneManager.GetActiveScene().buildIndex == 28)
             {
                 LoadLevel("WinScreen");
                 return;
