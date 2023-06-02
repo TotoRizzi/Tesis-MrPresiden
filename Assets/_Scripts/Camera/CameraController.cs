@@ -1,9 +1,11 @@
 using System.Collections;
 using UnityEngine;
+using System;
 public class CameraController : MonoBehaviour
 {
     GameManager _gameManager;
     Player _player;
+    Action _cameraBehaviour;
 
     [SerializeField] AnimationCurve _curve;
     [SerializeField] float[] _clampX = new float[2];
@@ -15,16 +17,19 @@ public class CameraController : MonoBehaviour
         _gameManager = GameManager.instance;
         _player = _gameManager.Player;
         _gameManager.EnemyManager.OnEnemyKilled += () => StartCoroutine(Shaking());
+
+        _cameraBehaviour = _static ? delegate { } : (Action)CameraClamped;
     }
     private void LateUpdate()
     {
-        if (!_static)
-        {
-            float xClamp = Mathf.Clamp(_player.transform.position.x, _clampX[0], _clampX[1]);
-            float yClamp = Mathf.Clamp(_player.transform.position.y, _clampY[0], _clampY[1]);
-            Vector3 targetPosition = new Vector3(xClamp, yClamp, transform.position.z);
-            transform.position = Vector3.Lerp(transform.position, targetPosition, _smooth * Time.deltaTime);
-        }
+        _cameraBehaviour();
+    }
+    void CameraClamped()
+    {
+        float xClamp = Mathf.Clamp(_player.transform.position.x, _clampX[0], _clampX[1]);
+        float yClamp = Mathf.Clamp(_player.transform.position.y, _clampY[0], _clampY[1]);
+        Vector3 targetPosition = new Vector3(xClamp, yClamp, transform.position.z);
+        transform.position = Vector3.Lerp(transform.position, targetPosition, _smooth * Time.deltaTime);
     }
     public void StartCameraShake(float duration) => StartCoroutine(CameraShake(duration));
     public void StartShaking() => StartCoroutine(Shaking());
@@ -36,8 +41,8 @@ public class CameraController : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            float x = Random.Range(-1f, 1f) * .015f;
-            float y = Random.Range(-1f, 1f) * .015f;
+            float x = UnityEngine.Random.Range(-1f, 1f) * .015f;
+            float y = UnityEngine.Random.Range(-1f, 1f) * .015f;
 
             transform.localPosition = new Vector3(startPosition.x + x, startPosition.y + y, startPosition.z);
 
@@ -59,7 +64,7 @@ public class CameraController : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float strenght = _curve.Evaluate(elapsedTime / _gameManager.CameraShakeDuration);
-            transform.localPosition = startPosition + Random.insideUnitSphere * strenght;
+            transform.localPosition = startPosition + UnityEngine.Random.insideUnitSphere * strenght;
             yield return null;
         }
 
