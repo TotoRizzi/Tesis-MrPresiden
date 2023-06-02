@@ -18,9 +18,9 @@ public class TutorialVillainText : MonoBehaviour
         _player = Helpers.GameManager.Player.transform;
         _initialPos = _eyesParent.position;
     }
-    private void LateUpdate()
+    private void Update()
     {
-        _eyesParent.position = Vector3.Lerp(_eyesParent.position, new Vector3(Mathf.Clamp(_player.position.x, _initialPos.x + _minClampX, _initialPos.x + _maxClampX), Mathf.Clamp(_player.position.y, _initialPos.y + _minClampY, _initialPos.y + _maxClampY), _eyesParent.position.z),Time.deltaTime * _eyesSpeed);
+        _eyesParent.position = Vector3.SlerpUnclamped(_eyesParent.position, new Vector3(Mathf.Clamp(_player.position.x, _initialPos.x + _minClampX, _initialPos.x + _maxClampX), Mathf.Clamp(_player.position.y, _initialPos.y + _minClampY, _initialPos.y + _maxClampY), _eyesParent.position.z), Time.deltaTime * _eyesSpeed);
     }
     IEnumerator Type()
     {
