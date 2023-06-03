@@ -6,6 +6,7 @@ public class RedButton : MonoBehaviour
     Animator _anim;
     bool _isPlayerOnTrigger;
     InputManager _inputManager;
+    ShowKeyUI _showKeyUI;
 
     //[SerializeField] GameObject lightParent;
     [SerializeField] SpriteRenderer _buttonSprite;
@@ -14,6 +15,8 @@ public class RedButton : MonoBehaviour
         Helpers.GameManager.OnRoomWon += ShowExit;
         Helpers.GameManager.OnPlayerDead += () => StartCoroutine(HideExit());
 
+        _showKeyUI = GetComponentInChildren<ShowKeyUI>();
+        _showKeyUI.gameObject.SetActive(false);
         _inputManager = InputManager.Instance;
         _collider = GetComponent<Collider2D>();
         _anim = GetComponentInChildren<Animator>();
@@ -27,6 +30,7 @@ public class RedButton : MonoBehaviour
     {
         _anim.SetBool("IsOpen", true);
         _collider.enabled = true;
+        _showKeyUI.gameObject.SetActive(true);
         //lightParent.SetActive(true);
         _buttonSprite.color = Color.red;
     }
@@ -34,6 +38,7 @@ public class RedButton : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         _collider.enabled = false;
+        _showKeyUI.gameObject.SetActive(false);
         _anim.SetBool("IsOpen", false);
         //lightParent.SetActive(false);
         _buttonSprite.color = Color.white;
