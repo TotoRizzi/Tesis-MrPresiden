@@ -58,7 +58,6 @@ public class Enemy_Waypoint : Enemy
         if (collision.gameObject.tag == "InvisibleWall")
         {
             Flip();
-            Debug.Log("InsivibleWall");
         }
     }
 }

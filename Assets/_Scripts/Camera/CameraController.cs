@@ -55,8 +55,6 @@ public class CameraController : MonoBehaviour
     }
     IEnumerator Shaking()
     {
-        Debug.Log("Shaking");
-
         Vector3 startPosition = transform.localPosition;
         float elapsedTime = 0f;
 

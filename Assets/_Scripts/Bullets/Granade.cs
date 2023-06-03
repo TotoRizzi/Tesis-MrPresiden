@@ -29,6 +29,11 @@ public class Granade : MonoBehaviour
     {
         transform.right = _rb.velocity;
     }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _explosionRadius);
+    }
     private void FixedUpdate()
     {
         _rb.AddForce(_falling ? Vector2.down * (_gravityScale * _fallGravityMultiplier) : Vector2.down * _gravityScale);
@@ -60,22 +65,23 @@ public class Granade : MonoBehaviour
     }
     void Explosion()
     {
-        var collisions = Physics2D.CircleCastAll(transform.position, _explosionRadius, Vector2.one, GameManager.instance.DynamicBodiesLayer).
-                                                                                                                                            Where(x => x.collider.GetComponent<IDamageable>() != null && x.collider.GetComponent<Rigidbody2D>() != null && !x.collider.GetComponent<Player>()).
-                                                                                                                                            Select(x => x.collider.GetComponent<Rigidbody2D>());
+        var collisions = Physics2D.OverlapCircleAll(transform.position, _explosionRadius, GameManager.instance.DynamicBodiesLayer).
+                                                                                                                                   Where(x => x.GetComponent<IDamageable>() != null && x.GetComponent<Rigidbody2D>() != null && !x.GetComponent<Player>()).
+                                                                                                                                   Select(x => x.GetComponent<Rigidbody2D>());
         if (collisions.Count() <= 0) return;
         foreach (var item in collisions)
         {
-            if (!InSight(item.position, _groundLayer)) return;
+            Debug.Log(item.name);
+            if (IsBlocked(item.position, _groundLayer)) continue;
             item.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
             var breakable = item.GetComponent<IDamageable>();
             if (breakable != null) breakable.TakeDamage(_damage);
         }
     }
 
-    bool InSight(Vector3 other, LayerMask ground)
+    bool IsBlocked(Vector3 other, LayerMask ground)
     {
-        return !Physics2D.Raycast(transform.position, other - transform.position, (other - transform.position).magnitude, ground);
+        return Physics2D.Raycast(transform.position, other - transform.position, (other - transform.position).magnitude, ground);
     }
 
     #region BUILDER 
