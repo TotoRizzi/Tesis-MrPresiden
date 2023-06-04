@@ -23,6 +23,10 @@ public class LevelTimerManager : MonoBehaviour
         Helpers.GameManager.EnemyManager.OnEnemyKilled += StopTrap;
         RedButton += WinLevel;
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F2)) _timer = _levelMaxTime;
+    }
     private void OnDisable()
     {
         RedButton -= WinLevel;
