@@ -9,6 +9,7 @@ public class EnemyManager : MonoBehaviour
     private List<Enemy> _allEnemies = new List<Enemy>();
 
     public event Action OnEnemyKilled;
+    public event Action OnHeavyAttack;
 
     int _maxEnemies;
 
@@ -58,5 +59,10 @@ public class EnemyManager : MonoBehaviour
     public void ResetLevel()
     {
         _allEnemies.Clear();
+    }
+
+    public void HeavyAttack()
+    {
+        OnHeavyAttack?.Invoke();
     }
 }

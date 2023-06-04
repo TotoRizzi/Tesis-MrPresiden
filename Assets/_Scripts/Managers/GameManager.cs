@@ -75,7 +75,6 @@ public class GameManager : MonoBehaviour
     GameModeManager _gameMode;
     public GameModeManager GameMode { get { return _gameMode; } private set { } }
 
-
     private void Awake()
     {
         if (instance == null) instance = this;

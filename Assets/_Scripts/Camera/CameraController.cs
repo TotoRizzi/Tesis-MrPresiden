@@ -17,6 +17,7 @@ public class CameraController : MonoBehaviour
         _gameManager = GameManager.instance;
         _player = _gameManager.Player;
         _gameManager.EnemyManager.OnEnemyKilled += () => StartCoroutine(Shaking());
+        _gameManager.EnemyManager.OnHeavyAttack += () => StartCoroutine(Shaking());
 
         _cameraBehaviour = _static ? delegate { } : (Action)CameraClamped;
     }
