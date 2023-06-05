@@ -25,7 +25,11 @@ public class LevelTimerManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F2)) _timer = _levelMaxTime;
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            Helpers.LevelTimerManager.StartLevelTimer();
+            _timer = _levelMaxTime;
+        }
     }
     private void OnDisable()
     {
