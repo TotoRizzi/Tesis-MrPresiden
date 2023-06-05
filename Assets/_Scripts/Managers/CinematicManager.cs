@@ -17,12 +17,12 @@ public class CinematicManager : MonoBehaviour
         Helpers.LevelTimerManager.OnLevelDefeat += PlayDefeatCinematic;
 
         _cinemacticCamera.SetActive(false);
-        _initialTimeline = GameObject.Find("InitialTimeline").GetComponent<PlayableDirector>();
-        _defeatTimeline = GameObject.Find("DefeatTimeline").GetComponent<PlayableDirector>();
-        _victoryTimeline = GameObject.Find("VictoryTimeline").GetComponent<PlayableDirector>();
+        _initialTimeline = GameObject.Find("InitialTimeline") ? GameObject.Find("InitialTimeline").GetComponent<PlayableDirector>() : null;
+        _defeatTimeline = GameObject.Find("DefeatTimeline") ? GameObject.Find("DefeatTimeline").GetComponent<PlayableDirector>(): null;
+        _victoryTimeline = GameObject.Find("VictoryTimeline") ? GameObject.Find("VictoryTimeline").GetComponent<PlayableDirector>() : null ;
         var currentScene = "initialTimeline " + SceneManager.GetActiveScene().name;
 
-        if (!PlayerPrefs.HasKey(currentScene))
+        if (!PlayerPrefs.HasKey(currentScene) && _initialTimeline)
         {
             _initialTimeline.Play();
             Helpers.GameManager.PauseManager.PauseObjectsInCinematic();
@@ -32,6 +32,8 @@ public class CinematicManager : MonoBehaviour
     }
     public void PlayDefeatCinematic()
     {
+        if (!_defeatTimeline) Helpers.GameManager.LoadSceneManager.ReloadLevel();
+
         var defeatCinematic = "defeatTimeline " + SceneManager.GetActiveScene().name;
         _cinemacticCamera.SetActive(true);
         _defeatTimeline.Play();

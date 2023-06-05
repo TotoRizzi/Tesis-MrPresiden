@@ -19,6 +19,7 @@ public class PauseGO : IScreen
             var rb = keyValue.Key.GetComponent<Rigidbody2D>();
             if (rb)
             {
+                rb.simulated = true;
                 rb.WakeUp();
                 rb.AddForce(_rbForces[count], ForceMode2D.Impulse);
                 count++;
@@ -36,6 +37,7 @@ public class PauseGO : IScreen
             if (rb)
             {
                 _rbForces.Add(rb.velocity);
+                rb.simulated = false;
                 rb.Sleep();
             }
             b.enabled = false;
