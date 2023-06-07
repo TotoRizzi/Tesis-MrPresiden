@@ -11,6 +11,7 @@ public class Granade : MonoBehaviour
 
     public float ThrowForce { get { return _throwForce; } }
 
+    TrailRenderer _trail;
     Rigidbody2D _rb;
     Vector2 _direction;
     float _damage;
@@ -23,6 +24,8 @@ public class Granade : MonoBehaviour
     }
     private void Start()
     {
+        Helpers.GameManager.OnPlayerDead += ReturnGrenade;
+        _trail = GetComponent<TrailRenderer>();
         _groundLayer = GameManager.instance.GroundLayer;
     }
     private void Update()
@@ -45,7 +48,7 @@ public class Granade : MonoBehaviour
             Explosion();
             Helpers.AudioManager.PlaySFX("Grenade_Destroy");
             FRY_GrenadeExplosion.Instance.pool.GetObject().SetPosition(transform.position);
-            FRY_Granades.Instance.ReturnBullet(this);
+            ReturnGrenade();
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -55,7 +58,7 @@ public class Granade : MonoBehaviour
             Explosion();
             Helpers.AudioManager.PlaySFX("Grenade_Destroy");
             FRY_GrenadeExplosion.Instance.pool.GetObject().SetPosition(transform.position);
-            FRY_Granades.Instance.ReturnBullet(this);
+            ReturnGrenade();
         }
     }
 
@@ -82,6 +85,12 @@ public class Granade : MonoBehaviour
     bool IsBlocked(Vector3 other, LayerMask ground)
     {
         return Physics2D.Raycast(transform.position, other - transform.position, (other - transform.position).magnitude, ground);
+    }
+
+    void ReturnGrenade()
+    {
+        _trail.Clear();
+        FRY_Granades.Instance.ReturnBullet(this);
     }
 
     #region BUILDER 
