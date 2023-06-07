@@ -60,10 +60,7 @@ public class Player : MonoBehaviour
     [SerializeField] float _dashDuration;
     public float DashDuration { get { return _dashDuration; } private set { } }
 
-    float _maxDashCd = 2f;
-    float _currentDashCd = 2f;
-
-    bool _canDash => _currentDashCd >= _maxDashCd;
+    bool _canDash = true;
     public bool CanDash { get { return _canDash; } private set { } }
 
     #endregion
@@ -148,20 +145,8 @@ public class Player : MonoBehaviour
 
     public void Dash(float xAxis)
     {
-        _currentDashCd = 0;
         _rb.velocity = new Vector2(xAxis * _dashSpeed * Time.fixedDeltaTime, 0f);
 
-        StartCoroutine(ReturnDashCd());
-    }
-
-    IEnumerator ReturnDashCd()
-    {
-        while(_currentDashCd < _maxDashCd)
-        {
-            _currentDashCd += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
-        }
-        yield return null;
     }
 
     public void LookAtMouse()
@@ -214,6 +199,12 @@ public class Player : MonoBehaviour
     public void ReturnJumps()
     {
         _currentJumps = MaxJumps;
+        _canDash = true;
+    }
+
+    public void BlockDash()
+    {
+        _canDash = false;
     }
 
     public void PausePlayer()
@@ -417,6 +408,7 @@ public class DashState : IState
     public void OnExit()
     {
         _player.FreezeVelocity();
+        _player.BlockDash();
     }
 
     public void OnFixedUpdate()
