@@ -105,6 +105,7 @@ public class Player : MonoBehaviour
         fsm.ChangeState(StateName.Idle);
 
         _gameManager.OnPlayerDead += () => fsm.ChangeState(StateName.Idle);
+        _gameManager.OnPlayerDead += ReturnJumps;
     }
 
     private void Update()

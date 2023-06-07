@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Trap_FallingWall : MonoBehaviour
 {
+    [SerializeField] float _startDelay = .5f;
     [SerializeField] bool _horizontal;
     [SerializeField] float _speed;
     [SerializeField] float _waitSeconds;
     Vector3 _dir;
     bool _isFacingRight = true;
-    bool _canMove = true;
+    bool _canMove;
 
     public void Start()
     {
@@ -20,6 +21,8 @@ public class Trap_FallingWall : MonoBehaviour
             FlipHorizontal();
             transform.right = transform.up;
         }
+
+        StartCoroutine(StartDelay());
     }
 
     private void Update()
@@ -86,4 +89,9 @@ public class Trap_FallingWall : MonoBehaviour
         }
     }
 
+    IEnumerator StartDelay()
+    {
+        yield return new WaitForSeconds(_startDelay);
+        _canMove = true;
+    }
 }
