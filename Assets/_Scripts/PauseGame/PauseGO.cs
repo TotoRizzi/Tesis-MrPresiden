@@ -5,6 +5,7 @@ public class PauseGO : IScreen
     Dictionary<Behaviour, bool> _before;
     Transform _root;
     List<Vector2> _rbForces = new List<Vector2>();
+    List<string> _rbSimulated = new List<string>();
     public PauseGO(Transform root)
     {
         _before = new Dictionary<Behaviour, bool>();
@@ -19,7 +20,8 @@ public class PauseGO : IScreen
             var rb = keyValue.Key.GetComponent<Rigidbody2D>();
             if (rb)
             {
-                rb.simulated = true;
+                if (_rbSimulated.Contains(rb.name))
+                    rb.simulated = true;
                 rb.WakeUp();
                 rb.AddForce(_rbForces[count], ForceMode2D.Impulse);
                 count++;
@@ -36,8 +38,12 @@ public class PauseGO : IScreen
             var rb = b.GetComponent<Rigidbody2D>();
             if (rb)
             {
+                if (rb.simulated)
+                {
+                    _rbSimulated.Add(rb.name);
+                    rb.simulated = false;
+                }
                 _rbForces.Add(rb.velocity);
-                rb.simulated = false;
                 rb.Sleep();
             }
             b.enabled = false;
