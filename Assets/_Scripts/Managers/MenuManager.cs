@@ -12,12 +12,13 @@ public class MenuManager : MonoBehaviour
         PlayerPrefs.DeleteAll();
         Helpers.GameManager.SaveDataManager.SaveInt(Helpers.GameManager.gameModeSaveName, gameMode);
 
-        if (trainCinematic) Helpers.GameManager.LoadSceneManager.LoadLevel("Level 0.1");
-        else
-        {
-            _trainCinematic.Play();
-            PlayerPrefs.SetString("TrainCinematic", "TrainCinematic");
-        }
+        //if (trainCinematic) Helpers.GameManager.LoadSceneManager.LoadLevel("Level 0.1");
+        //else
+        //{
+        //    _trainCinematic.Play();
+        //    PlayerPrefs.SetString("TrainCinematic", "TrainCinematic");
+        //}
+        _trainCinematic.Play();
     }
     public void BTN_Credits()
     {
