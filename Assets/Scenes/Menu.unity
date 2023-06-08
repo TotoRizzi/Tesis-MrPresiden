@@ -3533,18 +3533,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1804727458}
-        m_TargetAssemblyTypeName: LoadSceneManager, Assembly-CSharp
-        m_MethodName: LoadLevel
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &700017319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5861,6 +5849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92746b6a7028f964eb94f7cc61cca5ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _trainCinematic: {fileID: 1648621868}
 --- !u!1 &1043982670
 GameObject:
   m_ObjectHideFlags: 0
@@ -9133,7 +9122,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
