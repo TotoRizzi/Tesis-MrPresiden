@@ -367,6 +367,7 @@ GameObject:
   - component: {fileID: 53969315}
   - component: {fileID: 53969314}
   - component: {fileID: 53969316}
+  - component: {fileID: 53969317}
   m_Layer: 0
   m_Name: Rueda (4)
   m_TagString: Untagged
@@ -452,6 +453,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: -500
+--- !u!95 &53969317
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53969313}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &60657794
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1820,6 +1840,7 @@ GameObject:
   - component: {fileID: 376470681}
   - component: {fileID: 376470683}
   - component: {fileID: 376470682}
+  - component: {fileID: 376470684}
   m_Layer: 0
   m_Name: Rueda (2)
   m_TagString: Untagged
@@ -1905,6 +1926,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &376470684
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376470680}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &387070081 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5777180586706681038, guid: 281085cfeb327b6468833263236f9149, type: 3}
@@ -2215,6 +2255,7 @@ GameObject:
   - component: {fileID: 412797438}
   - component: {fileID: 412797440}
   - component: {fileID: 412797439}
+  - component: {fileID: 412797441}
   m_Layer: 0
   m_Name: Rueda (5)
   m_TagString: Untagged
@@ -2300,6 +2341,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &412797441
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412797437}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &432180338
 GameObject:
   m_ObjectHideFlags: 0
@@ -2755,6 +2815,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+--- !u!114 &487042492 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1755978345930722404, guid: 281085cfeb327b6468833263236f9149, type: 3}
+  m_PrefabInstance: {fileID: 60657794}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &498891527
 GameObject:
   m_ObjectHideFlags: 0
@@ -5865,6 +5936,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1043982670}
   m_CullTransparentMesh: 1
+--- !u!114 &1046416299 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1755978345930722404, guid: 281085cfeb327b6468833263236f9149, type: 3}
+  m_PrefabInstance: {fileID: 296296159}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1047965014
 GameObject:
   m_ObjectHideFlags: 0
@@ -6973,6 +7055,7 @@ GameObject:
   - component: {fileID: 1302896182}
   - component: {fileID: 1302896184}
   - component: {fileID: 1302896183}
+  - component: {fileID: 1302896185}
   m_Layer: 0
   m_Name: Rueda (3)
   m_TagString: Untagged
@@ -7058,6 +7141,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1302896185
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302896181}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1324195586
 GameObject:
   m_ObjectHideFlags: 0
@@ -7069,6 +7171,7 @@ GameObject:
   - component: {fileID: 1324195587}
   - component: {fileID: 1324195589}
   - component: {fileID: 1324195588}
+  - component: {fileID: 1324195590}
   m_Layer: 0
   m_Name: Rueda (4)
   m_TagString: Untagged
@@ -7154,6 +7257,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1324195590
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324195586}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1347133781
 GameObject:
   m_ObjectHideFlags: 0
@@ -7335,6 +7457,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1359304113 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1755978345930722404, guid: 281085cfeb327b6468833263236f9149, type: 3}
+  m_PrefabInstance: {fileID: 1422237063}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1396873828
 GameObject:
   m_ObjectHideFlags: 0
@@ -7523,6 +7656,7 @@ GameObject:
   - component: {fileID: 1467328649}
   - component: {fileID: 1467328648}
   - component: {fileID: 1467328650}
+  - component: {fileID: 1467328651}
   m_Layer: 0
   m_Name: Rueda (3)
   m_TagString: Untagged
@@ -7608,6 +7742,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: -500
+--- !u!95 &1467328651
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467328647}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1480176647
 GameObject:
   m_ObjectHideFlags: 0
@@ -8188,6 +8341,8 @@ GameObject:
   - component: {fileID: 1536409506}
   - component: {fileID: 1536409505}
   - component: {fileID: 1536409507}
+  - component: {fileID: 1536409508}
+  - component: {fileID: 1536409509}
   m_Layer: 0
   m_Name: Rueda
   m_TagString: Untagged
@@ -8273,6 +8428,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: -500
+--- !u!114 &1536409508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536409504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals: []
+    m_Events: []
+--- !u!95 &1536409509
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536409504}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1538118140
 GameObject:
   m_ObjectHideFlags: 0
@@ -8611,6 +8800,17 @@ Transform:
   m_Father: {fileID: 814774058}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1585865792 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1755978345930722404, guid: 281085cfeb327b6468833263236f9149, type: 3}
+  m_PrefabInstance: {fileID: 813346508}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1588749287
 GameObject:
   m_ObjectHideFlags: 0
@@ -8760,6 +8960,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ID: ID_Back
   _myView: {fileID: 1588749289}
+--- !u!1 &1589672972 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6958488689517159539, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
+  m_PrefabInstance: {fileID: 709140373}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1589672973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589672972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: a3f9d857504b4aa40bb2755700bf798a, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1804727458}
+          m_TargetAssemblyTypeName: LoadSceneManager, Assembly-CSharp
+          m_MethodName: LoadLevel
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: Animation
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1593174830
 GameObject:
   m_ObjectHideFlags: 0
@@ -8871,6 +9106,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607910364}
   m_CullTransparentMesh: 1
+--- !u!1 &1648621867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1648621869}
+  - component: {fileID: 1648621868}
+  m_Layer: 0
+  m_Name: MenuIntroAnim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!320 &1648621868
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648621867}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 9070130604755828527, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 1589672973}
+  - key: {fileID: 1575706758849761921, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 487042492}
+  - key: {fileID: 548612418286956333, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 2060508070}
+  - key: {fileID: -3309234060088682982, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 1046416299}
+  - key: {fileID: 4751361427240215794, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 1585865792}
+  - key: {fileID: -2275096729982947533, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 1359304113}
+  - key: {fileID: 5815722610490610259, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 1536409509}
+  - key: {fileID: -5368050548113371044, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 2088536983}
+  - key: {fileID: -8917799513280951174, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 376470684}
+  - key: {fileID: 1338335052438746060, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 1302896185}
+  - key: {fileID: -7075088976491029830, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 1665699789}
+  - key: {fileID: 6285316135134551120, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 1467328651}
+  - key: {fileID: -3523107753197727252, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 1324195590}
+  - key: {fileID: 8852047434319108644, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 412797441}
+  - key: {fileID: -3051008798015958843, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 53969317}
+  m_ExposedReferences:
+    m_References: []
+--- !u!4 &1648621869
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648621867}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1661761424
 GameObject:
   m_ObjectHideFlags: 0
@@ -8919,6 +9232,7 @@ GameObject:
   - component: {fileID: 1665699787}
   - component: {fileID: 1665699786}
   - component: {fileID: 1665699788}
+  - component: {fileID: 1665699789}
   m_Layer: 0
   m_Name: Rueda (2)
   m_TagString: Untagged
@@ -9004,6 +9318,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: -500
+--- !u!95 &1665699789
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665699785}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1672428807
 GameObject:
   m_ObjectHideFlags: 0
@@ -9656,7 +9989,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7926814729748557377, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
   m_PrefabInstance: {fileID: 709140373}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1589672972}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9318b01927e3b8a4ea6c8bb8cc0ec6dc, type: 3}
@@ -11383,6 +11716,17 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &2060508070 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1755978345930722404, guid: 281085cfeb327b6468833263236f9149, type: 3}
+  m_PrefabInstance: {fileID: 751447625}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2079240254
 GameObject:
   m_ObjectHideFlags: 0
@@ -11625,6 +11969,7 @@ GameObject:
   - component: {fileID: 2088536981}
   - component: {fileID: 2088536980}
   - component: {fileID: 2088536982}
+  - component: {fileID: 2088536983}
   m_Layer: 0
   m_Name: Rueda (1)
   m_TagString: Untagged
@@ -11710,6 +12055,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: -500
+--- !u!95 &2088536983
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088536979}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2098281964
 GameObject:
   m_ObjectHideFlags: 0
