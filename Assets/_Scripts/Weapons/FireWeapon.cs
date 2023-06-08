@@ -30,12 +30,14 @@ public class FireWeapon : Weapon
         Helpers.LevelTimerManager.StartLevelTimer();
         //_currentAmmo--;
         //UpdateAmmoAmount();
-        _muzzleFlashAnimator.Play("MuzzleFlash");
         Helpers.AudioManager.PlaySFX(_weaponData.weaponSoundName);
-        RaycastHit2D raycast = Physics2D.Raycast(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position, Vector2.Distance(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position), _borderMask);
-        Collider2D overlapCircle = Physics2D.OverlapCircle(_bulletSpawn.position, .05f, _borderMask);
-        if (!raycast && !overlapCircle || raycast && !overlapCircle)
+        bool raycast = Physics2D.Raycast(_weaponManager.MainWeaponContainer.position, _bulletSpawn.position - _weaponManager.MainWeaponContainer.position, Vector2.Distance(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position), _borderMask);
+
+        if (!raycast)
+        {
             FireWeaponShoot(bulletDirection);
+            _muzzleFlashAnimator.Play("MuzzleFlash");
+        }
     }
 
     protected virtual void FireWeaponShoot(Vector2 bulletDirection)
