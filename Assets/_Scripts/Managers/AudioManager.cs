@@ -34,7 +34,6 @@ public class AudioManager : MonoBehaviour
     public void PlaySFX(string name)
     {
         Sound s = Array.Find(sfxSounds, x => x.soundName == name);
-
         if (s == null)
             Debug.Log("Sound Not Found");
         else

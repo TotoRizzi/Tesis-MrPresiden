@@ -63,6 +63,8 @@ public class Trap_Walls : MonoBehaviour
             if (timer / _goTopTime >= 1) _myFsm.SendInput(WallsStates.WAIT_TOP);
         };
 
+        go.OnExit += x => Helpers.AudioManager.PlaySFX("WallsTrap");
+
         #endregion
 
         #region WAIT_TOP
