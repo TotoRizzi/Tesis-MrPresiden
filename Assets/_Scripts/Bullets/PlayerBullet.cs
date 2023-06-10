@@ -9,8 +9,8 @@ public class PlayerBullet : Bullet
         if (_currentDistance > _maxDistance)
             ReturnBullet();
 
-        Vector3 direction = transform.position - _lastPosition;
-        RaycastHit2D raycast = Physics2D.Raycast(transform.position, _lastPosition, direction.magnitude, _bulletLayer);
+        Vector3 direction = _lastPosition - transform.position;
+        var raycast = Physics2D.Raycast(transform.position, direction, direction.magnitude, _bulletLayer);
 
         if (raycast)
         {
@@ -33,6 +33,7 @@ public class PlayerBullet : Bullet
     public PlayerBullet SetPosition(Vector2 position)
     {
         transform.position = position;
+        _lastPosition = position;
         return this;
     }
     public PlayerBullet SetDmg(float dmg)
