@@ -421,7 +421,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.2, z: 0}
   m_ShapePathHash: -1906480883
   m_Mesh: {fileID: 0}
-  m_InstanceId: 302458
+  m_InstanceId: 66800
 --- !u!1 &859833147576569514
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,7 +774,6 @@ GameObject:
   - component: {fileID: 1707881769362260655}
   - component: {fileID: 1707881769362260652}
   - component: {fileID: 1707881769362260651}
-  - component: {fileID: 5551415109629708641}
   - component: {fileID: 74130909745753400}
   - component: {fileID: 3803697255170089862}
   - component: {fileID: 1889881096245116235}
@@ -890,20 +889,6 @@ MonoBehaviour:
   _IMGcurrentWeaponImg: {fileID: 4522345237603406403}
   _TXTcurrentWeaponAmmoAmount: {fileID: 4522345236884991479}
   _TXTdeathCount: {fileID: 6219395596831801788}
---- !u!114 &5551415109629708641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1707881769362260627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1508aecf70844aa42bf33dafc302903d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currentLevel: 0
-  _numberOfLevels: 9
 --- !u!114 &74130909745753400
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ public static class Helpers
     static GameManager _gameManager;
     static AudioManager _audioManager;
     static LevelTimerManager _levelTimerManager;
+    static PersistantData _persistantData;
     static Camera _mainCamera;
     public static GameManager GameManager
     {
@@ -28,6 +29,14 @@ public static class Helpers
         {
             if (_levelTimerManager == null) _levelTimerManager = GameObject.FindObjectOfType<LevelTimerManager>();
             return _levelTimerManager;
+        }
+    }
+    public static PersistantData PersistantData
+    {
+        get
+        {
+            if (_persistantData == null) _persistantData = PersistantData.Instance;
+            return _persistantData;
         }
     }
     public static Camera MainCamera

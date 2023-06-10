@@ -1,24 +1,20 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Playables;
-
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] PlayableDirector _trainCinematic;
-    public void BTN_Play()
+    [SerializeField] Button _continueButton;
+    private void Start()
     {
-        var gameMode = Helpers.GameManager.SaveDataManager.GetInt(Helpers.GameManager.gameModeSaveName, (int)GameMode.EasyGameMode);
-        bool trainCinematic = PlayerPrefs.HasKey("TrainCinematic");
-
+        _continueButton.gameObject.SetActive(!Helpers.PersistantData.persistantDataSaved.firstTime);
+    }
+    public void BTN_NewGame()
+    {
+        Helpers.PersistantData.DeletePersistantData();
         PlayerPrefs.DeleteAll();
-        Helpers.GameManager.SaveDataManager.SaveInt(Helpers.GameManager.gameModeSaveName, gameMode);
-
-        //if (trainCinematic) Helpers.GameManager.LoadSceneManager.LoadLevel("Level 0.1");
-        //else
-        //{
-        //    _trainCinematic.Play();
-        //    PlayerPrefs.SetString("TrainCinematic", "TrainCinematic");
-        //}
         _trainCinematic.Play();
+        Helpers.PersistantData.persistantDataSaved.firstTime = false;
     }
     public void BTN_Credits()
     {

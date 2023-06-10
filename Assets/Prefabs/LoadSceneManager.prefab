@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4929860844086526580}
   - component: {fileID: 4283510341585401682}
   - component: {fileID: 7926814729748557377}
+  - component: {fileID: 1263392920443657838}
   m_Layer: 5
   m_Name: LoadSceneManager
   m_TagString: Untagged
@@ -108,3 +109,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9318b01927e3b8a4ea6c8bb8cc0ec6dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1263392920443657838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6958488689517159539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: a3f9d857504b4aa40bb2755700bf798a, type: 2}
+    - {fileID: 11400000, guid: a35d2f131b6e45e4ab4f500799a817ee, type: 2}
+    - {fileID: 11400000, guid: b42f5cd0bedb27848a494a7cc6a70840, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7926814729748557377}
+          m_TargetAssemblyTypeName: LoadSceneManager, Assembly-CSharp
+          m_MethodName: LoadLevel
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 6
+            m_FloatArgument: 0
+            m_StringArgument: Level 2
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7926814729748557377}
+          m_TargetAssemblyTypeName: LoadSceneManager, Assembly-CSharp
+          m_MethodName: SaveCurrentLevel
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7926814729748557377}
+          m_TargetAssemblyTypeName: LoadSceneManager, Assembly-CSharp
+          m_MethodName: ReloadLevel
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 5
+            m_FloatArgument: 0
+            m_StringArgument: Level 1
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7926814729748557377}
+          m_TargetAssemblyTypeName: LoadSceneManager, Assembly-CSharp
+          m_MethodName: UnlockNewZone
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
