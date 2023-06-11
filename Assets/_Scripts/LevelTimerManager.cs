@@ -27,8 +27,13 @@ public class LevelTimerManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            Helpers.LevelTimerManager.StartLevelTimer();
+            StartLevelTimer();
             _timer = _levelMaxTime;
+        }
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            Helpers.LevelTimerManager.RedButton();
+            Helpers.GameManager.CinematicManager.PlayVictoryCinematic();
         }
     }
     private void OnDisable()

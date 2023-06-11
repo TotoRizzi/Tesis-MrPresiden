@@ -22,6 +22,10 @@ public class LevelSelectorDoor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<Player>()) Helpers.GameManager.LoadSceneManager.LoadLevel("Level " + _levelIndex);
+        if (collision.GetComponent<Player>())
+        {
+            Helpers.GameManager.LoadSceneManager.LoadLevel("Level " + _levelIndex);
+            Helpers.GameManager.Player.PausePlayer();
+        }
     }
 }
