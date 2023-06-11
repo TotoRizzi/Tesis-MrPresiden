@@ -13,7 +13,8 @@ public class CameraShake : MonoBehaviour
     {
         _gameManager = GameManager.instance;
 
-        _gameManager.EnemyManager.OnEnemyKilled += Shake;
+        _gameManager.EnemyManager.OnEnemyKilled += () => StartCoroutine(Shaking());
+        _gameManager.EnemyManager.OnHeavyAttack += () => StartCoroutine(Shaking());
     }
 
     public void Shake()

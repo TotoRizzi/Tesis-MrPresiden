@@ -4,24 +4,17 @@ using UnityEngine;
 
 public class Trap_FallingWall : MonoBehaviour
 {
+    [SerializeField] Transform[] _wayPoints;
+    int _index = 0;
+
     [SerializeField] float _startDelay = .5f;
-    [SerializeField] bool _horizontal;
     [SerializeField] float _speed;
     [SerializeField] float _waitSeconds;
     Vector3 _dir;
-    bool _isFacingRight = true;
     bool _canMove;
 
     public void Start()
     {
-        if (!_horizontal)
-            FlipVertical();
-        else
-        {
-            FlipHorizontal();
-            transform.right = transform.up;
-        }
-
         StartCoroutine(StartDelay());
     }
 
@@ -39,59 +32,32 @@ public class Trap_FallingWall : MonoBehaviour
         _canMove = true;
     }
 
-    protected void Move()
+    void Move()
     {
         transform.position += _dir * _speed * Time.deltaTime;
+        if (Vector3.Distance(transform.position, _wayPoints[_index].transform.position) < .2f) ChangeDir();
     }
 
-    void FlipVertical()
+    void ChangeDir()
     {
-        if (_isFacingRight)
+        Helpers.GameManager.EnemyManager.HeavyAttack();
+        _index++;
+
+        if (_index > _wayPoints.Length - 1)
         {
-            _isFacingRight = false;
-
-            _dir = -Vector3.up;
+            _index = 0;
         }
-        else
-        {
-            _isFacingRight = true;
-            _dir = Vector3.up;
 
-        }
-    }
+        _dir = (_wayPoints[_index].position - transform.position);
 
-    void FlipHorizontal()
-    {
-        if (_isFacingRight)
-        {
-            _isFacingRight = false;
-
-            _dir = -Vector3.right;
-        }
-        else
-        {
-            _isFacingRight = true;
-            _dir = Vector3.right;
-
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "InvisibleWall")
-        {
-            Helpers.GameManager.EnemyManager.HeavyAttack();
-            StartCoroutine(Wait());
-            if (!_horizontal)
-                FlipVertical();
-            else
-                FlipHorizontal();
-        }
+        _dir.Normalize();
+        StartCoroutine(Wait());
     }
 
     IEnumerator StartDelay()
     {
         yield return new WaitForSeconds(_startDelay);
         _canMove = true;
+        ChangeDir();
     }
 }
