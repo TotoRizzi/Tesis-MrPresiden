@@ -10,6 +10,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     [SerializeField] SpriteRenderer[] _allPlayerSprites;
     Vector3 _initialPos;
 
+    bool _isDead = false;
+
     private void Start()
     {
         _initialPos = transform.position;
@@ -20,6 +22,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(float dmg)
     {
+        if (_isDead) return;
+        _isDead = true;
         _gameManager.PlayerDead();
     }
 
@@ -42,6 +46,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         transform.position = _initialPos;
         _gameManager.Player.UnPausePlayer();
+
+        _isDead = false;
 
         foreach (var item in _allPlayerSprites)
             item.gameObject.SetActive(true);

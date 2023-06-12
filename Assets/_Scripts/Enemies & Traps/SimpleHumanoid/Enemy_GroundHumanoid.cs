@@ -70,10 +70,7 @@ public class SH_PatrolState : IState
     public void OnEnter()
     {
         _enemy.OnPatrolStart();
-        Debug.Log("PATROL");
-
-
-        Flip();
+        _dir = Vector3.right;
     }
 
     public void OnExit() 
@@ -137,7 +134,7 @@ public class SH_AttackState : IState
     {
         _enemy.OnAttackStart();
         _isInCoroutine = false;
-        Debug.Log("iDLE");
+
         //Si no lo seteas a uno se rompe el brazo y apunta para atras por como esta seteado el flip del patrol
         _enemy.transform.localScale = Vector3.one;
 
@@ -146,6 +143,7 @@ public class SH_AttackState : IState
     public void OnExit() 
     {
         _enemy.OnCancelAttack();
+
     }
 
     public void OnFixedUpdate() { }
