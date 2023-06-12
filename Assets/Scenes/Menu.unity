@@ -5354,6 +5354,7 @@ GameObject:
   m_Component:
   - component: {fileID: 814774058}
   - component: {fileID: 814774059}
+  - component: {fileID: 814774060}
   m_Layer: 0
   m_Name: Tren
   m_TagString: Untagged
@@ -5392,6 +5393,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 30
+--- !u!95 &814774060
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814774057}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &818153065
 GameObject:
   m_ObjectHideFlags: 0
@@ -10368,6 +10388,8 @@ PlayableDirector:
     value: {fileID: 412797441}
   - key: {fileID: -3051008798015958843, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
     value: {fileID: 53969317}
+  - key: {fileID: -990119429515979381, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
+    value: {fileID: 814774060}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1648621869
