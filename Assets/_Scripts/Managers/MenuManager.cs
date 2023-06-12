@@ -5,11 +5,18 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] PlayableDirector _trainCinematic;
     [SerializeField] Button _continueButton;
+    [SerializeField] GameObject _warningWindow;
     private void Start()
     {
         _continueButton.gameObject.SetActive(!Helpers.PersistantData.persistantDataSaved.firstTime);
     }
     public void BTN_NewGame()
+    {
+        var firstTime = Helpers.PersistantData.persistantDataSaved.firstTime;
+        if (firstTime) Play();
+        else _warningWindow.SetActive(true);
+    }
+    public void Play()
     {
         Helpers.PersistantData.DeletePersistantData();
         PlayerPrefs.DeleteAll();
