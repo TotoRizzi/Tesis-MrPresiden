@@ -9,7 +9,6 @@ public class ScreenPause : MonoBehaviour, IScreen
     }
     public void Resume()
     {
-        Debug.Log("Resume");
         Helpers.GameManager.PauseManager.Pop();
         Helpers.GameManager.PauseManager.TurnPause();
     }
