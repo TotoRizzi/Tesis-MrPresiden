@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class LoadSceneManager : MonoBehaviour
 {
     Animator _anim;
@@ -18,7 +17,15 @@ public class LoadSceneManager : MonoBehaviour
     public void ReloadLevel() => StartCoroutine(ChangeScene(SceneManager.GetActiveScene().buildIndex));
     public void LoadLevel(int levelIndex) => StartCoroutine(ChangeScene(levelIndex));
     public void LoadLevel(string levelName) => StartCoroutine(ChangeScene(levelName));
-    public void UnlockNewZone() => Helpers.PersistantData.persistantDataSaved.unbloquedZones++;
+    public void UnlockNewZone()
+    {
+        var levelName = SceneManager.GetActiveScene().name;
+        var persistantData = Helpers.PersistantData.persistantDataSaved;
+        if (persistantData.zones.Contains(levelName)) return;
+
+        persistantData.zones.Add(levelName);
+        persistantData.unbloquedZones++;
+    }
     public void SaveCurrentLevel()
     {
         var levelName = string.Empty;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 public class PersistantData : MonoBehaviour
@@ -45,12 +46,13 @@ public class PersistantDataSaved
     public int currentLevel = 1;
     public int gameMode = 0;
     public bool firstTime = true;
-
+    public List<string> zones = new List<string>();
     public void ResetValues()
     {
         unbloquedZones = 0;
         currentLevel = 1;
         gameMode = 0;
         firstTime = true;
+        zones = new List<string>();
     }
 }
