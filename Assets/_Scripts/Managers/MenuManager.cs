@@ -12,7 +12,8 @@ public class MenuManager : MonoBehaviour
     }
     public void BTN_NewGame()
     {
-        if (Helpers.PersistantData.persistantDataSaved.firstTime) Play();
+        var firstTime = Helpers.PersistantData.persistantDataSaved.firstTime;
+        if (firstTime) Play();
         else _warningWindow.SetActive(true);
     }
     public void Play()

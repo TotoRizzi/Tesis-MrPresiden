@@ -1,16 +1,15 @@
 using UnityEngine;
-using System.Linq;
 public class LevelSelectorDoor : MonoBehaviour
 {
     [SerializeField] int _levelIndex;
 
     Animator _anim;
-    Collider2D _colliderNoTrigger;
+    Collider2D _collider;
     private void Start()
     {
         if (_levelIndex > Helpers.PersistantData.persistantDataSaved.currentLevel) return;
         _anim = GetComponentInChildren<Animator>();
-        _colliderNoTrigger = GetComponents<Collider2D>().Where(x => !x.isTrigger).FirstOrDefault();
+        _collider = GetComponent<Collider2D>();
 
         ShowExit();
     }
@@ -18,7 +17,7 @@ public class LevelSelectorDoor : MonoBehaviour
     void ShowExit()
     {
         _anim.SetBool("IsOpen", true);
-        _colliderNoTrigger.enabled = false;
+        _collider.isTrigger = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
