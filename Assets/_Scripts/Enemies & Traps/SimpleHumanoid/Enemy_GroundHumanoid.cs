@@ -70,8 +70,10 @@ public class SH_PatrolState : IState
     public void OnEnter()
     {
         _enemy.OnPatrolStart();
+        Debug.Log("PATROL");
 
-        _dir = Vector3.right;
+
+        Flip();
     }
 
     public void OnExit() 
