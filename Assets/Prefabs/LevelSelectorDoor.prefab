@@ -69,8 +69,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2021970867
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_Sprite: {fileID: 2690184141230855581, guid: e2c8a2ec351adc84bba42c775af82c6f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -127,8 +127,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2423887177938089578}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0147, y: -0.0061, z: 0}
-  m_LocalScale: {x: 0.9128757, y: 2.409249, z: 1}
+  m_LocalPosition: {x: -0.0013, y: -0.0061, z: 0}
+  m_LocalScale: {x: 0.8860372, y: 2.409249, z: 1}
   m_Children: []
   m_Father: {fileID: 7105025233921599919}
   m_RootOrder: 1
@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 7105025233921599919}
   - component: {fileID: 3900194624719815402}
   - component: {fileID: 2155220021227668952}
+  - component: {fileID: 3153138637741393099}
   m_Layer: 20
   m_Name: LevelSelectorDoor
   m_TagString: Untagged
@@ -228,10 +229,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.3, y: 0}
+  m_Offset: {x: -0.15, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -257,3 +258,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelIndex: 0
+--- !u!61 &3153138637741393099
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7207672766553818539}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.1, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2}
+  m_EdgeRadius: 0

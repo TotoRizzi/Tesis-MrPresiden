@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using UnityEngine;
 public class PersistantData : MonoBehaviour
 {
@@ -25,11 +26,10 @@ public class PersistantData : MonoBehaviour
     }
     public void LoadPersistantData()
     {
-        persistantDataSaved = SaveLoadSystem.LoadData(PERSISTANT_DATA);
+        persistantDataSaved = File.Exists(Application.persistentDataPath + $"/{PERSISTANT_DATA}.json") ? SaveLoadSystem.LoadData(PERSISTANT_DATA) : new PersistantDataSaved();
     }
     public void DeletePersistantData()
     {
-        SaveLoadSystem.Delete(PERSISTANT_DATA);
         persistantDataSaved.ResetValues();
     }
     private void OnDestroy()
@@ -38,7 +38,7 @@ public class PersistantData : MonoBehaviour
     }
 }
 
-[Serializable]
+[System.Serializable]
 public class PersistantDataSaved
 {
     public int unbloquedZones = 0;
