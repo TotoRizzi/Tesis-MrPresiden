@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 public class PersistantData : MonoBehaviour
 {
@@ -25,11 +27,10 @@ public class PersistantData : MonoBehaviour
     }
     public void LoadPersistantData()
     {
-        persistantDataSaved = SaveLoadSystem.LoadData(PERSISTANT_DATA);
+        persistantDataSaved = File.Exists(Application.persistentDataPath + $"/{PERSISTANT_DATA}.json") ? SaveLoadSystem.LoadData(PERSISTANT_DATA) : new PersistantDataSaved();
     }
     public void DeletePersistantData()
     {
-        SaveLoadSystem.Delete(PERSISTANT_DATA);
         persistantDataSaved.ResetValues();
     }
     private void OnDestroy()
@@ -38,19 +39,20 @@ public class PersistantData : MonoBehaviour
     }
 }
 
-[Serializable]
+[System.Serializable]
 public class PersistantDataSaved
 {
     public int unbloquedZones = 0;
     public int currentLevel = 1;
     public int gameMode = 0;
     public bool firstTime = true;
-
+    public List<string> zones = new List<string>();
     public void ResetValues()
     {
         unbloquedZones = 0;
         currentLevel = 1;
         gameMode = 0;
         firstTime = true;
+        zones = new List<string>();
     }
 }
