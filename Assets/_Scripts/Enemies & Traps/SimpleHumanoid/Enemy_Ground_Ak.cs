@@ -16,14 +16,14 @@ public class Enemy_Ground_Ak : Enemy_GroundHumanoid
 
     public override void OnPatrolStart()
     {
-        _anim.Play("Run");
+        _anim.SetBool("IsRunning", true);
         sprite.right = Vector3.right;
 
     }
 
     public override void OnAttackStart()
     {
-        _anim.Play("Idle");
+        _anim.SetBool("IsRunning", false);
         _armPivot.gameObject.SetActive(true);
         _fakeArm.gameObject.SetActive(false);
     }
