@@ -12,20 +12,12 @@ public class LoadSceneManager : MonoBehaviour
 
         if (Helpers.GameManager) Helpers.GameManager.OnGameLost += () => LoadLevel("Menu");
         if (Helpers.GameManager) Helpers.GameManager.OnGameWon += () => LoadLevel("WinScreen");
+
         //Helpers.GameManager.OnSpiked += () => LoadLevel(SceneManager.GetActiveScene().buildIndex);
     }
     public void ReloadLevel() => StartCoroutine(ChangeScene(SceneManager.GetActiveScene().buildIndex));
     public void LoadLevel(int levelIndex) => StartCoroutine(ChangeScene(levelIndex));
     public void LoadLevel(string levelName) => StartCoroutine(ChangeScene(levelName));
-    public void UnlockNewZone()
-    {
-        var levelName = SceneManager.GetActiveScene().name;
-        var persistantData = Helpers.PersistantData.persistantDataSaved;
-        if (persistantData.zones.Contains(levelName)) return;
-
-        persistantData.zones.Add(levelName);
-        persistantData.unbloquedZones++;
-    }
     public void SaveCurrentLevel()
     {
         var levelName = string.Empty;

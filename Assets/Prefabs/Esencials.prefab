@@ -421,7 +421,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.2, z: 0}
   m_ShapePathHash: -1906480883
   m_Mesh: {fileID: 0}
-  m_InstanceId: 66800
+  m_InstanceId: 234858
 --- !u!1 &859833147576569514
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,6 +780,7 @@ GameObject:
   - component: {fileID: 4037572099271379933}
   - component: {fileID: 5088011039587331468}
   - component: {fileID: 36954697254546493}
+  - component: {fileID: 4930561249023294987}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -1007,6 +1008,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &4930561249023294987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707881769362260627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70ccaadfc84e0e14c923587591ac67ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2303437058315371554
 GameObject:
   m_ObjectHideFlags: 0
@@ -3823,6 +3836,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6938859774034795534}
     m_Modifications:
+    - target: {fileID: 1263392920443657838, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
+      propertyPath: m_Events.m_Events.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263392920443657838, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
+      propertyPath: m_Events.m_Signals.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263392920443657838, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[2].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6958488689517159539, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
       propertyPath: m_Name
       value: LoadSceneManager
