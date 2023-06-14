@@ -5,35 +5,40 @@ using System.Linq;
 public class LevelsMap : MonoBehaviour
 {
     [SerializeField] Zone[] _zones;
+    [SerializeField] int _currentUnlockedZone;
     private void Start()
     {
+        _currentUnlockedZone = Helpers.PersistantData.persistantDataSaved.unlockedZones;
+
         int deathsAmount = 0;
-        for (int i = 0; i < _zones[Helpers.PersistantData.persistantDataSaved.unbloquedZones].levelsZone.Length; i++)
+        for (int i = 0; i < _zones[_currentUnlockedZone].levelsZone.Length; i++)
         {
             if (!Helpers.PersistantData.persistantDataSaved.deaths.Any()) break;
-            Debug.Log(Helpers.PersistantData.persistantDataSaved.unbloquedZones);
-            deathsAmount += Helpers.PersistantData.persistantDataSaved.deaths[i + (_zones[i].levelsZone.Length * _zones[Helpers.PersistantData.persistantDataSaved.unbloquedZones].ID)];
+            deathsAmount += Helpers.PersistantData.persistantDataSaved.deaths[i + (_zones[i].levelsZone.Length * _zones[_currentUnlockedZone].ID)];
         }
 
         int actualLevelsZone = 0;
-        var coll = _zones.Select(x => x.levelsZone).Take(Helpers.PersistantData.persistantDataSaved.unbloquedZones + 1);
+        var coll = _zones.Select(x => x.levelsZone).Take(_currentUnlockedZone);
 
         foreach (var item in coll)
             actualLevelsZone += item.Count();
 
-        bool canUnlockNewZone = Helpers.PersistantData.persistantDataSaved.levels.Count >= _zones[Helpers.PersistantData.persistantDataSaved.unbloquedZones].levelsZone.Length  //Chequeo si jugo todos los niveles de la zona
-            && deathsAmount <= _zones[Helpers.PersistantData.persistantDataSaved.unbloquedZones + 1].deathsNeeded  //Chequeo si murio menos veces que lo requerido
-            && Helpers.PersistantData.persistantDataSaved.levels.Count >= actualLevelsZone;    //Chequeo si jugo mas niveles que los que hay en las zonas desbloqueadas
+        bool canUnlockNewZone = Helpers.PersistantData.persistantDataSaved.levels.Count >= _zones[_currentUnlockedZone].levelsZone.Length  //Chequeo si jugo todos los niveles de la zona
+            && deathsAmount <= _zones[_currentUnlockedZone].deathsNeeded  //Chequeo si murio menos veces que lo requerido
+            && Helpers.PersistantData.persistantDataSaved.levels.Count >= actualLevelsZone   //Chequeo si jugo mas niveles que los que hay en las zonas desbloqueadas
+            && Helpers.PersistantData.persistantDataSaved.unlockedZones < _zones.Length - 1;
 
-        if (canUnlockNewZone) Helpers.PersistantData.persistantDataSaved.unbloquedZones++;
-        for (int i = 0; i <= Helpers.PersistantData.persistantDataSaved.unbloquedZones; i++)
+        if (canUnlockNewZone) _currentUnlockedZone++;
+
+        for (int i = 0; i <= _currentUnlockedZone; i++)
         {
             _zones[i].zoneButton.interactable = true;
-            //if (i == 0) continue;
-            //_zones[i].SetDeathsText();
+            _zones[i].SetDeathsText();
         }
-
-
+    }
+    private void OnDestroy()
+    {
+        Helpers.PersistantData.persistantDataSaved.unlockedZones = _currentUnlockedZone;
     }
 }
 
@@ -47,11 +52,11 @@ public class Zone
     public int ID;
     public void SetDeathsText()
     {
-        int deathsAmount = 0;
+        int deathsAmount = default;
         for (int i = 0; i < levelsZone.Length; i++)
         {
-            Debug.Log(Helpers.PersistantData.persistantDataSaved.levels.IndexOf(levelsZone[i]));
-            deathsAmount += Helpers.PersistantData.persistantDataSaved.deaths[Helpers.PersistantData.persistantDataSaved.levels.IndexOf(levelsZone[i])];
+            var index = Helpers.PersistantData.persistantDataSaved.levels.IndexOf(levelsZone[i]);
+            deathsAmount += index < 0 || index > Helpers.PersistantData.persistantDataSaved.deaths.Count ? default : Helpers.PersistantData.persistantDataSaved.deaths[index];
         }
 
         deathsZoneTxt.gameObject.SetActive(true);

@@ -43,7 +43,7 @@ public class PersistantData : MonoBehaviour
 [Serializable]
 public class PersistantDataSaved
 {
-    public int unbloquedZones = 0;
+    public int unlockedZones = 0;
     public int currentLevel = 1;
     public int gameMode = 0;
     public bool firstTime = true;

@@ -25,6 +25,7 @@ public class LoadSceneManager : MonoBehaviour
         foreach (char c in SceneManager.GetActiveScene().name)
             if (char.IsNumber(c)) levelName += c;
         var currentLevel = Convert.ToInt32(levelName);
+        if (currentLevel < Helpers.PersistantData.persistantDataSaved.currentLevel) return;
         Helpers.PersistantData.persistantDataSaved.currentLevel = Convert.ToInt32(currentLevel + 1);
     }
     IEnumerator ChangeScene(int levelIndex = default)
