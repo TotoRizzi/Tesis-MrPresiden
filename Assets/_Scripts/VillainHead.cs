@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VillainHead : MonoBehaviour
 {
-    Player _player;
+    GeneralPlayer _player;
     [SerializeField] Transform _headContainer;
     Vector3 _deafaultScale;
 

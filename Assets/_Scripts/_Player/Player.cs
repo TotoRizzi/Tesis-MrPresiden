@@ -7,7 +7,7 @@ using System;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerView))]
 [RequireComponent(typeof(BoxCollider2D))]
-public class Player : MonoBehaviour
+public class Player : GeneralPlayer
 {
     public event Action OnUpdate;
     public Action ExitClimb;
@@ -30,13 +30,11 @@ public class Player : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float _speed;
 
-    bool _canMove = false;
-
     Vector3 _playerDefaultSpriteSize;
     [SerializeField] Transform _playerSprite;
     public Transform PlayerSprite { get { return _playerSprite; } private set { } }
 
-    float _maxDelayCanMove = .2f;
+    [SerializeField] float _maxDelayCanMove = .2f;
     #endregion
 
     #region Jump
@@ -208,16 +206,39 @@ public class Player : MonoBehaviour
         _canDash = false;
     }
 
-    public void PausePlayer()
+    public override void PausePlayer()
     {
         _canMove = false;
         CeroGravity();
         FreezeVelocity();
     }
-    public void UnPausePlayer()
+    public override void UnPausePlayer()
     {
         StartCoroutine(CanMoveDelay());
         NormalGravity();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Rope")
+            EnterRope(collision.gameObject);
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Rope")
+            ExitRope();
+    }
+
+    void EnterRope(GameObject rope)
+    {
+        var _rope = rope;
+
+        transform.position = new Vector2(_rope.transform.position.x, transform.position.y);
+        Climb();
+    }
+    void ExitRope()
+    {
+        StopClimging();
     }
 }
 

@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] float _cameraSpeed;
     public float CameraSpeed { get { return _cameraSpeed; } private set { } }
 
-    Player _player;
-    public Player Player { get { return _player; } private set { } }
+    GeneralPlayer _player;
+    public GeneralPlayer Player { get { return _player; } private set { } }
 
     [Header("GameModes")]
     [SerializeField] int _defaultHardLives = 3;
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         if (instance == null) instance = this;
         else Destroy(gameObject);
 
-        _player = FindObjectOfType<Player>();
+        _player = FindObjectOfType<GeneralPlayer>();
         _enemyManager = GetComponent<EnemyManager>();
         _effectsManager = GetComponent<EffectsManager>();
         _uiManager = GetComponent<UiManager>();

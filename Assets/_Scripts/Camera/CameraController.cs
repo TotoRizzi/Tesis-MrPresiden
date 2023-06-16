@@ -4,7 +4,7 @@ using System;
 public class CameraController : MonoBehaviour
 {
     GameManager _gameManager;
-    Player _player;
+    GeneralPlayer _player;
     Action _cameraBehaviour;
 
     [SerializeField] AnimationCurve _curve;

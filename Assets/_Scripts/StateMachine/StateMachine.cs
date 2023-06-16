@@ -4,6 +4,7 @@ using UnityEngine;
 public enum StateName
 {
     Idle, Move, Jump, OnAir, Dash, Climb,               //Player
+    FlyingUp, Droping,                                  //JetpackPlayer
     SH_Patrol, SH_Attack,                               //SimpleHumanoid
     CD_Idle, CD_Charge, CD_LoadCharge,                  //ChargeDrone
     LIGHT_GoingRed, LIGHT_Normal                        //Lights
