@@ -3532,85 +3532,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5aff7d6c23d3d84dade5111586c9713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _zones:
-  - zoneButton: {fileID: 1574463953}
-    deathsZoneTxt: {fileID: 1461347480}
-    levelsZone:
-    - Level 1
-    - Level 2
-    - Level 3
-    - Level 4
-    - Level 5
-    deathsNeeded: 3
-    currentDeathsInZone: 0
-    ID: 0
-  - zoneButton: {fileID: 1730423650}
-    deathsZoneTxt: {fileID: 497310390}
-    levelsZone:
-    - Level 6
-    - Level 7
-    - Level 8
-    - Level 9
-    - Level 10
-    deathsNeeded: 5
-    currentDeathsInZone: 0
-    ID: 1
-  - zoneButton: {fileID: 955678890}
-    deathsZoneTxt: {fileID: 2062934989}
-    levelsZone:
-    - Level 11
-    - Level 12
-    - Level 13
-    - Level 14
-    - Level 15
-    deathsNeeded: 7
-    currentDeathsInZone: 0
-    ID: 2
-  - zoneButton: {fileID: 1737244208}
-    deathsZoneTxt: {fileID: 1155280117}
-    levelsZone:
-    - Level 16
-    - Level 17
-    - Level 18
-    - Level 19
-    - Level 20
-    deathsNeeded: 8
-    currentDeathsInZone: 0
-    ID: 3
-  - zoneButton: {fileID: 681953611}
-    deathsZoneTxt: {fileID: 1106899428}
-    levelsZone:
-    - Level 21
-    - Level 22
-    - Level 23
-    - Level 24
-    - Level 25
-    deathsNeeded: 10
-    currentDeathsInZone: 0
-    ID: 4
-  - zoneButton: {fileID: 661832574}
-    deathsZoneTxt: {fileID: 1576858021}
-    levelsZone:
-    - Level 26
-    - Level 27
-    - Level 28
-    - Level 29
-    - Level 30
-    deathsNeeded: 12
-    currentDeathsInZone: 0
-    ID: 5
-  - zoneButton: {fileID: 663711896}
-    deathsZoneTxt: {fileID: 1558770406}
-    levelsZone:
-    - Level 31
-    - Level 32
-    - Level 33
-    - Level 34
-    - Level 35
-    deathsNeeded: 15
-    currentDeathsInZone: 0
-    ID: 6
-  _currentUnlockedZone: 0
+  _zonesButtons:
+  - {fileID: 1574463953}
+  - {fileID: 1730423650}
+  - {fileID: 955678890}
+  - {fileID: 1737244208}
+  - {fileID: 681953611}
+  - {fileID: 661832574}
+  - {fileID: 663711896}
+  _deathsZoneTxt:
+  - {fileID: 1461347480}
+  - {fileID: 497310390}
+  - {fileID: 2062934989}
+  - {fileID: 1155280117}
+  - {fileID: 1106899428}
+  - {fileID: 1576858021}
+  - {fileID: 1558770406}
 --- !u!1 &1967469943
 GameObject:
   m_ObjectHideFlags: 0

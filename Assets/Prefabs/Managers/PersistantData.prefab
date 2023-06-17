@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1520184938380114089}
   - component: {fileID: 1520184938380114088}
+  - component: {fileID: 6986544610262690710}
   m_Layer: 0
   m_Name: PersistantData
   m_TagString: Untagged
@@ -44,7 +45,87 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   persistantDataSaved:
-    unbloquedZones: 0
+    unlockedZones: 0
     currentLevel: 1
     gameMode: 0
     firstTime: 0
+    currentDeaths: 0
+    totalLevels: 0
+    levels: []
+    deaths: 
+--- !u!114 &6986544610262690710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520184938380114091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 405417960585f6345987e784aac6b27e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zones:
+  - levelsZone:
+    - Level 1
+    - Level 2
+    - Level 3
+    - Level 4
+    - Level 5
+    deathsNeeded: 3
+    currentDeathsInZone: 0
+    ID: 0
+  - levelsZone:
+    - Level 6
+    - Level 7
+    - Level 8
+    - Level 9
+    - Level 10
+    deathsNeeded: 5
+    currentDeathsInZone: 0
+    ID: 1
+  - levelsZone:
+    - Level 11
+    - Level 12
+    - Level 13
+    - Level 14
+    - Level 15
+    deathsNeeded: 7
+    currentDeathsInZone: 0
+    ID: 2
+  - levelsZone:
+    - Level 16
+    - Level 17
+    - Level 18
+    - Level 19
+    - Level 20
+    deathsNeeded: 10
+    currentDeathsInZone: 0
+    ID: 3
+  - levelsZone:
+    - Level 21
+    - Level 22
+    - Level 23
+    - Level 24
+    - Level 25
+    deathsNeeded: 13
+    currentDeathsInZone: 0
+    ID: 4
+  - levelsZone:
+    - Level 26
+    - Level 27
+    - Level 28
+    - Level 29
+    - Level 30
+    deathsNeeded: 15
+    currentDeathsInZone: 0
+    ID: 5
+  - levelsZone:
+    - Level 31
+    - Level 32
+    - Level 33
+    - Level 34
+    - Level 35
+    deathsNeeded: 20
+    currentDeathsInZone: 0
+    ID: 6

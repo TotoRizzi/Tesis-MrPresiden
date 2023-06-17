@@ -421,7 +421,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.2, z: 0}
   m_ShapePathHash: -1906480883
   m_Mesh: {fileID: 0}
-  m_InstanceId: 234858
+  m_InstanceId: 56938
 --- !u!1 &859833147576569514
 GameObject:
   m_ObjectHideFlags: 0
@@ -3845,8 +3845,28 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1263392920443657838, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263392920443657838, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
       propertyPath: m_Events.m_Events.Array.data[2].m_PersistentCalls.m_Calls.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263392920443657838, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263392920443657838, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SaveCurrentLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263392920443657838, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263392920443657838, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6958488689517159539, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
       propertyPath: m_Name

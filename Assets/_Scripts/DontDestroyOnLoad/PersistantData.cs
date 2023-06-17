@@ -48,6 +48,7 @@ public class PersistantDataSaved
     public int gameMode = 0;
     public bool firstTime = true;
     public int currentDeaths;
+    public int totalLevels;
 
     //Deaths per level
     public List<string> levels = new List<string>();

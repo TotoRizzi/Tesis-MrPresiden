@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,8 +26,16 @@ public class LoadSceneManager : MonoBehaviour
         foreach (char c in SceneManager.GetActiveScene().name)
             if (char.IsNumber(c)) levelName += c;
         var currentLevel = Convert.ToInt32(levelName);
-        if (currentLevel < Helpers.PersistantData.persistantDataSaved.currentLevel) return;
-        Helpers.PersistantData.persistantDataSaved.currentLevel = Convert.ToInt32(currentLevel + 1);
+
+        bool lastLevel = currentLevel >= Helpers.PersistantData.persistantDataSaved.totalLevels;
+        Helpers.PersistantData.persistantDataSaved.currentLevel = lastLevel || Helpers.PersistantData.persistantDataSaved.currentLevel > currentLevel ? Helpers.PersistantData.persistantDataSaved.currentLevel : currentLevel + 1;
+
+        string nextScene = lastLevel && Helpers.PersistantData.persistantDataSaved.currentDeaths > ZonesManager.Instance.zones.Last().deathsNeeded ||
+            ZonesManager.Instance.lastLevelsZone.Any(x => x == SceneManager.GetActiveScene().name) ? "LevelsMap" :
+            lastLevel && Helpers.PersistantData.persistantDataSaved.currentDeaths <= ZonesManager.Instance.zones.Last().deathsNeeded ? "WinScreen"
+            : $"Level {currentLevel + 1}";
+
+        LoadLevel(nextScene);
     }
     IEnumerator ChangeScene(int levelIndex = default)
     {

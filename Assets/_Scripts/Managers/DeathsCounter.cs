@@ -1,21 +1,28 @@
 using UnityEngine;
+using System.Linq;
 using UnityEngine.SceneManagement;
 public class DeathsCounter : MonoBehaviour
 {
     void Start()
     {
+        PersistantDataSaved persistantDataSaved = Helpers.PersistantData.persistantDataSaved;
+
         var levelName = SceneManager.GetActiveScene().name;
 
-        if (!Helpers.PersistantData.persistantDataSaved.levels.Contains(levelName))
+        if (!persistantDataSaved.levels.Contains(levelName))
         {
-            Helpers.PersistantData.persistantDataSaved.levels.Add(levelName);
-            Helpers.PersistantData.persistantDataSaved.deaths.Add(0);
+            persistantDataSaved.levels.Add(levelName);
+            persistantDataSaved.deaths.Add(0);
         }
 
         int deaths = 0;
         Helpers.GameManager.OnPlayerDead += () => deaths++;
 
-        Helpers.LevelTimerManager.RedButton += () => Helpers.PersistantData.persistantDataSaved.deaths[Helpers.PersistantData.persistantDataSaved.levels.IndexOf(levelName)] = deaths;
-        Helpers.LevelTimerManager.OnLevelDefeat += () => Helpers.PersistantData.persistantDataSaved.deaths[Helpers.PersistantData.persistantDataSaved.levels.IndexOf(levelName)] = deaths;
+        Helpers.LevelTimerManager.RedButton += () =>
+        {
+            persistantDataSaved.deaths[persistantDataSaved.levels.IndexOf(levelName)] = deaths;
+            persistantDataSaved.currentDeaths = persistantDataSaved.deaths.Any() ? persistantDataSaved.deaths.Sum() : default;
+        };
+        Helpers.LevelTimerManager.OnLevelDefeat += () => persistantDataSaved.deaths[persistantDataSaved.levels.IndexOf(levelName)] = deaths;
     }
 }
