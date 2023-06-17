@@ -26,8 +26,8 @@ public class LoadSceneManager : MonoBehaviour
         foreach (char c in SceneManager.GetActiveScene().name)
             if (char.IsNumber(c)) levelName += c;
         var currentLevel = Convert.ToInt32(levelName);
-
-        bool lastLevel = currentLevel >= Helpers.PersistantData.persistantDataSaved.totalLevels;
+        Debug.Log(Helpers.TotalLevels);
+        bool lastLevel = currentLevel >= Helpers.TotalLevels;
         Helpers.PersistantData.persistantDataSaved.currentLevel = lastLevel || Helpers.PersistantData.persistantDataSaved.currentLevel > currentLevel ? Helpers.PersistantData.persistantDataSaved.currentLevel : currentLevel + 1;
 
         string nextScene = lastLevel && Helpers.PersistantData.persistantDataSaved.currentDeaths > ZonesManager.Instance.zones.Last().deathsNeeded ||
