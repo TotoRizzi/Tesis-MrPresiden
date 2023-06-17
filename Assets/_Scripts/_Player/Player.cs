@@ -137,6 +137,7 @@ public class Player : GeneralPlayer
     {
         FreezeVelocity();
 
+        _groundCheck.Jumped();
         OnJump();
         _rb.AddForce(Vector3.up * _jumpForce, ForceMode2D.Impulse);
         _currentJumps--;

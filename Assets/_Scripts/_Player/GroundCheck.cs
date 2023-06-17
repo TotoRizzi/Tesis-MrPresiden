@@ -12,6 +12,11 @@ public class GroundCheck : MonoBehaviour
         Helpers.GameManager.OnPlayerDead += () => _isGrounded = true;
     }
 
+    public void Jumped()
+    {
+        _isGrounded = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         _isGrounded = true;

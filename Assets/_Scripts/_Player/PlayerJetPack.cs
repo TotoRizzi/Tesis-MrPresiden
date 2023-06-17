@@ -9,7 +9,8 @@ public class PlayerJetPack : GeneralPlayer
     Rigidbody2D _rb;
     [HideInInspector] public StateMachine fsm;
     PlayerJetPackController _controller;
-
+    GroundCheck _groundCheck;
+    public GroundCheck GroundCheck { get { return _groundCheck; } private set { } }
 
     WeaponManager _weaponManager;
     public WeaponManager WeaponManager { get { return _weaponManager; } private set { } }
@@ -17,7 +18,10 @@ public class PlayerJetPack : GeneralPlayer
     [SerializeField] Transform _playerSprite;
 
     [SerializeField] float _speed = 400f;
+    [SerializeField] float _flyingSpeed = 400f;
     [SerializeField] float _maxDelayCanMove = .2f;
+    [SerializeField] float _maxFuel = 2f;
+    float _currentFuel = 0;
     float _defaultGravity;
 
     Vector3 _playerDefaultSpriteSize;
@@ -27,18 +31,19 @@ public class PlayerJetPack : GeneralPlayer
     {
         StartCoroutine(CanMoveDelay());
 
+        _groundCheck = GetComponentInChildren<GroundCheck>();
         _rb = GetComponent<Rigidbody2D>();
         _weaponManager = GetComponent<WeaponManager>();
         fsm = new StateMachine();
         _controller = new PlayerJetPackController(this);
 
         OnUpdate += fsm.Update;
-        OnUpdate += _controller.OnUpdate;
         OnUpdate += LookAtMouse;
 
         fsm.AddState(StateName.FlyingUp, new UpState(this, _controller));
         fsm.AddState(StateName.Droping, new DownState(this, _controller));
-        fsm.ChangeState(StateName.FlyingUp);
+        fsm.AddState(StateName.OnFloor, new OnFloorState(this, _controller));
+        fsm.ChangeState(StateName.Droping);
 
         _playerDefaultSpriteSize = _playerSprite.localScale;
         _defaultGravity = _rb.gravityScale;
@@ -56,6 +61,23 @@ public class PlayerJetPack : GeneralPlayer
     public void Move(float axis)
     {
         _rb.velocity = new Vector2(axis * _speed * Time.fixedDeltaTime, _rb.velocity.y);
+    }
+
+    public void FlyUp()
+    {
+        _rb.velocity = new Vector2(_rb.velocity.x, _flyingSpeed * Time.fixedDeltaTime);
+    }
+
+    public void ReturnFuel()
+    {
+        if (_currentFuel >= _maxFuel) return;
+        _currentFuel += Time.deltaTime * 2f;
+    }
+
+    public void TakeFuel()
+    {
+        _currentFuel -= Time.deltaTime;
+        if (_currentFuel <= 0) fsm.ChangeState(StateName.Droping);
     }
 
     public override void PausePlayer()
@@ -121,6 +143,7 @@ public class UpState : IState
 
     public void OnEnter()
     {
+        _player.GroundCheck.Jumped();
     }
 
     public void OnExit()
@@ -129,12 +152,14 @@ public class UpState : IState
 
     public void OnFixedUpdate()
     {
+        _player.FlyUp();
         _player.Move(_controller.xAxis);
     }
 
     public void OnUpdate()
     {
         _controller.FlyingInputs();
+        _player.TakeFuel();
     }
 }
 public class DownState : IState
@@ -163,7 +188,38 @@ public class DownState : IState
 
     public void OnUpdate()
     {
-        _controller.FlyingInputs();
+        _player.ReturnFuel();
+        _controller.DropingInputs();
+    }
+}
+public class OnFloorState : IState
+{
+    PlayerJetPack _player;
+    PlayerJetPackController _controller;
+
+    public OnFloorState(PlayerJetPack player, PlayerJetPackController controller)
+    {
+        _player = player;
+        _controller = controller;
+    }
+
+    public void OnEnter()
+    {
+        _player.FreezeVelocity();
+    }
+
+    public void OnExit()
+    {
+    }
+
+    public void OnFixedUpdate()
+    {
+
+    }
+
+    public void OnUpdate()
+    {
+        _controller.OnFloorInputs();
     }
 }
 
@@ -183,20 +239,35 @@ public class PlayerJetPackController
 
     public void OnUpdate()
     {
-        xAxis = _inputManager.GetAxisRaw("Horizontal");
-        yAxis = _inputManager.GetAxisRaw("Vertical");
-        Debug.Log("Working");
+
     }
 
+    public void DropingInputs()
+    {
+        if (_inputManager.GetButtonDown("Jump"))
+            _player.fsm.ChangeState(StateName.FlyingUp);
+        if(_player.GroundCheck.IsGrounded)
+            _player.fsm.ChangeState(StateName.OnFloor);
+
+        xAxis = _inputManager.GetAxisRaw("Horizontal");
+        yAxis = _inputManager.GetAxisRaw("Vertical");
+    }
     public void FlyingInputs()
+    {
+        if (_inputManager.GetButtonUp("Jump"))
+        {
+            _player.fsm.ChangeState(StateName.Droping);
+        }
+        xAxis = _inputManager.GetAxisRaw("Horizontal");
+        yAxis = _inputManager.GetAxisRaw("Vertical");
+    }
+    public void OnFloorInputs()
     {
         if (_inputManager.GetButtonDown("Jump"))
         {
-            //Arranque a subir
+            _player.fsm.ChangeState(StateName.FlyingUp);
         }
-        else if (_inputManager.GetButtonUp("Jump"))
-        {
-            //Arranque a bajar
-        }
+        xAxis = 0;
+        yAxis = 0;
     }
 }
