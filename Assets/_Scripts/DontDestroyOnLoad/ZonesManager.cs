@@ -16,12 +16,6 @@ public class ZonesManager : MonoBehaviour
     }
     private void Start()
     {
-        PersistantDataSaved persistantDataSaved = Helpers.PersistantData.persistantDataSaved;
-        persistantDataSaved.totalLevels = 0;
-
-        for (int i = 0; i < zones.Length; i++)
-            persistantDataSaved.totalLevels += zones[i].levelsZone.Length;
-
         lastLevelsZone = new string[zones.Length - 1];
         for (int i = 0; i < lastLevelsZone.Length; i++)
             lastLevelsZone[i] = zones[i].levelsZone.Last();
