@@ -42,8 +42,8 @@ public class GameManager : MonoBehaviour
 
     public LoadSceneManager LoadSceneManager { get { return _loadSceneManager; } private set { } }
 
-    private EnemyManager _enemyManager;
-    public EnemyManager EnemyManager { get { return _enemyManager; } private set { } }
+    private BaseEnemyManager _enemyManager;
+    public BaseEnemyManager EnemyManager { get { return _enemyManager; } private set { } }
 
     private EffectsManager _effectsManager;
     public EffectsManager EffectsManager { get { return _effectsManager; } private set { } }
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
 
         _player = FindObjectOfType<GeneralPlayer>();
-        _enemyManager = GetComponent<EnemyManager>();
+        _enemyManager = GetComponent<BaseEnemyManager>();
         _effectsManager = GetComponent<EffectsManager>();
         _uiManager = GetComponent<UiManager>();
         _saveDataManager = GetComponent<SaveDataManager>();

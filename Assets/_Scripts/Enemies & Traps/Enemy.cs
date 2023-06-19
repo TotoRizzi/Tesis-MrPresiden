@@ -22,13 +22,18 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         gameManager = Helpers.GameManager;
 
-        gameManager.OnPlayerDead += ReturnObject;
+        gameManager.OnPlayerDead += ActionOnPlayerDead;
 
         gameManager.EnemyManager.AddEnemy(this);
 
         _currentHp = _maxHp;
         _renderer = sprite.GetComponent<SpriteRenderer>();
         if (!_renderer) _renderer = sprite.GetChild(0).GetComponent<SpriteRenderer>();
+    }
+
+    public virtual void ActionOnPlayerDead()
+    {
+        ReturnObject();
     }
 
     public virtual void Update()

@@ -3,17 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : BaseEnemyManager
 {
-    GameManager _gameManager;
-    private List<Enemy> _allEnemies = new List<Enemy>();
-
-    public event Action OnEnemyKilled;
-    public event Action OnHeavyAttack;
-
-    int _maxEnemies;
-
-    private void Start()
+    public override void Start()
     {
         _gameManager = Helpers.GameManager;
 
@@ -32,18 +24,11 @@ public class EnemyManager : MonoBehaviour
         if (_maxEnemies == 0) _gameManager.RoomWon();
     }
 
-    public void AddEnemy(Enemy enemy)
-    {
-        if (_allEnemies.Contains(enemy)) return;
-
-        _allEnemies.Add(enemy);
-    }
-
-    public void RemoveEnemy(Enemy enemy)
+    public override void RemoveEnemy(Enemy enemy)
     {
         if (!_allEnemies.Contains(enemy)) return;
 
-        OnEnemyKilled();
+        EnemyKilled();
         _allEnemies.Remove(enemy);
         
         Helpers.AudioManager.PlaySFX("Enemy_Dead");
@@ -51,18 +36,13 @@ public class EnemyManager : MonoBehaviour
         if (_allEnemies.Count == 0) _gameManager.RoomWon();
     }
 
-    public string EnemyCountString()
+    public override string EnemyCountString()
     {
         return Mathf.Abs(_allEnemies.Count - _maxEnemies).ToString() + "/ " + _maxEnemies.ToString();
     }
 
-    public void ResetLevel()
+    void ResetLevel()
     {
         _allEnemies.Clear();
-    }
-
-    public void HeavyAttack()
-    {
-        OnHeavyAttack?.Invoke();
     }
 }
