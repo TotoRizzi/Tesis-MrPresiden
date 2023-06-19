@@ -46,8 +46,7 @@ public class FireWeapon : Weapon
                                             SetDmg(_weaponData.damage).
                                             SetSpeed(_weaponData.bulletSpeed).
                                             SetPosition(_bulletSpawn.position).
-                                            SetDirection(bulletDirection).
-                                            SetDistance(2f);
+                                            SetDirection(bulletDirection);
     }
 
     public void UpdateAmmoAmount()

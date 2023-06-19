@@ -10,8 +10,7 @@ public class Shotgun : FireWeapon
                                                 SetDirection(_directions[i].position - _bulletSpawn.position).
                                                 SetDmg(_weaponData.damage).
                                                 SetPosition(_bulletSpawn.position).
-                                                SetSpeed(_weaponData.bulletSpeed).
-                                                SetDistance(.25f);
+                                                SetSpeed(_weaponData.bulletSpeed);
         }
     }
 }

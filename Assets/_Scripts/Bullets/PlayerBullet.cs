@@ -1,13 +1,12 @@
 using UnityEngine;
 public class PlayerBullet : Bullet
 {
+    [SerializeField] protected LayerMask _bulletLayer;
+
     Vector3 _lastPosition;
     private void Update()
     {
         transform.position += _direction.normalized * _speed * Time.deltaTime;
-        _currentDistance += Time.deltaTime;
-        if (_currentDistance > _maxDistance)
-            ReturnBullet();
 
         Vector3 direction = _lastPosition - transform.position;
         var raycast = Physics2D.Raycast(transform.position, direction, direction.magnitude, _bulletLayer);
@@ -47,18 +46,7 @@ public class PlayerBullet : Bullet
         return this;
     }
 
-    public PlayerBullet SetDistance(float distance)
-    {
-        _maxDistance = distance;
-        return this;
-    }
-
     #endregion
-
-    private void Reset()
-    {
-        _currentDistance = 0;
-    }
     public static void TurnOn(PlayerBullet b)
     {
         b.gameObject.SetActive(true);
@@ -67,7 +55,6 @@ public class PlayerBullet : Bullet
 
     public static void TurnOff(PlayerBullet b)
     {
-        b.Reset();
         b.gameObject.SetActive(false);
     }
     protected override void ReturnBullet()
