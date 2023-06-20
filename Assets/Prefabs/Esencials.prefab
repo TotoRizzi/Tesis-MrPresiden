@@ -421,7 +421,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.2, z: 0}
   m_ShapePathHash: -1906480883
   m_Mesh: {fileID: 0}
-  m_InstanceId: 56938
+  m_InstanceId: 51760
 --- !u!1 &859833147576569514
 GameObject:
   m_ObjectHideFlags: 0
@@ -1641,6 +1641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36c6cfbd50d2cb141a4505aec6dc41db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _principalCinematic: 0
 --- !u!114 &7309848092827910040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3675,8 +3676,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2fde3b23c05574991a2626a2e0010c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defeatDir: {x: 0, y: 0, z: 0}
-  _victoryDir: {x: 0, y: 0, z: 0}
+  _presidentRoomPos: {x: 0, y: 0, z: -10}
+  _zoomSize: 0
 --- !u!81 &8422366187286878656
 AudioListener:
   m_ObjectHideFlags: 0
@@ -3734,6 +3735,8 @@ MonoBehaviour:
     m_Signals:
     - {fileID: 11400000, guid: f565e7ea77caf5546b6f30be79ea4d63, type: 2}
     - {fileID: 11400000, guid: 6ba9253e204c9804d8f8470ac984aa47, type: 2}
+    - {fileID: 11400000, guid: 2b61efb1dc61ec14aa9572a0226a6952, type: 2}
+    - {fileID: 11400000, guid: 52b8131c9464bb144954eca20147de50, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -3755,6 +3758,34 @@ MonoBehaviour:
           m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
           m_MethodName: StartCameraShake
           m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8164855979954613999}
+          m_TargetAssemblyTypeName: CameraAnimation, Assembly-CSharp
+          m_MethodName: StartInitialTransicion
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8164855979954613999}
+          m_TargetAssemblyTypeName: CameraAnimation, Assembly-CSharp
+          m_MethodName: StartVictoryDefeatTransicion
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

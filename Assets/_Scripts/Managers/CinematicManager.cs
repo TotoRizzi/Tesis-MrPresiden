@@ -24,6 +24,7 @@ public class CinematicManager : MonoBehaviour
 
         if (!PlayerPrefs.HasKey(currentScene) && _initialTimeline)
         {
+            Helpers.MainCamera.GetComponent<CameraAnimation>().enabled = true;
             _initialTimeline.Play();
             Helpers.GameManager.PauseManager.PauseObjectsInCinematic();
             _initialTimeline.stopped += (x) => Helpers.GameManager.PauseManager.UnpauseObjectsInCinematic();
@@ -62,7 +63,10 @@ public class CinematicManager : MonoBehaviour
     {
         _cinemacticCamera.GetComponent<Camera>().orthographicSize = Mathf.Lerp(a, b, time);
     }
-
+    public void SetSizeCinematicCamera(float size)
+    {
+        _cinemacticCamera.GetComponent<Camera>().orthographicSize = size;
+    }
     public void SkipDefeatCinematic()
     {
         _defeatTimeline.Stop();
