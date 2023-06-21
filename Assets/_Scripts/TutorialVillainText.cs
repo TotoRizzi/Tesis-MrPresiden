@@ -5,22 +5,25 @@ public class TutorialVillainText : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _textDispay;
     [SerializeField] Transform _eyesParent;
+    [SerializeField] Transform[] _eyes;
     [SerializeField] float _typingSpeed;
-    [SerializeField] float _eyesSpeed;
-    [SerializeField] float _minClampX, _maxClampX, _minClampY, _maxClampY;
     string _sentence;
 
     Transform _player;
-    Vector3 _initialPos;
+    Vector3[] _initialPos = new Vector3[2];
     private void Start()
     {
         StartCoroutine(Type());
         _player = Helpers.GameManager.Player.transform;
-        _initialPos = _eyesParent.position;
+
+        for (int i = 0; i < _initialPos.Length; i++) _initialPos[i] = _eyes[i].position;
     }
-    private void Update()
+    private void LateUpdate()
     {
-        _eyesParent.position = Vector3.SlerpUnclamped(_eyesParent.position, new Vector3(Mathf.Clamp(_player.position.x, _initialPos.x + _minClampX, _initialPos.x + _maxClampX), Mathf.Clamp(_player.position.y, _initialPos.y + _minClampY, _initialPos.y + _maxClampY), _eyesParent.position.z), Time.deltaTime * _eyesSpeed);
+        Vector3 dist = _player.position - _eyesParent.position;
+
+        for (int i = 0; i < _eyes.Length; i++)
+            _eyes[i].right = dist;
     }
     IEnumerator Type()
     {
