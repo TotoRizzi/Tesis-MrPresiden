@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
 
         _player = FindObjectOfType<GeneralPlayer>();
         _enemyManager = GetComponent<BaseEnemyManager>();
+        if (_enemyManager == null) _enemyManager = FindObjectOfType<BaseEnemyManager>();
         _effectsManager = GetComponent<EffectsManager>();
         _uiManager = GetComponent<UiManager>();
         _saveDataManager = GetComponent<SaveDataManager>();

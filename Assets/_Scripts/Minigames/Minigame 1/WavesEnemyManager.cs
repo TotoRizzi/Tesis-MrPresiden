@@ -41,7 +41,7 @@ public class WavesEnemyManager : BaseEnemyManager
     {
         _currentTimePerSpawn = 0;
         _currentEnemiesSpawned++;
-        var enemy = FRY_Enemy_FollowDrone.Instance.pool.GetObject().SetPosition(_enemiesSpawners[UnityEngine.Random.Range(0, _enemiesSpawners.Length - 1)].position);
+        var enemy = FRY_Enemy_FollowDrone.Instance.pool.GetObject().SetPosition(_enemiesSpawners[UnityEngine.Random.Range(0, _enemiesSpawners.Length)].position);
         _enemiesAlive.Add(enemy);
     }
 
