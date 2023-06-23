@@ -25,7 +25,7 @@ public class RedButton : MonoBehaviour
     }
     private void Update()
     {
-        if (_inputManager.GetButtonDown("Pick Up") && _isPlayerOnTrigger) PlayRedButton();
+        if (_inputManager.GetButtonDown("Interact") && _isPlayerOnTrigger) PlayRedButton();
     }
     void ShowExit()
     {

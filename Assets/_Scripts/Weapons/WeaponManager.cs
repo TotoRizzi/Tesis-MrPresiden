@@ -41,7 +41,7 @@ public class WeaponManager : MonoBehaviour
 
         //if (_inputManager.GetButtonDown("Throw Weapon")) ThrowWeapon();
 
-        if (_inputManager.GetButtonDown("Pick Up") && _onWeaponTrigger) SetWeapon();
+        if (_inputManager.GetButtonDown("Interact") && _onWeaponTrigger) SetWeapon();
     }
 
     #region Weapon Funcs
