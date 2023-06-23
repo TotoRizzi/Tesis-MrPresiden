@@ -241,7 +241,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d15ece2a4d26dd04da561bbca01e23d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _headContainer: {fileID: 1163387859}
+  _eyesParent: {fileID: 93593611}
+  _eyes:
+  - {fileID: 4862827751101794709}
+  - {fileID: 1454562592287926512}
 --- !u!1 &1163387858
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,7 +301,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1926196309}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 0, z: 0}
+  m_LocalPosition: {x: 0.045, y: 0, z: 0}
   m_LocalScale: {x: 0.037500005, y: 0.037500005, z: 1}
   m_Children: []
   m_Father: {fileID: 1454562592287926512}
@@ -681,16 +684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textDispay: {fileID: 3071493558376572362}
-  _eyesParent: {fileID: 93593611}
-  _eyes:
-  - {fileID: 1454562592287926512}
-  - {fileID: 4862827751101794709}
   _typingSpeed: 0.08
-  _eyesSpeed: 4
-  _minClampX: -0.2
-  _maxClampX: 0.2
-  _minClampY: -0.2
-  _maxClampY: 0.2
 --- !u!1 &8317222974493084995
 GameObject:
   m_ObjectHideFlags: 0

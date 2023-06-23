@@ -1,42 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class VillainHead : MonoBehaviour
 {
-    GeneralPlayer _player;
-    [SerializeField] Transform _headContainer;
-    Vector3 _deafaultScale;
+    [SerializeField] Transform _eyesParent;
+    [SerializeField] Transform[] _eyes;
 
+    Transform _player;
+    Transform[] _iris;
+    Vector3[] _initialPos = new Vector3[2];
     private void Start()
     {
-        _player = Helpers.GameManager.Player;
-        _deafaultScale = _headContainer.localScale;
+        _iris = _eyes.Select(x => x.GetChild(0)).ToArray();
+        _player = Helpers.GameManager.Player.transform;
+
+        for (int i = 0; i < _initialPos.Length; i++) _initialPos[i] = _iris[i].localPosition;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        //MoveHead();
-    }
+        Vector3 dist = _player.position - _eyesParent.position;
 
-    void MoveHead()
-    {
-        Vector3 dirToLookAt = (_player.transform.position - transform.position).normalized;
-        float angle = Mathf.Atan2(dirToLookAt.y, dirToLookAt.x) * Mathf.Rad2Deg;
-
-        _headContainer.eulerAngles = new Vector3(0, 0, angle);
-
-        Vector3 newScale = _deafaultScale;
-
-        if (angle > 90 || angle < -90)
+        for (int i = 0; i < _eyes.Length; i++)
         {
-            newScale.y = -_deafaultScale.y;
+            _eyes[i].right = dist;
+            _iris[i].eulerAngles = new Vector3(0, 0, _iris[i].rotation.z - _eyes[i].rotation.z);
         }
-        else
-        {
-            newScale.y = _deafaultScale.y;
-        }
-
-        _headContainer.localScale = newScale;
     }
 }
