@@ -14,6 +14,7 @@ public class RedButton : MonoBehaviour
     {
         Helpers.GameManager.OnRoomWon += ShowExit;
         Helpers.GameManager.OnPlayerDead += () => StartCoroutine(HideExit());
+        Helpers.LevelTimerManager.RedButton += () => _anim.SetTrigger("Off");
 
         _showKeyUI = GetComponentInChildren<ShowKeyUI>();
         _showKeyUI.gameObject.SetActive(false);
@@ -24,7 +25,7 @@ public class RedButton : MonoBehaviour
     }
     private void Update()
     {
-        if (_inputManager.GetButtonDown("Pick Up") && _isPlayerOnTrigger) PlayRedButton(); 
+        if (_inputManager.GetButtonDown("Pick Up") && _isPlayerOnTrigger) PlayRedButton();
     }
     void ShowExit()
     {
