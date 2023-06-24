@@ -6,9 +6,9 @@ public class CosmeticShopItem : MonoBehaviour
     public CosmeticData CosmeticData { get { return _cosmeticData; } }
 
     [SerializeField] CosmeticData _cosmeticData;
-
     [SerializeField] Image _cosmeticImg;
     [SerializeField] TextMeshProUGUI _cosmeticNameTxt;
+    [SerializeField] TextMeshProUGUI _inCollectionTxt;
     public void SetCosmeticData(CosmeticData cosmeticData, Sprite headSprite)
     {
         _cosmeticData = cosmeticData;
@@ -25,5 +25,13 @@ public class CosmeticShopItem : MonoBehaviour
         leftLegSprite.sprite = _cosmeticData.leftLegSprite;
         rightHandSprite.sprite = _cosmeticData.rightHandSprite;
         leftHandSprite.sprite = _cosmeticData.leftHandSprite;
+    }
+
+    public void SetInCollection(Color color)
+    {
+        GetComponent<Button>().interactable = false;
+        GetComponent<Image>().color = color;
+        _inCollectionTxt.gameObject.SetActive(true);
+        _inCollectionTxt.rectTransform.eulerAngles = new Vector3(0, 0, Random.Range(-45, 46));
     }
 }

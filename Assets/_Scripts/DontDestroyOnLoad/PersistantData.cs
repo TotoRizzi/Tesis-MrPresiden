@@ -48,8 +48,25 @@ public class PersistantDataSaved
     public int gameMode = 0;
     public bool firstTime = true;
     public int currentDeaths;
+    public int coins;
+    public CosmeticData playerCosmeticEquiped;
+    public CosmeticData presidentCosmeticEquiped;
+    public List<CosmeticData> playerCosmeticCollection = new List<CosmeticData>();
+    public List<CosmeticData> presidentCosmeticCollection = new List<CosmeticData>();
 
     //Deaths per level
     public List<string> levels = new List<string>();
     public List<int> deaths = new List<int>();
+
+    public void Buy(int amount) { coins -= amount; }
+    public void AddPlayerCosmetic(CosmeticData cosmetic, int amount)
+    {
+        playerCosmeticCollection.Add(cosmetic);
+        coins -= amount;
+    }
+    public void AddPresidentCosmetic(CosmeticData cosmetic, int amount)
+    {
+        presidentCosmeticCollection.Add(cosmetic);
+        coins -= amount;
+    }
 }
