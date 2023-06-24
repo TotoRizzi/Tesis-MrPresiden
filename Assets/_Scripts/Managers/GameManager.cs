@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
     IEnumerator LateStart()
     {
         yield return new WaitForEndOfFrame();
-        _gameMode = GameObject.Find("GameMode").GetComponentInChildren<GameModeManager>();
+        //_gameMode = GameObject.Find("GameMode").GetComponentInChildren<GameModeManager>();
     }
 
     public void RoomWon()

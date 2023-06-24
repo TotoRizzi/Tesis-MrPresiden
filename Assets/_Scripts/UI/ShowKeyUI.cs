@@ -9,11 +9,11 @@ public class ShowKeyUI : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.GetComponent<WeaponManager>()) _keyUI.SetPosition(transform.position + Vector3.up);
+        if (collision.GetComponent<WeaponManager>() || collision.GetComponent<PlayerShop>()) _keyUI.SetPosition(transform.position + Vector3.up);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.GetComponent<WeaponManager>() && _keyUI) _keyUI.ReturnObject();
+        if (collision.GetComponent<WeaponManager>() && _keyUI || collision.GetComponent<PlayerShop>() && _keyUI) _keyUI.ReturnObject();
     }
     private void OnDestroy()
     {

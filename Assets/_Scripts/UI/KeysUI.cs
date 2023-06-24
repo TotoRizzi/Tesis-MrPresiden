@@ -36,6 +36,7 @@ public class KeysUI : MonoBehaviour
     private void Reset()
     {
         active = false;
+        StopCoroutine(PressedAnimation());
         _keyImg.sprite = null;
     }
     #endregion
