@@ -27,10 +27,10 @@ public class CosmeticShopItem : MonoBehaviour
         leftHandSprite.sprite = _cosmeticData.leftHandSprite;
     }
 
-    public void SetInCollection(Color color)
+    public void SetInCollection()
     {
         GetComponent<Button>().interactable = false;
-        GetComponent<Image>().color = color;
+        GetComponent<Button>().image.color = Color.clear;
         _inCollectionTxt.gameObject.SetActive(true);
         _inCollectionTxt.rectTransform.eulerAngles = new Vector3(0, 0, Random.Range(-45, 46));
     }

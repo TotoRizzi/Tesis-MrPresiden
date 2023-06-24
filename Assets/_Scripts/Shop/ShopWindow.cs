@@ -46,7 +46,7 @@ public class ShopWindow : MonoBehaviour
             playerCosmeticsButton.Add(button);
             if (persistantDataSaved.playerCosmeticCollection.Any() && persistantDataSaved.playerCosmeticCollection.Contains(cosmeticItem.CosmeticData))
             {
-                cosmeticItem.SetInCollection(_selectedColor);
+                cosmeticItem.SetInCollection();
                 continue;
             }
 
@@ -74,7 +74,7 @@ public class ShopWindow : MonoBehaviour
             presidentCosmeticsButton.Add(button);
             if (persistantDataSaved.presidentCosmeticCollection.Any() && persistantDataSaved.presidentCosmeticCollection.Contains(cosmeticItem.CosmeticData))
             {
-                cosmeticItem.SetInCollection(_selectedColor);
+                cosmeticItem.SetInCollection();
                 continue;
             }
 
@@ -113,15 +113,19 @@ public class ShopWindow : MonoBehaviour
 
         _playerBuyButton.onClick.AddListener(() =>
         {
-            _itemSelected.SetInCollection(_selectedColor);
+            _itemSelected.SetInCollection();
             persistantDataSaved.AddPlayerCosmetic(_cosmeticSelected, _cosmeticSelected.cost);
             _coins.text = persistantDataSaved.coins.ToString();
+            _cosmeticSelected = null;
+            _itemSelected = null;
         });
         _presidentBuyButton.onClick.AddListener(() =>
         {
-            _itemSelected.SetInCollection(_selectedColor);
+            _itemSelected.SetInCollection();
             persistantDataSaved.AddPresidentCosmetic(_cosmeticSelected, _cosmeticSelected.cost);
             _coins.text = persistantDataSaved.coins.ToString();
+            _cosmeticSelected = null;
+            _itemSelected = null;
         });
 
         _playerButton.onClick.Invoke();
