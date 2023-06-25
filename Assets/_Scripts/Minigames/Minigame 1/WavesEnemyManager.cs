@@ -12,18 +12,32 @@ public class WavesEnemyManager : BaseEnemyManager
 
     [SerializeField] Transform[] _enemiesSpawners;
     List<Enemy> _enemiesAlive;
+
     [SerializeField] float _timePerSpawn;
     float _currentTimePerSpawn;
-    [SerializeField] int _enemiesToSpawn;
+
+    int _enemiesToSpawn;
     int _currentEnemiesSpawned;
+    public int currentLevel;
+
 
     public override void Start()
     {
-        OnUpdate += SpawnEnemies;
+        StartCoroutine(Wait());
     }
     private void Update()
     {
         OnUpdate?.Invoke();
+    }
+
+    IEnumerator Wait()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        _enemiesToSpawn = currentLevel + 1;
+        OnUpdate += SpawnEnemies;
     }
 
     void SpawnEnemies()

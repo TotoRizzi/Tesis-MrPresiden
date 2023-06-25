@@ -6,17 +6,17 @@ public class Enemy_FollowDrone : Enemy
 {
     IMovement _myMovement;
 
-    [SerializeField] float speed = 1f;
+    [SerializeField] protected float _speed = 1f;
 
     public override void Start()
     {
         base.Start();
 
-        _myMovement = new Movement_BasicFollowTarget(transform, GameManager.instance.Player.transform, speed);
+        _myMovement = new Movement_BasicFollowTarget(transform, GameManager.instance.Player.transform, _speed);
         OnUpdate += MoveIfPlayerInSight;
     }
 
-    void MoveIfPlayerInSight()
+    protected void MoveIfPlayerInSight()
     {
         if (CanSeePlayer()) _myMovement.Move();
     }

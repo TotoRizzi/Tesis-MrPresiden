@@ -117,7 +117,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.06773791}
@@ -183,8 +183,9 @@ MonoBehaviour:
   sprite: {fileID: 68006992591922971}
   _isRobot: 1
   _maxHp: 2
-  speed: 1
+  _speed: 1
   _coinsDrop: 1
+  _timeToMoveRandom: 0.2
 --- !u!1 &68006992591922970
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +265,7 @@ MonoBehaviour:
   - {x: -0.40056157, y: 0.25308445, z: 0}
   m_ShapePathHash: -1881616195
   m_Mesh: {fileID: 0}
-  m_InstanceId: 457216
+  m_InstanceId: 138046
 --- !u!1 &745952781559670996
 GameObject:
   m_ObjectHideFlags: 0

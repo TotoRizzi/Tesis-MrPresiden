@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class WavesDoor : MonoBehaviour
 {
-    [SerializeField] string _nextScene;
     [SerializeField] Animator _anim;
     Collider2D _collider;
     WavesEnemyManager _enemyManager;
 
-    int _currentLevel;
     [SerializeField] List<int> _allLevels;
     int[] _newLevelOrder;
     
@@ -21,14 +19,21 @@ public class WavesDoor : MonoBehaviour
         _enemyManager.OnWaveWon += ShowExit;
 
         _collider = GetComponent<Collider2D>();
+
         StartCoroutine(HideExit());
-
-
-        if (Helpers.GameManager.SaveDataManager.GetBool("LevelsSetted", false))
-            SetNewOrderOfLevels();
-        else
-            GetNewLevelOrder();
+        StartCoroutine(NewLevels());
     }
+
+    IEnumerator NewLevels()
+    {
+        yield return new WaitForEndOfFrame();
+        if (Helpers.GameManager.SaveDataManager.GetBool("LevelsSetted", false))
+            GetNewLevelOrder();
+        else
+            SetNewOrderOfLevels();
+
+    }
+
     void ShowExit()
     {
         _anim.SetBool("IsOpen", true);
@@ -56,7 +61,8 @@ public class WavesDoor : MonoBehaviour
 
             Helpers.GameManager.SaveDataManager.SaveInt(i + 1.ToString(), _newLevelOrder[i]);
         }
-        _currentLevel = 0;
+        _enemyManager.currentLevel = 0;
+        Helpers.GameManager.SaveDataManager.SaveInt("CurrentLevel", _enemyManager.currentLevel);
 
         Helpers.GameManager.SaveDataManager.SaveBool("LevelsSetted", true);
 
@@ -73,9 +79,9 @@ public class WavesDoor : MonoBehaviour
         int allLevels = _allLevels.Count;
         _newLevelOrder = new int[allLevels];
 
-        _currentLevel = Helpers.GameManager.SaveDataManager.GetInt("CurrentLevel", 0);
-        _currentLevel++;
-        Helpers.GameManager.SaveDataManager.SaveInt("CurrentLevel", _currentLevel);
+        _enemyManager.currentLevel = Helpers.GameManager.SaveDataManager.GetInt("CurrentLevel", 0);
+        _enemyManager.currentLevel++;
+        Helpers.GameManager.SaveDataManager.SaveInt("CurrentLevel", _enemyManager.currentLevel);
 
         for (int i = 0; i < allLevels; i++)
         {
@@ -85,14 +91,15 @@ public class WavesDoor : MonoBehaviour
 
     public void NextLevel()
     {
-        int fixedCurrentLevel = _currentLevel;
+        int fixedCurrentLevel = _enemyManager.currentLevel;
 
         if (fixedCurrentLevel < _newLevelOrder.Length)
         {
-            Helpers.GameManager.LoadSceneManager.LoadLevel("MiniGame 1 " + _newLevelOrder[_currentLevel]);
-            //GameManager.instance.SaveData();
-            //LoadScene("level " + newLevelOrder[fixedCurrentLevel]);
-            //Debug.Log((newLevelOrder[fixedCurrentLevel]));
+            Helpers.GameManager.LoadSceneManager.LoadLevel("MiniGame 1 " + _newLevelOrder[_enemyManager.currentLevel]);
+        }
+        else
+        {
+            Helpers.GameManager.LoadSceneManager.LoadLevel("MiniGame 1 " + 0);
         }
     }
 

@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using System;
 
@@ -26,6 +26,11 @@ public class PlayerJetPack : GeneralPlayer
 
     Vector3 _playerDefaultSpriteSize;
 
+    //Visual    
+    [SerializeField] Image _fuelBar;
+    [SerializeField] GameObject _fireParticle;
+    public GameObject FireParticle { get { return _fireParticle; } private set { } }
+
 
     private void Start()
     {
@@ -45,6 +50,12 @@ public class PlayerJetPack : GeneralPlayer
         fsm.AddState(StateName.OnFloor, new OnFloorState(this, _controller));
         fsm.ChangeState(StateName.Droping);
 
+        Helpers.GameManager.OnPlayerDead += () =>
+        {
+            _currentFuel = _maxFuel;
+            UpdateFuelBar(_maxFuel);
+            fsm.ChangeState(StateName.Droping);
+        };
         _playerDefaultSpriteSize = _playerSprite.localScale;
         _defaultGravity = _rb.gravityScale;
     }
@@ -72,11 +83,13 @@ public class PlayerJetPack : GeneralPlayer
     {
         if (_currentFuel >= _maxFuel) return;
         _currentFuel += Time.deltaTime * 2f;
+        UpdateFuelBar(_currentFuel);
     }
 
     public void TakeFuel()
     {
         _currentFuel -= Time.deltaTime;
+        UpdateFuelBar(_currentFuel);
         if (_currentFuel <= 0) fsm.ChangeState(StateName.Droping);
     }
 
@@ -128,6 +141,11 @@ public class PlayerJetPack : GeneralPlayer
 
         _playerSprite.localScale = playerLocalScale;
     }
+
+    void UpdateFuelBar(float current)
+    {
+        _fuelBar.fillAmount = _currentFuel / _maxFuel;
+    }
 }
 
 public class UpState : IState
@@ -144,6 +162,7 @@ public class UpState : IState
     public void OnEnter()
     {
         _player.GroundCheck.Jumped();
+        _player.FireParticle.SetActive(true);
     }
 
     public void OnExit()
@@ -175,6 +194,7 @@ public class DownState : IState
 
     public void OnEnter()
     {
+        _player.FireParticle.SetActive(false);
     }
 
     public void OnExit()
@@ -220,6 +240,7 @@ public class OnFloorState : IState
     public void OnUpdate()
     {
         _controller.OnFloorInputs();
+        _player.ReturnFuel();
     }
 }
 
