@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public event Action OnRoomWon;
     public event Action OnPlayerDead;
 
-    public Action SetPlayerSkin, SetPresidentSkin;
+    public Action SetPlayerSkin = delegate { }, SetPresidentSkin = delegate { };
 
     [Header("Layers")]
     [SerializeField] LayerMask _groundLayer, _playerLayer, _weaponLayer, _dynamicBodies, _borderLayer, _invisibleWallLayer;
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 
     private EffectsManager _effectsManager;
     public EffectsManager EffectsManager { get { return _effectsManager; } private set { } }
-    
+
     private UiManager _uiManager;
     public UiManager UiManager { get { return _uiManager; } private set { } }
 
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     public SaveDataManager SaveDataManager { get { return _saveDataManager; } private set { } }
 
     private Scene_Manager _sceneManager;
-    public Scene_Manager SceneManager { get { return _sceneManager; } private set { } }    
+    public Scene_Manager SceneManager { get { return _sceneManager; } private set { } }
 
     private PauseManager _pauseManager;
     public PauseManager PauseManager { get { return _pauseManager; } private set { } }
@@ -86,8 +86,8 @@ public class GameManager : MonoBehaviour
         _uiManager = GetComponent<UiManager>();
         _saveDataManager = GetComponent<SaveDataManager>();
         _pauseManager = GetComponent<PauseManager>();
-        _sceneManager = GetComponent <Scene_Manager>();
-        _dropManager = GetComponent <DropManager>();
+        _sceneManager = GetComponent<Scene_Manager>();
+        _dropManager = GetComponent<DropManager>();
         _statisticsManager = GetComponent<StatisticsManager>();
         _cinematicManager = GetComponent<CinematicManager>();
         Cursor.lockState = CursorLockMode.Confined;

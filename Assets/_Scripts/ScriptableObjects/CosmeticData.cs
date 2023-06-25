@@ -4,5 +4,5 @@ public class CosmeticData : ScriptableObject
 {
     public string cosmeticName;
     public int cost;
-    public Sprite headSprite, torsoSprite, rightLegSprite, leftLegSprite, rightHandSprite, leftHandSprite;
+    public Sprite headSprite, torsoSprite, rightLegSprite, leftLegSprite, rightHandSprite, leftHandSprite, tailSprite;
 }

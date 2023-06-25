@@ -1,7 +1,7 @@
 using UnityEngine;
 public class PlayerSetSkin : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer _headSprite, _torsoSprite, _rightLegSprite, _leftLegSprite, _rightHandSprite, _leftHandSprite;
+    [SerializeField] SpriteRenderer _headSprite, _torsoSprite, _rightLegSprite, _leftLegSprite, _rightHandSprite, _leftHandSprite, _tailSprite;
     void Start()
     {
         SetSkin();
@@ -19,5 +19,6 @@ public class PlayerSetSkin : MonoBehaviour
         _leftLegSprite.sprite = cosmetic.leftLegSprite;
         _rightHandSprite.sprite = cosmetic.rightHandSprite;
         _leftHandSprite.sprite = cosmetic.leftHandSprite;
+        _tailSprite.sprite = cosmetic.tailSprite ? cosmetic.tailSprite : null;
     }
 }

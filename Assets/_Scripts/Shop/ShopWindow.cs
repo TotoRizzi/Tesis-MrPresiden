@@ -11,17 +11,17 @@ public class ShopWindow : MonoBehaviour
 
     [Header("Player Settings")]
     [SerializeField] Transform _playerGridParent;
-    [SerializeField] Image _playerHeadSprite, _playerTorsoSprite, _playerRightLegSprite, _playerLeftLegSprite, _playerRightHandSprite, _playerLeftHandSprite;
+    [SerializeField] Image _playerHeadSprite, _playerTorsoSprite, _playerRightLegSprite, _playerLeftLegSprite, _playerRightHandSprite, _playerLeftHandSprite, _playerTailSprite;
 
     [Header("President Settings")]
     [SerializeField] Transform _presidentGridParent;
-    [SerializeField] Image _presidentHeadSprite, _presidentTorsoSprite, _presidentRightLegSprite, _presidentLeftLegSprite, _presidentRightHandSprite, _presidentLeftHandSprite;
+    [SerializeField] Image _presidentHeadSprite, _presidentTorsoSprite, _presidentRightLegSprite, _presidentLeftLegSprite, _presidentRightHandSprite, _presidentLeftHandSprite, _presidentTailSprite;
 
     [SerializeField] Color _selectedColor;
     [SerializeField] TextMeshProUGUI _coins;
 
-    CosmeticData[] _playerCosmetics;
-    CosmeticData[] _presidentCosmetics;
+    [SerializeField] CosmeticData[] _playerCosmetics;
+    [SerializeField] CosmeticData[] _presidentCosmetics;
     CosmeticData _cosmeticSelected;
     CosmeticShopItem _itemSelected;
 
@@ -58,7 +58,7 @@ public class ShopWindow : MonoBehaviour
                 ShowSelectedPlayerCosmetic(cosmeticItem);
                 _cosmeticSelected = cosmeticItem.CosmeticData;
                 _itemSelected = cosmeticItem;
-                for (int i = 0; i < presidentCosmeticsButton.Count; i++)
+                for (int i = 0; i < playerCosmeticsButton.Count; i++)
                     playerCosmeticsButton[i].image.color = Color.clear;
 
                 button.image.color = _selectedColor;
@@ -137,11 +137,11 @@ public class ShopWindow : MonoBehaviour
     void ShowSelectedPlayerCosmetic(CosmeticShopItem cosmeticItem)
     {
         cosmeticItem.SetCosmetics(ref _playerHeadSprite, ref _playerTorsoSprite, ref _playerRightLegSprite,
-                ref _playerLeftLegSprite, ref _playerRightHandSprite, ref _playerLeftHandSprite);
+                ref _playerLeftLegSprite, ref _playerRightHandSprite, ref _playerLeftHandSprite, ref _playerTailSprite);
     }
     void ShowSelectedPresidentCosmetic(CosmeticShopItem cosmeticItem)
     {
         cosmeticItem.SetCosmetics(ref _presidentHeadSprite, ref _presidentTorsoSprite, ref _presidentRightLegSprite,
-                ref _presidentLeftLegSprite, ref _presidentRightHandSprite, ref _presidentLeftHandSprite);
+                ref _presidentLeftLegSprite, ref _presidentRightHandSprite, ref _presidentLeftHandSprite, ref _presidentTailSprite);
     }
 }

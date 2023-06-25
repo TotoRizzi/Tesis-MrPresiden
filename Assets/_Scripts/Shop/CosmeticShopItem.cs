@@ -17,7 +17,7 @@ public class CosmeticShopItem : MonoBehaviour
         _cosmeticNameTxt.text = _cosmeticData.cosmeticName;
     }
 
-    public void SetCosmetics(ref Image headSprite, ref Image torsoSprite, ref Image rightLegSprite, ref Image leftLegSprite, ref Image rightHandSprite, ref Image leftHandSprite)
+    public void SetCosmetics(ref Image headSprite, ref Image torsoSprite, ref Image rightLegSprite, ref Image leftLegSprite, ref Image rightHandSprite, ref Image leftHandSprite, ref Image tailSprite)
     {
         headSprite.sprite = _cosmeticData.headSprite;
         torsoSprite.sprite = _cosmeticData.torsoSprite;
@@ -25,6 +25,16 @@ public class CosmeticShopItem : MonoBehaviour
         leftLegSprite.sprite = _cosmeticData.leftLegSprite;
         rightHandSprite.sprite = _cosmeticData.rightHandSprite;
         leftHandSprite.sprite = _cosmeticData.leftHandSprite;
+        if (_cosmeticData.tailSprite)
+        {
+            tailSprite.gameObject.SetActive(true);
+            tailSprite.sprite = _cosmeticData.tailSprite;
+        }
+        else
+        {
+            tailSprite.sprite = null;
+            tailSprite.gameObject.SetActive(false);
+        }
     }
 
     public void SetInCollection()
