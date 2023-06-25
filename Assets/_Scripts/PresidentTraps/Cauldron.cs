@@ -5,12 +5,14 @@ using UnityEngine;
 public class Cauldron : MonoBehaviour
 {
     [SerializeField] Color _colorToChange;
-    [SerializeField] SpriteRenderer _ObjectToChange;
+    [SerializeField] Color _startColor;
+    [SerializeField] SpriteRenderer _objectToChange;
 
     private void Update()
     {
-        var color = Color.Lerp(Color.white, _colorToChange, Helpers.LevelTimerManager.Timer / Helpers.LevelTimerManager.LevelMaxTime);
-        _ObjectToChange.color = color;
+        var color = Color.Lerp(_startColor, _colorToChange, Helpers.LevelTimerManager.Timer / Helpers.LevelTimerManager.LevelMaxTime);
+        _objectToChange.color = color;
+    
     }
 
 
