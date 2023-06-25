@@ -5,8 +5,10 @@ using UnityEngine;
 public class PersistantData : MonoBehaviour
 {
     public event Action savePersistantData = delegate { };
+    public GameData gameData;
     public PersistantDataSaved persistantDataSaved;
 
+    public const string GAME_DATA = "Game data";
     public const string PERSISTANT_DATA = "Persistant data";
     public static PersistantData Instance;
     private void Awake()
@@ -23,40 +25,34 @@ public class PersistantData : MonoBehaviour
     public void SavePersistantData()
     {
         savePersistantData();
-        SaveLoadSystem.SaveData(persistantDataSaved, PERSISTANT_DATA);
+        SaveLoadSystem.SaveGameData(gameData, GAME_DATA);
     }
     public void LoadPersistantData()
     {
-        persistantDataSaved = File.Exists(Application.persistentDataPath + $"/{PERSISTANT_DATA}.json") ? SaveLoadSystem.LoadData(PERSISTANT_DATA) : new PersistantDataSaved();
+        gameData = File.Exists(Application.persistentDataPath + $"/{GAME_DATA}.json") ? SaveLoadSystem.LoadGameData(GAME_DATA) : new GameData();
+        persistantDataSaved = File.Exists(Application.persistentDataPath + $"/{GAME_DATA}.json") ? SaveLoadSystem.LoadPersistantData(PERSISTANT_DATA) : new PersistantDataSaved();
     }
     public void DeletePersistantData()
     {
-        SaveLoadSystem.Delete(PERSISTANT_DATA);
-        persistantDataSaved = new PersistantDataSaved();
+        SaveLoadSystem.Delete(GAME_DATA);
+        gameData = new GameData();
     }
     private void OnDestroy()
     {
         SavePersistantData();
+        SaveLoadSystem.SavePersistantData(persistantDataSaved, PERSISTANT_DATA);
     }
 }
 
 [Serializable]
 public class PersistantDataSaved
 {
-    public int unlockedZones = 0;
-    public int currentLevel = 1;
-    public int gameMode = 0;
-    public bool firstTime = true;
-    public int currentDeaths;
     public int coins;
     public CosmeticData playerCosmeticEquiped;
     public CosmeticData presidentCosmeticEquiped;
     public List<CosmeticData> playerCosmeticCollection = new List<CosmeticData>();
     public List<CosmeticData> presidentCosmeticCollection = new List<CosmeticData>();
 
-    //Deaths per level
-    public List<string> levels = new List<string>();
-    public List<int> deaths = new List<int>();
 
     public void Buy(int amount) { coins -= amount; }
     public void AddPlayerCosmetic(CosmeticData cosmetic, int amount)
@@ -69,4 +65,18 @@ public class PersistantDataSaved
         presidentCosmeticCollection.Add(cosmetic);
         coins -= amount;
     }
+}
+
+[Serializable]
+public class GameData
+{
+    public int unlockedZones = 0;
+    public int currentLevel = 1;
+    public int gameMode = 0;
+    public bool firstTime = true;
+    public int currentDeaths;
+
+    //Deaths per level
+    public List<string> levels = new List<string>();
+    public List<int> deaths = new List<int>();
 }

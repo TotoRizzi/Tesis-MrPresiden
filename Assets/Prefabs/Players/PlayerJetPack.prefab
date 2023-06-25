@@ -303,6 +303,7 @@ Transform:
   - {fileID: 1266088774256682126}
   - {fileID: 1266088773945994460}
   - {fileID: 1266088773520511965}
+  - {fileID: 243077486922542600}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -512,7 +513,7 @@ MonoBehaviour:
   - {x: -0.4596262, y: 0.14169312, z: 0}
   m_ShapePathHash: 773208149
   m_Mesh: {fileID: 0}
-  m_InstanceId: 105950
+  m_InstanceId: 520180
 --- !u!1 &1266088774822671311
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,7 +626,7 @@ MonoBehaviour:
   - {x: -0.3, y: 0, z: 0}
   m_ShapePathHash: -654931003
   m_Mesh: {fileID: 0}
-  m_InstanceId: 106016
+  m_InstanceId: 520246
 --- !u!1 &1266088775024654868
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,6 +709,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &3015828342319945898
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 243077486922542600}
+  - component: {fileID: 4410843174890061304}
+  m_Layer: 8
+  m_Name: SetSkin
+  m_TagString: SetSkin
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &243077486922542600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3015828342319945898}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1266088774287247118}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4410843174890061304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3015828342319945898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a2b64131de73fb4db05bb2c62419f1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _headSprite: {fileID: 1266088774438158972}
+  _torsoSprite: {fileID: 1266088774822671309}
+  _rightLegSprite: {fileID: 1266088775024654866}
+  _leftLegSprite: {fileID: 1266088773419284710}
+  _rightHandSprite: {fileID: 5098717044179903179}
+  _leftHandSprite: {fileID: 8385142605212391193}
 --- !u!1 &3163197972070097994
 GameObject:
   m_ObjectHideFlags: 0

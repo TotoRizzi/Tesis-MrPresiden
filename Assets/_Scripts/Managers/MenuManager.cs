@@ -8,11 +8,11 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject _warningWindow;
     private void Start()
     {
-        _continueButton.gameObject.SetActive(!Helpers.PersistantData.persistantDataSaved.firstTime);
+        _continueButton.gameObject.SetActive(!Helpers.PersistantData.gameData.firstTime);
     }
     public void BTN_NewGame()
     {
-        if (Helpers.PersistantData.persistantDataSaved.firstTime) Play();
+        if (Helpers.PersistantData.gameData.firstTime) Play();
         else _warningWindow.SetActive(true);
     }
     public void Play()
@@ -20,7 +20,7 @@ public class MenuManager : MonoBehaviour
         Helpers.PersistantData.DeletePersistantData();
         PlayerPrefs.DeleteAll();
         _trainCinematic.Play();
-        Helpers.PersistantData.persistantDataSaved.firstTime = false;
+        Helpers.PersistantData.gameData.firstTime = false;
     }
     public void BTN_Credits()
     {

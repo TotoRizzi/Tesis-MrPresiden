@@ -15,7 +15,7 @@ public class GameOptionsSettings : MonoBehaviour
         _gameModeDD.ClearOptions();
         _gameModeDD.AddOptions(_gameModeOptions);
 
-        _gameModeDD.value = Helpers.PersistantData.persistantDataSaved.gameMode;
+        _gameModeDD.value = Helpers.PersistantData.gameData.gameMode;
 
         #endregion
 
@@ -81,7 +81,7 @@ public class GameOptionsSettings : MonoBehaviour
 
     public void SetGameMode(int gameMode)
     {
-        Helpers.PersistantData.persistantDataSaved.gameMode = (int)(GameMode)gameMode;
+        Helpers.PersistantData.gameData.gameMode = (int)(GameMode)gameMode;
         _gameModeTextToTranslate.UpdateText(_gameModeDD.value == 0 ? "ID_Easy" : "ID_Hard");
     }
 }

@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public event Action OnRoomWon;
     public event Action OnPlayerDead;
 
+    public Action SetPlayerSkin, SetPresidentSkin;
+
     [Header("Layers")]
     [SerializeField] LayerMask _groundLayer, _playerLayer, _weaponLayer, _dynamicBodies, _borderLayer, _invisibleWallLayer;
     public LayerMask GroundLayer { get { return _groundLayer; } private set { } }

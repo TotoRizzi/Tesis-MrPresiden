@@ -34,8 +34,8 @@ public class Zone
         currentDeathsInZone = 0;
         for (int i = 0; i < levelsZone.Length; i++)
         {
-            int index = Helpers.PersistantData.persistantDataSaved.levels.IndexOf(levelsZone[i]);
-            int deathNum = index < 0 ? 0 : Helpers.PersistantData.persistantDataSaved.deaths[index];
+            int index = Helpers.PersistantData.gameData.levels.IndexOf(levelsZone[i]);
+            int deathNum = index < 0 ? 0 : Helpers.PersistantData.gameData.deaths[index];
             currentDeathsInZone += deathNum;
         }
     }

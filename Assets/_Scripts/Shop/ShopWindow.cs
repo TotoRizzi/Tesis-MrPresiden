@@ -24,8 +24,11 @@ public class ShopWindow : MonoBehaviour
     CosmeticData[] _presidentCosmetics;
     CosmeticData _cosmeticSelected;
     CosmeticShopItem _itemSelected;
+
+    Color _buttonsColor;
     void Start()
     {
+        _buttonsColor = _playerButton.image.color;
         PersistantDataSaved persistantDataSaved = Helpers.PersistantData.persistantDataSaved;
         _coins.text = persistantDataSaved.coins.ToString();
 
@@ -99,14 +102,14 @@ public class ShopWindow : MonoBehaviour
 
         _playerButton.onClick.AddListener(() =>
         {
-            _playerButton.image.color = Color.green * 5;
-            _presidentButton.image.color = Color.green * .5f;
+            _playerButton.image.color = _buttonsColor * .5f;
+            _presidentButton.image.color = _buttonsColor;
         });
 
         _presidentButton.onClick.AddListener(() =>
         {
-            _presidentButton.image.color = Color.green * 5;
-            _playerButton.image.color = Color.green * .5f;
+            _presidentButton.image.color = _buttonsColor * .5f;
+            _playerButton.image.color = _buttonsColor;
         });
 
         #endregion

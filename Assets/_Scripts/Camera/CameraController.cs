@@ -4,7 +4,7 @@ using System;
 public class CameraController : MonoBehaviour
 {
     GameManager _gameManager;
-    GeneralPlayer _player;
+    Transform _player;
     Action _cameraBehaviour;
 
     [SerializeField] AnimationCurve _curve;
@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         _gameManager = GameManager.instance;
-        _player = _gameManager.Player;
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
         _gameManager.EnemyManager.OnEnemyKilled += () => StartCoroutine(Shaking());
         _gameManager.EnemyManager.OnHeavyAttack += () => StartCoroutine(Shaking());
 

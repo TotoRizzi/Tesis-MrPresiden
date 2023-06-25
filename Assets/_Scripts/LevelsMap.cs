@@ -9,7 +9,7 @@ public class LevelsMap : MonoBehaviour
     private void Start()
     {
         ZonesManager zonesManager = ZonesManager.Instance;
-        PersistantDataSaved persistantDataSaved = Helpers.PersistantData.persistantDataSaved;
+        GameData persistantDataSaved = Helpers.PersistantData.gameData;
 
         //for (int i = 0; i < _zones[_currentUnlockedZone].levelsZone.Length; i++)
         //{

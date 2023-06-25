@@ -28,11 +28,11 @@ public class LoadSceneManager : MonoBehaviour
         var currentLevel = Convert.ToInt32(levelName);
 
         bool lastLevel = currentLevel >= Helpers.TotalLevels;
-        Helpers.PersistantData.persistantDataSaved.currentLevel = lastLevel || Helpers.PersistantData.persistantDataSaved.currentLevel > currentLevel ? Helpers.PersistantData.persistantDataSaved.currentLevel : currentLevel + 1;
+        Helpers.PersistantData.gameData.currentLevel = lastLevel || Helpers.PersistantData.gameData.currentLevel > currentLevel ? Helpers.PersistantData.gameData.currentLevel : currentLevel + 1;
 
-        string nextScene = lastLevel && Helpers.PersistantData.persistantDataSaved.currentDeaths > ZonesManager.Instance.zones.Last().deathsNeeded ||
+        string nextScene = lastLevel && Helpers.PersistantData.gameData.currentDeaths > ZonesManager.Instance.zones.Last().deathsNeeded ||
             ZonesManager.Instance.lastLevelsZone.Any(x => x == SceneManager.GetActiveScene().name) ? "LevelsMap" :
-            lastLevel && Helpers.PersistantData.persistantDataSaved.currentDeaths <= ZonesManager.Instance.zones.Last().deathsNeeded ? "WinScreen"
+            lastLevel && Helpers.PersistantData.gameData.currentDeaths <= ZonesManager.Instance.zones.Last().deathsNeeded ? "WinScreen"
             : $"Level {currentLevel + 1}";
 
         LoadLevel(nextScene);
@@ -48,16 +48,5 @@ public class LoadSceneManager : MonoBehaviour
         _anim.Play("Close");
         yield return _wait;
         SceneManager.LoadScene(levelName);
-    }
-
-    public void NextSceneFast(UnityEngine.Playables.PlayableDirector victoryTimeline)
-    {
-        if (SceneManager.GetActiveScene().name == "WinScreen" || SceneManager.GetActiveScene().name == "Menu") return;
-        if (SceneManager.GetActiveScene().buildIndex == 40)
-        {
-            LoadLevel("WinScreen");
-            return;
-        }
-        victoryTimeline.Play();
     }
 }

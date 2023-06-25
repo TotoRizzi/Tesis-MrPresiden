@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1266088773419284710}
   m_Layer: 0
   m_Name: Player_LeftLeg
-  m_TagString: Untagged
+  m_TagString: SetSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -304,6 +304,7 @@ Transform:
   - {fileID: 1266088774256682126}
   - {fileID: 1266088773945994460}
   - {fileID: 1266088773520511965}
+  - {fileID: 7858648222198762064}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -435,7 +436,7 @@ GameObject:
   - component: {fileID: 899862880646520267}
   m_Layer: 0
   m_Name: Player_Head
-  m_TagString: Untagged
+  m_TagString: SetSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -530,7 +531,7 @@ MonoBehaviour:
   - {x: -0.4596262, y: 0.14169312, z: 0}
   m_ShapePathHash: 773208149
   m_Mesh: {fileID: 0}
-  m_InstanceId: 105774
+  m_InstanceId: 531888
 --- !u!1 &1266088774822671311
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,7 +545,7 @@ GameObject:
   - component: {fileID: 2466288641861600272}
   m_Layer: 0
   m_Name: Player_Chest
-  m_TagString: Untagged
+  m_TagString: SetSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -642,7 +643,7 @@ MonoBehaviour:
   - {x: -0.3, y: 0, z: 0}
   m_ShapePathHash: -654931003
   m_Mesh: {fileID: 0}
-  m_InstanceId: 105844
+  m_InstanceId: 531958
 --- !u!1 &1266088775024654868
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,7 +656,7 @@ GameObject:
   - component: {fileID: 1266088775024654866}
   m_Layer: 0
   m_Name: Player_RightLeg
-  m_TagString: Untagged
+  m_TagString: SetSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -737,7 +738,7 @@ GameObject:
   - component: {fileID: 8385142605212391193}
   m_Layer: 0
   m_Name: LeftHand
-  m_TagString: Untagged
+  m_TagString: SetSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -819,7 +820,7 @@ GameObject:
   - component: {fileID: 5098717044179903179}
   m_Layer: 0
   m_Name: RightHand
-  m_TagString: Untagged
+  m_TagString: SetSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -889,6 +890,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &7616065460576079637
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7858648222198762064}
+  - component: {fileID: 4121699008435257128}
+  m_Layer: 8
+  m_Name: SetSkin
+  m_TagString: SetSkin
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7858648222198762064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7616065460576079637}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1266088774287247118}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4121699008435257128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7616065460576079637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a2b64131de73fb4db05bb2c62419f1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _headSprite: {fileID: 1266088774438158972}
+  _torsoSprite: {fileID: 1266088774822671309}
+  _rightLegSprite: {fileID: 1266088775024654866}
+  _leftLegSprite: {fileID: 1266088773419284710}
+  _rightHandSprite: {fileID: 5098717044179903179}
+  _leftHandSprite: {fileID: 8385142605212391193}
 --- !u!1001 &1521416315701015959
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,13 +2,13 @@ using UnityEngine;
 public class PlayerShop : MonoBehaviour
 {
     [SerializeField] float _speedMovement;
-    [SerializeField] GameObject _shopCanvas;
+    [SerializeField] GameObject _shopCanvas, _collectionCanvas;
 
     Animator _animator;
 
     System.Action _currentState;
     InputManager _inputManager;
-    bool _onShopTrigger;
+    bool _onShopTrigger, _onProbadorTrigger;
     void Start()
     {
         _animator = GetComponentInChildren<Animator>();
@@ -39,7 +39,18 @@ public class PlayerShop : MonoBehaviour
             _currentState = delegate
             {
                 PlayAnimation("Idle");
-                Cursor.lockState = CursorLockMode.None;
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
+            };
+        }
+
+        if (_inputManager.GetButtonDown("Interact") && _onProbadorTrigger)
+        {
+            _collectionCanvas.SetActive(true);
+            _currentState = delegate
+            {
+                PlayAnimation("Idle");
+                Cursor.lockState = CursorLockMode.Confined;
                 Cursor.visible = true;
             };
         }
@@ -56,13 +67,21 @@ public class PlayerShop : MonoBehaviour
     {
         if (collision.GetComponent<NextSceneOnTrigger>()) _currentState = delegate { PlayAnimation("Idle"); };
     }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.GetComponent<ShowKeyUI>()) _onShopTrigger = true;
+        if (collision.GetComponent<ShowKeyUI>() && collision.transform.parent.name == "Seller") _onShopTrigger = true;
+
+        if (collision.GetComponent<ShowKeyUI>() && collision.transform.parent.name == "Probador") _onProbadorTrigger = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.GetComponent<ShowKeyUI>()) _onShopTrigger = false;
+        if (collision.GetComponent<ShowKeyUI>() && collision.transform.parent.name == "Seller") _onShopTrigger = false;
+
+        if (collision.GetComponent<ShowKeyUI>() && collision.transform.parent.name == "Probador") _onProbadorTrigger = false;
+    }
+    private void OnDestroy()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 }

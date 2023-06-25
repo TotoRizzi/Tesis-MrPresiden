@@ -5,7 +5,7 @@ public class DeathsCounter : MonoBehaviour
 {
     void Start()
     {
-        PersistantDataSaved persistantDataSaved = Helpers.PersistantData.persistantDataSaved;
+        GameData persistantDataSaved = Helpers.PersistantData.gameData;
 
         var levelName = SceneManager.GetActiveScene().name;
 
