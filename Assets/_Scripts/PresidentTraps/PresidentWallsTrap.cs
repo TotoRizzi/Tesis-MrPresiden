@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
 using System.Linq;
+using System.Collections;
+
 public class PresidentWallsTrap : MonoBehaviour
 {
     [SerializeField] float _time, _timeGoing, _timeComingBack, _timeWaiting, _timer;
@@ -19,6 +21,7 @@ public class PresidentWallsTrap : MonoBehaviour
         _wallsFinalPositions = _wallsInitialPositions.Select(x => x - Vector3.up * 2.25f).ToArray();
 
         Helpers.LevelTimerManager.OnLevelStart += () => _wallAction = WallGoing;
+        Helpers.GameManager.EnemyManager.OnEnemyKilled += () => StartCoroutine(Wait());
     }
     void Update()
     {
@@ -56,5 +59,13 @@ public class PresidentWallsTrap : MonoBehaviour
             ++_counter;
             _wallAction = _counter >= _walls.Length - 1 ? (Action)delegate { } : WallGoing;
         }
+    }
+
+    IEnumerator Wait()
+    {
+        var currentAction = _wallAction;
+        _wallAction = delegate { };
+        yield return new WaitForSeconds(1f);
+        _wallAction = currentAction;
     }
 }
