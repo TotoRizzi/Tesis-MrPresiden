@@ -56,7 +56,7 @@ public class PauseGO : IScreen
     {
         foreach (var b in _root.GetComponentsInChildren<Behaviour>())
         {
-            if (b.gameObject.tag == "Cinematica") continue;
+            if (b.gameObject.tag == "Cinematica" || b.gameObject.tag == "SetSkin") continue;
             _before[b] = b.enabled;
             var rb = b.GetComponent<Rigidbody2D>();
             if (rb) rb.Sleep();
@@ -67,7 +67,7 @@ public class PauseGO : IScreen
     {
         foreach (var b in _root.GetComponentsInChildren<Behaviour>())
         {
-            if (b.gameObject.tag == "Cinematica") continue;
+            if (b.gameObject.tag == "Cinematica" || b.gameObject.tag == "SetSkin") continue;
             _before[b] = b.enabled;
             var rb = b.GetComponent<Rigidbody2D>();
             if (rb) rb.WakeUp();

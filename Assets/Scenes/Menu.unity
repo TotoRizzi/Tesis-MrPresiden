@@ -4762,6 +4762,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 521680909}
     m_Modifications:
+    - target: {fileID: 1263392920443657838, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263392920443657838, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Animation
+      objectReference: {fileID: 0}
     - target: {fileID: 6958488689517159539, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
       propertyPath: m_Name
       value: LoadSceneManager
@@ -9801,6 +9809,17 @@ Transform:
   m_Father: {fileID: 814774058}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1542879076 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1263392920443657838, guid: aceba71c2c1d70341a47e6d802577b54, type: 3}
+  m_PrefabInstance: {fileID: 709140373}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1557222780
 GameObject:
   m_ObjectHideFlags: 0
@@ -10229,7 +10248,7 @@ PlayableDirector:
   m_InitialTime: 0
   m_SceneBindings:
   - key: {fileID: 9070130604755828527, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
-    value: {fileID: 0}
+    value: {fileID: 1542879076}
   - key: {fileID: 1575706758849761921, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
     value: {fileID: 487042492}
   - key: {fileID: 548612418286956333, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}

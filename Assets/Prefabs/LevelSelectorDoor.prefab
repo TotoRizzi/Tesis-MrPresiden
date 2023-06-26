@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 7105025233921599919}
   - component: {fileID: 3900194624719815402}
   - component: {fileID: 3153138637741393099}
-  - component: {fileID: 2155220021227668952}
+  - component: {fileID: 6016318953661225800}
   m_Layer: 20
   m_Name: LevelSelectorDoor
   m_TagString: Untagged
@@ -271,7 +271,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
---- !u!114 &2155220021227668952
+--- !u!114 &6016318953661225800
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -280,9 +280,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7207672766553818539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d0887339522cab43b27efee8ce88180, type: 3}
+  m_Script: {fileID: 11500000, guid: 1195216366c839c4a9e41b24274048d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelIndex: 0
+  _miniGameSceneName: 
+  _miniGameZone: 0
   _levelIndexTxt: {fileID: 0}
-  _deathAmountInLevel: {fileID: 0}
