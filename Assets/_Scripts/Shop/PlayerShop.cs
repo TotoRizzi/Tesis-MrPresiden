@@ -21,6 +21,7 @@ public class PlayerShop : MonoBehaviour
     void Update()
     {
         _currentState();
+        if (Input.GetKeyDown(KeyCode.F3)) Helpers.PersistantData.persistantDataSaved.coins += 200;
     }
     void DefaultState()
     {

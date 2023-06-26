@@ -4005,6 +4005,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 596387361}
+  - component: {fileID: 596387362}
   m_Layer: 5
   m_Name: ButtonsContainer
   m_TagString: Untagged
@@ -4032,6 +4033,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 14.696411}
   m_SizeDelta: {x: 0, y: 29.3928}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &596387362
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 596387360}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &611126407
 GameObject:
   m_ObjectHideFlags: 0
@@ -9236,7 +9256,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1494836249}
-  - component: {fileID: 1494836251}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -9264,25 +9283,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &1494836251
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1494836248}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1526039751
 GameObject:
   m_ObjectHideFlags: 0
@@ -10278,22 +10278,10 @@ PlayableDirector:
     value: {fileID: 53969317}
   - key: {fileID: -990119429515979381, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
     value: {fileID: 814774060}
-  - key: {fileID: -7378920783145535527, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
-    value: {fileID: 700017321}
-  - key: {fileID: 1258046822847060041, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
-    value: {fileID: 1317919802}
-  - key: {fileID: 4021730635330048206, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
-    value: {fileID: 113216752}
-  - key: {fileID: -8797657280980617118, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
-    value: {fileID: 405243411}
-  - key: {fileID: 1728425908068992347, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
-    value: {fileID: 1049366856}
   - key: {fileID: 3235462323267727971, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
-    value: {fileID: 1494836251}
+    value: {fileID: 596387362}
   - key: {fileID: -7016203774773428313, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
     value: {fileID: 2098281968}
-  - key: {fileID: 3433469513150842901, guid: a89372c4d9e215b4cb45a3daf7b30327, type: 2}
-    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1648621869
