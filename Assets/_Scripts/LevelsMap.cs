@@ -35,17 +35,18 @@ public class LevelsMap : MonoBehaviour
         {
             zonesManager.zones[i].SetCurrentDeaths();
             deathsAmount += zonesManager.zones[i].currentDeathsInZone;
-            SetButton(_deathsZoneTxt[i], _zonesButtons[i], zonesManager.zones[i].deathsNeeded, ref deathsAmount);
+            SetButton(_deathsZoneTxt[i], _zonesButtons[i], zonesManager.zones[i].deathsNeeded, ref deathsAmount, ZonesManager.Instance.zones[i].levelsZone.First());
         }
     }
-    public void SetButton(TextMeshProUGUI deathsZoneTxt, Button buttonZone, int deathsNeeded, ref int deathsAmount)
+    public void SetButton(TextMeshProUGUI deathsZoneTxt, Button buttonZone, int deathsNeeded, ref int deathsAmount, string sceneToLoad)
     {
         buttonZone.interactable = true;
 
         deathsZoneTxt.gameObject.SetActive(true);
-        deathsZoneTxt.rectTransform.position = buttonZone.transform.position + Vector3.up;
 
         deathsZoneTxt.text = $"{deathsAmount} / {deathsNeeded}";
         deathsZoneTxt.color = deathsAmount <= deathsNeeded ? Color.green : Color.red;
+
+        buttonZone.onClick.AddListener(() => Helpers.GameManager.LoadSceneManager.LoadLevel(sceneToLoad));
     }
 }
