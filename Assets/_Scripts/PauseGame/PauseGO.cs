@@ -16,7 +16,7 @@ public class PauseGO : IScreen
         var count = 0;
         foreach (var keyValue in _before)
         {
-            if (keyValue.Key.gameObject.tag == "SetSkin") continue;
+            if (keyValue.Key.gameObject.tag == "SetSkin" || keyValue.Key.GetComponent<AudioListener>()) continue;
             keyValue.Key.enabled = keyValue.Value;
             var rb = keyValue.Key.GetComponent<Rigidbody2D>();
             if (rb)
@@ -35,7 +35,7 @@ public class PauseGO : IScreen
     {
         foreach (var b in _root.GetComponentsInChildren<Behaviour>())
         {
-            if (b.gameObject.tag == "SetSkin") continue;
+            if (b.gameObject.tag == "SetSkin" || b.GetComponent<AudioListener>()) continue;
             _before[b] = b.enabled;
             var rb = b.GetComponent<Rigidbody2D>();
             if (rb)

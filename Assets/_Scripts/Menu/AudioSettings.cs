@@ -24,6 +24,7 @@ public class AudioSettings : MonoBehaviour
     public void SetSFXVolume()
     {
         Helpers.AudioManager.sfxSource.volume = _sfxSlider.value;
+        Helpers.AudioManager.setCinematicSound();
     }
 
     public void SaveVolumes()

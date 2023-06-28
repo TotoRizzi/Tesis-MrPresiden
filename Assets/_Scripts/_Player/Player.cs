@@ -279,7 +279,10 @@ public class MoveState : IState
 {
     Player _player;
     PlayerController _controller;
+    string[] _stepsSounds = new string[2] { "Footstep1", "Footstep2" };
 
+    float _timer;
+    int _index;
     public MoveState(Player player, PlayerController controller)
     {
         _player = player;
@@ -305,6 +308,12 @@ public class MoveState : IState
     public void OnUpdate()
     {
         _controller.MovingInputs();
+        _timer += Time.deltaTime;
+        if(_timer >= .1f)
+        {
+            Helpers.AudioManager.PlaySFX(_stepsSounds[_index++ % _stepsSounds.Length]);
+            _timer = 0;
+        }
     }
 }
 public class JumpState : IState
