@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class KeysUI : MonoBehaviour
 {
     [SerializeField] Image _keyImg;
-    Sprite _mainSprite, _pressedSprite;
-
+    Sprite[] _sprites = new Sprite[2];
+    int _delay;
     public bool active { get; set; }
     IEnumerator PressedAnimation()
     {
@@ -13,9 +13,9 @@ public class KeysUI : MonoBehaviour
 
         while (true)
         {
-            _keyImg.sprite = _mainSprite;
+            _keyImg.sprite = _sprites[_delay++ % _sprites.Length];
             yield return waitForSeconds;
-            _keyImg.sprite = _pressedSprite;
+            _keyImg.sprite = _sprites[_delay++ % _sprites.Length];
             yield return waitForSeconds;
         }
     }
@@ -28,9 +28,15 @@ public class KeysUI : MonoBehaviour
     }
     public KeysUI SetButtonSprite(string inputName)
     {
-        _mainSprite = InputManager.Instance.GetKeySpriteByName(inputName);
-        _pressedSprite = InputManager.Instance.GetPressedKeySpriteByName(inputName);
+        _sprites[0] = InputManager.Instance.GetKeySpriteByName(inputName);
+        _sprites[1] = InputManager.Instance.GetPressedKeySpriteByName(inputName);
         if (active) StartCoroutine(PressedAnimation());
+        return this;
+    }
+
+    public KeysUI SetDelay(bool delay)
+    {
+        _delay = delay ? 1 : 0;
         return this;
     }
     private void Reset()
