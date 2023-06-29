@@ -436,7 +436,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.2, z: 0}
   m_ShapePathHash: -1906480883
   m_Mesh: {fileID: 0}
-  m_InstanceId: 81804
+  m_InstanceId: 38826
 --- !u!1 &859833147576569514
 GameObject:
   m_ObjectHideFlags: 0
@@ -3558,7 +3558,6 @@ GameObject:
   - component: {fileID: 337347955664551613}
   - component: {fileID: 1532709085841239892}
   - component: {fileID: 8164855979954613999}
-  - component: {fileID: 8422366187286878656}
   - component: {fileID: 6378233005292966671}
   - component: {fileID: 4544813839433100069}
   m_Layer: 0
@@ -3693,14 +3692,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _presidentRoomPos: {x: 0, y: 0, z: -10}
   _zoomSize: 0
---- !u!81 &8422366187286878656
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8881859526940456432}
-  m_Enabled: 1
 --- !u!114 &6378233005292966671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4074,14 +4065,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e4d191a1c110d340b9cba6c8667ccd8, type: 3}
---- !u!198 &31039006845019552 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4601113614125964602, guid: 2e4d191a1c110d340b9cba6c8667ccd8, type: 3}
-  m_PrefabInstance: {fileID: 4590353000628533402}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8462590815889412018 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5387743560769402664, guid: 2e4d191a1c110d340b9cba6c8667ccd8, type: 3}
+  m_PrefabInstance: {fileID: 4590353000628533402}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &31039006845019552 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4601113614125964602, guid: 2e4d191a1c110d340b9cba6c8667ccd8, type: 3}
   m_PrefabInstance: {fileID: 4590353000628533402}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7945717095910967075

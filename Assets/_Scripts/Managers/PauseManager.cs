@@ -3,6 +3,7 @@ using UnityEngine;
 public class PauseManager : MonoBehaviour
 {
     bool _paused = false;
+    bool _tutorialPause;
     Stack<IScreen> _stack;
     CinematicManager _cinematicManager;
 
@@ -20,7 +21,7 @@ public class PauseManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) & !_cinematicManager.playingCinematic)
+        if (Input.GetKeyDown(KeyCode.Escape) & !_cinematicManager.playingCinematic & !_tutorialPause)
         {
             if (_paused) Pop();
             else Push(Instantiate(Resources.Load<ScreenPause>("PauseCanvas")));
@@ -50,5 +51,13 @@ public class PauseManager : MonoBehaviour
     public void UnpauseObjectsInCinematic()
     {
         _stack.Peek().UnpauseObjectsInCinematic();
+    }
+    public void TutorialPause()
+    {
+        if (_paused) _stack.Peek().Activate();
+        else _stack.Peek().Deactivate();
+
+        TurnPause();
+        _tutorialPause = !_tutorialPause;
     }
 }
