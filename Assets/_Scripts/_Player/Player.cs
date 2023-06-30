@@ -46,7 +46,7 @@ public class Player : GeneralPlayer
     public int MaxJumps { get { return _maxJumps; } private set { } }
 
     public int _currentJumps = 1;
-  
+
     bool _canJump => _currentJumps > 0;
 
     public bool CanJump { get { return _canJump; } private set { } }
@@ -71,8 +71,11 @@ public class Player : GeneralPlayer
     public Action OnStaminaTick;
     #endregion
 
+    Dictionary<string, Action> _tutorialActions = new Dictionary<string, Action>();
     private void Start()
     {
+        _tutorialActions["Dash"] = () => { if (_canDash) fsm.ChangeState(StateName.Dash); };
+        _tutorialActions["Jump"] = () => { if (_canJump) fsm.ChangeState(StateName.Jump); };
         StartCoroutine(CanMoveDelay());
 
         //Components
@@ -104,18 +107,23 @@ public class Player : GeneralPlayer
 
         _gameManager.OnPlayerDead += () => fsm.ChangeState(StateName.Idle);
         _gameManager.OnPlayerDead += ReturnJumps;
+
+        EventManager.SubscribeToEvent(Contains.PLAYER_TUTORIAL_ACTION, UnPauseTutorialAction);
     }
 
     private void Update()
     {
-        if(_canMove) OnUpdate?.Invoke();
+        if (_canMove) OnUpdate?.Invoke();
     }
 
     private void FixedUpdate()
     {
-        if(_canMove) fsm.FixedUpdate();
+        if (_canMove) fsm.FixedUpdate();
     }
-
+    private void OnDestroy()
+    {
+        EventManager.UnSubscribeToEvent(Contains.PLAYER_TUTORIAL_ACTION, UnPauseTutorialAction);
+    }
     public IEnumerator CanMoveDelay()
     {
         yield return new WaitForSeconds(_maxDelayCanMove);
@@ -192,7 +200,7 @@ public class Player : GeneralPlayer
 
     public void StopClimging()
     {
-        if(fsm.IsInState(StateName.Climb))
+        if (fsm.IsInState(StateName.Climb))
             fsm.ChangeState(StateName.OnAir);
     }
 
@@ -221,7 +229,7 @@ public class Player : GeneralPlayer
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Rope")
+        if (collision.tag == "Rope")
             EnterRope(collision.gameObject);
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -240,6 +248,12 @@ public class Player : GeneralPlayer
     void ExitRope()
     {
         StopClimging();
+    }
+
+    void UnPauseTutorialAction(params object[] param)
+    {
+        var actionName = (string)param[0];
+        if (_tutorialActions.ContainsKey(actionName)) _tutorialActions[actionName]();
     }
 }
 
@@ -286,7 +300,7 @@ public class MoveState : IState
     public MoveState(Player player, PlayerController controller)
     {
         _player = player;
-        _controller = controller;       
+        _controller = controller;
     }
 
     public void OnEnter()
@@ -309,7 +323,7 @@ public class MoveState : IState
     {
         _controller.MovingInputs();
         _timer += Time.deltaTime;
-        if(_timer >= .1f)
+        if (_timer >= .1f)
         {
             Helpers.AudioManager.PlaySFX(_stepsSounds[_index++ % _stepsSounds.Length]);
             _timer = 0;
@@ -352,7 +366,7 @@ public class JumpState : IState
     {
         _controller.OnJumpInputs();
         _currentOnAirTimer += Time.deltaTime;
-        if(_currentOnAirTimer <= _onAirTimer)
+        if (_currentOnAirTimer <= _onAirTimer)
         {
             _player.fsm.ChangeState(StateName.OnAir);
         }
@@ -413,14 +427,14 @@ public class DashState : IState
 
         _currentDashDuration = 0;
         Vector3 newDashDir = Vector3.one;
-        if(_controller.xAxis != 0)
+        if (_controller.xAxis != 0)
         {
             _dashDirection = _controller.xAxis;
         }
         else
         {
             float angle = _player.WeaponManager.GetAngle();
-        
+
             if (angle > 90 || angle < -90)
             {
                 _dashDirection = -1;

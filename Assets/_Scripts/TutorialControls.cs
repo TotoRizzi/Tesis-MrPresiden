@@ -9,21 +9,17 @@ public class TutorialControls : MonoBehaviour
     [SerializeField, Header("Spanish"), TextArea(minLines: 1, maxLines: 4)] string _SPAText;
     [SerializeField] string[] _inputsNames;
     [SerializeField] TextMeshProUGUI _inputActionTxt, _tipTxt;
-    [SerializeField] Button _skipButton;
 
     KeysUI[] _keys;
     GameObject _info;
     bool _activated;
     float _pauseTime = 2;
+    System.Action _state = delegate { };
+    InputManager _inputManager;
     private void Start()
     {
+        _inputManager = InputManager.Instance;
         _info = GetComponentInChildren<Canvas>().gameObject;
-        _skipButton.onClick.AddListener(() =>
-        {
-            Helpers.GameManager.PauseManager.TutorialPause();
-            Destroy(gameObject);
-        });
-        _skipButton.interactable = false;
         if (_isTip)
         {
             _tipTxt.text = LanguageManager.Instance.selectedLanguage == Languages.eng ? _ENGText : _SPAText;
@@ -32,6 +28,10 @@ public class TutorialControls : MonoBehaviour
         _keys = GetComponentsInChildren<KeysUI>();
         _inputActionTxt.text = LanguageManager.Instance.selectedLanguage == Languages.eng ? _ENGText : _SPAText;
         _info.SetActive(false);
+    }
+    private void Update()
+    {
+        _state?.Invoke();
     }
     IEnumerator Wait()
     {
@@ -44,7 +44,20 @@ public class TutorialControls : MonoBehaviour
         }
         Helpers.GameManager.PauseManager.TutorialPause();
         yield return new WaitForSeconds(_pauseTime);
-        _skipButton.interactable = true;
+        _state += State;
+    }
+    void State()
+    {
+        if (Input.anyKey)
+        {
+            foreach (var item in _inputsNames)
+                if (_inputManager.GetButtonDown(item))
+                {
+                    Helpers.GameManager.PauseManager.TutorialPause();
+                    EventManager.TriggerEvent(Contains.PLAYER_TUTORIAL_ACTION, item);
+                    Destroy(gameObject);
+                }
+        }
     }
     private void OnTriggerEnter2D()
     {
