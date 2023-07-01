@@ -40,7 +40,7 @@ public class TutorialControls : MonoBehaviour
         for (int i = 0; i < _inputsNames.Length; i++)
         {
             _keys[i].active = true;
-            _keys[i].SetButtonSprite(_inputsNames[i]).SetDelay(i % 2 == 0);
+            _keys[i].SetDelay(i % 2 == 0).SetButtonSprite(_inputsNames[i]);
         }
         Helpers.GameManager.PauseManager.TutorialPause();
         yield return new WaitForSeconds(_pauseTime);

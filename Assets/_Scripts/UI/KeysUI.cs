@@ -10,7 +10,6 @@ public class KeysUI : MonoBehaviour
     IEnumerator PressedAnimation()
     {
         var waitForSeconds = new WaitForSeconds(.5f);
-
         while (true)
         {
             _keyImg.sprite = _sprites[_delay++ % _sprites.Length];
@@ -37,6 +36,7 @@ public class KeysUI : MonoBehaviour
     public KeysUI SetDelay(bool delay)
     {
         _delay = delay ? 1 : 0;
+        _keyImg.sprite = _sprites[_delay];
         return this;
     }
     private void Reset()

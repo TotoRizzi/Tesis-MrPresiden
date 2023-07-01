@@ -117,7 +117,7 @@ public class ShopWindow : MonoBehaviour
         _playerBuyButton.onClick.AddListener(() =>
         {
             _itemSelected.SetInCollection();
-            persistantDataSaved.AddPlayerCosmetic(_cosmeticSelected, _cosmeticSelected.cost);
+            persistantDataSaved.AddPlayerCosmetic(_cosmeticSelected);
             _coins.text = persistantDataSaved.coins.ToString();
             _cosmeticSelected = null;
             _itemSelected = null;
@@ -125,7 +125,7 @@ public class ShopWindow : MonoBehaviour
         _presidentBuyButton.onClick.AddListener(() =>
         {
             _itemSelected.SetInCollection();
-            persistantDataSaved.AddPresidentCosmetic(_cosmeticSelected, _cosmeticSelected.cost);
+            persistantDataSaved.AddPresidentCosmetic(_cosmeticSelected);
             _coins.text = persistantDataSaved.coins.ToString();
             _cosmeticSelected = null;
             _itemSelected = null;

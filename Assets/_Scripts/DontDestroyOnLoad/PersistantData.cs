@@ -31,6 +31,7 @@ public class PersistantData : MonoBehaviour
     {
         gameData = File.Exists(Application.persistentDataPath + $"/{GAME_DATA}.json") ? SaveLoadSystem.LoadGameData(GAME_DATA) : new GameData();
         persistantDataSaved = File.Exists(Application.persistentDataPath + $"/{GAME_DATA}.json") ? SaveLoadSystem.LoadPersistantData(PERSISTANT_DATA) : new PersistantDataSaved();
+        persistantDataSaved.RemoveEmptySlot();
     }
     public void DeletePersistantData()
     {
@@ -53,17 +54,24 @@ public class PersistantDataSaved
     public List<CosmeticData> playerCosmeticCollection = new List<CosmeticData>();
     public List<CosmeticData> presidentCosmeticCollection = new List<CosmeticData>();
 
+    public void RemoveEmptySlot()
+    {
+        for (int i = 0; i < playerCosmeticCollection.Count; i++)
+            if (!playerCosmeticCollection[i]) playerCosmeticCollection.Remove(playerCosmeticCollection[i]);
 
+        for (int i = 0; i < presidentCosmeticCollection.Count; i++)
+            if (!presidentCosmeticCollection[i]) presidentCosmeticCollection.Remove(presidentCosmeticCollection[i]);
+    }
     public void Buy(int amount) { coins -= amount; }
-    public void AddPlayerCosmetic(CosmeticData cosmetic, int amount)
+    public void AddPlayerCosmetic(CosmeticData cosmetic)
     {
         playerCosmeticCollection.Add(cosmetic);
-        coins -= amount;
+        Buy(cosmetic.cost);
     }
-    public void AddPresidentCosmetic(CosmeticData cosmetic, int amount)
+    public void AddPresidentCosmetic(CosmeticData cosmetic)
     {
         presidentCosmeticCollection.Add(cosmetic);
-        coins -= amount;
+        Buy(cosmetic.cost);
     }
 }
 

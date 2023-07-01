@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using System.Linq;
 using System.Collections;
 public class ControlSettings : MonoBehaviour
 {
@@ -14,6 +13,7 @@ public class ControlSettings : MonoBehaviour
     string _keyToRebind = null;
     Color _originalColor;
     Dictionary<string, Button> _buttons = new Dictionary<string, Button>();
+    Action _state = delegate { };
     void Start()
     {
         _inputManager = FindObjectOfType<InputManager>();
@@ -46,8 +46,10 @@ public class ControlSettings : MonoBehaviour
     }
     private void Update()
     {
-        if (_keyToRebind == null) return;
-
+        _state();
+    }
+    void BindKey()
+    {
         if (Input.anyKey)
         {
             foreach (KeyCode kc in Enum.GetValues(typeof(KeyCode)))
@@ -61,7 +63,7 @@ public class ControlSettings : MonoBehaviour
                     }
                     else
                     {
-                        if(!_isKeyWarningOn) StartCoroutine(KeyWarning());
+                        if (!_isKeyWarningOn) StartCoroutine(KeyWarning());
                         break;
                     }
                 }
@@ -71,6 +73,7 @@ public class ControlSettings : MonoBehaviour
     void StartRebindFor(string buttonName)
     {
         _keyToRebind = buttonName;
+        _state = BindKey;
     }
 
     void SetKey(KeyCode kc)
@@ -78,6 +81,7 @@ public class ControlSettings : MonoBehaviour
         _inputManager.SetButtonForKey(_keyToRebind, kc, SetNewButton, SetButtonAlreadyExist);
         _buttons[_keyToRebind].GetComponent<Image>().color = _originalColor;
         _keyToRebind = null;
+        _state = delegate { };
     }
     public void SetButtonAlreadyExist(string buttonToReplace, Sprite sprite)
     {
