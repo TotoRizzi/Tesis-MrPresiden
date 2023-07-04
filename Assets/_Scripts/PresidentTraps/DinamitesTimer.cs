@@ -4,7 +4,6 @@ public class DinamitesTimer : MonoBehaviour
 {
     TextMeshProUGUI _timerTxt;
     Color[] _colors = new Color[3] { Color.white, Color.yellow, Color.red };
-
     int _seconds, _cents;
     float _maxTime;
     void Start()
@@ -12,11 +11,13 @@ public class DinamitesTimer : MonoBehaviour
         _timerTxt = GetComponentInChildren<TextMeshProUGUI>();
         _maxTime = Helpers.LevelTimerManager.LevelMaxTime;
     }
+
+    float _timer;
     void Update()
     {
-        float timer = _maxTime - Helpers.LevelTimerManager.Timer;
-        _seconds = (int)(timer - (int)(timer / 60f) * 60f);
-        _cents = (int)((timer - (int)timer) * 100f);
+        _timer = _maxTime - Helpers.LevelTimerManager.Timer;
+        _seconds = (int)(_timer - (int)(_timer / 60f) * 60f);
+        _cents = (int)((_timer - (int)_timer) * 100f);
         _timerTxt.text = string.Format("{0:00}:{1:00}", _seconds, _cents);
         _timerTxt.color = MultiLerp(Helpers.LevelTimerManager.Timer / _maxTime, _colors);
     }

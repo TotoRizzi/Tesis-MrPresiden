@@ -7,8 +7,8 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] GameObject _rightHand, _leftHand;
 
     Camera _mainCamera;
-    Transform _mainWeaponContainer;
-    Transform _secundaryWeaponContainer;
+    Transform _mainWeaponContainer, _secundaryWeaponContainer;
+    Transform _secundaryWeaponTransform;
     InputManager _inputManager;
     Action _lookAtMouse = delegate { };
     bool _onWeaponTrigger;
@@ -18,20 +18,17 @@ public class WeaponManager : MonoBehaviour
     private void Start()
     {
         _inputManager = InputManager.Instance;
-        _mainCamera = Camera.main;
+        _mainCamera = Helpers.MainCamera;
         _mainWeaponContainer = transform.GetChild(0);
         _secundaryWeaponContainer = transform.GetChild(1);
         _currentSecundaryWeapon = _secundaryWeaponContainer.GetComponentInChildren<Weapon>();
+        _secundaryWeaponTransform = _currentSecundaryWeapon.transform;
         _currentSecundaryWeapon.PickUp(true);
         _lookAtMouse += SecundaryWeapon;
-
-        //LoadWeapon();
     }
     private void Update()
     {
         _lookAtMouse?.Invoke();
-
-        if (_inputManager.GetButton("Shoot") && _currentMainWeapon) _currentMainWeapon.Attack(GetMouseDirectionMain());
 
         if (_inputManager.GetButton("Knife") && _currentSecundaryWeapon)
         {
@@ -47,26 +44,10 @@ public class WeaponManager : MonoBehaviour
     #region Weapon Funcs
     public void SetWeapon()
     {
-        RaycastHit2D[] hit = Physics2D.RaycastAll(_mainWeaponContainer.position, GetMouseDirectionMain().normalized, 2f, GameManager.instance.WeaponLayer);
-        if (hit.Length <= 0) return;
+        if (_currentMainWeapon) return;
 
-        Weapon newWeapon = null;
-        float minValue = 0;
-        foreach (var weapon in hit)
-        {
-            float distance = Vector2.Distance(weapon.transform.position, GetMousePosition());
-
-            if (minValue == 0)
-            {
-                minValue = distance;
-                newWeapon = weapon.collider.GetComponent<Weapon>();
-            }
-            else if (distance < minValue)
-            {
-                minValue = distance;
-                newWeapon = weapon.collider.GetComponent<Weapon>();
-            }
-        }
+        var col = Physics2D.OverlapCircle(transform.position, 2f, Helpers.GameManager.WeaponLayer);
+        Weapon newWeapon = col ? col.GetComponent<Weapon>() : null;
 
         if (!newWeapon.CanPickUp) return;
 
@@ -78,6 +59,7 @@ public class WeaponManager : MonoBehaviour
     void EquipWeapon(Weapon newWeapon)
     {
         _currentMainWeapon = newWeapon;
+        _lookAtMouse += () => { if (_inputManager.GetButton("Shoot") && _currentMainWeapon) _currentMainWeapon.Attack(GetMouseDirectionMain()); };
         _lookAtMouse += MainWeapon;
         _currentMainWeapon.PickUp().SetParent(_mainWeaponContainer).SetPosition(_mainWeaponContainer.position);
         _currentMainWeapon.UpdateCurrentWeapon();
@@ -103,17 +85,21 @@ public class WeaponManager : MonoBehaviour
         _rightHand.SetActive(true);
         _leftHand.SetActive(true);
     }
+
+    Vector2 primaryWeaponSize;
     void MainWeapon()
     {
         _mainWeaponContainer.eulerAngles = new Vector3(0, 0, GetAngle());
-        Vector2 weaponSize = new Vector2(_currentMainWeapon.transform.localScale.x, Mathf.Sign(GetMouseDirectionMain().x));
-        _currentMainWeapon.transform.localScale = weaponSize;
+        primaryWeaponSize = new Vector2(_currentMainWeapon.transform.localScale.x, Mathf.Sign(GetMouseDirectionMain().x));
+        _currentMainWeapon.transform.localScale = primaryWeaponSize;
     }
+
+    Vector2 secondaryWeaponSize;
     void SecundaryWeapon()
     {
         _secundaryWeaponContainer.eulerAngles = new Vector3(0, 0, GetAngle());
-        Vector2 weaponSize = new Vector2(_currentSecundaryWeapon.transform.localScale.x, Mathf.Sign(GetMouseDirectionSecundary().x));
-        _currentSecundaryWeapon.transform.localScale = weaponSize;
+        secondaryWeaponSize = new Vector2(_secundaryWeaponTransform.localScale.x, Mathf.Sign(GetMouseDirectionSecundary().x));
+        _secundaryWeaponTransform.localScale = secondaryWeaponSize;
     }
 
     #endregion
@@ -128,33 +114,14 @@ public class WeaponManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<ShowKeyUI>()) _onWeaponTrigger = true; 
+        if (collision.GetComponent<ShowKeyUI>()) _onWeaponTrigger = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.GetComponent<ShowKeyUI>()) _onWeaponTrigger = false;
     }
-
-    //public void SaveWeapon()
-    //{
-    //    if (_currentMainWeapon)
-    //    {
-    //        GameManager.instance.SaveDataManager.SaveString("MainWeapon", _currentMainWeapon.GetWeaponData.name);
-    //        GameManager.instance.SaveDataManager.SaveInt("Ammo", _currentMainWeapon.GetComponent<FireWeapon>().GetCurrentAmmo);
-    //    }
-    //    else PlayerPrefs.DeleteKey("MainWeapon");
-    //}
-    //public void LoadWeapon()
-    //{
-    //    if (PlayerPrefs.HasKey("MainWeapon"))
-    //    {
-    //        var weapon = Instantiate(Resources.Load<Weapon>($"Weapons/{PlayerPrefs.GetString("MainWeapon")}"));
-    //        weapon.GetComponent<FireWeapon>().GetCurrentAmmo = PlayerPrefs.GetInt("Ammo", default);
-    //        EquipWeapon(weapon);
-    //    }
-    //}
-    //private void OnDestroy()
-    //{
-    //    SaveWeapon();
-    //}
+    private void OnDestroy()
+    {
+        _lookAtMouse = delegate { };
+    }
 }

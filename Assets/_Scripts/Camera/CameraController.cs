@@ -4,7 +4,7 @@ using System;
 public class CameraController : MonoBehaviour
 {
     GameManager _gameManager;
-    Transform _player;
+    Transform _myTransform, _player;
     Action _cameraBehaviour;
 
     [SerializeField] AnimationCurve _curve;
@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] bool _static;
     private void Start()
     {
+        _myTransform = transform;
         _gameManager = GameManager.instance;
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         _gameManager.EnemyManager.OnEnemyKilled += () => StartCoroutine(Shaking());
@@ -25,19 +26,22 @@ public class CameraController : MonoBehaviour
     {
         _cameraBehaviour();
     }
+
+    float _xClamp, _yClamp;
+    Vector3 _targetPosition;
     void CameraClamped()
     {
-        float xClamp = Mathf.Clamp(_player.transform.position.x, _clampX[0], _clampX[1]);
-        float yClamp = Mathf.Clamp(_player.transform.position.y, _clampY[0], _clampY[1]);
-        Vector3 targetPosition = new Vector3(xClamp, yClamp, transform.position.z);
-        transform.position = Vector3.Lerp(transform.position, targetPosition, _smooth * Time.deltaTime);
+        _xClamp = Mathf.Clamp(_player.position.x, _clampX[0], _clampX[1]);
+        _yClamp = Mathf.Clamp(_player.position.y, _clampY[0], _clampY[1]);
+        _targetPosition = new Vector3(_xClamp, _yClamp, _myTransform.position.z);
+        _myTransform.position = Vector3.Lerp(_myTransform.position, _targetPosition, _smooth * Time.deltaTime);
     }
     public void StartCameraShake(float duration) => StartCoroutine(CameraShake(duration));
     public void StartShaking() => StartCoroutine(Shaking());
 
     IEnumerator CameraShake(float duration)
     {
-        Vector3 startPosition = transform.localPosition;
+        Vector3 startPosition = _myTransform.localPosition;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
@@ -45,28 +49,28 @@ public class CameraController : MonoBehaviour
             float x = UnityEngine.Random.Range(-1f, 1f) * .015f;
             float y = UnityEngine.Random.Range(-1f, 1f) * .015f;
 
-            transform.localPosition = new Vector3(startPosition.x + x, startPosition.y + y, startPosition.z);
+            _myTransform.localPosition = new Vector3(startPosition.x + x, startPosition.y + y, startPosition.z);
 
             elapsedTime += Time.deltaTime;
 
             yield return null;
         }
 
-        transform.localPosition = startPosition;
+        _myTransform.localPosition = startPosition;
     }
     IEnumerator Shaking()
     {
-        Vector3 startPosition = transform.localPosition;
+        Vector3 startPosition = _myTransform.localPosition;
         float elapsedTime = 0f;
 
         while (elapsedTime < _gameManager.CameraShakeDuration)
         {
             elapsedTime += Time.deltaTime;
             float strenght = _curve.Evaluate(elapsedTime / _gameManager.CameraShakeDuration);
-            transform.localPosition = startPosition + UnityEngine.Random.insideUnitSphere * strenght;
+            _myTransform.localPosition = startPosition + UnityEngine.Random.insideUnitSphere * strenght;
             yield return null;
         }
 
-        transform.localPosition = startPosition;
+        _myTransform.localPosition = startPosition;
     }
 }
