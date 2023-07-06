@@ -47,9 +47,15 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         transform.position = _initialPos;
         _gameManager.Player.UnPausePlayer();
 
-        _isDead = false;
-
         foreach (var item in _allPlayerSprites)
             item.gameObject.SetActive(true);
+
+        StartCoroutine(FixIsDead());
+    }
+
+    IEnumerator FixIsDead()
+    {
+        yield return new WaitForEndOfFrame();
+        _isDead = false;
     }
 }
