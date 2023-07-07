@@ -115,7 +115,6 @@ public class GameManager : MonoBehaviour
     }
     public void PlayerDead()
     {
-        Debug.Log("Ded");
         OnPlayerDead?.Invoke();
     }
 }
