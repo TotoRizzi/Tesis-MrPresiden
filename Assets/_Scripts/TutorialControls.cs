@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 public class TutorialControls : MonoBehaviour
 {
     [SerializeField] bool _isTip;
@@ -8,6 +9,7 @@ public class TutorialControls : MonoBehaviour
     [SerializeField, Header("Spanish"), TextArea(minLines: 1, maxLines: 4)] string _SPAText;
     [SerializeField] string[] _inputsNames;
     [SerializeField] TextMeshProUGUI _inputActionTxt, _tipTxt;
+    [SerializeField] Image _fillImg;
 
     KeysUI[] _keys;
     GameObject _info;
@@ -27,6 +29,7 @@ public class TutorialControls : MonoBehaviour
         _keys = GetComponentsInChildren<KeysUI>();
         _inputActionTxt.text = LanguageManager.Instance.selectedLanguage == Languages.eng ? _ENGText : _SPAText;
         _info.SetActive(false);
+        _timer = _pauseTime;
     }
     private void Update()
     {
@@ -36,6 +39,7 @@ public class TutorialControls : MonoBehaviour
     {
         _activated = true;
         _info.SetActive(true);
+        _state = TimePaused;
         for (int i = 0; i < _inputsNames.Length; i++)
         {
             _keys[i].active = true;
@@ -43,7 +47,14 @@ public class TutorialControls : MonoBehaviour
         }
         Helpers.GameManager.PauseManager.TutorialPause();
         yield return new WaitForSeconds(_pauseTime);
-        _state += State;
+        _state = State;
+    }
+
+    float _timer;
+    void TimePaused()
+    {
+        _timer -= Time.deltaTime;
+        _fillImg.fillAmount = _timer / _pauseTime;
     }
     void State()
     {
