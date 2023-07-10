@@ -25,16 +25,16 @@ public class LevelTimerManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            StartLevelTimer();
-            _timer = _levelMaxTime;
-        }
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            Helpers.LevelTimerManager.RedButton();
-            Helpers.GameManager.CinematicManager.PlayVictoryCinematic();
-        }
+      //  if (Input.GetKeyDown(KeyCode.F2))
+      //  {
+      //      StartLevelTimer();
+      //      _timer = _levelMaxTime;
+      // }
+      //  if (Input.GetKeyDown(KeyCode.F1))
+      //  {
+      //      Helpers.LevelTimerManager.RedButton();
+      //      Helpers.GameManager.CinematicManager.PlayVictoryCinematic();
+      //  }
     }
     private void OnDisable()
     {
