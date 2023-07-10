@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,11 +16,13 @@ public class TutorialControls : MonoBehaviour
     GameObject _info;
     bool _activated;
     float _pauseTime = 2;
+    string[] _inputs = new string[0]; 
     System.Action _state = delegate { };
     InputManager _inputManager;
     private void Start()
     {
         _inputManager = InputManager.Instance;
+        _inputs = _inputsNames.Take(2).ToArray();
         _info = GetComponentInChildren<Canvas>().gameObject;
         if (_isTip)
         {
@@ -60,7 +63,7 @@ public class TutorialControls : MonoBehaviour
     {
         if (Input.anyKey)
         {
-            foreach (var item in _inputsNames)
+            foreach (var item in _inputs)
                 if (_inputManager.GetButtonDown(item))
                 {
                     Helpers.GameManager.PauseManager.TutorialPause();
