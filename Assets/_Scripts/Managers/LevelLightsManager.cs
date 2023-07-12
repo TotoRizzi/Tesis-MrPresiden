@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
@@ -10,8 +12,8 @@ public class LevelLightsManager : MonoBehaviour
 
     StateMachine _fsm;
 
-    Light2D[] _lights;
-    public Light2D[] Lights { get { return _lights; } private set { } }
+    [SerializeField]List<Light2D> _lights;
+    public List<Light2D> Lights { get { return _lights; } private set { } }
 
     [SerializeField] Color[] _colors;
     public Color[] Colors { get { return _colors; } private set { } }
@@ -27,7 +29,7 @@ public class LevelLightsManager : MonoBehaviour
     bool _lightsAreBlinking = false;
     public bool LightsAreBlinking { get { return _lightsAreBlinking; } private set { } }
 
-    BrokenLight[] _brokenLights;
+    List<BrokenLight> _brokenLights;
 
     private void Awake()
     {
@@ -35,8 +37,8 @@ public class LevelLightsManager : MonoBehaviour
     }
     private void Start()
     {
-        _lights = GetComponentsInChildren<Light2D>();
-        _brokenLights = GetComponentsInChildren<BrokenLight>();
+        _lights = GetComponentsInChildren<Light2D>().ToList();
+        _brokenLights = GetComponentsInChildren<BrokenLight>().ToList();
         _onOffLight = GameObject.Find("IMG_OnOffLight_Color").GetComponent<SpriteRenderer>();
 
         _fsm = new StateMachine();
@@ -100,6 +102,12 @@ public class LevelLightsManager : MonoBehaviour
         {
             item.CantBlink();
         }
+    }
+
+    public void RemoveBrokenLight(BrokenLight brokenLight, Light2D light2D)
+    {
+        _brokenLights.Remove(brokenLight);
+        _lights.Remove(light2D);
     }
 }
 
