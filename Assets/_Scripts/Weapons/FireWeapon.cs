@@ -2,6 +2,8 @@ using UnityEngine;
 using Weapons;
 public class FireWeapon : Weapon
 {
+    [SerializeField, Range(0, 0.1f)] protected float _recoil;
+
     protected Transform _bulletSpawn;
     protected int _currentAmmo;
     protected Animator _muzzleFlashAnimator;
@@ -39,14 +41,13 @@ public class FireWeapon : Weapon
             _muzzleFlashAnimator.Play("MuzzleFlash");
         }
     }
-
     protected virtual void FireWeaponShoot(Vector2 bulletDirection)
     {
         FRY_PlayerBullet.Instance.pool.GetObject().
                                             SetDmg(_weaponData.damage).
                                             SetSpeed(_weaponData.bulletSpeed).
                                             SetPosition(_bulletSpawn.position).
-                                            SetDirection(bulletDirection);
+                                            SetDirection(bulletDirection + new Vector2(0, Random.Range(-_recoil, _recoil)));
     }
 
     public void UpdateAmmoAmount()
