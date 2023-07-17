@@ -33,7 +33,7 @@ public class WeaponManager : MonoBehaviour
         if (_inputManager.GetButton("Knife") && _currentSecundaryWeapon)
         {
             Helpers.LevelTimerManager.StartLevelTimer();
-            _currentSecundaryWeapon.Attack(GetMouseDirectionSecundary());
+            _currentSecundaryWeapon.Attack();
         }
 
         //if (_inputManager.GetButtonDown("Throw Weapon")) ThrowWeapon();
@@ -59,7 +59,7 @@ public class WeaponManager : MonoBehaviour
     void EquipWeapon(Weapon newWeapon)
     {
         _currentMainWeapon = newWeapon;
-        _lookAtMouse += () => { if (_inputManager.GetButton("Shoot") && _currentMainWeapon) _currentMainWeapon.Attack(GetMouseDirectionMain()); };
+        _lookAtMouse += () => { if (_inputManager.GetButton("Shoot") && _currentMainWeapon) _currentMainWeapon.Attack(); };
         _lookAtMouse += MainWeapon;
         _currentMainWeapon.PickUp().SetParent(_mainWeaponContainer).SetPosition(_mainWeaponContainer.position);
         _currentMainWeapon.UpdateCurrentWeapon();

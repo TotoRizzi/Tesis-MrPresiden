@@ -48,16 +48,16 @@ namespace Weapons
             Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position, Vector2.down * 1f);
         }
-        public void Attack(Vector2 bulletDirection)
+        public void Attack()
         {
             if (Time.time >= _weaponTimer)
             {
                 _weaponTimer = Time.time + 1 / _weaponData.fireRate;
-                WeaponAction(bulletDirection);
+                WeaponAction();
             }
         }
 
-        public abstract void WeaponAction(Vector2 bulletDirection);
+        public abstract void WeaponAction();
         public void UpdateCurrentWeapon()
         {
             _gameManager.UiManager.UpdateCurrentWeapon(_weaponData.mainSprite);

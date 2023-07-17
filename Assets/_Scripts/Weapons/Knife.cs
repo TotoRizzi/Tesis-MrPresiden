@@ -8,10 +8,9 @@ public class Knife : Weapon
         base.Start();
         _anim = GetComponent<Animator>();
     }
-    public override void WeaponAction(Vector2 bulletDirection)
+    public override void WeaponAction()
     {
         _anim.SetTrigger("Attack");
-        transform.right = bulletDirection;
         Helpers.AudioManager.PlaySFX(_weaponData.weaponSoundName);
     }
     private void OnTriggerEnter2D(Collider2D collision)
