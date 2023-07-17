@@ -2,7 +2,7 @@ using UnityEngine;
 public class Shotgun : FireWeapon
 {
     [SerializeField] Transform[] _directions;
-    protected override void FireWeaponShoot(Vector2 bulletDirection)
+    protected override void FireWeaponShoot()
     {
         for (int i = 0; i <= _directions.Length - 1; i++)
         {

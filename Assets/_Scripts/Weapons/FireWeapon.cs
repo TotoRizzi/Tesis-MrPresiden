@@ -21,14 +21,13 @@ public class FireWeapon : Weapon
         _bulletSpawn = transform.GetChild(0);
         _muzzleFlashAnimator = _bulletSpawn.GetChild(0).GetComponent<Animator>();
     }
-    public override void WeaponAction(Vector2 bulletDirection)
+    public override void WeaponAction()
     {
         //if (_currentAmmo <= 0)
         //{
         //    Helpers.AudioManager.PlaySFX("Not_Ammo");
         //    return;
         //}
-
         Helpers.LevelTimerManager.StartLevelTimer();
         //_currentAmmo--;
         //UpdateAmmoAmount();
@@ -37,17 +36,17 @@ public class FireWeapon : Weapon
 
         if (!raycast)
         {
-            FireWeaponShoot(bulletDirection);
+            FireWeaponShoot();
             _muzzleFlashAnimator.Play("MuzzleFlash");
         }
     }
-    protected virtual void FireWeaponShoot(Vector2 bulletDirection)
+    protected virtual void FireWeaponShoot()
     {
         FRY_PlayerBullet.Instance.pool.GetObject().
                                             SetDmg(_weaponData.damage).
                                             SetSpeed(_weaponData.bulletSpeed).
                                             SetPosition(_bulletSpawn.position).
-                                            SetDirection(bulletDirection + new Vector2(0, Random.Range(-_recoil, _recoil)));
+                                            SetDirection(transform.right + new Vector3(0, Random.Range(-_recoil, _recoil)));
     }
 
     public void UpdateAmmoAmount()
