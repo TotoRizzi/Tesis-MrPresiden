@@ -1,8 +1,9 @@
 using UnityEngine;
 using Weapons;
+using DG.Tweening;
 public class FireWeapon : Weapon
 {
-    [SerializeField, Range(0, 0.1f)] protected float _recoil;
+    [SerializeField, Range(0, 0.1f)] protected float _recoilForce;
 
     protected Transform _bulletSpawn;
     protected int _currentAmmo;
@@ -28,6 +29,7 @@ public class FireWeapon : Weapon
         //    Helpers.AudioManager.PlaySFX("Not_Ammo");
         //    return;
         //}
+
         Helpers.LevelTimerManager.StartLevelTimer();
         //_currentAmmo--;
         //UpdateAmmoAmount();
@@ -36,6 +38,12 @@ public class FireWeapon : Weapon
 
         if (!raycast)
         {
+            DOTween.RestartAll();
+            float recoilBack = _weaponData.recoilDuration * 3f;
+
+            transform.DOLocalMove(-Vector2.right * _weaponData.recoilForce, _weaponData.recoilDuration).OnComplete(() => transform.DOLocalMove(Vector3.zero, recoilBack));
+            transform.DOLocalRotate(new Vector3(0, 0, _weaponData.recoilWeaponRot), _weaponData.recoilDuration).OnComplete(() => transform.DOLocalRotate(Vector3.zero, _weaponData.recoilDuration * 2));
+
             FireWeaponShoot();
             _muzzleFlashAnimator.Play("MuzzleFlash");
         }
@@ -46,7 +54,7 @@ public class FireWeapon : Weapon
                                             SetDmg(_weaponData.damage).
                                             SetSpeed(_weaponData.bulletSpeed).
                                             SetPosition(_bulletSpawn.position).
-                                            SetDirection(transform.right + new Vector3(0, Random.Range(-_recoil, _recoil)));
+                                            SetDirection(transform.right);
     }
 
     public void UpdateAmmoAmount()

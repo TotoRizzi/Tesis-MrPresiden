@@ -47,6 +47,15 @@ public class CustomWeaponDataEditor : Editor
 
         EditorGUILayout.LabelField("Max Ammo");
         weaponData.initialAmmo = EditorGUILayout.IntField(weaponData.initialAmmo, GUILayout.MaxWidth(50));
+
+        EditorGUILayout.LabelField("Recoil Duration");
+        weaponData.recoilDuration = EditorGUILayout.FloatField(weaponData.recoilDuration, GUILayout.MaxWidth(50));
+
+        EditorGUILayout.LabelField("Recoil Force");
+        weaponData.recoilForce = EditorGUILayout.FloatField(weaponData.recoilForce, GUILayout.MaxWidth(50));
+
+        EditorGUILayout.LabelField("Recoil Weapon Rotation");
+        weaponData.recoilWeaponRot = EditorGUILayout.FloatField(weaponData.recoilWeaponRot, GUILayout.MaxWidth(50));
     }
     void Knifes(WeaponData weaponData)
     {
