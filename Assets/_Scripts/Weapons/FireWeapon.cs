@@ -38,13 +38,15 @@ public class FireWeapon : Weapon
 
         if (!raycast)
         {
-            DOTween.RestartAll();
-            float recoilBack = _weaponData.recoilDuration * 3f;
-
-            transform.DOLocalMove(-Vector2.right * _weaponData.recoilForce, _weaponData.recoilDuration).OnComplete(() => transform.DOLocalMove(Vector3.zero, recoilBack));
-            transform.DOLocalRotate(new Vector3(0, 0, _weaponData.recoilWeaponRot), _weaponData.recoilDuration).OnComplete(() => transform.DOLocalRotate(Vector3.zero, _weaponData.recoilDuration * 2));
-
             FireWeaponShoot();
+
+            DOTween.Rewind(transform);
+
+            float recoilBack = _weaponData.recoilDuration * 3f;
+            var euler = transform.localEulerAngles;
+            //Debug.Log(euler + new Vector3(0, 0, _weaponData.recoilWeaponRot * transform.localScale.y));
+            transform.DOLocalMove(-Vector2.right * _weaponData.recoilForce, _weaponData.recoilDuration).OnComplete(() => transform.DOLocalMove(Vector3.zero, recoilBack));
+            transform.DOLocalRotate(new Vector3(0, 0, transform.eulerAngles.z + (_weaponData.recoilWeaponRot * transform.localScale.y)), _weaponData.recoilDuration).OnComplete(() => transform.DOLocalRotate(Vector3.zero, _weaponData.recoilWeaponRotDuration));
             _muzzleFlashAnimator.Play("MuzzleFlash");
         }
     }

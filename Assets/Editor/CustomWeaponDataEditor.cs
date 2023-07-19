@@ -56,6 +56,9 @@ public class CustomWeaponDataEditor : Editor
 
         EditorGUILayout.LabelField("Recoil Weapon Rotation");
         weaponData.recoilWeaponRot = EditorGUILayout.FloatField(weaponData.recoilWeaponRot, GUILayout.MaxWidth(50));
+
+        EditorGUILayout.LabelField("Recoil Weapon Rotation Duration");
+        weaponData.recoilWeaponRotDuration = EditorGUILayout.FloatField(weaponData.recoilWeaponRotDuration, GUILayout.MaxWidth(50));
     }
     void Knifes(WeaponData weaponData)
     {

@@ -9,6 +9,7 @@ public class WeaponData : ScriptableObject
     [HideInInspector] public float recoilDuration;
     [HideInInspector] public float recoilForce;
     [HideInInspector] public float recoilWeaponRot;
+    [HideInInspector] public float recoilWeaponRotDuration;
     [HideInInspector] public float damage;
     [HideInInspector] public int initialAmmo;
     [HideInInspector] public Sprite mainSprite;
