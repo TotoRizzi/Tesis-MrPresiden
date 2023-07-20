@@ -9,6 +9,7 @@ public class FireWeapon : Weapon
     protected int _currentAmmo;
     protected Animator _muzzleFlashAnimator;
     LayerMask _borderMask;
+    Tween _currentTween;
     public int GetCurrentAmmo { get { return _currentAmmo; } set { _currentAmmo = value; } }
     protected override void Awake()
     {
@@ -35,20 +36,25 @@ public class FireWeapon : Weapon
         //UpdateAmmoAmount();
         Helpers.AudioManager.PlaySFX(_weaponData.weaponSoundName);
         bool raycast = Physics2D.Raycast(_weaponManager.MainWeaponContainer.position, _bulletSpawn.position - _weaponManager.MainWeaponContainer.position, Vector2.Distance(_bulletSpawn.position, _weaponManager.MainWeaponContainer.position), _borderMask);
-
+        var z = transform.localEulerAngles.z;
+        var euler = transform.localEulerAngles;
         if (!raycast)
         {
             FireWeaponShoot();
 
+            if (_currentTween != null) _currentTween.Kill();
             DOTween.Rewind(transform);
-
             float recoilBack = _weaponData.recoilDuration * 3f;
-            var euler = transform.localEulerAngles;
-            //Debug.Log(euler + new Vector3(0, 0, _weaponData.recoilWeaponRot * transform.localScale.y));
             transform.DOLocalMove(-Vector2.right * _weaponData.recoilForce, _weaponData.recoilDuration).OnComplete(() => transform.DOLocalMove(Vector3.zero, recoilBack));
-            transform.DOLocalRotate(new Vector3(0, 0, transform.eulerAngles.z + (_weaponData.recoilWeaponRot * transform.localScale.y)), _weaponData.recoilDuration).OnComplete(() => transform.DOLocalRotate(Vector3.zero, _weaponData.recoilWeaponRotDuration));
+            transform.DOLocalRotate(new Vector3(0, 0, z + (_weaponData.recoilWeaponRot * transform.localScale.y)), _weaponData.recoilDuration).SetLoops(1, LoopType.Yoyo).SetEase(Ease.Linear).
+            OnComplete(() => _currentTween = transform.DOLocalRotate(Vector2.zero, _weaponData.recoilWeaponRotDuration));
             _muzzleFlashAnimator.Play("MuzzleFlash");
         }
+    }
+    public void ResetRecoil()
+    {
+        DOTween.Restart(transform);
+        transform.DOLocalRotate(Vector2.zero, _weaponData.recoilWeaponRotDuration);
     }
     protected virtual void FireWeaponShoot()
     {

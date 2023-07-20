@@ -39,6 +39,8 @@ public class WeaponManager : MonoBehaviour
         //if (_inputManager.GetButtonDown("Throw Weapon")) ThrowWeapon();
 
         if (_inputManager.GetButtonDown("Interact") && _onWeaponTrigger) SetWeapon();
+
+        //if (_inputManager.GetButtonUp("Shoot") && _currentMainWeapon) GetMainWeapon.ResetRecoil();
     }
 
     #region Weapon Funcs
@@ -86,12 +88,12 @@ public class WeaponManager : MonoBehaviour
         _leftHand.SetActive(true);
     }
 
-    Vector2 primaryWeaponSize;
+    Vector2 primaryWeaponRotation;
     void MainWeapon()
     {
         _mainWeaponContainer.eulerAngles = new Vector3(0, 0, GetAngle());
-        primaryWeaponSize = new Vector2(_currentMainWeapon.transform.localScale.x, Mathf.Sign(GetMouseDirectionMain().x));
-        _currentMainWeapon.transform.localScale = primaryWeaponSize;
+        primaryWeaponRotation = new Vector2(_currentMainWeapon.transform.localScale.x, Mathf.Sign(GetMouseDirectionMain().x));
+        _currentMainWeapon.transform.localScale = primaryWeaponRotation;
     }
 
     Vector2 secondaryWeaponSize;
