@@ -39,8 +39,6 @@ public class WeaponManager : MonoBehaviour
         //if (_inputManager.GetButtonDown("Throw Weapon")) ThrowWeapon();
 
         if (_inputManager.GetButtonDown("Interact") && _onWeaponTrigger) SetWeapon();
-
-        //if (_inputManager.GetButtonUp("Shoot") && _currentMainWeapon) GetMainWeapon.ResetRecoil();
     }
 
     #region Weapon Funcs
