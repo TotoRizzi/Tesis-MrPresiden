@@ -6,7 +6,6 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] Weapon _currentMainWeapon, _currentSecundaryWeapon;
     [SerializeField] GameObject _rightHand, _leftHand;
 
-    Camera _mainCamera;
     Transform _mainWeaponContainer, _secundaryWeaponContainer;
     Transform _secundaryWeaponTransform;
     InputManager _inputManager;
@@ -18,7 +17,6 @@ public class WeaponManager : MonoBehaviour
     private void Start()
     {
         _inputManager = InputManager.Instance;
-        _mainCamera = Helpers.MainCamera;
         _mainWeaponContainer = transform.GetChild(0);
         _secundaryWeaponContainer = transform.GetChild(1);
         _currentSecundaryWeapon = _secundaryWeaponContainer.GetComponentInChildren<Weapon>();
@@ -106,7 +104,7 @@ public class WeaponManager : MonoBehaviour
 
     #region Mouse Funcs
     public float GetAngle() => Mathf.Atan2(GetMouseDirectionMain().y, GetMouseDirectionMain().x) * Mathf.Rad2Deg;
-    public Vector2 GetMousePosition() => _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+    public Vector2 GetMousePosition() => Helpers.MainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Helpers.MainCamera.nearClipPlane));
     Vector2 GetMouseDirectionMain() => (GetMousePosition() - (Vector2)_mainWeaponContainer.position).normalized;
     Vector2 GetMouseDirectionSecundary() => (GetMousePosition() - (Vector2)_secundaryWeaponContainer.position).normalized;
 
