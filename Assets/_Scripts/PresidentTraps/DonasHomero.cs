@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 public class DonasHomero : MonoBehaviour
@@ -15,6 +16,8 @@ public class DonasHomero : MonoBehaviour
     enum DonasStates { GO, BACK, WAIT }
     void Start()
     {
+        Helpers.LevelTimerManager.OnLevelDefeat += () => enabled = false;
+
         for (int i = 0; i < _cintas.Length; i++) _cintas[i].enabled = false;
 
         var go = new State<DonasStates>("GO");
@@ -107,10 +110,10 @@ public class DonasHomero : MonoBehaviour
         if (!_donaAte) return;
 
         _donaTimer += Time.deltaTime;
-
         _donaAte.transform.localScale = Vector3.Lerp(_donaAte.transform.localScale, new Vector3(.5f, .5f, 1), _donaTimer / 1f);
         _donaAte.transform.position = Vector3.Lerp(_donaAte.transform.position, _mouth.position, _donaTimer / 1f);
         _presidentBody.transform.localScale = Vector3.Lerp(_presidentBody.transform.localScale, _presiBodyScale + Vector3.one * .05f, _donaTimer / 1f);
+        Vector3 lerpAmount =  _presidentBody.transform.localScale - _presiBodyScale;
 
         if (_donaTimer >= 1f)
         {
