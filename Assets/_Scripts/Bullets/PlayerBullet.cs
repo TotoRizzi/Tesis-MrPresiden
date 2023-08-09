@@ -49,6 +49,7 @@ public class PlayerBullet : Bullet
     #endregion
     public static void TurnOn(PlayerBullet b)
     {
+        b.Trail.sortingOrder = 1;
         b.gameObject.SetActive(true);
         b._lastPosition = Vector3.zero;
     }
