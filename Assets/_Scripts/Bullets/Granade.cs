@@ -74,7 +74,6 @@ public class Granade : MonoBehaviour
         if (collisions.Count() <= 0) return;
         foreach (var item in collisions)
         {
-            Debug.Log(item.name);
             if (IsBlocked(item.position, _groundLayer)) continue;
             item.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
             var breakable = item.GetComponent<IDamageable>();

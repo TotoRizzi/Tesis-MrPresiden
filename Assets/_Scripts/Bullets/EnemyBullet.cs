@@ -42,7 +42,7 @@ public class EnemyBullet : Bullet
 
     public static void TurnOn(EnemyBullet b)
     {
-        b._trail.sortingOrder = 1;
+        b.Trail.sortingOrder = 1;
         b.gameObject.SetActive(true);
     }
 

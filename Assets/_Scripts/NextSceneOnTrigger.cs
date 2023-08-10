@@ -10,7 +10,7 @@ public class NextSceneOnTrigger : MonoBehaviour
     private void Start()
     {
         Helpers.GameManager.OnRoomWon += ShowExit;
-        Helpers.GameManager.OnPlayerDead += () => StartCoroutine(HideExit());
+        Helpers.GameManager.WaitPlayerDead += () => StartCoroutine(HideExit());
 
         _collider = GetComponent<Collider2D>();
         StartCoroutine(HideExit());

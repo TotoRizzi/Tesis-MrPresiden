@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public event Action OnGameWon;
     public event Action OnRoomWon;
     public event Action OnPlayerDead;
+    public event Action WaitPlayerDead;
 
     public Action SetPlayerSkin = delegate { }, SetPresidentSkin = delegate { };
 
@@ -116,5 +117,6 @@ public class GameManager : MonoBehaviour
     public void PlayerDead()
     {
         OnPlayerDead?.Invoke();
+        WaitPlayerDead?.Invoke();
     }
 }

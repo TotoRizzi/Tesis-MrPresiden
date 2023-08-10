@@ -12,8 +12,6 @@ public class HardGameMode : GameModeManager
 
     public override void PlayerDead()
     {
-        Debug.Log("HardGameMode");
-
         _currentLives--;
 
         if (_currentLives <= 0)

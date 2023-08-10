@@ -84,7 +84,7 @@ public class Player : GeneralPlayer
         _rb = GetComponent<Rigidbody2D>();
         _groundCheck = GetComponentInChildren<GroundCheck>();
         _weaponManager = GetComponent<WeaponManager>();
-        _gameManager = GameManager.instance;
+        _gameManager = Helpers.GameManager;
 
         //Update
         OnUpdate += fsm.Update;
