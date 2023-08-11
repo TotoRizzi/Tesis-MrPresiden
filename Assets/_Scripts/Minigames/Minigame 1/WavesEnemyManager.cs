@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
-
 public class WavesEnemyManager : BaseEnemyManager
 {
     int _enemiesKilled;
@@ -11,7 +9,6 @@ public class WavesEnemyManager : BaseEnemyManager
     Action OnUpdate;
 
     [SerializeField] Transform[] _enemiesSpawners;
-    List<Enemy> _enemiesAlive;
 
     [SerializeField] float _timePerSpawn;
     float _currentTimePerSpawn;
@@ -19,8 +16,6 @@ public class WavesEnemyManager : BaseEnemyManager
     int _enemiesToSpawn;
     int _currentEnemiesSpawned;
     public int currentLevel;
-
-
     public override void Start()
     {
         StartCoroutine(Wait());

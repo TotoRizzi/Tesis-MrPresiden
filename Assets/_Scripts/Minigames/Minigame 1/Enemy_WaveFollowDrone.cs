@@ -8,7 +8,7 @@ public class Enemy_WaveFollowDrone : Enemy_FollowDrone
         Helpers.PersistantData.persistantDataSaved.coins += _coinsDrop;
         FRY_CoinFeedback.Instance.pool.GetObject().SetPosition(transform.position);
     }
-
+    public override void ActionOnPlayerDead() { }
     public override void ReturnObject()
     {
         base.ReturnObject();

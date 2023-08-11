@@ -11,12 +11,13 @@ public class PlayerJetPack : GeneralPlayer
     PlayerJetPackController _controller;
     GroundCheck _groundCheck;
     public GroundCheck GroundCheck { get { return _groundCheck; } private set { } }
+    public Animator Animator { get { return _animator; } }
 
     WeaponManager _weaponManager;
     public WeaponManager WeaponManager { get { return _weaponManager; } private set { } }
 
     [SerializeField] Transform _playerSprite;
-
+    [SerializeField] Animator _animator;
     [SerializeField] float _speed = 400f;
     [SerializeField] float _flyingSpeed = 400f;
     [SerializeField] float _maxDelayCanMove = .2f;
@@ -30,8 +31,6 @@ public class PlayerJetPack : GeneralPlayer
     [SerializeField] Image _fuelBar;
     [SerializeField] GameObject _fireParticle;
     public GameObject FireParticle { get { return _fireParticle; } private set { } }
-
-
     private void Start()
     {
         StartCoroutine(CanMoveDelay());
@@ -63,6 +62,8 @@ public class PlayerJetPack : GeneralPlayer
     private void Update()
     {
         if (_canMove) OnUpdate?.Invoke();
+
+        _controller?.OnUpdate();
     }
     private void FixedUpdate()
     {
@@ -152,7 +153,6 @@ public class UpState : IState
 {
     PlayerJetPack _player;
     PlayerJetPackController _controller;
-
     public UpState(PlayerJetPack player, PlayerJetPackController controller)
     {
         _player = player;
@@ -163,6 +163,7 @@ public class UpState : IState
     {
         _player.GroundCheck.Jumped();
         _player.FireParticle.SetActive(true);
+        _player.Animator.Play("Idle");
     }
 
     public void OnExit()
@@ -185,7 +186,6 @@ public class DownState : IState
 {
     PlayerJetPack _player;
     PlayerJetPackController _controller;
-
     public DownState(PlayerJetPack player, PlayerJetPackController controller)
     {
         _player = player;
@@ -195,6 +195,7 @@ public class DownState : IState
     public void OnEnter()
     {
         _player.FireParticle.SetActive(false);
+        _player.Animator.Play("Idle");
     }
 
     public void OnExit()
@@ -216,7 +217,6 @@ public class OnFloorState : IState
 {
     PlayerJetPack _player;
     PlayerJetPackController _controller;
-
     public OnFloorState(PlayerJetPack player, PlayerJetPackController controller)
     {
         _player = player;
@@ -234,7 +234,8 @@ public class OnFloorState : IState
 
     public void OnFixedUpdate()
     {
-
+        _player.Move(_controller.xAxis);
+        _player.Animator.Play(_controller.xAxis != 0 ? "Run" : "Idle");
     }
 
     public void OnUpdate()
@@ -250,28 +251,24 @@ public class PlayerJetPackController
     InputManager _inputManager;
     public float xAxis { get; private set; }
     public float yAxis { get; private set; }
-
     public PlayerJetPackController(PlayerJetPack player)
     {
         _inputManager = InputManager.Instance;
-
         _player = player;
     }
 
     public void OnUpdate()
     {
-
+        xAxis = _inputManager.GetAxisRaw("Horizontal");
+        yAxis = _inputManager.GetAxisRaw("Vertical");
     }
 
     public void DropingInputs()
     {
         if (_inputManager.GetButtonDown("Jump"))
             _player.fsm.ChangeState(StateName.FlyingUp);
-        if(_player.GroundCheck.IsGrounded)
+        if (_player.GroundCheck.IsGrounded)
             _player.fsm.ChangeState(StateName.OnFloor);
-
-        xAxis = _inputManager.GetAxisRaw("Horizontal");
-        yAxis = _inputManager.GetAxisRaw("Vertical");
     }
     public void FlyingInputs()
     {
@@ -279,8 +276,6 @@ public class PlayerJetPackController
         {
             _player.fsm.ChangeState(StateName.Droping);
         }
-        xAxis = _inputManager.GetAxisRaw("Horizontal");
-        yAxis = _inputManager.GetAxisRaw("Vertical");
     }
     public void OnFloorInputs()
     {
@@ -288,7 +283,5 @@ public class PlayerJetPackController
         {
             _player.fsm.ChangeState(StateName.FlyingUp);
         }
-        xAxis = 0;
-        yAxis = 0;
     }
 }

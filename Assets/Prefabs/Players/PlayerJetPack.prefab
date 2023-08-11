@@ -271,7 +271,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1266088773945994463}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 8fd6abb8735e80843b4826072bdf4dbd, type: 2}
   m_CullingMode: 0
@@ -478,6 +478,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fsm: {fileID: 0}
   _playerSprite: {fileID: 1266088773945994460}
+  _animator: {fileID: 1266088773945994461}
   _speed: 400
   _flyingSpeed: 400
   _maxDelayCanMove: 0.2
@@ -592,7 +593,7 @@ MonoBehaviour:
   - {x: -0.4596262, y: 0.14169312, z: 0}
   m_ShapePathHash: 773208149
   m_Mesh: {fileID: 0}
-  m_InstanceId: 173800
+  m_InstanceId: 54062
 --- !u!1 &1266088774822671311
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,7 +708,7 @@ MonoBehaviour:
   - {x: -0.3, y: 0, z: 0}
   m_ShapePathHash: -654931003
   m_Mesh: {fileID: 0}
-  m_InstanceId: 173876
+  m_InstanceId: 54138
 --- !u!1 &1266088775024654868
 GameObject:
   m_ObjectHideFlags: 0
