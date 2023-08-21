@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Enemy_FollowDrone : Enemy
 {
-    enum DroneStates { Idle, Follow, Pathfinding };
+    enum DroneStates { Idle, Follow};
     [SerializeField] protected float _speed = 1f;
 
     EventFSM<DroneStates> _myFsm;

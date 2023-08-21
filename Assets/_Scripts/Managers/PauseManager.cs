@@ -52,12 +52,4 @@ public class PauseManager : MonoBehaviour
     {
         _stack.Peek().UnpauseObjectsInCinematic();
     }
-    public void TutorialPause()
-    {
-        if (_paused) _stack.Peek().Activate();
-        else _stack.Peek().Deactivate();
-
-        TurnPause();
-        _tutorialPause = !_tutorialPause;
-    }
 }
