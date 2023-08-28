@@ -38,10 +38,12 @@ public class PersistantData : MonoBehaviour
         SaveLoadSystem.Delete(GAME_DATA);
         gameData = new GameData();
     }
+    public void ResetCoins() { PlayerPrefs.DeleteKey("Coins"); }
     private void OnDestroy()
     {
         SavePersistantData();
         SaveLoadSystem.SavePersistantData(persistantDataSaved, PERSISTANT_DATA);
+        ResetCoins();
     }
 }
 

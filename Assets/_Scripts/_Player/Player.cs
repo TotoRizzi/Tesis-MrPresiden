@@ -70,12 +70,8 @@ public class Player : GeneralPlayer
     public Action OnJump;
     public Action OnStaminaTick;
     #endregion
-
-    Dictionary<string, Action> _tutorialActions = new Dictionary<string, Action>();
     private void Start()
     {
-        _tutorialActions["Dash"] = () => { if (_canDash) fsm.ChangeState(StateName.Dash); };
-        _tutorialActions["Jump"] = () => { if (_canJump) fsm.ChangeState(StateName.Jump); };
         StartCoroutine(CanMoveDelay());
 
         //Components
@@ -107,8 +103,6 @@ public class Player : GeneralPlayer
 
         _gameManager.OnPlayerDead += () => fsm.ChangeState(StateName.Idle);
         _gameManager.OnPlayerDead += ReturnJumps;
-
-        EventManager.SubscribeToEvent(Contains.PLAYER_TUTORIAL_ACTION, UnPauseTutorialAction);
     }
 
     private void Update()
@@ -119,10 +113,6 @@ public class Player : GeneralPlayer
     private void FixedUpdate()
     {
         if (_canMove) fsm.FixedUpdate();
-    }
-    private void OnDestroy()
-    {
-        EventManager.UnSubscribeToEvent(Contains.PLAYER_TUTORIAL_ACTION, UnPauseTutorialAction);
     }
     public IEnumerator CanMoveDelay()
     {
@@ -248,12 +238,6 @@ public class Player : GeneralPlayer
     void ExitRope()
     {
         StopClimging();
-    }
-
-    void UnPauseTutorialAction(params object[] param)
-    {
-        var actionName = (string)param[0];
-        if (_tutorialActions.ContainsKey(actionName)) _tutorialActions[actionName]();
     }
 }
 

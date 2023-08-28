@@ -10,4 +10,12 @@ public class Buttons : MonoBehaviour
         Helpers.GameManager.LoadSceneManager.ReloadLevel();
         PlayerPrefs.DeleteAll();
     }
+    public void LoadScene(string sceneName)
+    {
+        Helpers.GameManager.LoadSceneManager.LoadLevel(sceneName);
+    }
+    public void LoadScene(int sceneIndex)
+    {
+        Helpers.GameManager.LoadSceneManager.LoadLevel(sceneIndex);
+    }
 }

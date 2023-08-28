@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Enemy_FollowDrone : Enemy
 {
-    enum DroneStates { Idle, Follow};
+    protected enum DroneStates { Idle, Follow};
     [SerializeField] protected float _speed = 1f;
 
-    EventFSM<DroneStates> _myFsm;
-    NavMeshAgent _navMeshAgent;
+    protected EventFSM<DroneStates> _myFsm;
+    protected NavMeshAgent _navMeshAgent;
     public override void Start()
     {
         base.Start();

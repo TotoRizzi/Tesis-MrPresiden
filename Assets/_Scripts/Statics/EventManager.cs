@@ -44,5 +44,6 @@ public class EventManager
 }
 public class Contains
 {
-    public const string PLAYER_TUTORIAL_ACTION = "Player action in tutorial";
+    public const string WIN_WAVESGAME = "Cuando el player termina el minijuego de oleadas";
+    public const string LOSE_WAVESGAME = "Cuando el player pierde el minijuego de oleadas";
 }

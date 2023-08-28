@@ -10,7 +10,7 @@ public class WavesDoor : MonoBehaviour
 
     [SerializeField] List<int> _allLevels;
     int[] _newLevelOrder;
-    
+
     private void Start()
     {
         _enemyManager = FindObjectOfType<WavesEnemyManager>();
@@ -68,9 +68,9 @@ public class WavesDoor : MonoBehaviour
 
         for (int i = 0; i < _newLevelOrder.Length; i++)
         {
-            Debug.Log(Helpers.GameManager.SaveDataManager.GetInt(i+ 1.ToString(), 0));
+            Debug.Log(Helpers.GameManager.SaveDataManager.GetInt(i + 1.ToString(), 0));
         }
-        
+
         //GameManager.instance.SaveData();
     }
 
@@ -95,12 +95,12 @@ public class WavesDoor : MonoBehaviour
 
         if (fixedCurrentLevel < _newLevelOrder.Length)
         {
+            int levels = PlayerPrefs.GetInt("LevelsWinned") + 1;
+            PlayerPrefs.SetInt("LevelsWinned", levels);
             Helpers.GameManager.LoadSceneManager.LoadLevel("MiniGame 1 " + _newLevelOrder[_enemyManager.currentLevel]);
         }
         else
-        {
-            Helpers.GameManager.LoadSceneManager.LoadLevel("MiniGame 1 " + 0);
-        }
+            EventManager.TriggerEvent(Contains.WIN_WAVESGAME); //CUANDO TERMINA TODOS LOS NIVELES EJECUTAMOS ESTE EVENTO
     }
 
     private void OnTriggerEnter2D()
