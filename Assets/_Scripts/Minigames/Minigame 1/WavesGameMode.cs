@@ -77,12 +77,17 @@ public class WavesGameMode : GameModeManager
         _contentWindow.transform.DOScale(Vector3.one, 1f).SetEase(Ease.InOutElastic)
                                           .OnComplete(() => DOTween.To(() => coinsWinned, x => coinsWinned = x, PlayerPrefs.GetInt("Coins"), .5f).OnUpdate(() => _coinsWinnedTxt.text = ((int)coinsWinned).ToString())
                                           .OnComplete(() => DOTween.To(() => levelsReached, x => levelsReached = x, PlayerPrefs.GetInt("LevelsWinned"), .5f).OnUpdate(() => _levelsReachedTxt.text = ((int)levelsReached).ToString())
-                                          .OnComplete(() => _coinsWinnedGO.transform.DOMove(_currentBetoCoinsTxt.transform.position, .5f)
                                           .OnComplete(() =>
                                           {
-                                              Destroy(_coinsWinnedGO);
-                                              DOTween.To(() => currentCoins, x => currentCoins = x, currentCoins + coinsWinned, 1f).OnUpdate(() => _currentBetoCoinsTxt.text = ((int)currentCoins).ToString());
-                                          }))));
+                                              _coinsWinnedGO.transform.DOMove(_currentBetoCoinsTxt.transform.position, .5f);
+                                              _coinsWinnedGO.transform.DOScale(Vector3.one * .5f, .5f)
+                                              .OnComplete(() =>
+                                              {
+                                                  Destroy(_coinsWinnedGO);
+                                                  DOTween.To(() => currentCoins, x => currentCoins = x, currentCoins + coinsWinned, 1f).OnUpdate(() => _currentBetoCoinsTxt.text = ((int)currentCoins).ToString());
+                                              });
+                                          })));
+                                          
     }
 
     #endregion
