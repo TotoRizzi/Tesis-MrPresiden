@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 using DG.Tweening;
 public class WavesGameMode : GameModeManager
 {
@@ -9,7 +8,7 @@ public class WavesGameMode : GameModeManager
     int _currentDeaths;
 
     [Header("Win/Lose Window Attributes")]
-    [SerializeField] GameObject _window, _contentWindow;
+    [SerializeField] GameObject _window, _contentWindow, _coinsWinnedGO;
     [SerializeField] TextMeshProUGUI _coinsWinnedTxt, _currentBetoCoinsTxt, _levelsReachedTxt, _winLoseTxt;
     public override void Start()
     {
@@ -18,10 +17,12 @@ public class WavesGameMode : GameModeManager
         _text.text = (_maxDeaths - _currentDeaths).ToString();
 
         EventManager.SubscribeToEvent(Contains.LOSE_WAVESGAME, LoseWindow);
+        EventManager.SubscribeToEvent(Contains.WIN_WAVESGAME, WinWindow);
     }
     private void OnDisable()
     {
         EventManager.UnSubscribeToEvent(Contains.LOSE_WAVESGAME, LoseWindow);
+        EventManager.UnSubscribeToEvent(Contains.WIN_WAVESGAME, WinWindow);
     }
     public override void PlayerDead()
     {
@@ -52,6 +53,21 @@ public class WavesGameMode : GameModeManager
         _winLoseTxt.text = "LOSE";
         _winLoseTxt.color = Color.red;
 
+        float levelsReached = 0f;
+
+        _currentBetoCoinsTxt.text = Helpers.PersistantData.persistantDataSaved.coins.ToString();
+        _contentWindow.transform.DOScale(Vector3.one, 1f).SetEase(Ease.InOutElastic)
+                                          .OnComplete(() => DOTween.To(() => levelsReached, x => levelsReached = x, PlayerPrefs.GetInt("LevelsWinned"), .5f).OnUpdate(() => _levelsReachedTxt.text = ((int)levelsReached).ToString()));
+    }
+
+    void WinWindow(params object[] param)
+    {
+        _window.SetActive(true);
+        _contentWindow.transform.localScale = Vector3.one * .5f;
+        _winLoseTxt.text = "WIN";
+        _winLoseTxt.color = Color.green;
+        Helpers.PersistantData.persistantDataSaved.coins += PlayerPrefs.GetInt("Coins");
+
         float currentCoins = Helpers.PersistantData.persistantDataSaved.coins;
         float levelsReached = 0f;
         float coinsWinned = 0f;
@@ -61,35 +77,13 @@ public class WavesGameMode : GameModeManager
         _contentWindow.transform.DOScale(Vector3.one, 1f).SetEase(Ease.InOutElastic)
                                           .OnComplete(() => DOTween.To(() => coinsWinned, x => coinsWinned = x, PlayerPrefs.GetInt("Coins"), .5f).OnUpdate(() => _coinsWinnedTxt.text = ((int)coinsWinned).ToString())
                                           .OnComplete(() => DOTween.To(() => levelsReached, x => levelsReached = x, PlayerPrefs.GetInt("LevelsWinned"), .5f).OnUpdate(() => _levelsReachedTxt.text = ((int)levelsReached).ToString())
-                                          .OnComplete(() => _coinsWinnedTxt.transform.DOLocalMove(_currentBetoCoinsTxt.transform.position, .5f)
-                                          .OnComplete(() => DOTween.To(() => currentCoins, x => currentCoins = (int)x, currentCoins + coinsWinned, 1f).OnUpdate(() => _currentBetoCoinsTxt.text = currentCoins.ToString())))));
-
-       //OnComplete(() => DOTween.To(() => coinsWinned, x => coinsWinned = x, PlayerPrefs.GetInt("Coins"), .5f).OnUpdate(() => _coinsWinnedTxt.text = ((int)coinsWinned).ToString()).
-       //OnComplete(() => DOTween.To(() => levelsReached, x => levelsReached = x, PlayerPrefs.GetInt("LevelsWinned"), .5f).OnUpdate(() => _levelsReachedTxt.text = ((int)levelsReached).ToString()).
-       //OnComplete(() => _coinsWinnedTxt.transform.DOLocalMove(_currentBetoCoinsTxt.transform.position, .5f).
-       //OnComplete(() => DOTween.To(() => currentCoins, x => currentCoins = (int)x, currentCoins + coinsWinned, 1f).OnUpdate(() => _currentBetoCoinsTxt.text = currentCoins.ToString())))));
-
-                                          //_contentWindow.transform.DOScale(Vector3.one, 1f).SetEase(Ease.InOutElastic)
-                                          //                                                 .OnComplete(() =>
-                                          //                                                 {
-                                          //                                                     DOTween.To(() => coinsWinned, x => coinsWinned = x, PlayerPrefs.GetInt("Coins"), .5f).OnUpdate(() => _coinsWinnedTxt.text = ((int)coinsWinned).ToString())
-                                          //                                                     .OnComplete(() => DOTween.To(() => levelsReached, x => levelsReached = x, PlayerPrefs.GetInt("LevelsWinned"), .5f).OnUpdate(delegate { Debug.Log("AJAJ"); _levelsReachedTxt.text = ((int)levelsReached).ToString(); }))
-                                          //                                                     .OnComplete(() => _coinsWinnedTxt.transform.DOLocalMove(_currentBetoCoinsTxt.transform.position, .5f))
-                                          //                                                     .OnComplete(() => DOTween.To(() => currentCoins, x => currentCoins = (int)x, currentCoins + coinsWinned, 1f).OnUpdate(() => _currentBetoCoinsTxt.text = currentCoins.ToString()));
-                                          //
-                                          //                                                 });
-                                          //Debug.Log($"LevelsWinned {levelsReached}");
-                                          //.OnStepComplete(() => DOTween.To(() => levelsReached, x => levelsReached = (int)x, PlayerPrefs.GetInt("LevelsWinned"), .5f).OnUpdate(() => _levelsReachedTxt.text = levelsReached.ToString()))
-                                          //.OnStepComplete(() => _coinsWinnedTxt.transform.DOLocalMove(_currentBetoCoinsTxt.transform.position, .5f))
-                                          //.OnStepComplete(() => DOTween.To(() => currentCoins, x => currentCoins = (int)x, currentCoins + coinsWinned, 1f).OnUpdate(() => _currentBetoCoinsTxt.text = currentCoins.ToString()));
+                                          .OnComplete(() => _coinsWinnedGO.transform.DOMove(_currentBetoCoinsTxt.transform.position, .5f)
+                                          .OnComplete(() =>
+                                          {
+                                              Destroy(_coinsWinnedGO);
+                                              DOTween.To(() => currentCoins, x => currentCoins = x, currentCoins + coinsWinned, 1f).OnUpdate(() => _currentBetoCoinsTxt.text = ((int)currentCoins).ToString());
+                                          }))));
     }
-
-void WinWindow()
-{
-    _winLoseTxt.text = "WIN";
-    _winLoseTxt.color = Color.green;
-    Helpers.PersistantData.persistantDataSaved.coins += PlayerPrefs.GetInt("Coins");
-}
 
     #endregion
 

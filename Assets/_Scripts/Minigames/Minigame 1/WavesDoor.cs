@@ -44,10 +44,11 @@ public class WavesDoor : MonoBehaviour
         yield return new WaitForEndOfFrame();
         _collider.enabled = false;
         _anim.SetBool("IsOpen", false);
-
     }
     void SetNewOrderOfLevels()
     {
+        PlayerPrefs.DeleteKey("LevelsWinned");
+
         int allLevels = _allLevels.Count;
         _newLevelOrder = new int[allLevels];
 
