@@ -26,10 +26,10 @@ public class WavesGameMode : GameModeManager
     }
     public override void PlayerDead()
     {
-        playerHealth.EffectsOnDeath();
-        playerHealth.RestartPosition();
-
         _currentDeaths++;
+        playerHealth.EffectsOnDeath();
+        playerHealth.RestartPosition(_currentDeaths >= _maxDeaths);
+
         _text.text = (_maxDeaths - _currentDeaths).ToString();
         Helpers.GameManager.SaveDataManager.SaveInt("WavesCurrentDeaths", _currentDeaths);
 

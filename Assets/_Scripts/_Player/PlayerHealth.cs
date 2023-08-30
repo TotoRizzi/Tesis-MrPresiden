@@ -39,8 +39,9 @@ public class PlayerHealth : MonoBehaviour, IDamageable
             item.gameObject.SetActive(false);
     }
 
-    public void RestartPosition()
+    public void RestartPosition(bool pred = false)
     {
+        if (pred) return;
         transform.position = _initialPos;
         _gameManager.Player.UnPausePlayer();
 

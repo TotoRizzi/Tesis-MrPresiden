@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LoadSceneManager : MonoBehaviour
 {
     Animator _anim;
-    WaitForSeconds _wait = new WaitForSeconds(.9f);
+    WaitForSeconds _wait = new WaitForSeconds(1f);
     private void Start()
     {
         _anim = GetComponent<Animator>();

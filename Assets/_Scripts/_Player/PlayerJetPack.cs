@@ -52,7 +52,7 @@ public class PlayerJetPack : GeneralPlayer
         Helpers.GameManager.OnPlayerDead += () =>
         {
             _currentFuel = _maxFuel;
-            UpdateFuelBar(_maxFuel);
+            UpdateFuelBar();
             fsm.ChangeState(StateName.Droping);
         };
         _playerDefaultSpriteSize = _playerSprite.localScale;
@@ -84,13 +84,13 @@ public class PlayerJetPack : GeneralPlayer
     {
         if (_currentFuel >= _maxFuel) return;
         _currentFuel += Time.deltaTime * 2f;
-        UpdateFuelBar(_currentFuel);
+        UpdateFuelBar();
     }
 
     public void TakeFuel()
     {
         _currentFuel -= Time.deltaTime;
-        UpdateFuelBar(_currentFuel);
+        UpdateFuelBar();
         if (_currentFuel <= 0) fsm.ChangeState(StateName.Droping);
     }
 
@@ -143,7 +143,7 @@ public class PlayerJetPack : GeneralPlayer
         _playerSprite.localScale = playerLocalScale;
     }
 
-    void UpdateFuelBar(float current)
+    void UpdateFuelBar()
     {
         _fuelBar.fillAmount = _currentFuel / _maxFuel;
     }

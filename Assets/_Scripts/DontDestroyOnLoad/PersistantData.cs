@@ -84,6 +84,7 @@ public class GameData
     public int currentLevel = 1;
     public int gameMode = 0;
     public bool firstTime = true;
+    public bool firstTimeLevelsMap = true;
     public int currentDeaths;
 
     //Deaths per level
