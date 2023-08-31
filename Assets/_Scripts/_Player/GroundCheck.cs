@@ -1,29 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class GroundCheck : MonoBehaviour
 {
     private bool _isGrounded;
+    LayerMask _groundLayer;
     public bool IsGrounded { get { return _isGrounded; } private set { } }
 
     private void Start()
     {
-        Helpers.GameManager.OnPlayerDead += () => _isGrounded = true;
+        _groundLayer = LayerMask.GetMask("Border") + LayerMask.GetMask("Ground");
     }
-
-    public void Jumped()
+    private void Update()
     {
-        _isGrounded = false;
+        _isGrounded = Physics2D.OverlapCircle(transform.position, .2f, _groundLayer);
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnDrawGizmos()
     {
-        _isGrounded = true;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        _isGrounded = false;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, .2f);
     }
 }

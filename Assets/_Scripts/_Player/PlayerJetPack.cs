@@ -161,7 +161,6 @@ public class UpState : IState
 
     public void OnEnter()
     {
-        _player.GroundCheck.Jumped();
         _player.FireParticle.SetActive(true);
         _player.Animator.Play("Idle");
     }

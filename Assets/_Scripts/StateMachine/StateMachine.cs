@@ -12,7 +12,7 @@ public enum StateName
 
 public class StateMachine : MonoBehaviour
 {
-    private IState currentState;
+    public IState currentState;
 
     private Dictionary<StateName, IState> allStates = new Dictionary<StateName, IState>();
 

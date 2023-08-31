@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using IA2;
 using System;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -41,24 +39,22 @@ public class Player : GeneralPlayer
     [Header("Jump")]
     [SerializeField] float _jumpForce = 5;
     float _defaultGravity;
+    bool _canJump => !_alreadyJumped;
 
-    [SerializeField] int _maxJumps = 1;
-    public int MaxJumps { get { return _maxJumps; } private set { } }
-
-    public int _currentJumps = 1;
-
-    bool _canJump => _currentJumps > 0;
-
+    bool _alreadyJumped;
     public bool CanJump { get { return _canJump; } private set { } }
+    public bool AlreadyJumped { get { return _alreadyJumped; } set { _alreadyJumped = value; } }
     #endregion
 
     #region Dash
     [Header("Dash")]
     [SerializeField] float _dashSpeed;
     [SerializeField] float _dashDuration;
+    float _dashCooldown = 3f;
+    float _dashTimer;
     public float DashDuration { get { return _dashDuration; } private set { } }
 
-    bool _canDash = true;
+    bool _canDash => _dashTimer <= 0;
     public bool CanDash { get { return _canDash; } private set { } }
 
     #endregion
@@ -88,7 +84,6 @@ public class Player : GeneralPlayer
         OnUpdate += LookAtMouse;
 
         //Variables
-        _maxJumps = 1;
         _playerDefaultSpriteSize = _playerSprite.localScale;
         _defaultGravity = _rb.gravityScale;
 
@@ -107,6 +102,7 @@ public class Player : GeneralPlayer
 
     private void Update()
     {
+        _dashTimer -= Time.deltaTime;
         if (_canMove) OnUpdate?.Invoke();
     }
 
@@ -135,16 +131,13 @@ public class Player : GeneralPlayer
     {
         FreezeVelocity();
 
-        _groundCheck.Jumped();
         OnJump();
         _rb.AddForce(Vector3.up * _jumpForce, ForceMode2D.Impulse);
-        _currentJumps--;
     }
 
     public void Dash(float xAxis)
     {
         _rb.velocity = new Vector2(xAxis * _dashSpeed * Time.fixedDeltaTime, 0f);
-
     }
 
     public void LookAtMouse()
@@ -159,13 +152,6 @@ public class Player : GeneralPlayer
 
         PlayerSprite.localScale = playerLocalScale;
     }
-
-    public void AddExtraJump()
-    {
-        _maxJumps++;
-        _gameManager.SaveDataManager.SaveInt("MaxJumps", _maxJumps);
-    }
-
     public void FreezeVelocity(bool xAxis = false)
     {
         if (xAxis) _rb.velocity = new Vector2(0, _rb.velocity.y);
@@ -196,13 +182,12 @@ public class Player : GeneralPlayer
 
     public void ReturnJumps()
     {
-        _currentJumps = MaxJumps;
-        _canDash = true;
+        _dashTimer = 0;
     }
 
     public void BlockDash()
     {
-        _canDash = false;
+        _dashTimer = _dashCooldown;
     }
 
     public override void PausePlayer()
@@ -257,6 +242,7 @@ public class IdleState : IState
     {
         _player.FreezeVelocity(true);
         _player.OnIdle();
+        _player.AlreadyJumped = false;
     }
 
     public void OnExit()
@@ -291,6 +277,7 @@ public class MoveState : IState
     {
         Helpers.LevelTimerManager.StartLevelTimer();
         _player.OnMove();
+        _player.AlreadyJumped = false;
     }
 
     public void OnExit()
@@ -335,6 +322,7 @@ public class JumpState : IState
         //_player.FreezeVelocity();
         _currentOnAirTimer = 0;
         _player.Jump();
+        _player.AlreadyJumped = true;
     }
 
     public void OnExit()
@@ -351,9 +339,7 @@ public class JumpState : IState
         _controller.OnJumpInputs();
         _currentOnAirTimer += Time.deltaTime;
         if (_currentOnAirTimer <= _onAirTimer)
-        {
             _player.fsm.ChangeState(StateName.OnAir);
-        }
     }
 }
 public class OnAirState : IState
@@ -369,8 +355,6 @@ public class OnAirState : IState
 
     public void OnEnter()
     {
-        if (_player.GroundCheck.IsGrounded)
-            _player.fsm.ChangeState(StateName.Idle);
     }
 
     public void OnExit()
@@ -471,6 +455,7 @@ public class ClimState : IState
         _player.FreezeVelocity();
         _player.CeroGravity();
         _player.ReturnJumps();
+        _player.AlreadyJumped = false;
     }
 
     public void OnExit()
