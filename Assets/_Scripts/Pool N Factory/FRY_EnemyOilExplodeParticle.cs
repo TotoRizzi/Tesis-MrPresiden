@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class FRY_EnemyExplodeParticle : MonoBehaviour
+public class FRY_EnemyOilExplodeParticle : MonoBehaviour
 {
-    static FRY_EnemyExplodeParticle _instance;
-    public static FRY_EnemyExplodeParticle Instance { get { return _instance; } }
-
+    static FRY_EnemyOilExplodeParticle _instance;
+    public static FRY_EnemyOilExplodeParticle Instance { get { return _instance; } }
 
     [SerializeField] PS_EnemyExplode _prefab;
     [SerializeField] int _stock = 5;
