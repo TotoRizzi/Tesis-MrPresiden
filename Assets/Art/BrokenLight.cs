@@ -26,6 +26,7 @@ public class BrokenLight : MonoBehaviour, IDamageable
 
     [Header("BROKEN LIGHT VARIABLES")]
     [SerializeField] float _brokenBlinkTime;
+    [SerializeField] Color Lightcolor;
     float _brokenBlinkTimer;
 
 
@@ -65,7 +66,7 @@ public class BrokenLight : MonoBehaviour, IDamageable
             GetComponent<Collider2D>().enabled = false;
             var light2D = _targetObject.GetComponent<Light2D>();
             GetComponent<SpriteRenderer>().sprite = _brokenLightSprite;
-            light2D.color = Color.black;
+            light2D.color = Lightcolor;
             light2D.blendStyleIndex = 2;
             light2D.pointLightInnerAngle = 30;
             light2D.pointLightOuterRadius = 3;
