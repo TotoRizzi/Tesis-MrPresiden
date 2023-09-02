@@ -10,6 +10,8 @@ public class Player : GeneralPlayer
     public event Action OnUpdate;
     public Action ExitClimb;
 
+    bool _dead;
+
     #region Components
     [HideInInspector] public StateMachine fsm;
 
@@ -96,10 +98,12 @@ public class Player : GeneralPlayer
         fsm.AddState(StateName.Climb, new ClimState(this, _controller));
         fsm.ChangeState(StateName.Idle);
 
-        _gameManager.OnPlayerDead += () => fsm.ChangeState(StateName.Idle);
-        _gameManager.OnPlayerDead += ReturnJumps;
+        _gameManager.OnPlayerDead += OnPlayerDeath;
     }
-
+    private void OnDisable()
+    {
+        _gameManager.OnPlayerDead -= OnPlayerDeath;
+    }
     private void Update()
     {
         _dashTimer -= Time.deltaTime;
@@ -204,12 +208,12 @@ public class Player : GeneralPlayer
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Rope")
+        if (collision.CompareTag("Rope") && !_dead)
             EnterRope(collision.gameObject);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Rope")
+        if (collision.CompareTag("Rope"))
             ExitRope();
     }
 
@@ -223,6 +227,19 @@ public class Player : GeneralPlayer
     void ExitRope()
     {
         StopClimging();
+    }
+
+    IEnumerator Death()
+    {
+        _dead = true;
+        yield return null;
+        _dead = false;
+    }
+    void OnPlayerDeath()
+    {
+        StartCoroutine(Death());
+        ReturnJumps();
+        fsm.ChangeState(StateName.Idle);
     }
 }
 

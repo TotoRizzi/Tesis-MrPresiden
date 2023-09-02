@@ -1,4 +1,4 @@
-public class PS_EnemyExplode : Particle
+public class PS_EnemyBloodExplode : Particle
 {
     public override void ReturnObject()
     {
