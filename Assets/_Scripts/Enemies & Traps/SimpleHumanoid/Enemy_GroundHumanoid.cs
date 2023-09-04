@@ -1,11 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class Enemy_GroundHumanoid : Enemy
 {
     StateMachine _fsm;
     [SerializeField] protected Animator _anim;
+    [SerializeField] protected float _viewRadius;
+    [SerializeField] protected float _viewAngle;
 
     public Transform Sprite { get { return sprite; } private set { } }
 
@@ -38,12 +38,16 @@ public class Enemy_GroundHumanoid : Enemy
 
     public bool GetCanSeePlayer()
     {
-        return CanSeePlayer();
+        Vector3 dir = DistanceToPlayer();
+        if (dir.magnitude > _viewRadius) return default;
+
+        if (Vector3.Angle(transform.right, dir.normalized) <= _viewAngle / 2)
+            return CanSeePlayer();
+
+        return default;
     }
 
     public virtual void OnAttack() { }
-    public virtual void OnCancelAttack() { }
-
     public virtual void OnPatrolStart() { }
     public virtual void OnAttackStart() { }
 
@@ -52,6 +56,11 @@ public class Enemy_GroundHumanoid : Enemy
         base.ReturnObject();
         _fsm.ChangeState(StateName.SH_Patrol);
     }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, transform.right * 1);
+    }
 }
 
 public class SH_PatrolState : IState
@@ -59,7 +68,7 @@ public class SH_PatrolState : IState
     StateMachine _fsm;
     Enemy_GroundHumanoid _enemy;
 
-    Vector3 _dir;
+    Vector3 _dir = Vector3.right;
 
     public SH_PatrolState(StateMachine fsm, Enemy_GroundHumanoid enemy)
     {
@@ -70,10 +79,9 @@ public class SH_PatrolState : IState
     public void OnEnter()
     {
         _enemy.OnPatrolStart();
-        _dir = Vector3.right;
     }
 
-    public void OnExit() 
+    public void OnExit()
     {
     }
 
@@ -83,7 +91,7 @@ public class SH_PatrolState : IState
     {
         Move();
 
-        if(_enemy.GetCanSeePlayer())
+        if (_enemy.GetCanSeePlayer())
             _fsm.ChangeState(StateName.SH_Attack);
     }
 
@@ -91,30 +99,15 @@ public class SH_PatrolState : IState
     {
         _enemy.transform.position += _dir * _enemy.Speed * Time.deltaTime;
 
-        if (Physics2D.Raycast(_enemy.transform.position, _enemy.transform.localScale, 1f, Helpers.GameManager.InvisibleWallLayer)) Flip();
-        Debug.DrawLine(_enemy.transform.position, _enemy.Sprite.right);
+        if (Physics2D.Raycast(_enemy.transform.position, _enemy.transform.right, 1f, Helpers.GameManager.InvisibleWallLayer)) Flip();
     }
 
     void Flip()
     {
-        Vector3 newScale = Vector3.one;
-        
-        if (_enemy.isFacingRight)
-        {
-            _enemy.isFacingRight = false;
-            newScale.x = -1;
+        _dir *= -1;
+        float angle = _enemy.transform.eulerAngles.y == 0 ? 180 : 0;
 
-            _dir = -Vector3.right;
-        }
-        else
-        {
-            _enemy.isFacingRight = true;
-            newScale.x = 1;
-            _dir = Vector3.right;
-
-        }
-
-        _enemy.transform.localScale = newScale;
+        _enemy.transform.eulerAngles = new Vector3(0, angle, 0);
     }
 }
 public class SH_AttackState : IState
@@ -140,10 +133,8 @@ public class SH_AttackState : IState
 
     }
 
-    public void OnExit() 
+    public void OnExit()
     {
-        _enemy.OnCancelAttack();
-
     }
 
     public void OnFixedUpdate() { }
@@ -152,7 +143,7 @@ public class SH_AttackState : IState
     {
         _enemy.OnAttack();
 
-        if(!_enemy.GetCanSeePlayer())
+        if (!_enemy.GetCanSeePlayer())
         {
             if (!_isInCoroutine)
             {

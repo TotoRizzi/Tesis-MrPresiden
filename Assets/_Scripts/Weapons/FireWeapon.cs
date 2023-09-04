@@ -64,14 +64,4 @@ public class FireWeapon : Weapon
                                             SetPosition(_bulletSpawn.position).
                                             SetDirection(transform.right);
     }
-
-    public void UpdateAmmoAmount()
-    {
-        _gameManager.UiManager.UpdateCurrentAmmo(_currentAmmo);
-    }
-
-    public void AddAmmo(int amount)
-    {
-        _gameManager.UiManager.UpdateCurrentAmmo(_currentAmmo += amount);
-    }
 }

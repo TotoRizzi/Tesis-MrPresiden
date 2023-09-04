@@ -60,8 +60,6 @@ public class WeaponManager : MonoBehaviour
         _lookAtMouse += () => { if (_inputManager.GetButton("Shoot") && _currentMainWeapon) _currentMainWeapon.Attack(); };
         _lookAtMouse += MainWeapon;
         _currentMainWeapon.PickUp().SetParent(_mainWeaponContainer).SetPosition(_mainWeaponContainer.position);
-        _currentMainWeapon.UpdateCurrentWeapon();
-        _currentMainWeapon.GetComponent<FireWeapon>().UpdateAmmoAmount();
         _rightHand.SetActive(false);
         _leftHand.SetActive(false);
     }
@@ -79,7 +77,6 @@ public class WeaponManager : MonoBehaviour
         _currentMainWeapon = null;
         _mainWeaponContainer.eulerAngles = Vector2.zero;
         _lookAtMouse -= MainWeapon;
-        GameManager.instance.UiManager.SetDefaultWeaponSprite();
         _rightHand.SetActive(true);
         _leftHand.SetActive(true);
     }

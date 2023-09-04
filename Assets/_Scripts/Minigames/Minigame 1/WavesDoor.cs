@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class WavesDoor : MonoBehaviour
 {
     [SerializeField] Animator _anim;
@@ -106,8 +105,6 @@ public class WavesDoor : MonoBehaviour
 
     private void OnTriggerEnter2D()
     {
-        if (Helpers.GameManager.UiManager == null) return;
-
         NextLevel();
         if (Helpers.GameManager.Player) Helpers.GameManager.Player.PausePlayer();
     }

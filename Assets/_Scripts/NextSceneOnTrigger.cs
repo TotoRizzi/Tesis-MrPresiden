@@ -31,8 +31,6 @@ public class NextSceneOnTrigger : MonoBehaviour
     }
     private void OnTriggerEnter2D()
     {
-        if (Helpers.GameManager.UiManager == null) return;
-
         Helpers.GameManager.LoadSceneManager.LoadLevel(_nextScene);
         if (Helpers.GameManager.Player) Helpers.GameManager.Player.PausePlayer();
     }

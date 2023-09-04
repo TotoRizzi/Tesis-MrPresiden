@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f6e2cb60737c9469137bf7d9f8653c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   sprite: {fileID: 8200238320928116133}
   _isRobot: 1
   _maxHp: 1
@@ -301,6 +302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8200238320928116133}
   - component: {fileID: 6302554394847641265}
+  - component: {fileID: 934522907329051924}
   m_Layer: 0
   m_Name: DronKamikaze 1
   m_TagString: Untagged
@@ -375,3 +377,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &934522907329051924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6093816695583462749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 3d9b2f0f
+  m_ShapePath:
+  - {x: -0.23960733, y: -0.34688488, z: 0}
+  - {x: 0.25445032, y: -0.3518324, z: 0}
+  - {x: 0.45730364, y: 0.25287962, z: 0}
+  - {x: -0.44740832, y: 0.25287962, z: 0}
+  m_ShapePathHash: -1361071055
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -165964

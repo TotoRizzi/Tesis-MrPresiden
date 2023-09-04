@@ -316,8 +316,6 @@ MonoBehaviour:
   _playerSprite: {fileID: 1266088773945994460}
   _maxDelayCanMove: 0.2
   _jumpForce: 20
-  _maxJumps: 1
-  _currentJumps: 1
   _dashSpeed: 1200
   _dashDuration: 0.1
 --- !u!114 &1266088774287247119
@@ -497,15 +495,15 @@ MonoBehaviour:
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
-  m_ApplyToSortingLayers: 3d9b2f0f000000005963b32aa39c47404d2c7b87e751e7c3
+  m_ApplyToSortingLayers: 3d9b2f0f
   m_ShapePath:
-  - {x: 0.47919655, y: 0.1423688, z: 0}
-  - {x: 0.34458828, y: 0.44279337, z: 0}
-  - {x: -0.25077248, y: 0.43363333, z: 0}
-  - {x: -0.4596262, y: 0.14169312, z: 0}
-  m_ShapePathHash: 773208149
+  - {x: 0.62375546, y: 0.09610987, z: 0}
+  - {x: 0.51227665, y: 0.3618405, z: 0}
+  - {x: -0.25077152, y: 0.35268044, z: 0}
+  - {x: -0.32084942, y: 0.014481306, z: 0}
+  m_ShapePathHash: -460105547
   m_Mesh: {fileID: 0}
-  m_InstanceId: 24674
+  m_InstanceId: 91698
 --- !u!1 &1266088774822671311
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,7 +514,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1266088774822671308}
   - component: {fileID: 1266088774822671309}
-  - component: {fileID: 2466288641861600272}
   m_Layer: 0
   m_Name: Player_Chest
   m_TagString: SetSkin
@@ -593,32 +590,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2466288641861600272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1266088774822671311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 3d9b2f0f000000005963b32aa39c47404d2c7b87e751e7c3
-  m_ShapePath:
-  - {x: -0.3, y: -0.25, z: 0}
-  - {x: 0.3, y: -0.25, z: 0}
-  - {x: 0.3, y: 0, z: 0}
-  - {x: -0.3, y: 0, z: 0}
-  m_ShapePathHash: -654931003
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 24744
 --- !u!1 &1266088775024654868
 GameObject:
   m_ObjectHideFlags: 0

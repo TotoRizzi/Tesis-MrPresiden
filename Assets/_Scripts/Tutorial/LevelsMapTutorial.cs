@@ -8,8 +8,8 @@ public class LevelsMapTutorial : MonoBehaviour
     int _index;
     void Start()
     {
-        //if (!Helpers.PersistantData.gameData.firstTimeLevelsMap) Destroy(gameObject);
-        //Helpers.PersistantData.gameData.firstTimeLevelsMap = false;
+        if (!Helpers.PersistantData.gameData.firstTimeLevelsMap) Destroy(gameObject);
+        Helpers.PersistantData.gameData.firstTimeLevelsMap = false;
 
         Invoke(nameof(InvokeTuto), 1f);
     }
@@ -50,8 +50,8 @@ public class LevelsMapTutorialData
         OnUpdate(() => _descriptionTMPRO.text = text).
         OnComplete(() => finish = true);
     }
-public void DisableGO()
-{
-    _window.SetActive(false);
-}
+    public void DisableGO()
+    {
+        _window.SetActive(false);
+    }
 }

@@ -25,6 +25,5 @@ public class StatisticsManager : MonoBehaviour
     public void AddDeath()
     {
         _currentDeathCount++;
-        _gameManager.UiManager.UpdateDeathCount(_currentDeathCount);
     }
 }

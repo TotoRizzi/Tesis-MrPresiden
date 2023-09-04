@@ -51,9 +51,6 @@ public class GameManager : MonoBehaviour
     private EffectsManager _effectsManager;
     public EffectsManager EffectsManager { get { return _effectsManager; } private set { } }
 
-    private UiManager _uiManager;
-    public UiManager UiManager { get { return _uiManager; } private set { } }
-
     private SaveDataManager _saveDataManager;
     public SaveDataManager SaveDataManager { get { return _saveDataManager; } private set { } }
 
@@ -65,9 +62,6 @@ public class GameManager : MonoBehaviour
 
     DropManager _dropManager;
     public DropManager DropManager { get { return _dropManager; } }
-
-    StatisticsManager _statisticsManager;
-    public StatisticsManager StatisticsManager { get { return _statisticsManager; } }
 
     CinematicManager _cinematicManager;
     public CinematicManager CinematicManager { get { return _cinematicManager; } }
@@ -84,12 +78,10 @@ public class GameManager : MonoBehaviour
         _enemyManager = GetComponent<BaseEnemyManager>();
         if (_enemyManager == null) _enemyManager = FindObjectOfType<BaseEnemyManager>();
         _effectsManager = GetComponent<EffectsManager>();
-        _uiManager = GetComponent<UiManager>();
         _saveDataManager = GetComponent<SaveDataManager>();
         _pauseManager = GetComponent<PauseManager>();
         _sceneManager = GetComponent<Scene_Manager>();
         _dropManager = GetComponent<DropManager>();
-        _statisticsManager = GetComponent<StatisticsManager>();
         _cinematicManager = GetComponent<CinematicManager>();
         Cursor.lockState = CursorLockMode.Confined;
 

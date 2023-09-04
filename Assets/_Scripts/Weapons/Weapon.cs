@@ -59,11 +59,6 @@ namespace Weapons
         }
 
         public abstract void WeaponAction();
-        public void UpdateCurrentWeapon()
-        {
-            _gameManager.UiManager.UpdateCurrentWeapon(_weaponData.mainSprite);
-        }
-
         IEnumerator FindGameManager()
         {
             while (GameManager.instance == null) yield return null;

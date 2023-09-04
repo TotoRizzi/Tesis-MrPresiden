@@ -1,13 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class Enemy_Ground_Ak : Enemy_GroundHumanoid
 {
     [SerializeField] Transform _bulletSpawnPosition;
     [SerializeField] Transform _armPivot;
-    [SerializeField] Transform _fakeArm;
-    [SerializeField] Transform _weaponSprite;
 
     [SerializeField] float _bulletDamage = 1f;
     [SerializeField] float _bulletSpeed = 10f;
@@ -17,23 +12,13 @@ public class Enemy_Ground_Ak : Enemy_GroundHumanoid
     public override void OnPatrolStart()
     {
         _anim.SetBool("IsRunning", true);
-        sprite.right = Vector3.right;
-
+        _armPivot.eulerAngles = transform.eulerAngles;
     }
 
     public override void OnAttackStart()
     {
         _anim.SetBool("IsRunning", false);
-        _armPivot.gameObject.SetActive(true);
-        _fakeArm.gameObject.SetActive(false);
     }
-
-    public override void OnCancelAttack()
-    {
-        _armPivot.gameObject.SetActive(false);
-        _fakeArm.gameObject.SetActive(true);
-    }
-
     public override void OnAttack()
     {
         LookAtPlayer();
@@ -57,27 +42,10 @@ public class Enemy_Ground_Ak : Enemy_GroundHumanoid
 
     void LookAtPlayer()
     {
-        Vector3 dirToLookAt = (gameManager.Player.transform.position - transform.position).normalized;
+        Vector3 dirToLookAt = (gameManager.Player.transform.position + Vector3.up - transform.position).normalized;
         float angle = Mathf.Atan2(dirToLookAt.y, dirToLookAt.x) * Mathf.Rad2Deg;
 
         _armPivot.eulerAngles = new Vector3(0, 0, angle);
-
-        Vector3 newWeaponLocalScale = Vector3.one;
-        Vector3 newScale = transform.right;
-
-        if (angle > 90 || angle < -90)
-        {
-            newScale = -transform.right;
-            newWeaponLocalScale.y = -1;
-        }
-        else
-        {
-            newScale = transform.right;
-            newWeaponLocalScale.x = 1;
-        }
-
-        _weaponSprite.localScale = newWeaponLocalScale;
-        sprite.right = newScale;
     }
 
     public override void ReturnObject()
