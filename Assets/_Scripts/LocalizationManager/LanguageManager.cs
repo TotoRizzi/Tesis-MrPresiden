@@ -19,7 +19,6 @@ public class LanguageManager : MonoBehaviour
     public Action OnUpdate = delegate { };
 
     public static LanguageManager Instance;
-
     private void Awake()
     {
         if (Instance == null)
@@ -49,7 +48,6 @@ public class LanguageManager : MonoBehaviour
         www.downloadHandler = new DownloadHandlerBuffer();
 
         yield return www.SendWebRequest();
-
         _languageManager = LanguageU.LoadCodexFromString("www", www.downloadHandler.text);
 
         OnUpdate?.Invoke();

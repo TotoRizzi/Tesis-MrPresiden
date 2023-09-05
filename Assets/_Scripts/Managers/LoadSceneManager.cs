@@ -19,6 +19,7 @@ public class LoadSceneManager : MonoBehaviour
     public void ReloadLevel() => StartCoroutine(ChangeScene(SceneManager.GetActiveScene().buildIndex));
     public void LoadLevel(int levelIndex) => StartCoroutine(ChangeScene(levelIndex));
     public void LoadLevel(string levelName) => StartCoroutine(ChangeScene(levelName));
+    public void LoadLevelAsync(string levelName) => StartCoroutine(LoadAsync(levelName));
     public void SaveCurrentLevel()
     {
         var levelName = string.Empty;
@@ -48,5 +49,12 @@ public class LoadSceneManager : MonoBehaviour
         _anim.Play("Close");
         yield return _wait;
         SceneManager.LoadScene(levelName);
+    }
+
+    IEnumerator LoadAsync(string sceneName)
+    {
+        _anim.Play("Close");
+        yield return _wait;
+        SceneManager.LoadSceneAsync(sceneName);
     }
 }
