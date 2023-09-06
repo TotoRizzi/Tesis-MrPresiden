@@ -6,19 +6,25 @@ public class EnemyManager : BaseEnemyManager
     {
         _gameManager = Helpers.GameManager;
 
-        _gameManager.OnPlayerDead += ResetLevel;
-        Helpers.GameManager.OnPlayerDead += () => StartCoroutine(CheckForEmptyLevel());
-
+        EventManager.SubscribeToEvent(Contains.PLAYER_DEAD, OnPlayerDead);
 
         StartCoroutine(CheckForEmptyLevel());
     }
-
+    private void OnDisable()
+    {
+        EventManager.UnSubscribeToEvent(Contains.PLAYER_DEAD, OnPlayerDead);
+    }
+    void OnPlayerDead(params object[] param)
+    {
+        ResetLevel();
+        StartCoroutine(CheckForEmptyLevel());
+    }
     IEnumerator CheckForEmptyLevel()
     {
         yield return new WaitForSeconds(.1f);
 
         _maxEnemies = _allEnemies.Count;
-        if (_maxEnemies == 0) _gameManager.RoomWon();
+        if (_maxEnemies == 0) EventManager.TriggerEvent(Contains.ON_ROOM_WON);
     }
 
     public override void RemoveEnemy(Enemy enemy)
@@ -30,7 +36,7 @@ public class EnemyManager : BaseEnemyManager
         
         Helpers.AudioManager.PlaySFX("Enemy_Dead");
 
-        if (_allEnemies.Count == 0) _gameManager.RoomWon();
+        if (_allEnemies.Count == 0) EventManager.TriggerEvent(Contains.ON_ROOM_WON);
     }
 
     public override string EnemyCountString()

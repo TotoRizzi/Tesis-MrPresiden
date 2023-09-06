@@ -58,7 +58,7 @@ public class PlayerBullet : Bullet
     {
         b.gameObject.SetActive(false);
     }
-    protected override void ReturnBullet()
+    protected override void ReturnBullet(params object[] param)
     {
         base.ReturnBullet();
         FRY_PlayerBullet.Instance.ReturnBullet(this);

@@ -8,10 +8,13 @@ public class GameModeManager : MonoBehaviour
         gameManager = Helpers.GameManager;
         playerHealth = gameManager.Player.GetComponent<PlayerHealth>();
 
-        gameManager.OnPlayerDead += PlayerDead;
+        EventManager.SubscribeToEvent(Contains.PLAYER_DEAD, PlayerDead);
     }
-
-    public virtual void PlayerDead()
+    protected virtual void OnDisable()
+    {
+        EventManager.UnSubscribeToEvent(Contains.PLAYER_DEAD, PlayerDead);
+    }
+    public virtual void PlayerDead(params object[] param)
     {
 
     }

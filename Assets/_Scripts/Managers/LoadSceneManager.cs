@@ -10,11 +10,6 @@ public class LoadSceneManager : MonoBehaviour
     private void Start()
     {
         _anim = GetComponent<Animator>();
-
-        if (Helpers.GameManager) Helpers.GameManager.OnGameLost += () => LoadLevel("Menu");
-        if (Helpers.GameManager) Helpers.GameManager.OnGameWon += () => LoadLevel("WinScreen");
-
-        //Helpers.GameManager.OnSpiked += () => LoadLevel(SceneManager.GetActiveScene().buildIndex);
     }
     public void ReloadLevel() => StartCoroutine(ChangeScene(SceneManager.GetActiveScene().buildIndex));
     public void LoadLevel(int levelIndex) => StartCoroutine(ChangeScene(levelIndex));

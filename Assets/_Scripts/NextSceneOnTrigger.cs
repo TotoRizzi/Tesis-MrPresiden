@@ -9,13 +9,19 @@ public class NextSceneOnTrigger : MonoBehaviour
     Collider2D _collider;
     private void Start()
     {
-        Helpers.GameManager.OnRoomWon += ShowExit;
-        Helpers.GameManager.WaitPlayerDead += () => StartCoroutine(HideExit());
+        EventManager.SubscribeToEvent(Contains.ON_ROOM_WON, ShowExit);
+        EventManager.SubscribeToEvent(Contains.WAIT_PLAYER_DEAD, StartHideExit);
 
         _collider = GetComponent<Collider2D>();
         StartCoroutine(HideExit());
     }
-    void ShowExit()
+    private void OnDisable()
+    {
+        EventManager.UnSubscribeToEvent(Contains.ON_ROOM_WON, ShowExit);
+        EventManager.UnSubscribeToEvent(Contains.WAIT_PLAYER_DEAD, StartHideExit);
+    }
+    void StartHideExit(params object[] param) { StartCoroutine(HideExit()); }
+    void ShowExit(params object[] param)
     {
         _anim.SetBool("IsOpen", true);
         _collider.enabled = true;

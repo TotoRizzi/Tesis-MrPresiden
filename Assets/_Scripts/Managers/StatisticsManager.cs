@@ -14,10 +14,13 @@ public class StatisticsManager : MonoBehaviour
         _gameManager = GameManager.instance;
         _currentDeathCount = _gameManager.SaveDataManager.GetInt(_saveDataName, 0);
 
-        _gameManager.OnRoomWon += SaveData;
+        EventManager.SubscribeToEvent(Contains.ON_ROOM_WON, SaveData);
     }
-
-    void SaveData()
+    private void OnDisable()
+    {
+        EventManager.UnSubscribeToEvent(Contains.ON_ROOM_WON, SaveData);      
+    }
+    void SaveData(params object[] param)
     {
         _gameManager.SaveDataManager.SaveFloat(_saveDataName, _currentDeathCount);
     }

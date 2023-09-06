@@ -2,10 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 public class SaveDataManager : MonoBehaviour
 {
-    private void Start()
-    {
-        Helpers.GameManager.OnGameLost += Reset;
-    }
     public void SaveFloat(string name, float value)
     {
         PlayerPrefs.SetFloat(name, value);

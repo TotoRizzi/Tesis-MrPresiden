@@ -19,12 +19,12 @@ public class WavesGameMode : GameModeManager
         EventManager.SubscribeToEvent(Contains.LOSE_WAVESGAME, LoseWindow);
         EventManager.SubscribeToEvent(Contains.WIN_WAVESGAME, WinWindow);
     }
-    private void OnDisable()
+    protected override void OnDisable()
     {
         EventManager.UnSubscribeToEvent(Contains.LOSE_WAVESGAME, LoseWindow);
         EventManager.UnSubscribeToEvent(Contains.WIN_WAVESGAME, WinWindow);
     }
-    public override void PlayerDead()
+    public override void PlayerDead(params object[] param)
     {
         _currentDeaths++;
         playerHealth.EffectsOnDeath();

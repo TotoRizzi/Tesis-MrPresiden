@@ -47,4 +47,7 @@ public class Contains
     public const string WIN_WAVESGAME = "Cuando el player termina el minijuego de oleadas";
     public const string LOSE_WAVESGAME = "Cuando el player pierde el minijuego de oleadas";
     public const string DUMMY_SPAWN = "Spawn Dummy";
+    public const string PLAYER_DEAD = "Player Dead";
+    public const string WAIT_PLAYER_DEAD = "Wait Player Dead";
+    public const string ON_ROOM_WON = "On Room Won";
 }

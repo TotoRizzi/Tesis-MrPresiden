@@ -10,7 +10,7 @@ public class HardGameMode : GameModeManager
         _currentLives = Helpers.GameManager.SaveDataManager.GetInt(_currentLivesName, Helpers.GameManager.DefaultHardLives);
     }
 
-    public override void PlayerDead()
+    public override void PlayerDead(params object[] param)
     {
         _currentLives--;
 

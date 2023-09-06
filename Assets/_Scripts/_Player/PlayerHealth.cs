@@ -21,7 +21,9 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         if (_isDead) return;
         _isDead = true;
-        _gameManager.PlayerDead();
+        //_gameManager.PlayerDead();
+        EventManager.TriggerEvent(Contains.PLAYER_DEAD);
+        EventManager.TriggerEvent(Contains.WAIT_PLAYER_DEAD);
     }
 
     public void Die()

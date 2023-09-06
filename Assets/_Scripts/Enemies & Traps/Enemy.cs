@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using System;
-
 public class Enemy : MonoBehaviour, IDamageable
 {
     protected GameManager gameManager;
@@ -22,15 +21,18 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         gameManager = Helpers.GameManager;
 
-        gameManager.OnPlayerDead += ActionOnPlayerDead;
-
+        EventManager.SubscribeToEvent(Contains.PLAYER_DEAD, ActionOnPlayerDead);
         gameManager.EnemyManager.AddEnemy(this);
 
         _currentHp = _maxHp;
         _renderer = sprite.GetComponent<SpriteRenderer>();
         if (!_renderer) _renderer = sprite.GetChild(0).GetComponent<SpriteRenderer>();
     }
-    public virtual void ActionOnPlayerDead()
+    protected virtual void OnDestroy()
+    {
+        EventManager.UnSubscribeToEvent(Contains.PLAYER_DEAD, ActionOnPlayerDead);
+    }
+    public virtual void ActionOnPlayerDead(params object[] param)
     {
         ReturnObject();
     }

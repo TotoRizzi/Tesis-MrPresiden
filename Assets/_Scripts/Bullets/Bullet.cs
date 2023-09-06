@@ -11,10 +11,13 @@ public abstract class Bullet : MonoBehaviour
     protected virtual void Start()
     {
         _trail = GetComponent<TrailRenderer>();
-        Helpers.GameManager.OnPlayerDead += ReturnBullet;
+        EventManager.SubscribeToEvent(Contains.PLAYER_DEAD, ReturnBullet);
     }
-
-    protected virtual void ReturnBullet()
+    protected virtual void OnDisable()
+    {
+        EventManager.UnSubscribeToEvent(Contains.PLAYER_DEAD, ReturnBullet);
+    }
+    protected virtual void ReturnBullet(params object[] param)
     {
         _trail.sortingOrder = 0;
         _trail.Clear();

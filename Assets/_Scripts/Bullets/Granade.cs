@@ -24,9 +24,13 @@ public class Granade : MonoBehaviour
     }
     private void Start()
     {
-        Helpers.GameManager.OnPlayerDead += ReturnGrenade;
+        EventManager.SubscribeToEvent(Contains.PLAYER_DEAD, ReturnGrenade);
         _trail = GetComponent<TrailRenderer>();
         _groundLayer = GameManager.instance.GroundLayer;
+    }
+    private void OnDisable()
+    {
+        EventManager.UnSubscribeToEvent(Contains.PLAYER_DEAD, ReturnGrenade);   
     }
     private void Update()
     {
@@ -86,7 +90,7 @@ public class Granade : MonoBehaviour
         return Physics2D.Raycast(transform.position, other - transform.position, (other - transform.position).magnitude, ground);
     }
 
-    void ReturnGrenade()
+    void ReturnGrenade(params object[] param)
     {
         _trail.Clear();
         FRY_Granades.Instance.ReturnBullet(this);

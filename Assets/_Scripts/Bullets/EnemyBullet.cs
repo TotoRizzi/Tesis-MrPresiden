@@ -50,7 +50,7 @@ public class EnemyBullet : Bullet
     {
         b.gameObject.SetActive(false);
     }
-    protected override void ReturnBullet()
+    protected override void ReturnBullet(params object[] param)
     {
         base.ReturnBullet();
         FRY_EnemyBullet.Instance.ReturnBullet(this);

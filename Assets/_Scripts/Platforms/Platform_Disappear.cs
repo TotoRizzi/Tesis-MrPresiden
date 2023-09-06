@@ -25,9 +25,12 @@ public class Platform_Disappear : MonoBehaviour
         _anim = GetComponent<Animator>();
         _colliders = GetComponents<BoxCollider2D>();
 
-        Helpers.GameManager.OnPlayerDead += AppearPlatform;
+        EventManager.SubscribeToEvent(Contains.PLAYER_DEAD, AppearPlatform);
     }
-
+    private void OnDisable()
+    {
+        EventManager.UnSubscribeToEvent(Contains.PLAYER_DEAD, AppearPlatform);       
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player") && !_isDisappearing)
@@ -67,7 +70,7 @@ public class Platform_Disappear : MonoBehaviour
         OnUpdate -= CheckDisappear;
     }
 
-    void AppearPlatform()
+    void AppearPlatform(params object[] param)
     {
         OnUpdate = null;
         _currentTimeToAppear = 0;

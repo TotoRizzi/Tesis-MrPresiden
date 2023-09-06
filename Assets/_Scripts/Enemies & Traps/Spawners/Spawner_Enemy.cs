@@ -1,10 +1,14 @@
 using UnityEngine;
 public abstract class Spawner_Enemy : MonoBehaviour
 {
-    private void Start()
+    protected void Start()
     {
-        Helpers.GameManager.WaitPlayerDead += SpawnEnemy;
+        EventManager.SubscribeToEvent(Contains.WAIT_PLAYER_DEAD, SpawnEnemy);
         SpawnEnemy();
     }
-    public abstract void SpawnEnemy();
+    protected void OnDisable()
+    {
+        EventManager.UnSubscribeToEvent(Contains.WAIT_PLAYER_DEAD, SpawnEnemy);   
+    }
+    public abstract void SpawnEnemy(params object[] param);
 }

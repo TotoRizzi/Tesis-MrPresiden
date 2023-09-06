@@ -1,16 +1,8 @@
 using UnityEngine;
 using System;
-using System.Collections;
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
-    public event Action OnGameLost;
-    public event Action OnGameWon;
-    public event Action OnRoomWon;
-    public event Action OnPlayerDead;
-    public event Action WaitPlayerDead;
 
     public Action SetPlayerSkin = delegate { }, SetPresidentSkin = delegate { };
 
@@ -63,9 +55,6 @@ public class GameManager : MonoBehaviour
     CinematicManager _cinematicManager;
     public CinematicManager CinematicManager { get { return _cinematicManager; } }
 
-    GameModeManager _gameMode;
-    public GameModeManager GameMode { get { return _gameMode; } private set { } }
-
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -81,31 +70,5 @@ public class GameManager : MonoBehaviour
         _dropManager = GetComponent<DropManager>();
         _cinematicManager = GetComponent<CinematicManager>();
         Cursor.lockState = CursorLockMode.Confined;
-
-        StartCoroutine(LateStart());
-    }
-
-    IEnumerator LateStart()
-    {
-        yield return new WaitForEndOfFrame();
-        //_gameMode = GameObject.Find("GameMode").GetComponentInChildren<GameModeManager>();
-    }
-
-    public void RoomWon()
-    {
-        OnRoomWon?.Invoke();
-    }
-    public void GameWon()
-    {
-        OnGameWon?.Invoke();
-    }
-    public void GameLost()
-    {
-        OnGameLost?.Invoke();
-    }
-    public void PlayerDead()
-    {
-        OnPlayerDead?.Invoke();
-        WaitPlayerDead?.Invoke();
     }
 }

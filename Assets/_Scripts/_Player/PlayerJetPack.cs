@@ -49,14 +49,16 @@ public class PlayerJetPack : GeneralPlayer
         fsm.AddState(StateName.OnFloor, new OnFloorState(this, _controller));
         fsm.ChangeState(StateName.Droping);
 
-        Helpers.GameManager.OnPlayerDead += () =>
-        {
-            _currentFuel = _maxFuel;
-            UpdateFuelBar();
-            fsm.ChangeState(StateName.Droping);
-        };
+        EventManager.SubscribeToEvent(Contains.PLAYER_DEAD, OnPlayerDead);
+
         _playerDefaultSpriteSize = _playerSprite.localScale;
         _defaultGravity = _rb.gravityScale;
+    }
+    private void OnDisable()
+    {
+        OnUpdate -= fsm.Update;
+        OnUpdate -= LookAtMouse;
+        EventManager.UnSubscribeToEvent(Contains.PLAYER_DEAD, OnPlayerDead);    
     }
 
     private void Update()
@@ -142,10 +144,16 @@ public class PlayerJetPack : GeneralPlayer
 
         _playerSprite.localScale = playerLocalScale;
     }
-
     void UpdateFuelBar()
     {
         _fuelBar.fillAmount = _currentFuel / _maxFuel;
+    }
+
+    void OnPlayerDead(params object[] param)
+    {
+        _currentFuel = _maxFuel;
+        UpdateFuelBar();
+        fsm.ChangeState(StateName.Droping);
     }
 }
 

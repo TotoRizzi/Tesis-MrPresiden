@@ -98,11 +98,11 @@ public class Player : GeneralPlayer
         fsm.AddState(StateName.Climb, new ClimState(this, _controller));
         fsm.ChangeState(StateName.Idle);
 
-        _gameManager.OnPlayerDead += OnPlayerDeath;
+        EventManager.SubscribeToEvent(Contains.PLAYER_DEAD, OnPlayerDeath);
     }
     private void OnDisable()
     {
-        _gameManager.OnPlayerDead -= OnPlayerDeath;
+        EventManager.UnSubscribeToEvent(Contains.PLAYER_DEAD, OnPlayerDeath);
     }
     private void Update()
     {
@@ -235,7 +235,7 @@ public class Player : GeneralPlayer
         yield return null;
         _dead = false;
     }
-    void OnPlayerDeath()
+    void OnPlayerDeath(params object[] param)
     {
         StartCoroutine(Death());
         ReturnJumps();

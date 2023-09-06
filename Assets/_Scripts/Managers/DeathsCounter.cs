@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Linq;
+using System;
 using UnityEngine.SceneManagement;
 public class DeathsCounter : MonoBehaviour
 {
@@ -15,14 +16,21 @@ public class DeathsCounter : MonoBehaviour
             persistantDataSaved.deaths.Add(0);
         }
 
-        int deaths = 0;
-        Helpers.GameManager.OnPlayerDead += () => deaths++;
+        EventManager.SubscribeToEvent(Contains.PLAYER_DEAD, OnPlayerDead);
 
         Helpers.LevelTimerManager.RedButton += () =>
         {
-            persistantDataSaved.deaths[persistantDataSaved.levels.IndexOf(levelName)] = deaths;
+            persistantDataSaved.deaths[persistantDataSaved.levels.IndexOf(levelName)] = _deaths;
             persistantDataSaved.currentDeaths = persistantDataSaved.deaths.Any() ? persistantDataSaved.deaths.Sum() : default;
         };
-        Helpers.LevelTimerManager.OnLevelDefeat += () => persistantDataSaved.deaths[persistantDataSaved.levels.IndexOf(levelName)] = deaths;
+        Helpers.LevelTimerManager.OnLevelDefeat += () => persistantDataSaved.deaths[persistantDataSaved.levels.IndexOf(levelName)] = _deaths;
     }
+
+    private void OnDisable()
+    {
+        EventManager.UnSubscribeToEvent(Contains.PLAYER_DEAD, OnPlayerDead);        
+    }
+
+    int _deaths = 0;
+    void OnPlayerDead(params object[] param) { _deaths++; }
 }
