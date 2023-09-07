@@ -3,6 +3,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class BrokenLight : MonoBehaviour, IDamageable
 {
     [SerializeField] Sprite _brokenLightSprite;
+    [SerializeField] ParticleSystem _brokenLightPT;
 
     #region NO BROKEN LIGHT VARIABLES
 
@@ -28,7 +29,6 @@ public class BrokenLight : MonoBehaviour, IDamageable
     [SerializeField] float _brokenBlinkTime;
     [SerializeField] Color Lightcolor;
     float _brokenBlinkTimer;
-
 
     enum LightStates { IDLE, BLINK, RETURN_BLINK, BROKEN }
     EventFSM<LightStates> _myFSM;
@@ -146,6 +146,7 @@ public class BrokenLight : MonoBehaviour, IDamageable
     public void Die()
     {
         _levelLightsManager.RemoveBrokenLight(this, _targetObject.GetComponent<Light2D>());
+        _brokenLightPT.Play();
         _myFSM.SendInput(LightStates.BROKEN);
     }
 }

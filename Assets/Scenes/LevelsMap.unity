@@ -1689,7 +1689,6 @@ MonoBehaviour:
   _cameraShakeDuration: 0
   _cameraSpeed: 0
   _defaultHardLives: 3
-  gameModeSaveName: GameMode
   _loadSceneManager: {fileID: 77621446}
 --- !u!4 &305536277
 Transform:
@@ -3523,7 +3522,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: asd
+  m_text: jadhfjahdjahfjdha
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56c081df80e624848aff4354a25ce61a, type: 2}
   m_sharedMaterial: {fileID: -7370286497073703031, guid: 56c081df80e624848aff4354a25ce61a, type: 2}
@@ -3586,7 +3585,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 20, y: 20, z: 20, w: 20}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3779,7 +3778,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: asd
+  m_text: jadhfjahdjahfjdha
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56c081df80e624848aff4354a25ce61a, type: 2}
   m_sharedMaterial: {fileID: -7370286497073703031, guid: 56c081df80e624848aff4354a25ce61a, type: 2}
@@ -3842,7 +3841,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 20, y: 20, z: 20, w: 20}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4182,30 +4181,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tutorialsData:
-  - tutorialTipName: ZONES
+  - ID: ID_TutoZones
     _window: {fileID: 1879173541}
     _descriptionTMPRO: {fileID: 1698071037}
-    description: los niveles estan divididos por zonas, las cuales contienen 5 niveles
-      cada una.
     finish: 0
-  - tutorialTipName: DEATHS
+  - ID: ID_TutoDeaths
     _window: {fileID: 1714996213}
     _descriptionTMPRO: {fileID: 1034012293}
-    description: cada zona tiene un limite de muertes permitidas. Para desbloquear
-      la siguiente zona, no debe superar el limite de muertes. Si no es asi, debera
-      volver a jugar la zona actual para bajar el numero de muertes.
     finish: 0
-  - tutorialTipName: MINIGAMES
+  - ID: ID_TutoMinigames
     _window: {fileID: 2075799844}
     _descriptionTMPRO: {fileID: 1443644297}
-    description: minijuegos con diferente jugabilidad para obtener monedas, las cuales
-      podra gastar en la tienda.
     finish: 0
-  - tutorialTipName: SHOP
+  - ID: ID_TutoStore
     _window: {fileID: 2074799068}
     _descriptionTMPRO: {fileID: 1114440348}
-    description: en la tienda se encuetra un comerciante donde podra gastar sus monedas
-      comprando diferentes tipos de cosmeticos
     finish: 0
   _typingSpeed: 25
 --- !u!1 &1294764924
@@ -4795,7 +4785,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: asd
+  m_text: jadhfjahdjahfjdha
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56c081df80e624848aff4354a25ce61a, type: 2}
   m_sharedMaterial: {fileID: -7370286497073703031, guid: 56c081df80e624848aff4354a25ce61a, type: 2}
@@ -4858,7 +4848,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 20, y: 20, z: 20, w: 20}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5396,7 +5386,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: asd
+  m_text: jadhfjahdjahfjdha
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56c081df80e624848aff4354a25ce61a, type: 2}
   m_sharedMaterial: {fileID: -7370286497073703031, guid: 56c081df80e624848aff4354a25ce61a, type: 2}
@@ -5459,7 +5449,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 20, y: 20, z: 20, w: 20}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

@@ -50,7 +50,7 @@ public class PersistantData : MonoBehaviour
 [Serializable]
 public class PersistantDataSaved
 {
-    public int coins;
+    public int coins, currentLanguageIndex;
     public CosmeticData playerCosmeticEquiped;
     public CosmeticData presidentCosmeticEquiped;
     public List<CosmeticData> playerCosmeticCollection = new List<CosmeticData>();

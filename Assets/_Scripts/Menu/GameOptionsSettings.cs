@@ -77,6 +77,7 @@ public class GameOptionsSettings : MonoBehaviour
 
         _languageDD.RefreshShownValue();
         _gameModeDD.RefreshShownValue();
+        Helpers.PersistantData.persistantDataSaved.currentLanguageIndex = language;
     }
 
     public void SetGameMode(int gameMode)

@@ -8,8 +8,8 @@ public class LevelsMapTutorial : MonoBehaviour
     int _index;
     void Start()
     {
-        if (!Helpers.PersistantData.gameData.firstTimeLevelsMap) Destroy(gameObject);
-        Helpers.PersistantData.gameData.firstTimeLevelsMap = false;
+        //if (!Helpers.PersistantData.gameData.firstTimeLevelsMap) Destroy(gameObject);
+        //Helpers.PersistantData.gameData.firstTimeLevelsMap = false;
 
         Invoke(nameof(InvokeTuto), 1f);
     }
@@ -36,13 +36,14 @@ public class LevelsMapTutorial : MonoBehaviour
 [System.Serializable]
 public class LevelsMapTutorialData
 {
-    public string tutorialTipName;
+    public string ID;
     public GameObject _window;
     public TextMeshProUGUI _descriptionTMPRO;
-    [TextArea(1, 10)] public string description;
     public bool finish;
+    string description;
     public void Set(float typingSpeed)
     {
+        description = LanguageManager.Instance.GetTranslate(ID).Replace("-", ",").Replace("/", "\"");
         _window.SetActive(true);
         var text = "";
         DOTween.To(() => text, x => x = text = x, description, description.Length / typingSpeed).
