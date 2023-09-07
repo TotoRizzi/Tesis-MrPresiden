@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 4863777136005537084}
   - component: {fileID: 3552095830076362864}
   - component: {fileID: 2507419925572482475}
+  - component: {fileID: 5773362042125636615}
   m_Layer: 17
   m_Name: Enemy_WaveFollowDrone
   m_TagString: Untagged
@@ -208,6 +209,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5773362042125636615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68006992061707081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41caea66f1667e54b958955419d85d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shadowCaster: {fileID: 5776816823333429473}
 --- !u!1 &68006992591922970
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,7 +301,7 @@ MonoBehaviour:
   - {x: -0.40056157, y: 0.25308445, z: 0}
   m_ShapePathHash: -1881616195
   m_Mesh: {fileID: 0}
-  m_InstanceId: 92312
+  m_InstanceId: 152444
 --- !u!1 &745952781559670996
 GameObject:
   m_ObjectHideFlags: 0

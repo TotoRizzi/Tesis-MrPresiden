@@ -255,6 +255,7 @@ GameObject:
   - component: {fileID: 1266088774287247120}
   - component: {fileID: 1266088774287247123}
   - component: {fileID: 1266088774287247116}
+  - component: {fileID: 505499263328215027}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -395,6 +396,19 @@ MonoBehaviour:
   _currentSecundaryWeapon: {fileID: 0}
   _rightHand: {fileID: 7102331597736984816}
   _leftHand: {fileID: 4289915440424325805}
+--- !u!114 &505499263328215027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266088774287247122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41caea66f1667e54b958955419d85d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shadowCaster: {fileID: 899862880646520267}
 --- !u!1 &1266088774438158974
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,7 +420,6 @@ GameObject:
   - component: {fileID: 1266088774438158975}
   - component: {fileID: 1266088774438158972}
   - component: {fileID: 899862880646520267}
-  - component: {fileID: 309133426162197797}
   m_Layer: 0
   m_Name: Player_Head
   m_TagString: SetSkin
@@ -504,19 +517,7 @@ MonoBehaviour:
   - {x: -0.32084942, y: 0.014481306, z: 0}
   m_ShapePathHash: -460105547
   m_Mesh: {fileID: 0}
-  m_InstanceId: 114656
---- !u!114 &309133426162197797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1266088774438158974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41caea66f1667e54b958955419d85d1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_InstanceId: 144052
 --- !u!1 &1266088774822671311
 GameObject:
   m_ObjectHideFlags: 0
