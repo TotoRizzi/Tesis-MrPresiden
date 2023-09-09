@@ -21,6 +21,7 @@ public class WavesGameMode : GameModeManager
     }
     protected override void OnDisable()
     {
+        base.OnDisable();
         EventManager.UnSubscribeToEvent(Contains.LOSE_WAVESGAME, LoseWindow);
         EventManager.UnSubscribeToEvent(Contains.WIN_WAVESGAME, WinWindow);
     }

@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
-
 public class Enemy_DamageOnTrigger : MonoBehaviour
 {
     IDamageable _player;
@@ -16,7 +13,7 @@ public class Enemy_DamageOnTrigger : MonoBehaviour
 
     private void Start()
     {
-        _player = GameManager.instance.Player.GetComponent<IDamageable>();
+        _player = Helpers.GameManager.Player.GetComponent<IDamageable>();
         _collider = GetComponent<Collider2D>();
     }
     private void Update()

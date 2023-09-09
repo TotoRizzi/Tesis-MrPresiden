@@ -8,6 +8,7 @@ public class PauseManager : MonoBehaviour
     CinematicManager _cinematicManager;
 
     [SerializeField] Transform _mainGame;
+    [SerializeField] ScreenPause _pauseGO;
     public bool Paused { get { return _paused; } }
     private void Awake()
     {
@@ -24,7 +25,7 @@ public class PauseManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) & !_cinematicManager.playingCinematic & !_tutorialPause)
         {
             if (_paused) Pop();
-            else Push(Instantiate(Resources.Load<ScreenPause>("PauseCanvas")));
+            else Push(Instantiate(_pauseGO));
 
             TurnPause();
         }

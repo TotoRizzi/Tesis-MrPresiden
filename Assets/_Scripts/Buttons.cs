@@ -7,8 +7,13 @@ public class Buttons : MonoBehaviour
     }
     public void Retry()
     {
-        Helpers.GameManager.LoadSceneManager.ReloadLevel();
         PlayerPrefs.DeleteAll();
+        Helpers.GameManager.LoadSceneManager.ReloadLevel();
+    }
+    public void MinigamesRetry()
+    {
+        PlayerPrefs.DeleteAll();
+        Helpers.GameManager.LoadSceneManager.LoadLevel("MiniGame 1 0");
     }
     public void LoadScene(string sceneName)
     {

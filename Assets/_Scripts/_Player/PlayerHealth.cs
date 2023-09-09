@@ -13,7 +13,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         _initialPos = transform.position;
         _gameManager = Helpers.GameManager;
-
        // _gameManager.OnPlayerDead += Die;
     }
 
@@ -22,6 +21,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (_isDead) return;
         _isDead = true;
         //_gameManager.PlayerDead();
+
         EventManager.TriggerEvent(Contains.PLAYER_DEAD);
         EventManager.TriggerEvent(Contains.WAIT_PLAYER_DEAD);
     }

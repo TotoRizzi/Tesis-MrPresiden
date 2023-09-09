@@ -168,7 +168,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1266088773520511965}
   - component: {fileID: 1266088773520511963}
-  - component: {fileID: 1266088773520511962}
   m_Layer: 14
   m_Name: GroundCheck
   m_TagString: Untagged
@@ -202,32 +201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e5954eb52de7441a13d3433f2ccc16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &1266088773520511962
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1266088773520511964}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0014984608, y: -0.008998454}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.382401, y: 0.23023808}
-  m_EdgeRadius: 0
 --- !u!1 &1266088773945994463
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,6 +330,7 @@ GameObject:
   - component: {fileID: 1266088774287247123}
   - component: {fileID: 1266088774287247116}
   - component: {fileID: 4535481222585589110}
+  - component: {fileID: 3347984911828248686}
   m_Layer: 8
   m_Name: PlayerJetPack
   m_TagString: Player
@@ -486,6 +460,19 @@ MonoBehaviour:
   _maxFuel: 2
   _fuelBar: {fileID: 6150556841100311104}
   _fireParticle: {fileID: 2840680809591244103}
+--- !u!114 &3347984911828248686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266088774287247122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41caea66f1667e54b958955419d85d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shadowCaster: {fileID: 899862880646520267}
 --- !u!1 &1266088774438158974
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,7 +581,7 @@ MonoBehaviour:
   - {x: -0.4596262, y: 0.14169312, z: 0}
   m_ShapePathHash: 773208149
   m_Mesh: {fileID: 0}
-  m_InstanceId: 81796
+  m_InstanceId: 290846
 --- !u!1 &1266088774822671311
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +696,7 @@ MonoBehaviour:
   - {x: -0.3, y: 0, z: 0}
   m_ShapePathHash: -654931003
   m_Mesh: {fileID: 0}
-  m_InstanceId: 81872
+  m_InstanceId: 290920
 --- !u!1 &1266088775024654868
 GameObject:
   m_ObjectHideFlags: 0
@@ -1646,14 +1633,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 130ebe821e35ac346a2bae477739e4c8, type: 3}
---- !u!4 &2123872209976816430 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3246492764888890666, guid: 130ebe821e35ac346a2bae477739e4c8, type: 3}
-  m_PrefabInstance: {fileID: 3491514007728033284}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2840680809591244103 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1664213485222529859, guid: 130ebe821e35ac346a2bae477739e4c8, type: 3}
+  m_PrefabInstance: {fileID: 3491514007728033284}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2123872209976816430 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3246492764888890666, guid: 130ebe821e35ac346a2bae477739e4c8, type: 3}
   m_PrefabInstance: {fileID: 3491514007728033284}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6727353685276924155

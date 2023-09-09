@@ -54,11 +54,11 @@ public class PlayerJetPack : GeneralPlayer
         _playerDefaultSpriteSize = _playerSprite.localScale;
         _defaultGravity = _rb.gravityScale;
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
         OnUpdate -= fsm.Update;
         OnUpdate -= LookAtMouse;
-        EventManager.UnSubscribeToEvent(Contains.PLAYER_DEAD, OnPlayerDead);    
+        EventManager.UnSubscribeToEvent(Contains.PLAYER_DEAD, OnPlayerDead);
     }
 
     private void Update()
@@ -280,15 +280,11 @@ public class PlayerJetPackController
     public void FlyingInputs()
     {
         if (_inputManager.GetButtonUp("Jump"))
-        {
             _player.fsm.ChangeState(StateName.Droping);
-        }
     }
     public void OnFloorInputs()
     {
         if (_inputManager.GetButtonDown("Jump"))
-        {
             _player.fsm.ChangeState(StateName.FlyingUp);
-        }
     }
 }
