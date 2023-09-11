@@ -7177,9 +7177,9 @@ GameObject:
   m_Component:
   - component: {fileID: 970227994}
   - component: {fileID: 970227993}
-  - component: {fileID: 970227991}
   - component: {fileID: 970227995}
   - component: {fileID: 970227996}
+  - component: {fileID: 970227991}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7196,9 +7196,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 970227990}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56a6dd37ac828f44dae5232fd3714234, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c98258b8fae66d41a79f5549e69cadd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lockMode: 2
+  _visible: 1
 --- !u!114 &970227993
 MonoBehaviour:
   m_ObjectHideFlags: 0
