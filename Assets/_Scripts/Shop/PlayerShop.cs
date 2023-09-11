@@ -13,9 +13,6 @@ public class PlayerShop : MonoBehaviour
     {
         _animator = GetComponentInChildren<Animator>();
         _inputManager = InputManager.Instance;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
         _currentState = DefaultState;
     }
     void Update()

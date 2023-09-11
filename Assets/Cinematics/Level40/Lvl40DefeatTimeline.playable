@@ -24455,6 +24455,22 @@ MonoBehaviour:
     m_ScenePreview: 1
   m_DurationMode: 0
   m_MarkerTrack: {fileID: 2806619600627879927}
+--- !u!114 &168685821107954848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter
+  m_EditorClassIdentifier: 
+  m_Time: 0
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: 1f5c777537338544a8c52f4422051159, type: 2}
 --- !u!114 &2806619600627879927
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -24502,6 +24518,7 @@ MonoBehaviour:
   m_Markers:
     m_Objects:
     - {fileID: -2643147146932601739}
+    - {fileID: 168685821107954848}
 --- !u!74 &7484150070723043548
 AnimationClip:
   m_ObjectHideFlags: 0

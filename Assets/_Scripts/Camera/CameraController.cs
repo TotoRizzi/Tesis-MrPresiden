@@ -39,6 +39,7 @@ public class CameraController : MonoBehaviour
     public void StartCameraShake(float duration) => StartCoroutine(CameraShake(duration));
     public void StartShaking() => StartCoroutine(Shaking());
 
+    public void DisableCamera() => GetComponent<Camera>().enabled = false;
     IEnumerator CameraShake(float duration)
     {
         Vector3 startPosition = _myTransform.localPosition;

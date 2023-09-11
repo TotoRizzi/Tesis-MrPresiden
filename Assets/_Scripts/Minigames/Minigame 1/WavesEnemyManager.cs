@@ -1,12 +1,11 @@
 using System.Collections;
 using UnityEngine;
-using System;
 public class WavesEnemyManager : BaseEnemyManager
 {
     int _enemiesKilled;
 
-    public event Action OnWaveWon;
-    Action OnUpdate;
+    public event System.Action OnWaveWon;
+    System.Action OnUpdate;
 
     [SerializeField] Transform[] _enemiesSpawners;
 
@@ -45,12 +44,15 @@ public class WavesEnemyManager : BaseEnemyManager
         if (_currentTimePerSpawn >= _timePerSpawn)
             SpawnEnemy();
     }
-
+    Vector3 _randomPos;
+    int _counter;
     void SpawnEnemy()
     {
         _currentTimePerSpawn = 0;
         _currentEnemiesSpawned++;
-        FRY_Enemy_FollowDrone.Instance.pool.GetObject().SetPosition(_enemiesSpawners[UnityEngine.Random.Range(0, _enemiesSpawners.Length)].position);
+        _randomPos = new Vector3(Random.value, Random.value, 0);
+        FRY_Enemy_FollowDrone.Instance.pool.GetObject().SetPosition(_enemiesSpawners[_counter % _enemiesSpawners.Length].position + _randomPos);
+        _counter++;
     }
 
     public override void RemoveEnemy(Enemy enemy)

@@ -43,9 +43,6 @@ public class GameManager : MonoBehaviour
     private SaveDataManager _saveDataManager;
     public SaveDataManager SaveDataManager { get { return _saveDataManager; } private set { } }
 
-    private Scene_Manager _sceneManager;
-    public Scene_Manager SceneManager { get { return _sceneManager; } private set { } }
-
     private PauseManager _pauseManager;
     public PauseManager PauseManager { get { return _pauseManager; } private set { } }
 
@@ -66,7 +63,6 @@ public class GameManager : MonoBehaviour
         _effectsManager = GetComponent<EffectsManager>();
         _saveDataManager = GetComponent<SaveDataManager>();
         _pauseManager = GetComponent<PauseManager>();
-        _sceneManager = GetComponent<Scene_Manager>();
         _dropManager = GetComponent<DropManager>();
         _cinematicManager = GetComponent<CinematicManager>();
         Cursor.lockState = CursorLockMode.Confined;
