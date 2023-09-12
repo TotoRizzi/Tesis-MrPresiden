@@ -101,6 +101,7 @@ public class PlayerJetPack : GeneralPlayer
         _canMove = false;
         CeroGravity();
         FreezeVelocity();
+        _animator.SetInteger("xAxis", 0);
     }
     public override void UnPausePlayer()
     {
@@ -170,7 +171,7 @@ public class UpState : IState
     public void OnEnter()
     {
         _player.FireParticle.SetActive(true);
-        _player.Animator.Play("Idle");
+        _player.Animator.SetInteger("xAxis", 0);
     }
 
     public void OnExit()
@@ -202,7 +203,7 @@ public class DownState : IState
     public void OnEnter()
     {
         _player.FireParticle.SetActive(false);
-        _player.Animator.Play("Idle");
+        _player.Animator.SetInteger("xAxis", 0);
     }
 
     public void OnExit()
@@ -242,7 +243,7 @@ public class OnFloorState : IState
     public void OnFixedUpdate()
     {
         _player.Move(_controller.xAxis);
-        _player.Animator.Play(_controller.xAxis != 0 ? "Run" : "Idle");
+        _player.Animator.SetInteger("xAxis", (int)Mathf.Abs(_controller.xAxis));
     }
 
     public void OnUpdate()

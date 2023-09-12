@@ -26,7 +26,7 @@ public class PlayerShop : MonoBehaviour
 
         transform.position += inputs * _speedMovement * Time.deltaTime;
 
-        PlayAnimation(inputs.magnitude != 0 ? "Run" : "Idle");
+        PlayAnimation(inputs.x);
 
         if (inputs.magnitude != 0)
             transform.eulerAngles = inputs.x < 0 ? new Vector3(0, 180, 0) : Vector3.zero;
@@ -36,7 +36,7 @@ public class PlayerShop : MonoBehaviour
             _shopCanvas.SetActive(true);
             _currentState = delegate
             {
-                PlayAnimation("Idle");
+                PlayAnimation(inputs.x);
                 Cursor.lockState = CursorLockMode.Confined;
                 Cursor.visible = true;
             };
@@ -47,13 +47,13 @@ public class PlayerShop : MonoBehaviour
             _collectionCanvas.SetActive(true);
             _currentState = delegate
             {
-                PlayAnimation("Idle");
+                PlayAnimation(inputs.x);
                 Cursor.lockState = CursorLockMode.Confined;
                 Cursor.visible = true;
             };
         }
     }
-    void PlayAnimation(string stateName) => _animator.Play(stateName);
+    void PlayAnimation(float xAxis) => _animator.SetInteger("xAxis", (int)Mathf.Abs(xAxis));
 
     public void SetDefaultState()
     {
@@ -63,7 +63,7 @@ public class PlayerShop : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<NextSceneOnTrigger>()) _currentState = delegate { PlayAnimation("Idle"); };
+        if (collision.GetComponent<NextSceneOnTrigger>()) _currentState = delegate { PlayAnimation(0); };
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
