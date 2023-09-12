@@ -59,7 +59,7 @@ public class PauseGO : IScreen
             if (b.CompareTag("Cinematica") || b.CompareTag("SetSkin")) continue;
             _before[b] = b.enabled;
             var rb = b.GetComponent<Rigidbody2D>();
-            if (rb) rb.Sleep();
+            if (rb) rb.simulated = false;
             b.enabled = false;
         }
     }
@@ -70,7 +70,7 @@ public class PauseGO : IScreen
             if (b.CompareTag("Cinematica") || b.CompareTag("SetSkin")) continue;
             _before[b] = b.enabled;
             var rb = b.GetComponent<Rigidbody2D>();
-            if (rb) rb.WakeUp();
+            if (rb) rb.simulated = true;
             b.enabled = true;
         }
     }

@@ -92,7 +92,8 @@ public class ClimbController : IController
         DOTween.To(() => timer, x => timer = x, .1f, .1f).OnUpdate(() =>
         {
             _player.OnMove = delegate { };
+            _playerModel.CeroGravity();
             _playerModel.Dash(dir);
-        }).OnComplete(() => _player.OnMove = OnMove).OnKill(() => _player.OnMove = OnMove); ;
+        }).OnComplete(() => { _player.OnMove = OnMove; _playerModel.NormalGravity(); }).OnKill(() => { _player.OnMove = OnMove; _playerModel.NormalGravity(); });
     }
 }
