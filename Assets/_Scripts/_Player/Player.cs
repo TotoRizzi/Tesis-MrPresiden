@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using System;
+using DG.Tweening;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -144,7 +145,9 @@ public class Player : GeneralPlayer
     }
     void OnPlayerDeath(params object[] param)
     {
+        _playerModel.FreezeVelocity();
         StartCoroutine(Death());
         _playerModel.ResetStats();
+        DOTween.KillAll();
     }
 }

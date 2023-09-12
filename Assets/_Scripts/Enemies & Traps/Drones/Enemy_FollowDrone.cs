@@ -21,7 +21,7 @@ public class Enemy_FollowDrone : Enemy
         var follow = new State<DroneStates>("Follow");
 
         StateConfigurer.Create(idle).SetTransition(DroneStates.Follow, follow).Done();
-        StateConfigurer.Create(follow).Done();
+        StateConfigurer.Create(follow).SetTransition(DroneStates.Idle, idle).Done();
 
         idle.OnUpdate += delegate { if (CanSeePlayer()) _myFsm.SendInput(DroneStates.Follow); };
         follow.OnUpdate += delegate { _navMeshAgent.SetDestination(playerTransform.position); };
@@ -36,6 +36,7 @@ public class Enemy_FollowDrone : Enemy
     public override void ReturnObject()
     {
         base.ReturnObject();
+        _myFsm.SendInput(DroneStates.Idle);
         FRY_Enemy_FollowDrone.Instance.pool.ReturnObject(this);
     }
 }
