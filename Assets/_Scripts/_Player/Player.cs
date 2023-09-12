@@ -98,6 +98,7 @@ public class Player : GeneralPlayer
         yield return new WaitForSeconds(_maxDelayCanMove);
 
         _canMove = true;
+        _controller = _defaultController;
     }
     public override void PausePlayer()
     {

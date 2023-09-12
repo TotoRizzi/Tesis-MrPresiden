@@ -8,6 +8,8 @@ public class LevelsMap : MonoBehaviour
     [SerializeField] TextMeshProUGUI[] _deathsZoneTxt;
     private void Start()
     {
+        foreach (var item in _zonesButtons) item.interactable = false;
+
         ZonesManager zonesManager = ZonesManager.Instance;
         GameData persistantDataSaved = Helpers.PersistantData.gameData;
 
