@@ -80,12 +80,12 @@ public class Player : GeneralPlayer
     }
     private void Update()
     {
-        _controller.OnUpdate();
+        _controller?.OnUpdate();
     }
 
     private void FixedUpdate()
     {
-        _controller.OnFixedUpdate();
+        _controller?.OnFixedUpdate();
     }
 
     private void OnDrawGizmos()
@@ -103,6 +103,8 @@ public class Player : GeneralPlayer
     {
         _canMove = false;
         _playerModel.FreezeVelocity();
+        _anim.SetInteger("xAxis", 0);
+        _controller = null;
     }
     public override void UnPausePlayer()
     {

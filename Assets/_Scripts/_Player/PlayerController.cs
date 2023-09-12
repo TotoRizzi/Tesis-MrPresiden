@@ -35,10 +35,7 @@ public class PlayerController : IController
     {
         _player.OnMove(_xAxis);
     }
-    bool FirstInput()
-    {
-        return (_xAxis != 0 || _inputManager.GetButtonDown("Jump") || _inputManager.GetButtonDown("Dash") || _inputManager.GetButtonDown("Knife")) && _fistInput;
-    }
+    bool FirstInput() => (_xAxis != 0 || _inputManager.GetButtonDown("Jump") || _inputManager.GetButtonDown("Dash") || _inputManager.GetButtonDown("Knife")) && _fistInput;
     void PlayDash()
     {
         System.Action<float> OnMove = _player.OnMove;
@@ -49,7 +46,7 @@ public class PlayerController : IController
         {
             _player.OnMove = delegate { };
             _playerModel.Dash(dir);
-        }).OnComplete(() => _player.OnMove = OnMove);
+        }).OnComplete(() => _player.OnMove = OnMove).OnKill(() => _player.OnMove = OnMove);
     }
 }
 public class ClimbController : IController
@@ -65,9 +62,10 @@ public class ClimbController : IController
         _playerModel = playerModel;
         _inputManager = InputManager.Instance;
 
+        _playerModel.FreezeVelocity();
         _playerModel.ResetStats();
         _playerModel.CeroGravity();
-        _playerModel.FreezeVelocity();
+        DOTween.KillAll();
     }
 
     public void OnUpdate()
@@ -79,7 +77,11 @@ public class ClimbController : IController
 
         if (_inputManager.GetButtonDown("Jump")) { _player.ExitClimb(); _player.OnJump(); };
 
-        if (_inputManager.GetButtonDown("Dash") && _playerModel.CanDash) PlayDash();
+        if (_inputManager.GetButtonDown("Dash") && _playerModel.CanDash)
+        {
+            PlayDash();
+            UnityEngine.Debug.Log("Dash");
+        }
     }
     public void OnFixedUpdate()
     {

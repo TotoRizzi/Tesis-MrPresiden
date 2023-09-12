@@ -75,7 +75,7 @@ public class PlayerModel
     {
         _rb.velocity = new Vector2(xAxis * _dashSpeed * Time.fixedDeltaTime, 0f);
         _dashTimer = 0;
-        if (_currentJumps == _maxJumps) _secondJump = true;
+        _secondJump = true;
     }
 
     public void LookAtMouse()
