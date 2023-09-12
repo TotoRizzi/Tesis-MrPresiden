@@ -6,7 +6,7 @@ public abstract class Spawner_Enemy : MonoBehaviour
         EventManager.SubscribeToEvent(Contains.WAIT_PLAYER_DEAD, SpawnEnemy);
         SpawnEnemy();
     }
-    protected void OnDisable()
+    protected void OnDestroy()
     {
         EventManager.UnSubscribeToEvent(Contains.WAIT_PLAYER_DEAD, SpawnEnemy);   
     }

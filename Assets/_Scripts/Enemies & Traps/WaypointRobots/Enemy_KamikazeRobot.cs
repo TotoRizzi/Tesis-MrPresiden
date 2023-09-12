@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class Enemy_KamikazeRobot : Enemy
 {
     [SerializeField] float _dropSpeed;
