@@ -1,73 +1,100 @@
-public class PlayerController
+using DG.Tweening;
+public class PlayerController : IController
 {
     Player _player;
+    PlayerModel _playerModel;
     InputManager _inputManager;
-    public float xAxis { get; private set; }
-    public float yAxis { get; private set; }
+    public float _xAxis { get; private set; }
 
-    public PlayerController(Player player, PlayerView v)
+    bool _fistInput = true;
+    public PlayerController(Player player, PlayerModel playerModel)
     {
-        _inputManager = InputManager.Instance;
-
         _player = player;
+        _playerModel = playerModel;
 
-        _player.OnIdle += v.Idle;
-        _player.OnMove += v.Run;
-        _player.OnJump += v.Jump;
-        _player.OnDash += v.Dash;
+        _inputManager = InputManager.Instance;
     }
 
     public void OnUpdate()
     {
-        xAxis = _inputManager.GetAxisRaw("Horizontal");
-        yAxis = _inputManager.GetAxisRaw("Vertical");
+        if (FirstInput())
+        {
+            Helpers.LevelTimerManager.StartLevelTimer();
+            _fistInput = false;
+        }
+
+        _playerModel.OnUpdate();
+
+        _xAxis = _inputManager.GetAxisRaw("Horizontal");
+
+        if (_inputManager.GetButtonDown("Jump") && _playerModel.CanJump) _player.OnJump();
+
+        if (_inputManager.GetButtonDown("Dash") && _playerModel.CanDash) PlayDash();
+    }
+    public void OnFixedUpdate()
+    {
+        _player.OnMove(_xAxis);
+    }
+    bool FirstInput()
+    {
+        return (_xAxis != 0 || _inputManager.GetButtonDown("Jump") || _inputManager.GetButtonDown("Dash") || _inputManager.GetButtonDown("Knife")) && _fistInput;
+    }
+    void PlayDash()
+    {
+        System.Action<float> OnMove = _player.OnMove;
+        float timer = 0;
+        float dir = _xAxis != 0 ? _xAxis : _playerModel.GetLookingForDir;
+        _player.OnDash(dir);
+        DOTween.To(() => timer, x => timer = x, .1f, .1f).OnUpdate(() =>
+        {
+            _player.OnMove = delegate { };
+            _playerModel.Dash(dir);
+        }).OnComplete(() => _player.OnMove = OnMove);
+    }
+}
+public class ClimbController : IController
+{
+    Player _player;
+    PlayerModel _playerModel;
+    InputManager _inputManager;
+    public float _xAxis { get; private set; }
+    public float _yAxis { get; private set; }
+    public ClimbController(Player player, PlayerModel playerModel)
+    {
+        _player = player;
+        _playerModel = playerModel;
+        _inputManager = InputManager.Instance;
+
+        _playerModel.ResetStats();
+        _playerModel.CeroGravity();
+        _playerModel.FreezeVelocity();
     }
 
-    public void IdleInputs()
+    public void OnUpdate()
     {
-        if (_inputManager.GetButtonDown("Jump") && _player.CanJump)
-            _player.fsm.ChangeState(StateName.Jump);
-        else if (xAxis != 0)
-            _player.fsm.ChangeState(StateName.Move);
-        if (_inputManager.GetButtonDown("Dash") && _player.CanDash)
-            _player.fsm.ChangeState(StateName.Dash);
-    }
+        _yAxis = _inputManager.GetAxisRaw("Vertical");
+        _xAxis = _inputManager.GetAxisRaw("Horizontal");
 
-    public void MovingInputs()
-    {
-        if (_inputManager.GetButtonDown("Jump") && _player.CanJump)
-            _player.fsm.ChangeState(StateName.Jump);
-        else if (xAxis == 0)
-            _player.fsm.ChangeState(StateName.Idle);
-        if (_inputManager.GetButtonDown("Dash") && _player.CanDash)
-            _player.fsm.ChangeState(StateName.Dash);
-    }
+        _playerModel.OnUpdate();
 
-    public void OnAirInputs()
-    {
-        if (_inputManager.GetButtonDown("Dash") && _player.CanDash)
-            _player.fsm.ChangeState(StateName.Dash);
-        else if (_inputManager.GetButtonDown("Jump") && _player.CanJump)
-            _player.fsm.ChangeState(StateName.Jump);
-    }
+        if (_inputManager.GetButtonDown("Jump")) { _player.ExitClimb(); _player.OnJump(); };
 
-    public void OnDashInputs()
-    {
-        if (_inputManager.GetButtonDown("Jump") && _player.CanJump)
-            _player.fsm.ChangeState(StateName.Jump);
+        if (_inputManager.GetButtonDown("Dash") && _playerModel.CanDash) PlayDash();
     }
-
-    public void OnJumpInputs()
+    public void OnFixedUpdate()
     {
-        if (_inputManager.GetButtonDown("Dash") && _player.CanDash)
-            _player.fsm.ChangeState(StateName.Dash);
+        _player.OnClimb(_yAxis);
     }
-
-    public void ClimbingInputs()
+    void PlayDash()
     {
-        if (_inputManager.GetButtonDown("Dash") && _player.CanDash)
-            _player.fsm.ChangeState(StateName.Dash);
-        else if (_inputManager.GetButtonDown("Jump") && _player.CanJump)
-            _player.fsm.ChangeState(StateName.Jump);
+        System.Action<float> OnMove = _player.OnMove;
+        float timer = 0;
+        float dir = _xAxis != 0 ? _xAxis : _playerModel.GetLookingForDir;
+        _player.OnDash(dir);
+        DOTween.To(() => timer, x => timer = x, .1f, .1f).OnUpdate(() =>
+        {
+            _player.OnMove = delegate { };
+            _playerModel.Dash(dir);
+        }).OnComplete(() => _player.OnMove = OnMove);
     }
 }

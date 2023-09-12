@@ -1,27 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class PlayerView : MonoBehaviour
+public class PlayerView
 {
-    GameManager _gameManager;
-
     [SerializeField] Animator _anim;
     [SerializeField] ParticleSystem _dashParticle;
 
-    private void Start()
+    string[] _stepsSounds = new string[2] { "Footstep1", "Footstep2" };
+    float _stepsTimer;
+    int _stepsIndex;
+    public PlayerView(Animator anim, ParticleSystem dashParticle)
     {
-        _gameManager = GameManager.instance;
+        _anim = anim;
+        _dashParticle = dashParticle;
     }
-
-    public void Run()
+    public void Run(float xAxis)
     {
-        _anim.Play("Run");
-    }
+        _anim.SetInteger("xAxis", Mathf.Abs((int)xAxis));
 
-    public void Idle()
-    {
-        _anim.Play("Idle");
+        _stepsTimer += Time.deltaTime;
+
+        if (_stepsTimer >= .1f && xAxis != 0)
+        {
+            Helpers.AudioManager.PlaySFX(_stepsSounds[_stepsIndex++ % _stepsSounds.Length]);
+            _stepsTimer = 0;
+        }
     }
 
     public void Jump()
@@ -29,9 +30,9 @@ public class PlayerView : MonoBehaviour
         Helpers.AudioManager.PlaySFX("Player_Jump");
     }
 
-    public void Dash(Vector3 dir)
+    public void Dash(float xDir)
     {
-        _dashParticle.gameObject.transform.localScale = dir;
+        _dashParticle.gameObject.transform.localScale = Vector3.right * xDir;
         _dashParticle.Play();
         Helpers.AudioManager.PlaySFX("Player_Dash");
     }

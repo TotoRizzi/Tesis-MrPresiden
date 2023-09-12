@@ -91,7 +91,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1266088773520511965}
-  - component: {fileID: 1266088773520511963}
   m_Layer: 14
   m_Name: GroundCheck
   m_TagString: Untagged
@@ -113,18 +112,6 @@ Transform:
   m_Father: {fileID: 1266088774287247118}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1266088773520511963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1266088773520511964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1e5954eb52de7441a13d3433f2ccc16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1266088773945994463
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +238,6 @@ GameObject:
   - component: {fileID: 1266088774287247118}
   - component: {fileID: 1266088774287247117}
   - component: {fileID: 1266088774287247121}
-  - component: {fileID: 1266088774287247119}
   - component: {fileID: 1266088774287247120}
   - component: {fileID: 1266088774287247123}
   - component: {fileID: 1266088774287247116}
@@ -312,26 +298,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf0c55437b9e40c498d6901efc82d889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fsm: {fileID: 0}
-  _speed: 400
+  _anim: {fileID: 1266088773945994461}
   _playerSprite: {fileID: 1266088773945994460}
+  _groundCheckTransform: {fileID: 1266088773520511965}
+  _speed: 400
   _maxDelayCanMove: 0.2
   _jumpForce: 20
+  _maxJumps: 1
+  _coyotaTime: 0.15
   _dashSpeed: 1200
-  _dashDuration: 0.1
---- !u!114 &1266088774287247119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1266088774287247122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11d62ed738f933243a15b8c768ec8f1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _anim: {fileID: 1266088773945994461}
   _dashParticle: {fileID: 7450293711475820520}
 --- !u!61 &1266088774287247120
 BoxCollider2D:
@@ -517,7 +492,7 @@ MonoBehaviour:
   - {x: -0.32084942, y: 0.014481306, z: 0}
   m_ShapePathHash: -460105547
   m_Mesh: {fileID: 0}
-  m_InstanceId: 144052
+  m_InstanceId: 266120
 --- !u!1 &1266088774822671311
 GameObject:
   m_ObjectHideFlags: 0

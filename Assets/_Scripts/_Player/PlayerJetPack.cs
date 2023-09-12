@@ -9,14 +9,12 @@ public class PlayerJetPack : GeneralPlayer
     Rigidbody2D _rb;
     [HideInInspector] public StateMachine fsm;
     PlayerJetPackController _controller;
-    GroundCheck _groundCheck;
-    public GroundCheck GroundCheck { get { return _groundCheck; } private set { } }
     public Animator Animator { get { return _animator; } }
 
     WeaponManager _weaponManager;
     public WeaponManager WeaponManager { get { return _weaponManager; } private set { } }
 
-    [SerializeField] Transform _playerSprite;
+    [SerializeField] Transform _playerSprite, _groundCheckTransform;
     [SerializeField] Animator _animator;
     [SerializeField] float _speed = 400f;
     [SerializeField] float _flyingSpeed = 400f;
@@ -26,16 +24,18 @@ public class PlayerJetPack : GeneralPlayer
     float _defaultGravity;
 
     Vector3 _playerDefaultSpriteSize;
+    LayerMask _groundLayer;
 
     //Visual    
     [SerializeField] Image _fuelBar;
     [SerializeField] GameObject _fireParticle;
     public GameObject FireParticle { get { return _fireParticle; } private set { } }
+
+    public bool InGrounded => Physics2D.OverlapCircle(_groundCheckTransform.position, .1f, _groundLayer);
     private void Start()
     {
         StartCoroutine(CanMoveDelay());
-
-        _groundCheck = GetComponentInChildren<GroundCheck>();
+        _groundLayer = LayerMask.GetMask("Border") + LayerMask.GetMask("Ground");
         _rb = GetComponent<Rigidbody2D>();
         _weaponManager = GetComponent<WeaponManager>();
         fsm = new StateMachine();
@@ -274,7 +274,7 @@ public class PlayerJetPackController
     {
         if (_inputManager.GetButtonDown("Jump"))
             _player.fsm.ChangeState(StateName.FlyingUp);
-        if (_player.GroundCheck.IsGrounded)
+        if (_player.InGrounded)
             _player.fsm.ChangeState(StateName.OnFloor);
     }
     public void FlyingInputs()
