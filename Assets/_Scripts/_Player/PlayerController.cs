@@ -77,11 +77,7 @@ public class ClimbController : IController
 
         if (_inputManager.GetButtonDown("Jump")) { _player.ExitClimb(); _player.OnJump(); };
 
-        if (_inputManager.GetButtonDown("Dash") && _playerModel.CanDash)
-        {
-            PlayDash();
-            UnityEngine.Debug.Log("Dash");
-        }
+        if (_inputManager.GetButtonDown("Dash") && _playerModel.CanDash) PlayDash();
     }
     public void OnFixedUpdate()
     {
@@ -97,6 +93,6 @@ public class ClimbController : IController
         {
             _player.OnMove = delegate { };
             _playerModel.Dash(dir);
-        }).OnComplete(() => _player.OnMove = OnMove);
+        }).OnComplete(() => _player.OnMove = OnMove).OnKill(() => _player.OnMove = OnMove); ;
     }
 }

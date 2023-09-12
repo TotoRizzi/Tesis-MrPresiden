@@ -75,7 +75,7 @@ public class Player : GeneralPlayer
 
         _controller = _defaultController;
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
         EventManager.UnSubscribeToEvent(Contains.PLAYER_DEAD, OnPlayerDeath);
     }
@@ -107,6 +107,7 @@ public class Player : GeneralPlayer
         _playerModel.FreezeVelocity();
         _anim.SetInteger("xAxis", 0);
         _controller = null;
+        DOTween.KillAll();
     }
     public override void UnPausePlayer()
     {
