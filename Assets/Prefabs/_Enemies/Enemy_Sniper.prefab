@@ -97,7 +97,6 @@ GameObject:
   - component: {fileID: 1016096215589035423}
   - component: {fileID: 1016096215589035420}
   - component: {fileID: 1079287807462772427}
-  - component: {fileID: 7023026644085116244}
   m_Layer: 10
   m_Name: Enemy_Sniper
   m_TagString: Untagged
@@ -203,19 +202,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cursor: {fileID: 11400000, guid: 000df3e2938c74a409e2e0b58b4f38e0, type: 2}
---- !u!114 &7023026644085116244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1016096215589035418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41caea66f1667e54b958955419d85d1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shadowCaster: {fileID: 2924204941343740692}
 --- !u!1 &1016096215764580466
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,7 +244,9 @@ GameObject:
   - component: {fileID: 2517980766475159031}
   - component: {fileID: 6140099749959845420}
   - component: {fileID: 2924204941343740692}
-  m_Layer: 0
+  - component: {fileID: 5408961830197213280}
+  - component: {fileID: 2026653620325262103}
+  m_Layer: 26
   m_Name: Enemy_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +343,46 @@ MonoBehaviour:
   - {x: -0.47685814, y: 0.44836223, z: 0}
   m_ShapePathHash: -2122044811
   m_Mesh: {fileID: 0}
-  m_InstanceId: 152254
+  m_InstanceId: 299932
+--- !u!114 &5408961830197213280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682786612453640354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41caea66f1667e54b958955419d85d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shadowCaster: {fileID: 2924204941343740692}
+--- !u!61 &2026653620325262103
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682786612453640354}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 0.9}
+    newSize: {x: 1, y: 0.9}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.9}
+  m_EdgeRadius: 0
 --- !u!1 &4231650606228517411
 GameObject:
   m_ObjectHideFlags: 0

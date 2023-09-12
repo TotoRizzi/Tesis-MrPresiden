@@ -4940,7 +4940,6 @@ GameObject:
   - component: {fileID: 8569081048855954912}
   - component: {fileID: 6764628499263606919}
   - component: {fileID: 3744447243503445511}
-  - component: {fileID: 2940416306411959677}
   m_Layer: 10
   m_Name: Enemy_ChargeDrone
   m_TagString: Untagged
@@ -5045,19 +5044,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cursor: {fileID: 11400000, guid: 000df3e2938c74a409e2e0b58b4f38e0, type: 2}
---- !u!114 &2940416306411959677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4577552466452308576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41caea66f1667e54b958955419d85d1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shadowCaster: {fileID: 2035578359266657021}
 --- !u!1 &7034085680315342874
 GameObject:
   m_ObjectHideFlags: 0
@@ -5069,7 +5055,9 @@ GameObject:
   - component: {fileID: 8856837495568563153}
   - component: {fileID: 5011122896554927714}
   - component: {fileID: 2035578359266657021}
-  m_Layer: 0
+  - component: {fileID: 921577784702968906}
+  - component: {fileID: 8538308944015150524}
+  m_Layer: 26
   m_Name: RobotChase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5167,7 +5155,46 @@ MonoBehaviour:
   - {x: -0.35591245, y: 0.10646796, z: 0}
   m_ShapePathHash: -1816243603
   m_Mesh: {fileID: 0}
-  m_InstanceId: 151668
+  m_InstanceId: 299196
+--- !u!114 &921577784702968906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7034085680315342874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41caea66f1667e54b958955419d85d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shadowCaster: {fileID: 2035578359266657021}
+--- !u!61 &8538308944015150524
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7034085680315342874}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.7, y: 1.6}
+    newSize: {x: 0.7, y: 1.6}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.7, y: 1.25}
+  m_EdgeRadius: 0
 --- !u!1 &8765321337936934920
 GameObject:
   m_ObjectHideFlags: 0

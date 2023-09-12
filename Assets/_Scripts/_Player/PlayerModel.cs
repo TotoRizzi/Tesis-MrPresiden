@@ -17,10 +17,9 @@ public class PlayerModel
     WeaponManager _weaponManager;
 
     #endregion
-
     public int GetLookingForDir => _weaponManager.GetAngle() < -90 || _weaponManager.GetAngle() > 90 ? -1 : 1;
 
-    bool InGrounded => Physics2D.OverlapCircle(_groundCheckTransform.position, .1f, _groundLayer);
+    bool InGrounded => Physics2D.OverlapCircle(_groundCheckTransform.position, .2f, _groundLayer);
     public bool CanJump => InGrounded || _coyotaTimer > 0 || _secondJump && _currentJumps <= _maxJumps;
     public bool CanDash => _dashTimer >= _dashCooldown;
     public PlayerModel(Rigidbody2D rb, Transform myTransform, Transform spriteContainerTransform, Transform groundCheckTransform,

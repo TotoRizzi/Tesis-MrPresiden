@@ -88,11 +88,10 @@ public class Player : GeneralPlayer
     {
         _controller?.OnFixedUpdate();
     }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(_groundCheckTransform.position, .1f);
+        Gizmos.DrawWireSphere(_groundCheckTransform.position, .2f);
     }
     public IEnumerator CanMoveDelay()
     {

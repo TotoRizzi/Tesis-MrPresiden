@@ -32,16 +32,18 @@ public class Enemy_KamikazeRobot : Enemy
             }
         }
     }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _overlapCircleRadius);
+    }
     public override void Die()
     {
-
         base.Die();
         var player = Physics2D.OverlapCircle(transform.position, _overlapCircleRadius, gameManager.PlayerLayer);
 
         if (player)
             player.GetComponent<IDamageable>().TakeDamage(_dmg);
-
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
