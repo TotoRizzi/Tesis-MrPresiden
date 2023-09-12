@@ -24,7 +24,7 @@ public class Enemy_KamikazeRobot : Enemy
         OnUpdate -= Drop;
         if (Physics2D.CircleCast(transform.position, 1, -Vector3.up, 10f, gameManager.PlayerLayer))
         {
-            if(!Physics2D.Raycast(transform.position, -Vector3.up, (transform.position - Helpers.GameManager.Player.transform.position).magnitude, gameManager.GroundLayer))
+            if (!Physics2D.Raycast(transform.position, -Vector3.up, (transform.position - Helpers.GameManager.Player.transform.position).magnitude, gameManager.GroundLayer))
             {
                 _isDropping = true;
                 OnUpdate += Drop;
@@ -48,8 +48,7 @@ public class Enemy_KamikazeRobot : Enemy
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!_isDropping || collision.tag == "Bullet") return;
-        
+        if (!_isDropping || collision.CompareTag("Bullet") || collision.gameObject.layer == 25) return;
         Die();
     }
 
@@ -58,7 +57,7 @@ public class Enemy_KamikazeRobot : Enemy
         base.ReturnObject();
         FRY_Enemy_KamikazeRobot.Instance.pool.ReturnObject(this);
     }
-    
+
     public override void Reset()
     {
         OnUpdate += Attack;

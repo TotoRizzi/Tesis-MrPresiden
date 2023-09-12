@@ -5,12 +5,13 @@ public class EnemyManager : BaseEnemyManager
     public override void Start()
     {
         _gameManager = Helpers.GameManager;
-
+        LevelTimerManager levelTimer = Helpers.LevelTimerManager;
         EventManager.SubscribeToEvent(Contains.PLAYER_DEAD, OnPlayerDead);
 
-        StartCoroutine(CheckForEmptyLevel());
+        if(levelTimer && levelTimer.enabled) Helpers.LevelTimerManager.OnLevelStart += () => StartCoroutine(CheckForEmptyLevel());
+        else StartCoroutine(CheckForEmptyLevel());
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
         EventManager.UnSubscribeToEvent(Contains.PLAYER_DEAD, OnPlayerDead);
     }
@@ -22,7 +23,6 @@ public class EnemyManager : BaseEnemyManager
     IEnumerator CheckForEmptyLevel()
     {
         yield return new WaitForSeconds(.1f);
-
         _maxEnemies = _allEnemies.Count;
         if (_maxEnemies == 0) EventManager.TriggerEvent(Contains.ON_ROOM_WON);
     }
@@ -33,7 +33,7 @@ public class EnemyManager : BaseEnemyManager
 
         EnemyKilled();
         _allEnemies.Remove(enemy);
-        
+
         Helpers.AudioManager.PlaySFX("Enemy_Dead");
 
         if (_allEnemies.Count == 0) EventManager.TriggerEvent(Contains.ON_ROOM_WON);
