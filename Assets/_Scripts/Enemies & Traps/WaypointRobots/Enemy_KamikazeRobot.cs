@@ -41,8 +41,8 @@ public class Enemy_KamikazeRobot : Enemy
     {
         base.Die();
         var player = Physics2D.OverlapCircle(transform.position, _overlapCircleRadius, gameManager.PlayerLayer);
-
-        if (player)
+        bool inSight = Physics2D.Raycast(transform.position, DistanceToPlayer(), _overlapCircleRadius, Helpers.GameManager.PlayerLayer);
+        if (player && inSight)
             player.GetComponent<IDamageable>().TakeDamage(_dmg);
     }
 
