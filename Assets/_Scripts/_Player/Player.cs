@@ -106,7 +106,6 @@ public class Player : GeneralPlayer
         _playerModel.FreezeVelocity();
         _anim.SetInteger("xAxis", 0);
         _controller = null;
-        DOTween.KillAll();
     }
     public override void UnPausePlayer()
     {
@@ -148,6 +147,5 @@ public class Player : GeneralPlayer
         _playerModel.FreezeVelocity();
         StartCoroutine(Death());
         _playerModel.ResetStats();
-        DOTween.KillAll();
     }
 }

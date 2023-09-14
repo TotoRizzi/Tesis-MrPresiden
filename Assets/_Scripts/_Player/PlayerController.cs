@@ -65,7 +65,6 @@ public class ClimbController : IController
         _playerModel.FreezeVelocity();
         _playerModel.ResetStats();
         _playerModel.CeroGravity();
-        DOTween.KillAll();
     }
 
     public void OnUpdate()
