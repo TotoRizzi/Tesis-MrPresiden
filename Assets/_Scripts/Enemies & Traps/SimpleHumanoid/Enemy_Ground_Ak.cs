@@ -43,9 +43,9 @@ public class Enemy_Ground_Ak : Enemy_GroundHumanoid
     void LookAtPlayer()
     {
         Vector3 dirToLookAt = (gameManager.Player.transform.position + Vector3.up - transform.position).normalized;
-        float angle = Mathf.Atan2(dirToLookAt.y, dirToLookAt.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(Mathf.Abs(dirToLookAt.y), Mathf.Abs(dirToLookAt.x)) * Mathf.Rad2Deg;
 
-        _armPivot.eulerAngles = new Vector3(0, 0, angle);
+        _armPivot.localEulerAngles = new Vector3(0, 0, angle);
     }
 
     public override void ReturnObject()
