@@ -75,7 +75,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual bool CanSeePlayer()
     {
-        return gameManager.Player ? !Physics2D.CircleCast(sprite.position, .2f, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.BorderLayer) : false;
+        return gameManager.Player ? !Physics2D.CircleCast(transform.position, .2f, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.BorderLayer) : false;
     }
 
     protected void ResetHp()
