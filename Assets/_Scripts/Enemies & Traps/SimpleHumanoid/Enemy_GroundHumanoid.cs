@@ -39,7 +39,6 @@ public class Enemy_GroundHumanoid : Enemy
     public bool GetCanSeePlayer()
     {
         Vector3 dir = DistanceToPlayer();
-        if (dir.magnitude > _viewRadius) return default;
 
         if (Vector3.Angle(transform.right, dir.normalized) <= _viewAngle / 2)
             return CanSeePlayer();

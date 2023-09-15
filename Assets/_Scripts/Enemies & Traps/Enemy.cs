@@ -70,12 +70,12 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected Vector3 DistanceToPlayer()
     {
-        return gameManager.Player ? (gameManager.Player.transform.position + Vector3.up) - transform.position : Vector3.zero;
+        return gameManager.Player ? gameManager.Player.transform.position - transform.position : Vector3.zero;
     }
 
     public virtual bool CanSeePlayer()
     {
-        return gameManager.Player ? !Physics2D.CircleCast(transform.position, .2f, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.BorderLayer) : false;
+        return gameManager.Player ? !Physics2D.Raycast(sprite.position, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.BorderLayer) : false;
     }
 
     protected void ResetHp()

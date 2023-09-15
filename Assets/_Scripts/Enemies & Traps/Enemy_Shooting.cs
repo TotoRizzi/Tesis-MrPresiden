@@ -43,9 +43,9 @@ public class Enemy_Shooting : Enemy
     protected void LookAtPlayer()
     {
         Vector3 dirToLookAt = (gameManager.Player.transform.position - transform.position).normalized;
-        float angle = Mathf.Atan2(dirToLookAt.y, dirToLookAt.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(dirToLookAt.y, Mathf.Abs(dirToLookAt.x)) * Mathf.Rad2Deg;
 
-        armPivot.eulerAngles = new Vector3(0, 0, angle);
+        armPivot.localEulerAngles = new Vector3(0, 0, angle);
 
         Vector3 newWeaponLocalScale = Vector3.one;
         Vector3 newScale = Vector3.one;
