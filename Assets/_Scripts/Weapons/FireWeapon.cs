@@ -22,6 +22,11 @@ public class FireWeapon : Weapon
         base.Start();
         _bulletSpawn = transform.GetChild(0);
         _muzzleFlashAnimator = _bulletSpawn.GetChild(0).GetComponent<Animator>();
+        EventManager.SubscribeToEvent(Contains.PLAYER_DEAD, ResetRecoil);
+    }
+    private void OnDestroy()
+    {
+        EventManager.UnSubscribeToEvent(Contains.PLAYER_DEAD, ResetRecoil);
     }
     public override void WeaponAction()
     {
@@ -51,7 +56,7 @@ public class FireWeapon : Weapon
             _muzzleFlashAnimator.Play("MuzzleFlash");
         }
     }
-    public void ResetRecoil()
+    public void ResetRecoil(params object[] param)
     {
         DOTween.Restart(transform);
         transform.DOLocalRotate(Vector2.zero, _weaponData.recoilWeaponRotDuration);

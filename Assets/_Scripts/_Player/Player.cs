@@ -13,12 +13,13 @@ public class Player : GeneralPlayer
     [SerializeField] Animator _anim;
     [SerializeField] Transform _playerSprite, _groundCheckTransform;
 
-    IController _defaultController, _climbController, _controller;
+    IController _defaultController, _controller;
     PlayerModel _playerModel;
     Rigidbody2D _rb;
-
+    Tween _dashTween;
     WeaponManager _weaponManager;
     public WeaponManager WeaponManager { get { return _weaponManager; } private set { } }
+    public Tween DashTween { get { return _dashTween; } set { _dashTween = value; } }
     #endregion
 
     #region Movement
@@ -60,11 +61,11 @@ public class Player : GeneralPlayer
         OnMove += _playerModel.Move;
         OnMove += playerView.Run;
 
-        OnJump += _playerModel.FreezeVelocity;
+        OnJump += FreezeVelocity;
         OnJump += _playerModel.Jump;
         OnJump += playerView.Jump;
 
-        OnDash += x => _playerModel.FreezeVelocity();
+        OnDash += x => FreezeVelocity();
         OnDash += playerView.Dash;
 
         OnClimb += _playerModel.ClimbMove;
@@ -88,6 +89,11 @@ public class Player : GeneralPlayer
     {
         _controller?.OnFixedUpdate();
     }
+    public void FreezeVelocity()
+    {
+        _dashTween.Kill();
+        _rb.velocity = Vector2.zero;
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -103,7 +109,7 @@ public class Player : GeneralPlayer
     public override void PausePlayer()
     {
         _canMove = false;
-        _playerModel.FreezeVelocity();
+        FreezeVelocity();
         _anim.SetInteger("xAxis", 0);
         _controller = null;
     }
@@ -125,6 +131,7 @@ public class Player : GeneralPlayer
 
     void EnterRope(GameObject rope)
     {
+        FreezeVelocity();
         _controller = new ClimbController(this, _playerModel);
         _anim.SetInteger("xAxis", 0);
         transform.position = new Vector2(rope.transform.position.x, transform.position.y);
@@ -144,7 +151,7 @@ public class Player : GeneralPlayer
     }
     void OnPlayerDeath(params object[] param)
     {
-        _playerModel.FreezeVelocity();
+        FreezeVelocity();
         StartCoroutine(Death());
         _playerModel.ResetStats();
     }

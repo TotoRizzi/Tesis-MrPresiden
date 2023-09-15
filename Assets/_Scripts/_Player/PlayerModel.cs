@@ -1,5 +1,4 @@
 using UnityEngine;
-using DG.Tweening;
 public class PlayerModel
 {
     float _currentJumps, _maxJumps;
@@ -64,7 +63,6 @@ public class PlayerModel
     }
     public void Jump()
     {
-        FreezeVelocity();
         _rb.AddForce(Vector3.up * _jumpForce, ForceMode2D.Impulse);
         _currentJumps++;
         _coyotaTimer = 0;
@@ -89,11 +87,6 @@ public class PlayerModel
             playerLocalScale.x *= Mathf.Abs(1);
 
         _spriteContainerTransform.localScale = playerLocalScale;
-    }
-    public void FreezeVelocity()
-    {
-        _rb.velocity = Vector2.zero;
-        DOTween.KillAll();
     }
     public void CeroGravity() { _rb.gravityScale = 0; }
     public void NormalGravity() { _rb.gravityScale = _defaultGravity; }

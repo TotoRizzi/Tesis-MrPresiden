@@ -35,21 +35,22 @@ public class Enemy_KamikazeRobot : Enemy
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _overlapCircleRadius);
-    }
-    public override void Die()
-    {
-        base.Die();
-        var player = Physics2D.OverlapCircle(transform.position, _overlapCircleRadius, gameManager.PlayerLayer);
-        bool inSight = Physics2D.Raycast(transform.position, DistanceToPlayer(), _overlapCircleRadius, Helpers.GameManager.PlayerLayer);
-        if (player && inSight)
-            player.GetComponent<IDamageable>().TakeDamage(_dmg);
+        Gizmos.DrawWireSphere(sprite.position, _overlapCircleRadius);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!_isDropping || collision.CompareTag("Bullet") || collision.gameObject.layer == 25) return;
+
+        var player = collision.GetComponent<IDamageable>();
+
         Die();
+        if (player != null) { player.TakeDamage(_dmg); return; }
+
+        var overlap = Physics2D.OverlapCircle(sprite.position, _overlapCircleRadius, gameManager.PlayerLayer);
+
+        if (overlap)
+            overlap.GetComponent<IDamageable>().TakeDamage(_dmg);
     }
 
     public override void ReturnObject()

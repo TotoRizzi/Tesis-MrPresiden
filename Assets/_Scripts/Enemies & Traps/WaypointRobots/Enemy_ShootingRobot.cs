@@ -15,7 +15,7 @@ public class Enemy_ShootingRobot : Enemy_Waypoint
     public override void Start()
     {
         base.Start();
-        _armRotation = new Movement_RotateObject(transform, _armPivot);
+        _armRotation = new Movement_RotateObject(_armPivot, _armPivot);
        
         OnUpdate += CalculateAttack;
         OnUpdate += () => { if (CanSeePlayer()) _armRotation.Move(); };

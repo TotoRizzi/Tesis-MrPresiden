@@ -5,23 +5,21 @@ using UnityEngine;
 public class Movement_RotateObject : IMovement
 {
     GameManager _gameManager;
-    Transform _myTransform;
     Transform _armPivot;
     Transform _weaponSprite;
     Transform _sprite;
 
-    public Movement_RotateObject(Transform myTransform, Transform armPivot, Transform weaponSprite = null, Transform sprite = null)
+    public Movement_RotateObject(Transform armPivot, Transform weaponSprite = null, Transform sprite = null)
     {
         _gameManager = GameManager.instance;
-        _myTransform = myTransform;
         _armPivot = armPivot;
         _weaponSprite = weaponSprite;
         _sprite = sprite;
     }
     public void Move()
     {
-        Vector3 dirToLookAt = (_gameManager.Player.transform.position - _myTransform.position).normalized;
-        float angle = Mathf.Atan2(dirToLookAt.y, Mathf.Abs(dirToLookAt.x)) * Mathf.Rad2Deg;
+        Vector3 dirToLookAt = (_gameManager.Player.transform.position + (Vector3.up * .75f) - _armPivot.position).normalized;
+        float angle = Mathf.Atan2(dirToLookAt.y, dirToLookAt.x) * Mathf.Rad2Deg;
 
         _armPivot.eulerAngles = new Vector3(0, 0, angle);
 
@@ -40,7 +38,7 @@ public class Movement_RotateObject : IMovement
             newWeaponLocalScale.x = 1;
         }
 
-        if(_weaponSprite)_weaponSprite.localScale = newWeaponLocalScale;
+        if (_weaponSprite) _weaponSprite.localScale = newWeaponLocalScale;
         if (_sprite) _sprite.localScale = newScale;
     }
 }

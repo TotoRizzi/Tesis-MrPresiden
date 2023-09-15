@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public event Action OnUpdate;
 
-    [SerializeField] protected Transform sprite;
+    [SerializeField] protected Transform sprite, _eyes;
     [SerializeField] protected bool _isRobot = false;
     private SpriteRenderer _renderer;
     private float _onHitRedTime = .2f;
@@ -75,7 +75,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual bool CanSeePlayer()
     {
-        return gameManager.Player ? !Physics2D.Raycast(sprite.position, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.BorderLayer) : false;
+        return gameManager.Player ? !Physics2D.Raycast(_eyes.position, DistanceToPlayer().normalized, DistanceToPlayer().magnitude, gameManager.BorderLayer) : false;
     }
 
     protected void ResetHp()

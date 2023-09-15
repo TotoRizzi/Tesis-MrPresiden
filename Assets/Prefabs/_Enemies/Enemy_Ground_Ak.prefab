@@ -223,7 +223,7 @@ MonoBehaviour:
   - {x: -0.4508499, y: 0.44186878, z: 0}
   m_ShapePathHash: 1484441434
   m_Mesh: {fileID: 0}
-  m_InstanceId: 384188
+  m_InstanceId: 718106
 --- !u!114 &3811069208634687853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,6 +507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   sprite: {fileID: 1729968459289125578}
+  _eyes: {fileID: 1729968459251276775}
   _isRobot: 0
   _maxHp: 3
   _anim: {fileID: 0}
@@ -555,7 +556,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.5}
+  m_Offset: {x: 0, y: 0.75}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -566,7 +567,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6079979, y: 1}
+  m_Size: {x: 0.6079979, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &197016592141189273
 MonoBehaviour:

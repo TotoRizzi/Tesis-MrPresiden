@@ -42,7 +42,7 @@ public class PlayerController : IController
         float timer = 0;
         float dir = _xAxis != 0 ? _xAxis : _playerModel.GetLookingForDir;
         _player.OnDash(dir);
-        DOTween.To(() => timer, x => timer = x, .1f, .1f).OnUpdate(() =>
+        _player.DashTween = DOTween.To(() => timer, x => timer = x, .1f, .1f).OnUpdate(() =>
         {
             _player.OnMove = delegate { };
             _playerModel.Dash(dir);
@@ -62,7 +62,6 @@ public class ClimbController : IController
         _playerModel = playerModel;
         _inputManager = InputManager.Instance;
 
-        _playerModel.FreezeVelocity();
         _playerModel.ResetStats();
         _playerModel.CeroGravity();
     }
@@ -88,11 +87,11 @@ public class ClimbController : IController
         float timer = 0;
         float dir = _xAxis != 0 ? _xAxis : _playerModel.GetLookingForDir;
         _player.OnDash(dir);
-        DOTween.To(() => timer, x => timer = x, .1f, .1f).OnUpdate(() =>
-        {
-            _player.OnMove = delegate { };
-            _playerModel.CeroGravity();
-            _playerModel.Dash(dir);
-        }).OnComplete(() => { _player.OnMove = OnMove; _playerModel.NormalGravity(); }).OnKill(() => { _player.OnMove = OnMove; _playerModel.NormalGravity(); });
+        _player.DashTween = DOTween.To(() => timer, x => timer = x, .1f, .1f).OnUpdate(() =>
+         {
+             _player.OnMove = delegate { };
+             _playerModel.CeroGravity();
+             _playerModel.Dash(dir);
+         }).OnComplete(() => { _player.OnMove = OnMove; _playerModel.NormalGravity(); }).OnKill(() => { _player.OnMove = OnMove; _playerModel.NormalGravity(); });
     }
 }
